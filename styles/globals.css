@@ -1,8 +1,6 @@
 @tailwind base;
 @tailwind components;
-/*csslint important: false*/
 @tailwind utilities;
-/*csslint important: true*/
 
 html,
 body {

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"]
+      // "@/utils/*": ["utils/*"],
+      // "@/locales/*": ["constants/locales/*"],
+      // "@/dashboard/*": ["components/dashboard/*"],
+      // "@/cart/*": ["components/cart/*"],
+      // "@/menu/*": ["components/menu/*"],
+      // "@/chat/*": ["components/chat/*"]
+    }
+  }
+}
