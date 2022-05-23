@@ -1,15 +1,28 @@
+// NextJs imports
 import Head from "next/head";
 
+// Components Imports
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer";
+
+// This component is used to render the layout of the website.
+// Here we can put components that are used on all pages e.a. the header, footer, etc.
+// We also can put the NextJs Head that are used on all pages here e.a. the title, description, etc.
 const Layout = ({ children }) => {
   return (
     <>
       <Head>
+        {/* Title of the website  */}
         <title>New Hong Kong</title>
+        {/* Meta for the viewport */}
         <meta
           name="viewport"
+          // This makes sure that the viewport is responsive and doesn't zoom in on mobile devices.
           content="initial-scale=1, maximum-scale=1, width=device-width"
         />
+        {/* Main color of the website witch is red. */}
         <meta name="theme-color" content="#E76F51" />
+        {/* Description for google. */}
         <meta
           name="description"
           content="Heerlijke Chinees & Indisch eten bij restaurant New Hong Kong in Noordwijkerhout. Eet in het restaurant, haal af of laat eten bezorgen. Ook catering is mogelijk."
@@ -19,8 +32,10 @@ const Layout = ({ children }) => {
           content="eten, noordwijkerhout, afhaal, chinees, indish, restaurant, catering, bezorgen"
         />
       </Head>
-      <div className="flex flex-col min-h-screen">
-        <div className="flex-grow bg-gray-50">{children}</div>
+      <div className="flex flex-col min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex-grow">{children}</div>
+        <Footer />
       </div>
     </>
   );

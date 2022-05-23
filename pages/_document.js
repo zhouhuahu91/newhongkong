@@ -18,8 +18,8 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <link
-            href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Round|Material+Icons+Outlined&display=swap"
             rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,600,0,0"
           />
           <link
             href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap"
