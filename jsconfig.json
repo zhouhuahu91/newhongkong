@@ -2,9 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["components/*"]
+      "@/components/*": ["components/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/functions/*": ["functions/*"],
+      "@/locales/*": ["/locales/*"]
       // "@/utils/*": ["utils/*"],
-      // "@/locales/*": ["constants/locales/*"],
       // "@/dashboard/*": ["components/dashboard/*"],
       // "@/cart/*": ["components/cart/*"],
       // "@/menu/*": ["components/menu/*"],
