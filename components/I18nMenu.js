@@ -2,16 +2,16 @@
 import { useRef, useEffect, useState } from "react";
 // imports from next.js
 import { useRouter } from "next/router";
-
 // import for animation.
 import { motion, AnimatePresence } from "framer-motion";
-// import for i18n
-import useI18n from "@/hooks/useI18n";
 
 const I18nMenu = () => {
+  // State for opening and closing the i18n menu
   const [i18nMenu, setI18nMenu] = useState(false);
+  // router is needed to push the correct locale and pathname for styling
   const router = useRouter();
-  const t = useI18n();
+  const home = router.pathname === "/";
+
   const languages = [
     { name: "Nederlands", value: "nl" },
     { name: "English", value: "en" },
@@ -56,8 +56,14 @@ const I18nMenu = () => {
         type="button"
         onClick={() => setI18nMenu((prev) => !prev)}
       >
-        <span className="material-symbols-rounded text-xl">language</span>
-        <span className="material-symbols-rounded">expand_more</span>
+        <span
+          className={`${home && "text-white"} material-symbols-rounded text-xl`}
+        >
+          language
+        </span>
+        <span className={`${home && "text-white"} material-symbols-rounded`}>
+          expand_more
+        </span>
       </button>
       <AnimatePresence>
         {i18nMenu && (

@@ -1,14 +1,17 @@
 // NextJs imports
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 // Components Imports
-import Header from "@/components/Header/Header";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 // This component is used to render the layout of the website.
 // Here we can put components that are used on all pages e.a. the header, footer, etc.
 // We also can put the NextJs Head that are used on all pages here e.a. the title, description, etc.
 const Layout = ({ children }) => {
+  const { pathname } = useRouter();
+  const home = pathname === "/";
   return (
     <>
       <Head>
@@ -32,10 +35,14 @@ const Layout = ({ children }) => {
           content="eten, noordwijkerhout, afhaal, chinees, indish, restaurant, catering, bezorgen"
         />
       </Head>
-      <div className="flex flex-col min-h-screen bg-gray-50">
+      <div
+        className={`flex flex-col min-h-screen ${
+          home ? "bg-main" : "bg-gray-50"
+        }`}
+      >
         <Header />
         <div className="flex-grow">{children}</div>
-        <Footer />
+        {!home && <Footer />}
       </div>
     </>
   );
