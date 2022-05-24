@@ -15,4 +15,5 @@ a {
 
 * {
   box-sizing: border-box;
+  @apply text-gray-700;
 }

@@ -7,12 +7,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import useI18n from "@/hooks/useI18n";
 
 // This component is used in the header Component and is passed in two props that are used to handle the menu state.
-const HeaderMenu = ({ menuOpen, setMenuOpen }) => {
+const BurgerMenu = ({ burgerMenu, setBurgerMenu }) => {
   const t = useI18n();
   return (
     // AnimatePresence is used to render exit animation.
     <AnimatePresence>
-      {menuOpen && (
+      {burgerMenu && (
         // this is the main container and also the backdrop for the menu.
         <motion.div
           initial={{ opacity: 0 }}
@@ -21,7 +21,7 @@ const HeaderMenu = ({ menuOpen, setMenuOpen }) => {
           className="fixed inset-0 bg-black bg-opacity-40"
           onClick={() => {
             // if the user clicks outside the menu, the menu will close.
-            setMenuOpen(false);
+            setBurgerMenu(false);
           }}
         >
           <motion.div
@@ -68,4 +68,4 @@ const HeaderMenu = ({ menuOpen, setMenuOpen }) => {
   );
 };
 
-export default HeaderMenu;
+export default BurgerMenu;
