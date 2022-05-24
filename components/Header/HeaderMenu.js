@@ -1,3 +1,5 @@
+// imports from nextjs
+import Link from "next/link";
 // imports from framer motion for animations
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -6,6 +8,7 @@ import useI18n from "@/hooks/useI18n";
 
 // This component is used in the header Component and is passed in two props that are used to handle the menu state.
 const HeaderMenu = ({ menuOpen, setMenuOpen }) => {
+  const t = useI18n();
   return (
     // AnimatePresence is used to render exit animation.
     <AnimatePresence>
@@ -22,19 +25,42 @@ const HeaderMenu = ({ menuOpen, setMenuOpen }) => {
           }}
         >
           <motion.div
-            initial={{ x: "100%" }}
+            initial={{ x: "-100%" }}
             animate={{ x: 0, transition: { duration: 0.3 } }}
-            exit={{ x: "100%", transition: { duration: 0.3 } }}
-            className="fixed w-64 h-full flex flex-col bg-red-100 top-0 right-0"
+            exit={{ x: "-100%", transition: { duration: 0.3 } }}
+            className="fixed w-64 h-full flex flex-col bg-white top-0 left-0"
             onClick={(e) => {
               // if the user clicks inside the menu, the menu will not close.
               e.stopPropagation();
             }}
           >
-            <div>{}</div>
-            <div>menu</div>
-            <div>catering</div>
-            <div>contact</div>
+            <div className="flex items-end justify-center shadow px-4 py-2 z-10">
+              <Link href="/">
+                <a className="text-2xl font-bold px-2 text-main">nHK</a>
+              </Link>
+            </div>
+            <div className="h-full w-full pt-3 bg-gray-50">
+              <Link href="/">
+                <a className="py-3 pl-6 hover:bg-gray-100 flex w-full">
+                  {t.home}
+                </a>
+              </Link>
+              <Link href="/">
+                <a className="py-3 pl-6 hover:bg-gray-100 flex w-full">
+                  {t.menu}
+                </a>
+              </Link>
+              <Link href="/">
+                <a className="py-3 pl-6 hover:bg-gray-100 flex w-full">
+                  {t.catering}
+                </a>
+              </Link>
+              <Link href="/">
+                <a className="py-3 pl-6 hover:bg-gray-100 flex w-full">
+                  {t.contact}
+                </a>
+              </Link>
+            </div>
           </motion.div>
         </motion.div>
       )}
