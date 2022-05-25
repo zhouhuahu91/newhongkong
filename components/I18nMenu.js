@@ -2,15 +2,17 @@
 import { useRef, useEffect, useState } from "react";
 // imports from next.js
 import { useRouter } from "next/router";
-// import for animation.
+// imports for animation from third party
 import { motion, AnimatePresence } from "framer-motion";
+// imports from hooks
+import usePath from "@/hooks/usePath";
 
 const I18nMenu = () => {
   // State for opening and closing the i18n menu
   const [i18nMenu, setI18nMenu] = useState(false);
   // router is needed to push the correct locale and pathname for styling
   const router = useRouter();
-  const home = router.pathname === "/";
+  const { home } = usePath();
 
   const languages = [
     { name: "Nederlands", value: "nl" },

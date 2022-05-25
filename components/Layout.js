@@ -1,17 +1,17 @@
 // NextJs imports
 import Head from "next/head";
-import { useRouter } from "next/router";
-
 // Components Imports
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+// imports from hooks
+import usePath from "@/hooks/usePath";
 
 // This component is used to render the layout of the website.
 // Here we can put components that are used on all pages e.a. the header, footer, etc.
 // We also can put the NextJs Head that are used on all pages here e.a. the title, description, etc.
 const Layout = ({ children }) => {
-  const { pathname } = useRouter();
-  const home = pathname === "/";
+  const { home } = usePath();
+
   return (
     <>
       <Head>

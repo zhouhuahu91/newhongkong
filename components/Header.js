@@ -2,25 +2,17 @@
 import { useState } from "react";
 // Next.js imports
 import Link from "next/link";
-import { useRouter } from "next/router";
 // Components imports
 import BurgerMenu from "./BurgerMenu";
 import I18nMenu from "./I18nMenu";
 import useI18n from "@/hooks/useI18n";
+import usePath from "@/hooks/usePath";
 
 const Header = () => {
-  // State for handling the menu
-  // The menu is only visible on mobile (width < 768px)
-  const [burgerMenu, setBurgerMenu] = useState(false);
   // t stands for translation.
   const t = useI18n();
   // We need the pathname because of different styling for home page.
-  const { pathname } = useRouter();
-  // This checks if we are the home page
-  const home = pathname === "/";
-
-  // State for the i18n options, it is avaible on all screensizes
-
+  const { home } = usePath();
   return (
     <>
       {/* ********* HEADER ********* */}
@@ -32,11 +24,7 @@ const Header = () => {
         {/* ******** MAIN CONTAINER ******** */}
         <div className="max-w-screen-xl w-full flex items-center justify-between h-16 px-4 ">
           {/* ******** BURGER BUTTON ******** */}
-          <BurgerMenu
-            className="md:hidden"
-            burgerMenu={burgerMenu}
-            setBurgerMenu={setBurgerMenu}
-          />
+          <BurgerMenu />
           {/* ******** BURGER BUTTON ******** */}
           {/* ******** LOGO & HOME LINK ******** */}
           <Link href="/">

@@ -1,13 +1,19 @@
+import { useState } from "react";
 // imports from nextjs
 import Link from "next/link";
 // imports from framer motion for animations
 import { motion, AnimatePresence } from "framer-motion";
 
-// import for i18n
+// import for from hooks
+import usePath from "@/hooks/usePath";
 import useI18n from "@/hooks/useI18n";
 
 // This component is used in the header Component and is passed in two props that are used to handle the menu state.
-const BurgerMenu = ({ burgerMenu, setBurgerMenu }) => {
+const BurgerMenu = () => {
+  // State for handling the menu
+  // The menu is only visible on mobile (width < 768px)
+  const [burgerMenu, setBurgerMenu] = useState(false);
+  const { home } = usePath();
   const t = useI18n();
   return (
     // AnimatePresence is used to render exit animation.
@@ -17,7 +23,9 @@ const BurgerMenu = ({ burgerMenu, setBurgerMenu }) => {
         onClick={() => setBurgerMenu((prev) => !prev)}
         className="flex items-center md:hidden"
       >
-        <span className="material-symbols-rounded text-white">menu</span>
+        <span className={`material-symbols-rounded ${home && "text-white"}`}>
+          menu
+        </span>
       </button>
       <AnimatePresence>
         {burgerMenu && (
