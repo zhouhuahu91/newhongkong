@@ -1,18 +1,18 @@
-// React imports
-import { useState } from "react";
 // Next.js imports
 import Link from "next/link";
-// Components imports
-import BurgerMenu from "./BurgerMenu";
-import I18nMenu from "./I18nMenu";
+// Component imports
+import BurgerMenu from "@/components/header/BurgerMenu";
+import I18nMenu from "@/components/header/I18nMenu";
+// Hook imports
 import useI18n from "@/hooks/useI18n";
 import usePath from "@/hooks/usePath";
 
 const Header = () => {
-  // t stands for translation.
+  // This hook provides translations for the different languages.
   const t = useI18n();
   // We need the pathname because of different styling for home page.
   const { home } = usePath();
+
   return (
     <>
       {/* ********* HEADER ********* */}
@@ -23,10 +23,8 @@ const Header = () => {
       >
         {/* ******** MAIN CONTAINER ******** */}
         <div className="max-w-screen-xl w-full flex items-center justify-between h-16 px-4 ">
-          {/* ******** BURGER BUTTON ******** */}
           <BurgerMenu />
-          {/* ******** BURGER BUTTON ******** */}
-          {/* ******** LOGO & HOME LINK ******** */}
+          {/* This is the main logo nHK */}
           <Link href="/">
             <a
               className={`text-2xl font-bold px-2 ${
@@ -36,7 +34,8 @@ const Header = () => {
               nHK
             </a>
           </Link>
-          <div className={`hidden md:block ${home && "text-white"}`}>
+          {/* Navigation for screens bigger than md */}
+          <nav className={`hidden md:block ${home && "text-white"}`}>
             <Link href="/menu">
               <a className="text-sm mx-8">{t.menu}</a>
             </Link>
@@ -46,12 +45,9 @@ const Header = () => {
             <Link href="/contact">
               <a className="text-sm mx-8">{t.contact}</a>
             </Link>
-          </div>
-          {/* ******** LOGO & HOME LINK ******** */}
-          {/* ******** I18N BUTTON ******** */}
-          {/* We place a div around the button and the i18n menu so we can fix the menu relative to the div. */}
+          </nav>
+          {/* options for language, available on all screen sizes. */}
           <I18nMenu />
-          {/* ******** I18N BUTTON ******** */}
         </div>
         {/* ********* MAIN CONTAINER  ********* */}
       </div>

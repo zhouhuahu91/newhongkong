@@ -1,21 +1,26 @@
-// imports from react
+// React imports
 import { useEffect, useState } from "react";
-// imports from next.js
+// Next.js imports
 import Image from "next/image";
 import { useRouter } from "next/router";
-// import from hooks
+// Hook imports
 import useWindowSize from "@/hooks/useWindowSize";
 import useI18n from "@/hooks/useI18n";
-// import for animation
+// Third party library imports
 import { motion, AnimatePresence } from "framer-motion";
 
 const Home = () => {
+  // This state is used to change between titles on home page, true for chinese and false for english.
   const [chinese, setChinese] = useState(false);
+  // We need the width to determine the size of the svg.
+  // These are the sizes for default to > sm to > md...
+  // 192, 288 | 256 384 | 320 480.
   const { width } = useWindowSize();
+  // Router to push to different pages.
   const router = useRouter();
+  // This hook provides translations for the different languages.
   const t = useI18n();
-  // these are the sizes for smalles to sm to md
-  // 192, 288, 256 384, 320 480
+
   // In this useEffect we set up an interval to switch between the Chinese...
   // and English for the title New Hong Kong.
   useEffect(() => {
@@ -28,6 +33,7 @@ const Home = () => {
 
   return (
     <div className="bg-main flex items-center justify-center">
+      {/* We make sure that animations finsihes before we start the next one. */}
       <AnimatePresence exitBeforeEnter>
         {chinese && (
           <motion.div
@@ -71,6 +77,7 @@ const Home = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* This button is pushes to the menu where users can order. */}
       <button
         type="button"
         onClick={() => router.push("/menu")}

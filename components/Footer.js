@@ -1,4 +1,5 @@
 const Footer = () => {
+  // The year of the footer is always up to date.
   const year = new Date().getFullYear();
   return (
     <div className="w-full flex justify-center mt-10 mb-5">

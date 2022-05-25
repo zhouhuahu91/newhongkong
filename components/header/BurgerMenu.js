@@ -3,7 +3,6 @@ import { useState } from "react";
 import Link from "next/link";
 // imports from framer motion for animations
 import { motion, AnimatePresence } from "framer-motion";
-
 // import for from hooks
 import usePath from "@/hooks/usePath";
 import useI18n from "@/hooks/useI18n";

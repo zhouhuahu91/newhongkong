@@ -13,10 +13,13 @@ class MyDocument extends Document {
             href="https://fonts.gstatic.com"
             crossOrigin="true"
           />
+          {/* Link for Poppins font. */}
           <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
             rel="stylesheet"
           />
+          {/* Link for material icons. "material-symbols-rounded" */}
+          {/* https://fonts.google.com/icons ---> for more icons. */}
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,300,0,0"

@@ -1,25 +1,28 @@
-// imports from react
+// React imports
 import { useRef, useEffect, useState } from "react";
-// imports from next.js
+// Next.js imports
 import { useRouter } from "next/router";
-// imports for animation from third party
+// Third party library imports
 import { motion, AnimatePresence } from "framer-motion";
-// imports from hooks
+// Hook imports
 import usePath from "@/hooks/usePath";
 
 const I18nMenu = () => {
   // State for opening and closing the i18n menu
   const [i18nMenu, setI18nMenu] = useState(false);
-  // router is needed to push the correct locale and pathname for styling
+  // Router is needed to push the correct locale.
   const router = useRouter();
   const { home } = usePath();
-
+  // All languages on the website. Add here if we want to add a new language.
+  // Do not forget to update next.config.js.
   const languages = [
     { name: "Nederlands", value: "nl" },
     { name: "English", value: "en" },
     { name: "Deutsch", value: "de" },
   ];
+
   // This is a reference to the div surrounding this component.
+  // This is needed to close the menu when clicking outside of it.
   const node = useRef();
   // This useEffect adds an event listener to the document and triggers the click functions.
   useEffect(() => {
@@ -51,7 +54,7 @@ const I18nMenu = () => {
     localStorage.setItem("locale", JSON.stringify(locale));
   };
 
-  // set locale from localStorage
+  // If there is a locale saved to the locale storage and it is != to the current locale we update the language.
   useEffect(() => {
     const locale = JSON.parse(localStorage.getItem("locale"));
     if (locale && router.locale !== locale) {
@@ -61,6 +64,7 @@ const I18nMenu = () => {
 
   return (
     <div ref={node} className="relative ">
+      {/* ******** LOCALE BUTTON ******** */}
       <button
         className="flex items-center border rounded-3xl py-1 px-2"
         type="button"
@@ -75,6 +79,8 @@ const I18nMenu = () => {
           expand_more
         </span>
       </button>
+      {/* ******** LOCALE BUTTON ******** */}
+      {/* ******** LOCALE MENU ******** */}
       <AnimatePresence>
         {i18nMenu && (
           <motion.div
@@ -99,6 +105,7 @@ const I18nMenu = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* ******** LOCALE MENU ******** */}
     </div>
   );
 };
