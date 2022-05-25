@@ -37,7 +37,7 @@ const Layout = ({ children }) => {
       </Head>
       <div
         className={`flex flex-col min-h-screen ${
-          home ? "bg-main" : "bg-gray-50"
+          home ? "bg-main" : "bg-neutral-50"
         }`}
       >
         <Header />
