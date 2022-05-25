@@ -74,14 +74,12 @@ const Home = () => {
       <button
         type="button"
         onClick={() => router.push("/menu")}
-        className={`${
-          width < 768 ? "button-small" : "button w-36"
-        } border absolute top-96 mt-32 md:mt-72 right-1/2 translate-x-1/2 flex items-center justify-center space-x-3`}
+        className={`button border px-6 py-1 absolute top-96 mt-32 md:mt-72 right-1/2 translate-x-1/2 bg-white`}
       >
-        <span className="material-symbols-rounded text-white">
-          restaurant_menu
+        <span className="material-symbols-rounded text-main">local_dining</span>
+        <span className="text-main uppercase text-sm font-bold ml-3">
+          {t.order}
         </span>
-        <span className="text-white capitalize text-sm">{t.order}</span>
       </button>
     </div>
   );
