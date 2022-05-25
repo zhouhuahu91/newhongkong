@@ -21,10 +21,6 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,300,0,0"
           />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap"
-            rel="stylesheet"
-          />
         </Head>
         <body>
           <Main />

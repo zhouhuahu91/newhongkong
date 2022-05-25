@@ -25,8 +25,8 @@ const Header = () => {
     <>
       {/* ********* HEADER ********* */}
       <div
-        className={`w-full flex justify-center shadow ${
-          home ? "bg-main" : "bg-white"
+        className={`w-full flex justify-center ${
+          home ? "bg-main" : "bg-white shadow"
         }`}
       >
         {/* ******** MAIN CONTAINER ******** */}

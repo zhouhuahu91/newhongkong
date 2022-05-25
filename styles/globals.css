@@ -17,3 +17,11 @@ a {
   box-sizing: border-box;
   @apply text-gray-700;
 }
+
+.button {
+  @apply font-medium text-sm px-4 py-2.5 shadow-sm rounded-lg hover:shadow-lg focus:shadow-lg ease-linear transition-shadow duration-150 focus:outline-none;
+}
+
+.button-small {
+  @apply font-medium text-sm px-3 py-1.5 shadow-sm rounded-lg hover:shadow-lg focus:shadow-lg ease-linear transition-shadow duration-150 focus:outline-none;
+}
