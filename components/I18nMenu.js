@@ -49,6 +49,14 @@ const I18nMenu = () => {
     localStorage.setItem("locale", JSON.stringify(locale));
   };
 
+  // set locale from localStorage
+  useEffect(() => {
+    const locale = JSON.parse(localStorage.getItem("locale"));
+    if (locale && router.locale !== locale) {
+      router.push(router.pathname, router.asPath, { locale });
+    }
+  }, []);
+
   return (
     <div ref={node} className="relative ">
       <button
