@@ -5,7 +5,8 @@
       "@/components/*": ["components/*"],
       "@/hooks/*": ["hooks/*"],
       "@/functions/*": ["functions/*"],
-      "@/locales/*": ["/locales/*"]
+      "@/locales/*": ["/locales/*"],
+      "@/firebase/*": ["firebase/*"]
       // "@/utils/*": ["utils/*"],
       // "@/dashboard/*": ["components/dashboard/*"],
       // "@/cart/*": ["components/cart/*"],
