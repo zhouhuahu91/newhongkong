@@ -13,7 +13,7 @@ export const useMenu = () => {
 };
 
 const useMenuProvider = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
 
   // Subscribe to menus on firestore
   useEffect(() => {
@@ -24,7 +24,6 @@ const useMenuProvider = () => {
         id: doc.id,
       }));
       setData(menus);
-      console.log(menus);
     });
     return () => unsubscribe();
   }, []);
