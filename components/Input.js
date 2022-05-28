@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 // Custom input that accepts register from react hook forms.
+// This input component CAN NOT be used without react hook forms.
 const Input = ({
   // This is required and comes from the react hook form library.
   register,
