@@ -25,6 +25,7 @@ const Input = ({
   // This is optional.
   capitalize,
 }) => {
+  // This state is used to show or not show input when input is a password.
   const [show, setShow] = useState(false);
   return (
     <div className={`flex flex-col w-full ${wrapper && wrapper}`}>
@@ -38,25 +39,31 @@ const Input = ({
         <input
           {...register(name)}
           type={
+            // If there is no type we use name.
             type
-              ? type === "password"
-                ? show
+              ? type === "password" // If there is a type we check if it is password
+                ? show // If it is we show or hide the password depending on the show state.
                   ? "text"
                   : "password"
-                : type
-              : name === "password"
-              ? show
+                : type // if it isn't password we use the type passed.
+              : name === "password" // if there is no type passed we still check if name is password.
+              ? show // If it is we show or hide the password depending on the show state.
                 ? "text"
                 : "password"
-              : name
+              : name // If there is no type passed and name passed is !== "password" we use name.
           }
+          // If there is placeholder we use placeholder otherwise we pass empty string.
           placeholder={placeholder ? placeholder : ""}
+          // If there is no autoComplete we use name.
           autoComplete={autoComplete ? autoComplete : name}
+          // Id is always the name it is needed to link the label to the input.
           id={name}
-          className={`appearance-none my-0.5 border rounded-lg w-full text-sm text-gray-800 focus-shadow-md py-2 placeholder-gray-300 ${
+          className={`appearance-none my-0.5 border rounded-lg w-full text-sm text-gray-700 focus-shadow-md py-2 placeholder-gray-300 ${
             capitalize ? "capitalize" : ""
+            // If name is password we move add extra padding on the right side for the icon
           } ${name === "password" ? "pl-3 pr-8" : "px-3"}`}
         />
+        {/* If name or type is password we show the icon that can also be pressed. */}
         {(name === "password" || type === "password") && (
           <span
             onClick={() => setShow((prev) => !prev)}
@@ -66,6 +73,7 @@ const Input = ({
           </span>
         )}
       </div>
+      {/* If errors has a message we display it beneath te input. */}
       <label htmlFor={name} className="text-red-400 text-xs">
         {errors?.message}
       </label>
