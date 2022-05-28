@@ -9,8 +9,7 @@ const Menu = () => {
   const { data } = useMenu();
   const { user } = useAuth();
 
-  console.log(user);
-
+  console.log(data, user);
   return <div>menu</div>;
 };
 
