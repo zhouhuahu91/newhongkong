@@ -11,6 +11,27 @@ export default {
   catering: "catering",
   contact: "kontakt",
   // ******** HEADER ********
+
+  // ******** SIGN IN ********
+
+  welcome: "Willkommen",
+  welcome_text: "Zur Anmeldung!",
+  sign_in: "Anmelden",
+  or: "oder",
+  sign_in_google: "Mit Google anmelden",
+  sign_in_facebook: "Mit Facebook anmelden",
+  forgot_password: "Passwort vergessen?",
+  sign_in_failed:
+    "Wir konnten die Kombination von E-Mail und Passwort nicht finden. Versuche es noch einmal.",
+  exists_with_different_credential:
+    "Account mit dieser E-Mail Adresse existiert bereits.",
+  no_account: "Noch keinen Account?",
+  sign_up_here: "Registrieren",
+  email: "E-Mail",
+  password: "Passwort",
+
+  // ******** SIGN IN ********
+
   logout: "Abmelden",
 
   // Common
@@ -54,22 +75,6 @@ export default {
     </span>
   ),
   custom_message: "",
-
-  // sign in page
-  welcome: "Willkommen",
-  welcome_text: "Zur Anmeldung!",
-  sign_in: "Anmelden",
-  or: "oder",
-  sign_in_google: "Mit Google anmelden",
-  sign_in_facebook: "Mit Facebook anmelden",
-  forgot_password: "Passwort vergessen?",
-  sign_in_failed:
-    "Wir konnten die Kombination von E-Mail und Passwort nicht finden. Versuche es noch einmal.",
-  exists_with_different_credential:
-    "Account mit dieser E-Mail Adresse existiert bereits.",
-  no_account: "Noch keinen Account?",
-  sign_up_here: "Registrieren",
-  password: "Passwort",
 
   // sign up page
   sign_in_text: "Zur Registrierung!",
@@ -189,7 +194,6 @@ export default {
   // For Who
   name: "Name",
   phone_number: "Telefonnummer",
-  email: "E-Mail",
 
   // For When
   for_when: "Wann soll geliefert werden?",

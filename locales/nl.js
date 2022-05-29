@@ -12,6 +12,26 @@ export default {
   contact: "contact",
   // ******** HEADER ********
 
+  // ******** SIGN IN ********
+
+  welcome: "Welkom",
+  welcome_text: "Log hier in!",
+  sign_in: "Inloggen",
+  or: "of",
+  sign_in_google: "Inloggen via Google",
+  sign_in_facebook: "Inloggen via Facebook",
+  forgot_password: "wachtwoord vergeten?",
+  sign_in_failed:
+    "Er is geen account gevonden met dit e-mailadres en wachtwoord. Probeer het opnieuw.",
+  exists_with_different_credential:
+    "Er bestaat al een account met dit e-mailadres.",
+  no_account: "Heb je nog geen account?",
+  sign_up_here: "Meld je aan",
+  email: "e-mailadres",
+  password: "wachtwoord",
+
+  // ******** SIGN IN ********
+
   logout: "uitloggen",
 
   // Common
@@ -57,20 +77,6 @@ export default {
   custom_message: "",
 
   // Sign in page
-  welcome: "Welkom",
-  welcome_text: "Log hier in!",
-  sign_in: "Inloggen",
-  or: "of",
-  sign_in_google: "Inloggen via Google",
-  sign_in_facebook: "Inloggen via Facebook",
-  forgot_password: "wachtwoord vergeten?",
-  sign_in_failed:
-    "Er is geen account gevonden met dit e-mailadres en wachtwoord. Probeer het opnieuw.",
-  exists_with_different_credential:
-    "Er bestaat al een account met dit e-mailadres.",
-  no_account: "Heb je nog geen account?",
-  sign_up_here: "Meld je aan",
-  password: "wachtwoord",
 
   // sign up page
   sign_up: "Aanmelden",
@@ -189,7 +195,6 @@ export default {
   // For Who
   name: "naam",
   phone_number: "telefoonnummer",
-  email: "e-mailadres",
 
   // For when
   for_when: "Voor wanneer is het eten?",

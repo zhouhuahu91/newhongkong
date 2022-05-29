@@ -6,11 +6,34 @@ export default {
   locale: "en",
 
   // ******** HEADER ********
+
   home: "home",
   order: "order",
   catering: "catering",
   contact: "contact",
+
   // ******** HEADER ********
+
+  // ******** SIGN IN ********
+
+  welcome: "Welcome",
+  welcome_text: "Sign in here!",
+  sign_in: "Sign in",
+  or: "or",
+  sign_in_google: "Sign in with Google",
+  sign_in_facebook: "Sign in with Facebook",
+  forgot_password: "forgot password?",
+  sign_in_failed:
+    "We couldn't find this email and password combination in our records. Try again.",
+  exists_with_different_credential:
+    "Account already exists with this email address.",
+  no_account: "Don't have an account?",
+  sign_up_here: "Sign up",
+  email: "email",
+  password: "password",
+
+  // ******** SIGN IN ********
+
   logout: "log out",
 
   // Common
@@ -54,22 +77,6 @@ export default {
     </span>
   ),
   custom_message: "",
-
-  // sign in page
-  welcome: "Welcome",
-  welcome_text: "Sign in here!",
-  sign_in: "Sign in",
-  or: "or",
-  sign_in_google: "Sign in with Google",
-  sign_in_facebook: "Sign in with Facebook",
-  forgot_password: "forgot password?",
-  sign_in_failed:
-    "We couldn't find this email and password combination in our records. Try again.",
-  exists_with_different_credential:
-    "Account already exists with this email address.",
-  no_account: "Don't have an account?",
-  sign_up_here: "Sign up",
-  password: "password",
 
   // sign up page
   sign_in_text: "Sign up here!",
@@ -188,7 +195,6 @@ export default {
   // For Who
   name: "name",
   phone_number: "phone number",
-  email: "email",
 
   // For When
   for_when: "When do you want the food?",
