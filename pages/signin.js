@@ -14,6 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 import Input from "@/components/Input";
 import SubmitButton from "@/components/SubmitButton";
 import SignInProviders from "@/components/SignInProviders";
+import ResetPassword from "@/components/ResetPassword";
 
 // SignIn page.
 const SignIn = () => {
@@ -86,13 +87,7 @@ const SignIn = () => {
             errors={errors.password}
             label={t.password}
           />
-          <div className="flex justify-end focus:outline-none">
-            <Link href="/password_reset">
-              <a className="text-xs focus:outline-none text-gray-500">
-                {t.forgot_password}
-              </a>
-            </Link>
-          </div>
+          <ResetPassword />
           <SubmitButton processing={processing}>{t.sign_in}</SubmitButton>
           <SignInProviders setError={setError} />
         </form>
