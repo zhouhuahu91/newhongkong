@@ -32,7 +32,7 @@ const Input = ({
     <div className={`flex flex-col w-full ${wrapper && wrapper}`}>
       <label
         htmlFor={name}
-        className={`text-xs ${errors ? "text-red-400" : "text-gray-600"}`}
+        className={`text-xs ${errors ? "text-red-400" : "text-gray-500"}`}
       >
         {label} {asterisk && "*"}
       </label>
@@ -59,7 +59,7 @@ const Input = ({
           autoComplete={autoComplete ? autoComplete : name}
           // Id is always the name it is needed to link the label to the input.
           id={name}
-          className={`appearance-none my-0.5 border rounded-lg w-full text-sm text-gray-700 focus-shadow-md py-2 placeholder-gray-300 ${
+          className={`appearance-none my-0.5 border rounded-lg w-full text-sm hover:shadow focus:outline-none bg-inherit focus:shadow py-2 placeholder-gray-300 ${
             capitalize ? "capitalize" : ""
             // If name is password we move add extra padding on the right side for the icon
           } ${name === "password" ? "pl-3 pr-8" : "px-3"}`}
@@ -68,9 +68,9 @@ const Input = ({
         {(name === "password" || type === "password") && (
           <span
             onClick={() => setShow((prev) => !prev)}
-            className="material-icons-outlined text-lg text-gray-300 absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer"
+            className="material-symbols-rounded text-lg text-gray-500 absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
           >
-            {show ? "visibility_off" : "visibility"}
+            {show ? "visibility" : "visibility_off"}
           </span>
         )}
       </div>

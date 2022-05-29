@@ -143,7 +143,7 @@ const useAuthProvider = () => {
   useEffect(() => {
     let unsubscribe = null;
     if (userUID) {
-      const ref = doc(dbV9, `users/${userUID}`);
+      const ref = doc(db, `users/${userUID}`);
       unsubscribe = onSnapshot(ref, (snapshot) => {
         // We check if the user is still in firestore.
         // They most likely do since there is a uid and the user get's created in firestore...

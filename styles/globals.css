@@ -19,5 +19,5 @@ a {
 }
 
 .button {
-  @apply flex items-center justify-center shadow-md rounded-lg hover:shadow-xl focus:shadow-xl ease-linear transition-shadow duration-150 focus:outline-none;
+  @apply flex items-center justify-center text-sm py-2 rounded-md shadow-md focus:outline-none;
 }
