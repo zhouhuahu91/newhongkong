@@ -1,22 +1,32 @@
 import { useState } from "react";
 // imports from nextjs
+import { useRouter } from "next/router";
 import Link from "next/link";
 // imports from framer motion for animations
 import { motion, AnimatePresence } from "framer-motion";
 // import for from hooks
 import usePath from "@/hooks/usePath";
 import useI18n from "@/hooks/useI18n";
+import { useAuth } from "@/hooks/useAuth";
 
 // This component is used in the header Component and is passed in two props that are used to handle the menu state.
 const BurgerMenu = () => {
   // State for handling the menu
   // The menu is only visible on mobile (width < 768px)
   const [burgerMenu, setBurgerMenu] = useState(false);
+  // This hook just returns true if we are on the home page
   const { home } = usePath();
+  // This hook provides translations for the different languages.
   const t = useI18n();
+  // To push the user to the new route, can't use Link component because i need to close the menu on click.
+  const router = useRouter();
+  // To display user and let user log out.
+  const auth = useAuth();
+
   return (
     // AnimatePresence is used to render exit animation.
     <>
+      {/* This is the utton that shows when screen is smaller than md. */}
       <button
         type="button"
         onClick={() => setBurgerMenu((prev) => !prev)}
@@ -49,33 +59,98 @@ const BurgerMenu = () => {
                 e.stopPropagation();
               }}
             >
-              <div className="flex items-end justify-center shadow px-4 py-2 z-10">
+              {/* We use Link so that NextJs can prefetch the pages. */}
+              <div className="flex items-center justify-center px-4 z-10 h-16">
                 <Link href="/">
-                  <a className="text-2xl font-bold px-2 text-main">nHK</a>
+                  <a
+                    onClick={() => {
+                      setBurgerMenu(false);
+                    }}
+                    className="text-2xl font-bold px-2 text-main"
+                  >
+                    nHK
+                  </a>
                 </Link>
               </div>
-              <div className="h-full w-full pt-3 bg-gray-50">
+              <nav className="h-full w-full text-sm">
                 <Link href="/">
-                  <a className="py-3 pl-6 hover:bg-gray-100 flex w-full">
+                  <a
+                    onClick={() => {
+                      setBurgerMenu(false);
+                    }}
+                    className="py-2 pl-6 hover:bg-gray-100 block"
+                  >
                     {t.home}
                   </a>
                 </Link>
-                <Link href="/">
-                  <a className="py-3 pl-6 hover:bg-gray-100 flex w-full">
+                <Link href="/order">
+                  <a
+                    onClick={() => {
+                      setBurgerMenu(false);
+                    }}
+                    className="py-2 pl-6 hover:bg-gray-100 block"
+                  >
                     {t.menu}
                   </a>
                 </Link>
-                <Link href="/">
-                  <a className="py-3 pl-6 hover:bg-gray-100 flex w-full">
+                <Link href="/catering">
+                  <a
+                    onClick={() => {
+                      setBurgerMenu(false);
+                    }}
+                    className="py-2 pl-6 hover:bg-gray-100 block"
+                  >
                     {t.catering}
                   </a>
                 </Link>
-                <Link href="/">
-                  <a className="py-3 pl-6 hover:bg-gray-100 flex w-full">
+                <Link href="/contact">
+                  <a
+                    onClick={() => {
+                      setBurgerMenu(false);
+                    }}
+                    className="py-2 pl-6 hover:bg-gray-100 block"
+                  >
                     {t.contact}
                   </a>
                 </Link>
-              </div>
+                <div className="border-t mt-4 pt-4">
+                  {auth.user ? (
+                    <>
+                      <div className="py-2 pl-6 text-left w-full">
+                        {t.signed_in_as} <b>{auth.user.email}</b>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          auth.signOutUser();
+                          setBurgerMenu(false);
+                        }}
+                        className="py-2 pl-6 hover:bg-gray-100 flex items-center w-full"
+                      >
+                        {t.sign_out}
+                        <span className="material-symbols-rounded ml-9">
+                          logout
+                        </span>
+                      </button>
+                    </>
+                  ) : (
+                    <Link href="/signin">
+                      <a
+                        onClick={() => {
+                          setBurgerMenu(false);
+                        }}
+                        className="py-2 pl-6 hover:bg-gray-100 flex items-center"
+                      >
+                        {t.sign_in}
+
+                        <span className="material-symbols-rounded ml-9">
+                          login
+                        </span>
+                      </a>
+                    </Link>
+                  )}
+                </div>
+              </nav>
             </motion.div>
           </motion.div>
         )}
