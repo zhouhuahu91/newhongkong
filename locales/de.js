@@ -6,10 +6,13 @@ export default {
   locale: "de",
 
   // ******** HEADER ********
+
   home: "home",
   order: "bestellen",
   catering: "catering",
   contact: "kontakt",
+  logout: "Abmelden",
+
   // ******** HEADER ********
 
   // ******** SIGN IN ********
@@ -32,7 +35,23 @@ export default {
 
   // ******** SIGN IN ********
 
-  logout: "Abmelden",
+  // ******** SIGN UP ********
+
+  // ******** SIGN UP ********
+
+  // ******** FORGOT PASSWORD ********
+
+  reset_password: "Passwort zurücksetzen",
+  reset_password_info:
+    "Wir werden Ihnen eine E-Mail zum Zurücksetzen des Passworts zusenden.",
+  back_to_signup: "Zurück zur Anmeldung",
+  send: "Senden",
+  reset_password_succes:
+    "Vielen Dank, in wenigen Minuten werden Sie eine E-Mail mit einem Link zum Zurücksetzen des Passworts erhalten.",
+  reset_password_failed:
+    "Wir konnten die angegebene E-Mail Adresse nicht finden. Versuche es noch einmal.",
+
+  // ******** FORGOT PASSWORD ********
 
   // Common
   customer_service: "Kundendienst",
@@ -84,17 +103,6 @@ export default {
   our: "Unsere",
   privacy_policy: "Datenschutz",
   applies: "gilt",
-
-  // Password reset page
-  reset_password: "Passwort zurücksetzen",
-  reset_password_info:
-    "Wir werden Ihnen eine E-Mail zum Zurücksetzen des Passworts zusenden.",
-  back_to_signup: "Zurück zur Anmeldung",
-  send: "Senden",
-  reset_password_succes:
-    "Vielen Dank, in wenigen Minuten werden Sie eine E-Mail mit einem Link zum Zurücksetzen des Passworts erhalten.",
-  reset_password_failed:
-    "Wir konnten die angegebene E-Mail Adresse nicht finden. Versuche es noch einmal.",
 
   // Profile
   save: "Speichern",

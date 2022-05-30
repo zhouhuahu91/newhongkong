@@ -92,6 +92,7 @@ const SignIn = () => {
               errors={errors.password}
               label={t.password}
             />
+            {/* This button opens the model for resetting users password. */}
             <button
               type="button"
               onClick={() => setOpen(true)}

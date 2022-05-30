@@ -6,10 +6,13 @@ export default {
   locale: "nl",
 
   // ******** HEADER ********
+
   home: "home",
   order: "bestellen",
   catering: "catering",
   contact: "contact",
+  logout: "uitloggen",
+
   // ******** HEADER ********
 
   // ******** SIGN IN ********
@@ -32,7 +35,22 @@ export default {
 
   // ******** SIGN IN ********
 
-  logout: "uitloggen",
+  // ******** SIGN UP ********
+
+  // ******** SIGN UP ********
+
+  // ******** FORGOT PASSWORD ********
+
+  reset_password: "Reset wachtwoord",
+  reset_password_info: "Om je wachtwoord te resetten sturen we je een email.",
+  back_to_signup: "Terug naar login",
+  send: "Versturen",
+  reset_password_succes:
+    "Bedankt, binnen enkele minuten ontvang je een email met daarin een persoonlijke link. Via de link kan je een nieuwe wachtwoord opgeven.",
+  reset_password_failed:
+    "Er is geen account gevonden met dit e-mailadres. Probeer het opnieuw.",
+
+  // ******** FORGOT PASSWORD ********
 
   // Common
   customer_service: "Klantenservice",
@@ -76,8 +94,6 @@ export default {
   ),
   custom_message: "",
 
-  // Sign in page
-
   // sign up page
   sign_up: "Aanmelden",
   sign_in_text: "Meld je hier aan!",
@@ -86,16 +102,6 @@ export default {
   our: "Onze",
   privacy_policy: "privacybeleid",
   applies: "is van toepassing",
-
-  // Password reset page
-  reset_password: "Reset wachtwoord",
-  reset_password_info: "Om je wachtwoord te resetten sturen we je een email.",
-  back_to_signup: "Terug naar login",
-  send: "Versturen",
-  reset_password_succes:
-    "Bedankt, binnen enkele minuten ontvang je een email met daarin een persoonlijke link. Via de link kan je een nieuwe wachtwoord opgeven.",
-  reset_password_failed:
-    "Er is geen account gevonden met dit e-mailadres. Probeer het opnieuw.",
 
   // Profile
   save: "Opslaan",

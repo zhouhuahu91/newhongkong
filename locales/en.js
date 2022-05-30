@@ -11,6 +11,7 @@ export default {
   order: "order",
   catering: "catering",
   contact: "contact",
+  logout: "log out",
 
   // ******** HEADER ********
 
@@ -34,7 +35,22 @@ export default {
 
   // ******** SIGN IN ********
 
-  logout: "log out",
+  // ******** SIGN UP ********
+
+  // ******** SIGN UP ********
+
+  // ******** FORGOT PASSWORD ********
+
+  reset_password: "Reset password",
+  reset_password_info: "We will send you an email to reset your password.",
+  back_to_signup: "Back to sign in",
+  send: "Send",
+  reset_password_succes:
+    "Thank you, in a few minutes you will receive an email containing a link to reset your password.",
+  reset_password_failed:
+    "We couldn't find this email in our records. Try again.",
+
+  // ******** FORGOT PASSWORD ********
 
   // Common
   customer_service: "Customer service",
@@ -86,16 +102,6 @@ export default {
   our: "Our",
   privacy_policy: "privacy policy",
   applies: "applies",
-
-  // Password reset page
-  reset_password: "Reset password",
-  reset_password_info: "We will send you an email to reset your password.",
-  back_to_signup: "Back to sign in",
-  send: "Send",
-  reset_password_succes:
-    "Thank you, in a few minutes you will receive an email containing a link to reset your password.",
-  reset_password_failed:
-    "We couldn't find this email in our records. Try again.",
 
   // Profile
   save: "Save",

@@ -22,6 +22,7 @@ const ResetPassword = ({ open, setOpen }) => {
 
   // The schema that we use to validate the email.
   const schema = yup.object().shape({
+    // Email is required and checked if it is a valid email.
     email: yup.string().required(t.required).email(t.email_not_valid),
   });
   const {
@@ -51,38 +52,34 @@ const ResetPassword = ({ open, setOpen }) => {
       return setProcessing(false);
     }
     // If there isn't an error we setSucces to true to let the user know we have sent an email.
-    // Currently the message is shown as a label right below the input. Maybe more styling is required but for now...
-    // it serves it's purpose.
     setSuccess(true);
     // And set processing back to false.
     return setProcessing(false);
   };
 
   return (
-    <>
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        className="bg-white w-full max-w-sm py-8 px-6 m-4 rounded-xl"
-      >
-        <h1 className="font-semibold text-3xl">{t.reset_password}</h1>
-        <h2 className="text-sm">{t.reset_password_info}</h2>
-        <form className="grid mt-10" onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            register={register}
-            errors={errors.email}
-            name="email"
-            label={t.email}
-          />
-          {success && (
-            <label htmlFor="email" className="text-xs bg-yellow-100 p-2 mt-3">
-              {t.reset_password_succes}
-            </label>
-          )}
-          <SubmitButton processing={processing}>{t.send}</SubmitButton>
-        </form>
-      </Modal>
-    </>
+    <Modal
+      open={open}
+      setOpen={setOpen}
+      className="bg-white w-full max-w-sm py-8 px-6 m-4 rounded-xl"
+    >
+      <h1 className="font-semibold text-3xl">{t.reset_password}</h1>
+      <h2 className="text-sm">{t.reset_password_info}</h2>
+      <form className="grid mt-10" onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          register={register}
+          errors={errors.email}
+          name="email"
+          label={t.email}
+        />
+        {success && (
+          <label htmlFor="email" className="text-xs bg-yellow-100 p-2 mt-3">
+            {t.reset_password_succes}
+          </label>
+        )}
+        <SubmitButton processing={processing}>{t.send}</SubmitButton>
+      </form>
+    </Modal>
   );
 };
 
