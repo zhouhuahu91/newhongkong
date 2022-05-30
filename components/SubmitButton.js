@@ -5,7 +5,7 @@ const SubmitButton = ({ processing, children }) => {
       {processing && <div className="absolute inset-0 z-50" />}
       <button
         type="submit"
-        className={`button w-full text-white relative ${
+        className={`button mt-12 w-full text-white relative ${
           processing ? "pointer-events-none bg-gray-300" : "bg-main"
         }`}
         disabled={processing}

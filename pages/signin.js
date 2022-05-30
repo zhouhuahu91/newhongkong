@@ -18,6 +18,8 @@ import ResetPassword from "@/components/ResetPassword";
 
 // SignIn page.
 const SignIn = () => {
+  // State that determines if the modal is open.
+  const [open, setOpen] = useState(false);
   // State handles the submit button loading state.
   const [processing, setProcessing] = useState(false);
   // t is used to translate the text.
@@ -70,37 +72,47 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center m-4 sm:mt-20">
-      <div className="flex flex-col justify-center rounded-xl py-8 px-6 w-full max-w-sm border bg-white shadow-md">
-        <h1 className="font-semibold text-3xl">{t.welcome}</h1>
-        <h2 className="text-sm">{t.welcome_text}</h2>
-        <form className="grid gap-3 mt-10" onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            name="email"
-            register={register}
-            errors={errors.email}
-            label={t.email}
-          />
-          <Input
-            name="password"
-            register={register}
-            errors={errors.password}
-            label={t.password}
-          />
-          <ResetPassword />
-          <SubmitButton processing={processing}>{t.sign_in}</SubmitButton>
-          <SignInProviders setError={setError} />
-        </form>
+    <>
+      <ResetPassword open={open} setOpen={setOpen} />
+      <div className="flex flex-col justify-center items-center m-4 sm:mt-20">
+        <div className="flex flex-col justify-center rounded-xl py-8 px-6 w-full max-w-sm border bg-white shadow">
+          <h1 className="font-semibold text-3xl">{t.welcome}</h1>
+          <h2 className="text-sm">{t.welcome_text}</h2>
+          <form className="grid gap-3 mt-10" onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              name="email"
+              register={register}
+              errors={errors.email}
+              label={t.email}
+              focus={true}
+            />
+            <Input
+              name="password"
+              register={register}
+              errors={errors.password}
+              label={t.password}
+            />
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="text-xs focus:outline-none text-gray-500 text-right"
+            >
+              {t.forgot_password}
+            </button>
+            <SubmitButton processing={processing}>{t.sign_in}</SubmitButton>
+            <SignInProviders setError={setError} />
+          </form>
+        </div>
+        <div className="text-xs flex justify-center sm:justify-start w-full max-w-sm text-gray-500">
+          <span className="m-4">
+            {t.no_account}{" "}
+            <Link href="/signup">
+              <a className="text-main font-medium">{t.sign_up_here}</a>
+            </Link>
+          </span>
+        </div>
       </div>
-      <div className="text-xs flex justify-center sm:justify-start w-full max-w-sm text-gray-500">
-        <span className="m-4">
-          {t.no_account}{" "}
-          <Link href="/signup">
-            <a className="text-main font-medium">{t.sign_up_here}</a>
-          </Link>
-        </span>
-      </div>
-    </div>
+    </>
   );
 };
 

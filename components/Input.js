@@ -25,6 +25,8 @@ const Input = ({
   asterisk,
   // This is optional.
   capitalize,
+  // This is optional and is used to put focus on the input on render.
+  focus,
 }) => {
   // This state is used to show or not show input when input is a password.
   const [show, setShow] = useState(false);
@@ -53,6 +55,8 @@ const Input = ({
                 : "password"
               : name // If there is no type passed and name passed is !== "password" we use name.
           }
+          // If focus is true
+          autoFocus={focus}
           // If there is placeholder we use placeholder otherwise we pass empty string.
           placeholder={placeholder ? placeholder : ""}
           // If there is no autoComplete we use name.
