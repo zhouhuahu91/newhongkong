@@ -3,6 +3,7 @@ import Link from "next/link";
 // Component imports
 import BurgerMenu from "@/components/header/BurgerMenu";
 import I18nMenu from "@/components/header/I18nMenu";
+import AuthMenu from "@/components/header/AuthMenu";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import usePath from "@/hooks/usePath";
@@ -35,7 +36,11 @@ const Header = () => {
             </a>
           </Link>
           {/* Navigation for screens bigger than md */}
-          <nav className={`hidden md:block ${home && "text-white"}`}>
+          <nav
+            className={`hidden md:block ${
+              home && "text-white"
+            } absolute left-1/2 -translate-x-1/2`}
+          >
             <Link href="/menu">
               <a className="text-sm mx-8">{t.menu}</a>
             </Link>
@@ -46,8 +51,13 @@ const Header = () => {
               <a className="text-sm mx-8">{t.contact}</a>
             </Link>
           </nav>
-          {/* options for language, available on all screen sizes. */}
-          <I18nMenu />
+          <div className="flex items-center space-x-2">
+            {/* Auth menu is only availeble on screens bigger than md. */}
+            {/* Auth menu only smaller screens is in the BurgerMenu. */}
+            <AuthMenu />
+            {/* Options for language, available on all screen sizes. */}
+            <I18nMenu />
+          </div>
         </div>
         {/* ********* MAIN CONTAINER  ********* */}
       </div>

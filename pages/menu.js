@@ -1,15 +1,13 @@
-//React imports
-import { useState, useEffect } from "react";
+// //React imports
+// import { useState, useEffect } from "react";
 
-// Hook imports
-import { useMenu } from "@/hooks/useMenu";
-import { useAuth } from "@/hooks/useAuth";
+// // Hook imports
+// import { useMenu } from "@/hooks/useMenu";
+// import { useAuth } from "@/hooks/useAuth";
 
 const Menu = () => {
-  const { data } = useMenu();
-  const { user } = useAuth();
+  // const { data } = useMenu();
 
-  console.log(data, user);
   return <div>menu</div>;
 };
 

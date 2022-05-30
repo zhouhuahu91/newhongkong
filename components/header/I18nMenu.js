@@ -63,16 +63,14 @@ const I18nMenu = () => {
   }, []);
 
   return (
-    <div ref={node} className="relative ">
+    <div ref={node} className="relative">
       {/* ******** LOCALE BUTTON ******** */}
       <button
-        className="flex items-center border rounded-3xl py-1 px-2"
+        className="py-1 px-1.5 border flex items-center rounded-full"
         type="button"
         onClick={() => setI18nMenu((prev) => !prev)}
       >
-        <span
-          className={`${home && "text-white"} material-symbols-rounded text-xl`}
-        >
+        <span className={`${home && "text-white"} material-symbols-rounded`}>
           language
         </span>
         <span className={`${home && "text-white"} material-symbols-rounded`}>
@@ -87,7 +85,7 @@ const I18nMenu = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1, transition: { duration: 0.3 } }}
             exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
-            className="absolute top-11 rounded border text-sm text-gray-500 right-0 shadow bg-white py-2 w-40 z-10"
+            className="absolute top-10 rounded-md border text-sm right-0 shadow bg-white py-2 w-40 z-10"
           >
             {languages.map((language) => {
               return (

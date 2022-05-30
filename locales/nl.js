@@ -7,11 +7,13 @@ export default {
 
   // ******** HEADER ********
 
-  home: "home",
-  order: "bestellen",
-  catering: "catering",
-  contact: "contact",
-  logout: "uitloggen",
+  home: "Home",
+  menu: "Menu",
+  order: "Bestellen",
+  catering: "Catering",
+  contact: "Contact",
+  sign_out: "Uitloggen",
+  signed_in_as: "Ingelogd als",
 
   // ******** HEADER ********
 
@@ -56,9 +58,7 @@ export default {
   customer_service: "Klantenservice",
   yesterday: "gisteren",
   back_to: "Terug naar",
-  menu: "menu",
   search: "zoeken",
-  sign_out: "Uitloggen",
   profile: "Profiel",
   settings: "Instellingen",
   address: "adres",

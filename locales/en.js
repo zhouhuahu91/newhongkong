@@ -7,11 +7,13 @@ export default {
 
   // ******** HEADER ********
 
-  home: "home",
-  order: "order",
-  catering: "catering",
-  contact: "contact",
-  logout: "log out",
+  home: "Home",
+  order: "Order",
+  menu: "Menu",
+  catering: "Catering",
+  contact: "Contact",
+  sign_out: "Sign out",
+  signed_in_as: "Signed in as",
 
   // ******** HEADER ********
 
@@ -56,9 +58,7 @@ export default {
   customer_service: "Customer service",
   yesterday: "yesterday",
   back_to: "Back to",
-  menu: "menu",
   search: "search",
-  sign_out: "Sign out",
   profile: "Profile",
   settings: "Settings",
   address: "address",
