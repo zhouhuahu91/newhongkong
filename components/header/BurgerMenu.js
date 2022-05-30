@@ -1,6 +1,5 @@
 import { useState } from "react";
 // imports from nextjs
-import { useRouter } from "next/router";
 import Link from "next/link";
 // imports from framer motion for animations
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,8 +17,6 @@ const BurgerMenu = () => {
   const { home } = usePath();
   // This hook provides translations for the different languages.
   const t = useI18n();
-  // To push the user to the new route, can't use Link component because i need to close the menu on click.
-  const router = useRouter();
   // To display user and let user log out.
   const auth = useAuth();
 
