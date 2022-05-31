@@ -131,7 +131,7 @@ const BurgerMenu = () => {
                       </button>
                     </>
                   ) : (
-                    <Link href="/signin">
+                    <Link href="/sign_in">
                       <a
                         onClick={() => {
                           setBurgerMenu(false);

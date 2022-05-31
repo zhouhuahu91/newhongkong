@@ -1,7 +1,5 @@
 //React imports.
 import { useState, useEffect, useContext, createContext } from "react";
-// NextJS imports.
-import { useRouter } from "next/router";
 //Firebase imports.
 import { auth, db } from "@/firebase/firebase";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
@@ -28,9 +26,6 @@ export const useAuth = () => {
 const useAuthProvider = () => {
   const [user, setUser] = useState(null);
   const [userUID, setUserUID] = useState(null);
-
-  // We use push when user signs out.
-  const router = useRouter();
 
   // This functions signs in the user.
   const signIn = async (email, password) => {
@@ -90,7 +85,6 @@ const useAuthProvider = () => {
   // We call it signOutUser because signOut is used by firebase.
   const signOutUser = () => {
     signOut(auth);
-    return router.push("/");
   };
 
   // This function sends a password reset email to the user.

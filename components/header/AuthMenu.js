@@ -58,7 +58,7 @@ const AuthMenu = () => {
           </span> */}
         </button>
       ) : (
-        <Link href="/signin">
+        <Link href="/sign_in">
           <a className={`text-sm ${home && "text-white"}`}>{t.sign_in}</a>
         </Link>
       )}
@@ -72,37 +72,21 @@ const AuthMenu = () => {
             exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
             className="absolute top-9 rounded-md border text-sm right-0 shadow bg-white py-2 z-10"
           >
-            {auth.user ? (
-              <>
-                <div className="px-4 py-1 text-left w-full">
-                  {t.signed_in_as}{" "}
-                  <b>{auth.user.name ? auth.user.name : auth.user.email}</b>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    auth.signOutUser();
-                    setAuthMenu(false);
-                  }}
-                  className="px-4 py-1 hover:bg-gray-100 flex items-center w-full"
-                >
-                  {t.sign_out}
-                  <span className="material-symbols-rounded ml-9">logout</span>
-                </button>
-              </>
-            ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  router.push("/signin");
-                  setAuthMenu(false);
-                }}
-                className="px-4 py-1 hover:bg-gray-100 text-left w-full flex items-center"
-              >
-                {t.sign_in}
-                <span className="material-symbols-rounded ml-9">login</span>
-              </button>
-            )}
+            <div className="px-4 py-1 text-left w-full">
+              {t.signed_in_as}{" "}
+              <b>{auth.user.name ? auth.user.name : auth.user.email}</b>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                auth.signOutUser();
+                setAuthMenu(false);
+              }}
+              className="px-4 py-1 hover:bg-gray-100 flex items-center w-full"
+            >
+              {t.sign_out}
+              <span className="material-symbols-rounded ml-9">logout</span>
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
