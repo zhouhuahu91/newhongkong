@@ -2,7 +2,7 @@
 import { useState, useEffect, useContext, createContext } from "react";
 //Firebase imports.
 import { auth, db } from "@/firebase/firebase";
-import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, setDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -31,6 +31,7 @@ const useAuthProvider = () => {
   const signIn = async (email, password) => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
+
       // If sign in is succesfull we return the user, isn't really needed because...
       // the user will be updated with onIdTokenChanged
       if (user) return user;
@@ -69,12 +70,32 @@ const useAuthProvider = () => {
   };
 
   // This function creates a new user with email and password
-  const signUp = async (email, password) => {
+  const signUp = async (email, password, name) => {
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
-      // If sign up is succesfull we return the user, isn't really needed because...
-      // the user will be updated with onIdTokenChanged
-      if (user) return user;
+      const { user, code } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      // We create a new user in firestore
+      const ref = doc(db, `users/${user.uid}`);
+      // Get snapshot of ref
+      const snapshot = await getDoc(ref);
+      // If user exists we update it.
+      if (!snapshot.exists()) {
+        await setDoc(ref, {
+          name: name.toLowerCase(),
+          uid: user.uid,
+          email: email.toLowerCase(),
+        });
+      } else {
+        // If the user already exists in firestore we update it.
+        await updateDoc(ref, {
+          name: name.toLowerCase(),
+        });
+      }
+      // We return the user and the code.
+      return { user, code };
     } catch (e) {
       // If we get an error we return this error.
       return e;
@@ -93,6 +114,26 @@ const useAuthProvider = () => {
       const res = await sendPasswordResetEmail(auth, email);
       // We do not warn the user if the email is found or not.
       return res;
+    } catch (e) {
+      // If we get an error we return this error.
+      return e;
+    }
+  };
+
+  // This function updates the user.
+  const updateUser = async (user, data) => {
+    try {
+      // We update the user.
+      const ref = doc(db, `users/${user.uid}`);
+      // Get snapshot of ref
+      const snapshot = await getDoc(ref);
+      // If user exists we update it.
+      if (snapshot.exists()) {
+        return await updateDoc(ref, data);
+      } else {
+        // If user doesn't exist we return error message.
+        return "User doesn't exist";
+      }
     } catch (e) {
       // If we get an error we return this error.
       return e;
@@ -164,6 +205,7 @@ const useAuthProvider = () => {
     signUp,
     signOutUser,
     resetPassword,
+    updateUser,
     user,
   };
 };

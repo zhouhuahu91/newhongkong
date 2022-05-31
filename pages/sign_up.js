@@ -9,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
+import { useAuth } from "@/hooks/useAuth";
 // Component imports
 import Input from "@/components/Input";
 import SubmitButton from "@/components/SubmitButton";
@@ -17,6 +18,10 @@ import SignInProviders from "@/components/SignInProviders";
 const SignUp = () => {
   // State disables screen and submit button on submit.
   const [processing, setProcessing] = useState(false);
+  // To push the user to the home page on successful sign up.
+  const router = useRouter();
+  // This hooks gives acces to all auth functions.
+  const auth = useAuth();
   // t is used to translate the text.
   const t = useI18n();
   // Schema is passed to the react hook form to validate the input.
@@ -40,7 +45,24 @@ const SignUp = () => {
 
   // Function triggers on submit.
   const onSubmit = async (data) => {
-    console.log(data);
+    // First we set processing to true to disable the screen and submit button.
+    setProcessing(true);
+    // Deconstruct the data.
+    const { name, email, password } = data;
+    // We use the useAuth hook to sign up the user.
+    const { code } = await auth.signUp(email, password, name);
+
+    if (code === "auth/email-already-in-use") {
+      // If the email is already in use we set the error.
+      setError("email", { type: "manual", message: t.email_already_in_use });
+      // We return here to make sure we don't trigger the redirect.
+      return setProcessing(false);
+    }
+
+    // We set processing to false to enable the screen and submit button.
+    setProcessing(false);
+    // We redirect the user to the home page.
+    router.push("/");
   };
 
   return (
