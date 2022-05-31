@@ -7,7 +7,7 @@ const backdropVariant = {
 };
 
 const modalVariant = {
-  hidden: { opacity: 0, scale: 0.95, transition: { type: "tween" } },
+  hidden: { opacity: 0, scale: 0.9, transition: { type: "tween" } },
   visible: { opacity: 1, scale: 1, transition: { type: "tween" } },
 };
 

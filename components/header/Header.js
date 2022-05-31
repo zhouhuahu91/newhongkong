@@ -19,7 +19,7 @@ const Header = () => {
       {/* ********* HEADER ********* */}
       <div
         className={`w-full flex justify-center ${
-          home ? "bg-main" : "bg-white shadow"
+          home ? "bg-main" : "bg-white shadow-sm border-b"
         }`}
       >
         {/* ******** MAIN CONTAINER ******** */}
@@ -51,12 +51,12 @@ const Header = () => {
               <a className="text-sm mx-8">{t.contact}</a>
             </Link>
           </nav>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
+            {/* Options for language, available on all screen sizes. */}
+            <I18nMenu />
             {/* Auth menu is only availeble on screens bigger than md. */}
             {/* Auth menu only smaller screens is in the BurgerMenu. */}
             <AuthMenu />
-            {/* Options for language, available on all screen sizes. */}
-            <I18nMenu />
           </div>
         </div>
         {/* ********* MAIN CONTAINER  ********* */}

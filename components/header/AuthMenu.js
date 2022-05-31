@@ -75,7 +75,8 @@ const AuthMenu = () => {
             {auth.user ? (
               <>
                 <div className="px-4 py-1 text-left w-full">
-                  {t.signed_in_as} <b>{auth.user.email}</b>
+                  {t.signed_in_as}{" "}
+                  <b>{auth.user.name ? auth.user.name : auth.user.email}</b>
                 </div>
                 <button
                   type="button"
