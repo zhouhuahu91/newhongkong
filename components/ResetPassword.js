@@ -31,7 +31,6 @@ const ResetPassword = ({ open, setOpen }) => {
     setError,
     formState: { errors },
   } = useForm({
-    mode: "onBlur",
     resolver: yupResolver(schema),
   });
 
@@ -71,6 +70,7 @@ const ResetPassword = ({ open, setOpen }) => {
           errors={errors.email}
           name="email"
           label={t.email}
+          focus={true}
         />
         {success && (
           <label htmlFor="email" className="text-xs bg-yellow-100 p-2 mt-3">

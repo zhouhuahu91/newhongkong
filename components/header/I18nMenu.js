@@ -82,7 +82,7 @@ const I18nMenu = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1, transition: { duration: 0.3 } }}
             exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
-            className="absolute top-8 rounded-md border text-sm right-0 shadow bg-white py-2 w-40 z-10"
+            className="absolute top-8 rounded-md border text-sm right-0 shadow-sm bg-white py-2 w-40 z-10"
           >
             {languages.map((language) => {
               return (

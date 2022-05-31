@@ -42,8 +42,6 @@ const SignIn = () => {
     setError,
     formState: { errors },
   } = useForm({
-    // We check the inputs on blur.
-    mode: "onBlur",
     resolver: yupResolver(schema),
   });
 
@@ -74,7 +72,7 @@ const SignIn = () => {
   return (
     <>
       <ResetPassword open={open} setOpen={setOpen} />
-      <div className="flex flex-col justify-center items-center mx-4 mt-10 sm:mt-40">
+      <div className="flex flex-col justify-center items-center mx-4 mt-10 sm:mt-32">
         <div className="flex flex-col justify-center rounded-xl py-8 px-6 w-full max-w-sm border bg-white shadow-sm">
           <h1 className="font-semibold text-3xl">{t.welcome}</h1>
           <h2 className="text-sm">{t.welcome_text}</h2>
@@ -107,7 +105,7 @@ const SignIn = () => {
         <div className="text-xs flex justify-center sm:justify-start w-full max-w-sm">
           <span className="text-gray-500 m-4">
             {t.no_account}{" "}
-            <Link href="/signup">
+            <Link href="/sign_up">
               <a className="text-main font-medium">{t.sign_up_here}</a>
             </Link>
           </span>
