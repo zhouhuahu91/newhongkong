@@ -18,7 +18,7 @@ const useMenuProvider = () => {
 
   // Subscribe to menus on firestore
   useEffect(() => {
-    const q = query(collection(db, "menu"), orderBy("createdAt", "asc"));
+    const q = query(collection(db, "menu"), orderBy("id", "asc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const menus = snapshot.docs.map((doc) => ({
         ...doc.data(),
