@@ -1,4 +1,4 @@
-import sidesOption from "../options/sidesOption";
+import sidesOptions from "../options/sidesOptions";
 
 export default {
   category: {

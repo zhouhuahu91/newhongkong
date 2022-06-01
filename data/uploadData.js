@@ -1,22 +1,22 @@
 import { db } from "../firebase/firebase";
-import { doc, setDoc, Timestamp } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 // all category imports
-import menus from "./category/menus.js";
-import soups from "./category/soups.js";
-import sides from "./category/sides.js";
-import peking from "./category/peking.js";
-import canton from "./category/canton.js";
+import menus from "./category/menus";
+import soups from "./category/soups";
+import sides from "./category/sides";
+import peking from "./category/peking";
+import canton from "./category/canton";
 import mongolian from "./category/mongolian";
 import sieSheun from "./category/sieSheun";
-import egg from "./category/egg.js";
-import vegetable from "./category/vegetable.js";
-import chicken from "./category/chicken.js";
-import pork from "./category/pork.js";
-import riceOrNoodles from "./category/riceOrNoodles.js";
-import riceNoodlesOrChowMein from "./category/riceNoodlesOrChowMein.js";
-import indonesian from "./category/indonesian.js";
-import tippan from "./category/tippan.js";
+import egg from "./category/egg";
+import vegetable from "./category/vegetable";
+import chicken from "./category/chicken";
+import pork from "./category/pork";
+import riceOrNoodles from "./category/riceOrNoodles";
+import riceNoodlesOrChowMein from "./category/riceNoodlesOrChowMein";
+import indonesian from "./category/indonesian";
+import tippan from "./category/tippan";
 
 const uploadData = async () => {
   const menu = [
@@ -37,10 +37,10 @@ const uploadData = async () => {
     tippan,
   ];
   // upload the whole menu
-  menu.forEach((category) => {
+  menu.forEach((category, index) => {
     setDoc(doc(db, "menu", category.category["en"]), {
       ...category,
-      createdAt: Timestamp.now(),
+      id: index,
     });
   });
 };

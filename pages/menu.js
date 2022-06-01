@@ -1,14 +1,30 @@
-// //React imports
-// import { useState, useEffect } from "react";
+//React imports
+import { useState, useEffect } from "react";
 
-// // Hook imports
-// import { useMenu } from "@/hooks/useMenu";
-// import { useAuth } from "@/hooks/useAuth";
+// Hook imports
+import useI18n from "@/hooks/useI18n";
+import { useMenu } from "@/hooks/useMenu";
+import uploadData from "../data/uploadData";
 
 const Menu = () => {
-  // const { data } = useMenu();
+  const { data } = useMenu();
+  const t = useI18n();
 
-  return <div>menu</div>;
+  useEffect(() => {
+    uploadData();
+  });
+
+  return (
+    <div>
+      {data.map((category) => {
+        return (
+          <div key={category.category[t.locale]}>
+            {category.category[t.locale]}
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default Menu;

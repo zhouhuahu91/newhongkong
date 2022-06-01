@@ -59,7 +59,7 @@ const maandmenu = {
   ],
   // price: 2150, new price is of 2022
   price: 2370,
-  sides,
+  sides: sidesOptions,
   totalSides: 2,
 };
 

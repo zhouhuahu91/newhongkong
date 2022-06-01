@@ -12,8 +12,9 @@ export const useMenu = () => {
   return useContext(menuContext);
 };
 
+// This hook provides the menu for the store. As in the products that they sell.
 const useMenuProvider = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
 
   // Subscribe to menus on firestore
   useEffect(() => {
