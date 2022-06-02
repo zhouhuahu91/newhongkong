@@ -1,3 +1,5 @@
+// Hook imports
+import useLockBodyScroll from "@/hooks/useLockBodyScroll";
 // Third party libraries imports
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -12,6 +14,7 @@ const modalVariant = {
 };
 
 const Modal = ({ open, children, setOpen, className }) => {
+  useLockBodyScroll(open);
   return (
     <AnimatePresence>
       {open && (

@@ -54,6 +54,16 @@ export default {
 
   // ******** FORGOT PASSWORD ********
 
+  // ******** MENU ********
+
+  choose_an_option: "Kies een optie *",
+  choose_two_options: "Kies twee opties *",
+  choose_three_options: "Kies drie opties *",
+  cancel: "Annuleren",
+  add_for: "Toevoegen",
+
+  // ******** MENU ********
+
   // Common
   customer_service: "Klantenservice",
   yesterday: "gisteren",
@@ -115,13 +125,6 @@ export default {
   current_password: "huidig wachtwoord",
   new_password: "nieuw wachtwoord",
   wrong_password: "wachtwoord is niet geldig",
-
-  // Modal
-  choose_an_option: "Kies een optie *",
-  choose_two_options: "Kies twee opties *",
-  choose_three_options: "Kies drie opties *",
-  cancel: "Annuleren",
-  add_for: "Toevoegen",
 
   // Cart
   cart: "Bestellijst",

@@ -55,6 +55,16 @@ export default {
 
   // ******** FORGOT PASSWORD ********
 
+  // ******** MENU ********
+
+  choose_an_option: "Eine Option auswählen *",
+  choose_two_options: "Zwei Optionen auswählen *",
+  choose_three_options: "Drei Optionen auswählen *",
+  cancel: "Abbrechen",
+  add_for: "Hinzufügen für",
+
+  // ******** MENU ********
+
   // Common
   customer_service: "Kundendienst",
   yesterday: "gestern",
@@ -118,11 +128,6 @@ export default {
   wrong_password: "Passwort ist nicht gültig",
 
   // Modal
-  choose_an_option: "Eine Option auswählen *",
-  choose_two_options: "Zwei Optionen auswählen *",
-  choose_three_options: "Drei Optionen auswählen *",
-  cancel: "Abbrechen",
-  add_for: "Hinzufügen für",
 
   // Cart
   cart: "Einkaufswagen",

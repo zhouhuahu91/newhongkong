@@ -54,6 +54,16 @@ export default {
 
   // ******** FORGOT PASSWORD ********
 
+  // ******** MENU ********
+
+  choose_an_option: "Choose an option *",
+  choose_two_options: "Choose two options *",
+  choose_three_options: "Choose three options *",
+  cancel: "Cancel",
+  add_for: "Add for",
+
+  // ******** MENU ********
+
   // Common
   customer_service: "Customer service",
   yesterday: "yesterday",
@@ -115,13 +125,6 @@ export default {
   current_password: "current password",
   new_password: "new password",
   wrong_password: "password is not valid",
-
-  // Modal
-  choose_an_option: "Choose an option *",
-  choose_two_options: "Choose two options *",
-  choose_three_options: "Choose three options *",
-  cancel: "Cancel",
-  add_for: "Add for",
 
   // Cart
   cart: "Cart",

@@ -21,17 +21,6 @@ const Menu = () => {
     // Menu page is mainly devided in three sections top side where the title and the search bar is,
     // the bottom left is where the menu cards are and the bottom right is where the cart is.
     <div className="max-w-screen-xl mx-auto relative">
-      <button
-        type="button"
-        onClick={() => {
-          dispatch({
-            type: "ADD_ITEM",
-            payload: true,
-          });
-        }}
-      >
-        test
-      </button>
       {/* This is the container where the menu cards and the cart. */}
       <div className="grid grid-cols-12 gap-4 mx-6 mt-4">
         {/* This is the container where all the cards are.*/}
