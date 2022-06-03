@@ -50,7 +50,7 @@ const cartReducer = (state, action) => {
     case "DECREMENT_TIP":
       return {
         ...state,
-        tip: state.tip <= 0 ? 0 : state.tip - 20,
+        tip: state.tip > 0 ? state.tip - 20 : 0,
         updatedAt: Date.now(),
       };
     case "SET_DELIVERY":
@@ -93,11 +93,11 @@ const useCartProvider = () => {
 
     // We check when the cart was last updated.
     const lastCartUpdate = Date.now() - cartState.updatedAt;
-    // If the cart is older than 12 hours we reset the cart.
-    if (lastCartUpdate > 1000 * 60 * 60 * 12) {
+    // If the cart is older than 3 hours we reset the cart.
+    if (lastCartUpdate > 1000 * 60 * 60 * 3) {
       return dispatch({ type: "RESET_CART" });
     }
-    // If the cart is not older than 12 hours we set the cartState.
+    // If the cart is not older than 3 hours we set the cartState.
     // Strict mode is causing this te rerender the cart state to initial.
     // That is why we only set cart state if it has items
     if (cartState.items.length > 0) {
