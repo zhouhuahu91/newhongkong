@@ -7,7 +7,8 @@ import { useCart } from "@/hooks/useCart";
 // Component Imports
 import Modal from "@/components/Modal";
 import IconButton from "@/components/IconButton";
-import Tooltip from "../ToolTip";
+import Tooltip from "@/components/ToolTip";
+import ItemOptions from "@/components/menu/ItemOptions";
 
 const ItemModal = ({ item, open, setOpen }) => {
   // t is used to translate the text.
@@ -16,10 +17,21 @@ const ItemModal = ({ item, open, setOpen }) => {
   const { dispatch } = useCart();
   // qwt stands for quantity of the item.
   const [qwt, setQwt] = useState(1);
+  // We define all the states we need.
+  const [errors, setErrors] = useState({});
+  // For the sides e.g. nasi en bami.
+  const [selectedSides, setSelectedSides] = useState([]);
+  // For the menu options e.g. babi pangang, foe yong hai.
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   // When we close modal we want to reset all the values.
   useEffect(() => {
-    setQwt(1);
+    if (!open) {
+      setQwt(1);
+      setErrors({});
+      setSelectedOptions([]);
+      setSelectedSides([]);
+    }
   }, [open]);
 
   // This function gets called when we add the item to the cart.
@@ -57,6 +69,23 @@ const ItemModal = ({ item, open, setOpen }) => {
                 </div>
               ))}
             </>
+          )}
+        </div>
+        <div className="my-2">
+          {item.options && (
+            <ItemOptions
+              options={item.options}
+              selectedOptions={selectedOptions}
+              setSelectedOptions={setSelectedOptions}
+              qwtOptions={item.totalOptions || 1}
+              errors={errors.options}
+              resetErrors={() => {
+                setErrors((prev) => ({
+                  ...prev,
+                  options: false,
+                }));
+              }}
+            />
           )}
         </div>
         <div className="flex items-center justify-evenly relative h-10">

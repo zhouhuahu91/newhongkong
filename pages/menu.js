@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 // Hook imports
 import useI18n from "@/hooks/useI18n";
-// import { useCart } from "@/hooks/useCart";
+import { useCart } from "@/hooks/useCart";
 import { useMenu } from "@/hooks/useMenu";
 // Component imports
 import Card from "@/components/menu/Card";
@@ -13,8 +13,10 @@ import Card from "@/components/menu/Card";
 
 const Menu = () => {
   const { data } = useMenu();
-  // const { dispatch } = useCart();
+  const { dispatch, cart } = useCart();
   const t = useI18n();
+
+  console.log(cart);
 
   return (
     // Menu page is mainly devided in three sections top side where the title and the search bar is,

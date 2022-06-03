@@ -15,7 +15,7 @@ const initial = {
   paymentMethod: "undecided",
   tip: 0,
   bag: true,
-  createdAt: null,
+  updatedAt: Date.now(),
 };
 
 // The cartReducer provides the cart state and dispatch to manipulate it.
@@ -27,36 +27,50 @@ const cartReducer = (state, action) => {
       return {
         ...state,
         items: addItem(state.items, action.payload),
+        updatedAt: Date.now(),
       };
     case "INCREMENT_ITEM":
       return {
         ...state,
         items: incrementItem(state.items, action.payload),
+        updatedAt: Date.now(),
       };
     case "DECREMENT_ITEM":
       return {
         ...state,
         items: decrementItem(state.items, action.payload),
+        updatedAt: Date.now(),
       };
     case "INCREMENT_TIP":
-      return { ...state, tip: state.tip + 20 };
+      return {
+        ...state,
+        tip: state.tip + 20,
+        updatedAt: Date.now(),
+      };
     case "DECREMENT_TIP":
       return {
         ...state,
         tip: state.tip <= 0 ? 0 : state.tip - 20,
+        updatedAt: Date.now(),
       };
     case "SET_DELIVERY":
       return {
         ...state,
         delivery: action.payload,
+        updatedAt: Date.now(),
       };
-    case "SET_CASH":
+    case "SET_PAYMENT_MEHTOD":
       return {
         ...state,
-        cash: action.payload,
+        paymentMethod: action.payload,
+        updatedAt: Date.now(),
       };
     case "SET_BAG":
-      return { ...state, bag: action.payload };
+      return {
+        ...state,
+        bag: action.payload,
+        updatedAt: Date.now(),
+      };
     case "RESET_CART":
       return initial;
     default:
@@ -69,8 +83,21 @@ const useCartProvider = () => {
   const [cart, dispatch] = useReducer(cartReducer, initial);
 
   // First time this renders we check if there is cartState in localStorage.
+  // We would also want to clear cart if the user has been inactive for more than 12 hours.
   useEffect(() => {
+    // Get cartState from localStorage.
     const cartState = JSON.parse(localStorage.getItem("cartState"));
+    // Check if there is a cartState.
+    // If not we exit the function.
+    if (!cartState) return;
+
+    // We check when the cart was last updated.
+    const lastCartUpdate = Date.now() - cartState.updatedAt;
+    // If the cart is older than 12 hours we reset the cart.
+    if (lastCartUpdate > 1000 * 60 * 60 * 12) {
+      return dispatch({ type: "RESET_CART" });
+    }
+    // If the cart is not older than 12 hours we set the cartState.
     // Strict mode is causing this te rerender the cart state to initial.
     // That is why we only set cart state if it has items
     if (cartState.items.length > 0) {
