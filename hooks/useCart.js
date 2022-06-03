@@ -68,22 +68,17 @@ const cartReducer = (state, action) => {
 const useCartProvider = () => {
   const [cart, dispatch] = useReducer(cartReducer, initial);
 
-  // When component mounts we check if there is cart saved in localStorage.
+  // First time this renders we check if there is cartState in localStorage.
   useEffect(() => {
-    // If these is a cart saved to the localstorage we will update the state.
-    const localState = JSON.parse(localStorage.getItem("cartState"));
-
-    // If there is no cart we exit the function.
-    if (!localState) return;
-
-    // If there is a cart we update the state.
-    dispatch({
-      type: "SET_STATE",
-      payload: localState,
-    });
+    const cartState = JSON.parse(localStorage.getItem("cartState"));
+    // Strict mode is causing this te rerender the cart state to initial.
+    // That is why we only set cart state if it has items
+    if (cartState.items.length > 0) {
+      dispatch({ type: "SET_STATE", payload: cartState });
+    }
   }, []);
 
-  // Every time the state updates we save it to the local storage.
+  // Every time the cart updates we save it to the local storage.
   useEffect(() => {
     localStorage.setItem("cartState", JSON.stringify(cart));
   }, [cart]);

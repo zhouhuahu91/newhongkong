@@ -7,6 +7,7 @@ import { useCart } from "@/hooks/useCart";
 // Component Imports
 import Modal from "@/components/Modal";
 import IconButton from "@/components/IconButton";
+import Tooltip from "../ToolTip";
 
 const ItemModal = ({ item, open, setOpen }) => {
   // t is used to translate the text.
@@ -43,7 +44,21 @@ const ItemModal = ({ item, open, setOpen }) => {
       <div className="p-4 bg-neutral-50">
         <h2>{item.description[t.locale]}</h2>
         {/* Container for increment and decrement */}
-        <div className="my-2"></div>
+        <div className="my-2">
+          {/* If the item is a menu it most likely contains a list of items they get. */}
+          {item.menuList && (
+            <>
+              {item.menuList.map((menuItem, idx) => (
+                <div className="flex space-x-1" key={idx}>
+                  <span>{menuItem.name[t.locale]}</span>
+                  {menuItem.description && (
+                    <Tooltip tip={menuItem.description[t.locale]} />
+                  )}
+                </div>
+              ))}
+            </>
+          )}
+        </div>
         <div className="flex items-center justify-evenly relative h-10">
           <IconButton
             onClick={() => setQwt((qwt) => (qwt > 1 ? qwt - 1 : qwt))}
