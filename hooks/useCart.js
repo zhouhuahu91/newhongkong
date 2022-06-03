@@ -128,7 +128,12 @@ const addItem = (items, payload) => {
   if (found) {
     return items.map((item) => {
       return item.id === payload.id
-        ? { ...item, qwt: item.qwt + payload.qwt }
+        ? {
+            ...item,
+            qwt: item.qwt + payload.qwt,
+            // First we calculate the price per item and then we multiply it by the total qwt.
+            price: (item.price / item.qwt) * (item.qwt + newItem.qwt),
+          }
         : item;
     });
   } else {
@@ -140,7 +145,15 @@ const addItem = (items, payload) => {
 const incrementItem = (items, payload) => {
   // We use the map function to increment the qwt of the item.
   return items.map((item) => {
-    return item.id === payload ? { ...item, qwt: item.qwt + 1 } : item;
+    return item.id === payload
+      ? {
+          ...item,
+          qwt: item.qwt + 1,
+          // We calculate the new price by getting the price of 1 and then...
+          // multipling it with the new qwt + 1.
+          price: (item.price / item.qwt) * (item.qwt + 1),
+        }
+      : item;
   });
 };
 
@@ -151,7 +164,15 @@ const decrementItem = (items, payload) => {
   } else {
     // If there is more than one we decrement the qwt.
     return items.map((item) => {
-      return item.id === payload ? { ...item, qwt: item.qwt - 1 } : item;
+      return item.id === payload
+        ? {
+            ...item,
+            qwt: item.qwt - 1,
+            // We calculate the new price by getting the price of 1 and then...
+            // multipling it with the new qwt - 1.
+            price: (item.price / item.qwt) * (item.qwt - 1),
+          }
+        : item;
     });
   }
 };
