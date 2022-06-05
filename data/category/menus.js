@@ -380,7 +380,7 @@ export default {
             en: "menu C",
             de: "menü C",
           },
-          name: {
+          description: {
             nl: "babi pangang, Indische rundvlees, 6 stuks pangsit goreng en 2 stokjes kipsate",
             en: "babi pangang, spicy beef, 6 pieces of fried won ton and 2 chicken satay",
             de: "babi pangang, scharfer Rindfleisch, 6 Stück fritierte Wantan und 2 Hühnerspieße",
@@ -394,7 +394,7 @@ export default {
             en: "menu D",
             de: "menü D",
           },
-          name: {
+          description: {
             nl: "babi pangang, tjap tjoy, kou lou kai en 2 stokjes kipsate",
             en: "babi pangang, tjap tjoy, kou lou kai and 2 chicken satay",
             de: "babi pangang, tjap tjoy, kou lou kai und 2 Hühnerspieße",
@@ -404,9 +404,9 @@ export default {
         {
           id: "E",
           name: {
-            nl: "menu A",
-            en: "menu A",
-            de: "menü A",
+            nl: "menu E",
+            en: "menu E",
+            de: "menü E",
           },
           description: {
             nl: "babi pangang, foe yong hai, kou lou kai en 2 stokjes kipsate",

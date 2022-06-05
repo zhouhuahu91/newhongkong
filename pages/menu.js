@@ -9,7 +9,7 @@ import { useMenu } from "@/hooks/useMenu";
 import Card from "@/components/menu/Card";
 
 // Upload new menu to firestore if needed.
-import uploadData from "../data/uploadData";
+// import uploadData from "../data/uploadData";
 
 const Menu = () => {
   const { data } = useMenu();
@@ -18,9 +18,9 @@ const Menu = () => {
 
   console.log(cart);
 
-  useEffect(() => {
-    uploadData();
-  }, []);
+  // useEffect(() => {
+  //   uploadData();
+  // }, []);
   return (
     // Menu page is mainly devided in three sections top side where the title and the search bar is,
     // the bottom left is where the menu cards are and the bottom right is where the cart is.
