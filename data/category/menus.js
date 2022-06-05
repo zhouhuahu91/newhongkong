@@ -346,7 +346,7 @@ export default {
       optionIsMain: true,
       options: [
         {
-          id: "A",
+          id: "98A",
           name: {
             nl: "menu A",
             en: "menu A",
@@ -360,7 +360,7 @@ export default {
           price: 0,
         },
         {
-          id: "B",
+          id: "98B",
           name: {
             nl: "menu B",
             en: "menu B",
@@ -374,7 +374,7 @@ export default {
           price: 0,
         },
         {
-          id: "C",
+          id: "98C",
           name: {
             nl: "menu C",
             en: "menu C",
@@ -388,7 +388,7 @@ export default {
           price: 0,
         },
         {
-          id: "D",
+          id: "98D",
           name: {
             nl: "menu D",
             en: "menu D",
@@ -402,7 +402,7 @@ export default {
           price: 0,
         },
         {
-          id: "E",
+          id: "98E",
           name: {
             nl: "menu E",
             en: "menu E",
