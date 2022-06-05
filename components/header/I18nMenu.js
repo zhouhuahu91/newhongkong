@@ -17,7 +17,7 @@ const I18nMenu = () => {
   // This is needed to close the menu when clicking outside of it.
   const ref = useRef();
   // Returns true when we are on the home page.
-  const { home } = usePath();
+  const { atHome } = usePath();
   // All languages on the website. Add here if we want to add a new language.
   // Do not forget to update next.config.js.
   const languages = [
@@ -55,7 +55,7 @@ const I18nMenu = () => {
         type="button"
         onClick={() => setI18nMenu((prev) => !prev)}
       >
-        <span className={`${home && "text-white"} material-symbols-rounded`}>
+        <span className={`${atHome && "text-white"} material-symbols-rounded`}>
           language
         </span>
       </button>

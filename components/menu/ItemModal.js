@@ -72,6 +72,7 @@ const ItemModal = ({ item, open, setOpen }) => {
         qwt,
         options: selectedOptions,
         sides: selectedSides,
+        // If option is main then we need the name of the option selected as the name of the dish.
         name: item.optionIsMain
           ? item.options.find((x) => x.id === selectedOptions[0]).name
           : item.name,

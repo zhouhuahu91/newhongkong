@@ -67,8 +67,8 @@ export default {
   // Common
   customer_service: "Klantenservice",
   yesterday: "gisteren",
-  back_to: "Terug naar",
   search: "zoeken",
+  back_to: "Terug naar",
   profile: "Profiel",
   settings: "Instellingen",
   address: "adres",

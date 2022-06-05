@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 // Next.js imports
 import Image from "next/image";
-import { useRouter } from "next/router";
+import Link from "next/link";
 // Hook imports
 import useWindowSize from "@/hooks/useWindowSize";
 import useI18n from "@/hooks/useI18n";
@@ -16,8 +16,6 @@ const Home = () => {
   // These are the sizes for default to > sm to > md...
   // 192, 288 | 256 384 | 320 480.
   const { width } = useWindowSize();
-  // Router to push to different pages.
-  const router = useRouter();
   // This hook provides translations for the different languages.
   const t = useI18n();
 
@@ -78,18 +76,19 @@ const Home = () => {
         )}
       </AnimatePresence>
       {/* This button is pushes to the menu where users can order. */}
-      <button
-        type="button"
-        onClick={() => router.push("/menu")}
-        className={`button border border-opacity-10 border-white px-6 py-1.5 absolute top-96 mt-40 md:mt-72 right-1/2 translate-x-1/2 bg-white bg-opacity-20 backdrop-blur-sm`}
-      >
-        <span className="material-symbols-rounded text-white">
-          local_dining
-        </span>
-        <span className="text-white uppercase text-sm font-bold ml-3">
-          {t.order}
-        </span>
-      </button>
+      <Link href="/menu">
+        <a
+          type="button"
+          className={`button border border-opacity-10 border-white px-6 py-1.5 absolute top-96 mt-40 md:mt-72 right-1/2 translate-x-1/2 bg-white bg-opacity-20 backdrop-blur-sm`}
+        >
+          <span className="material-symbols-rounded text-white">
+            local_dining
+          </span>
+          <span className="text-white uppercase text-sm font-bold ml-3">
+            {t.order}
+          </span>
+        </a>
+      </Link>
     </div>
   );
 };

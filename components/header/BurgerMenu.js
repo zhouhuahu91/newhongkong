@@ -14,7 +14,7 @@ const BurgerMenu = () => {
   // The menu is only visible on mobile (width < 768px)
   const [burgerMenu, setBurgerMenu] = useState(false);
   // This hook just returns true if we are on the home page
-  const { home } = usePath();
+  const { atHome } = usePath();
   // This hook provides translations for the different languages.
   const t = useI18n();
   // To display user and let user log out.
@@ -29,7 +29,7 @@ const BurgerMenu = () => {
         onClick={() => setBurgerMenu((prev) => !prev)}
         className="flex items-center md:hidden"
       >
-        <span className={`material-symbols-rounded ${home && "text-white"}`}>
+        <span className={`material-symbols-rounded ${atHome && "text-white"}`}>
           menu
         </span>
       </button>

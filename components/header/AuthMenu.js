@@ -18,8 +18,8 @@ const AuthMenu = () => {
   const ref = useRef();
   // t is used to translate the text.
   const t = useI18n();
-  // Returns true if we are on the home page.
-  const { home } = usePath();
+  // Returns true if we are on the atHome page.
+  const { atHome } = usePath();
   // Returns auth object with all auth functions.
   const auth = useAuth();
   // This hook closes the menu when clicking outside of it.
@@ -34,16 +34,18 @@ const AuthMenu = () => {
           type="button"
           onClick={() => setAuthMenu((prev) => !prev)}
         >
-          <span className={`${home && "text-white"} material-symbols-rounded`}>
+          <span
+            className={`${atHome && "text-white"} material-symbols-rounded`}
+          >
             account_circle
           </span>
-          {/* <span className={`${home && "text-white"} material-symbols-rounded`}>
+          {/* <span className={`${atHome && "text-white"} material-symbols-rounded`}>
             expand_more
           </span> */}
         </button>
       ) : (
         <Link href="/sign_in">
-          <a className={`text-sm ${home && "text-white"}`}>{t.sign_in}</a>
+          <a className={`text-sm ${atHome && "text-white"}`}>{t.sign_in}</a>
         </Link>
       )}
       {/* ******** AUTH BUTTON ******** */}

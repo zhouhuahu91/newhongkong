@@ -11,7 +11,7 @@ import usePath from "@/hooks/usePath";
 // We also can put the NextJs Head that are used on all pages here e.a. the title, description, etc.
 const Layout = ({ children }) => {
   // Styling and components "render" depending on the page we are on.
-  const { home } = usePath();
+  const { atHome } = usePath();
   return (
     <>
       <Head>
@@ -37,12 +37,12 @@ const Layout = ({ children }) => {
       </Head>
       <div
         className={`flex flex-col min-h-screen ${
-          home ? "bg-main" : "bg-neutral-50"
+          atHome ? "bg-main" : "bg-neutral-50"
         }`}
       >
         <Header />
         <div className="flex-grow">{children}</div>
-        {!home && <Footer />}
+        {!atHome && <Footer />}
       </div>
     </>
   );

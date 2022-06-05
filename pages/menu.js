@@ -7,7 +7,7 @@ import { useCart } from "@/hooks/useCart";
 import { useMenu } from "@/hooks/useMenu";
 // Component imports
 import Card from "@/components/menu/Card";
-
+import DesktopCart from "@/components/cart/DesktopCart";
 // Upload new menu to firestore if needed.
 // import uploadData from "../data/uploadData";
 
@@ -45,7 +45,10 @@ const Menu = () => {
           })}
         </div>
         {/* This is the container where the cart is. */}
-        <div></div>
+        <div className="hidden md:block col-span-6 lg:col-span-5">
+          <span className="block text-2xl mt-8 mb-4">&nbsp;</span>
+          <DesktopCart />
+        </div>
       </div>
     </div>
   );

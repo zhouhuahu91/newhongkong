@@ -12,14 +12,14 @@ const Header = () => {
   // This hook provides translations for the different languages.
   const t = useI18n();
   // We need the pathname because of different styling for home page.
-  const { home } = usePath();
+  const { atHome } = usePath();
 
   return (
     <>
       {/* ********* HEADER ********* */}
       <div
         className={`w-full flex justify-center ${
-          home ? "bg-main" : "bg-white shadow-sm border-b"
+          atHome ? "bg-main" : "bg-white shadow-sm border-b"
         }`}
       >
         {/* ******** MAIN CONTAINER ******** */}
@@ -29,7 +29,7 @@ const Header = () => {
           <Link href="/">
             <a
               className={`text-2xl font-bold px-2 ${
-                home ? "text-white" : "text-main"
+                atHome ? "text-white" : "text-main"
               }`}
             >
               nHK
@@ -38,7 +38,7 @@ const Header = () => {
           {/* Navigation for screens bigger than md */}
           <nav
             className={`hidden md:block ${
-              home && "text-white"
+              atHome && "text-white"
             } absolute left-1/2 -translate-x-1/2`}
           >
             <Link href="/menu">
