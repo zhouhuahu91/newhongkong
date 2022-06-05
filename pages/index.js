@@ -84,9 +84,7 @@ const Home = () => {
           <span className="material-symbols-rounded text-white">
             local_dining
           </span>
-          <span className="text-white uppercase text-sm font-bold ml-3">
-            {t.order}
-          </span>
+          <span className="text-white uppercase text-sm ml-3">{t.order}</span>
         </a>
       </Link>
     </div>

@@ -19,5 +19,5 @@ a {
 }
 
 .button {
-  @apply flex items-center justify-center text-sm py-2 rounded-md shadow focus:outline-none;
+  @apply flex items-center justify-center text-sm py-2 rounded-md shadow focus:outline-none font-medium;
 }
