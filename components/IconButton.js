@@ -7,7 +7,7 @@ const IconButton = ({ onClick, variant, color, size, disabled }) => {
         }
       }}
       type="button"
-      className="relative"
+      className="relative w-4 h-4"
     >
       <span
         className={`material-symbols-rounded ${

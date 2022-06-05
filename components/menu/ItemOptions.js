@@ -106,7 +106,7 @@ const ItemOptions = ({
               )}
               {/* If total options is bigger than 1 and it is selected than we want to give the option to increase & decrease. */}
               {qwtOptions > 1 && selectedOptions.includes(option.id) && (
-                <div className="flex justify-between items-center space-x-4 mr-2 ml-4">
+                <div className="flex justify-between items-center space-x-2 ml-2">
                   <IconButton
                     variant="remove_circle_outline"
                     color="main"
