@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
-
+// Function imports
+import createItemId from "@/functions/createItemId";
 // Component Imports
 import Modal from "@/components/Modal";
 import IconButton from "@/components/IconButton";
@@ -36,24 +37,55 @@ const ItemModal = ({ item, open, setOpen }) => {
 
   // This function gets called when we add the item to the cart.
   const addItemToCart = () => {
-    dispatch({
-      type: "ADD_ITEM",
-      payload: { ...item, qwt },
-    });
+    // We define tempErrors so we can return all errors at the same time.
+    // We do this because setState is asynchronous.
+    let tempErrors = {};
+    // When submited we need to check if all the options are selected.
+    // We check if the item has options and if the length of the selectedOptions...
+    // is smaller than the total options available.
+    if (item.options && selectedOptions.length < (item.totalOptions || 1)) {
+      tempErrors.options = true;
+    }
+    // We do the same for sides.
+    if (item.sides && selectedSides.length < (item.totalSides || 1)) {
+      tempErrors.sides = true;
+    }
+    // If we have an error we return from submitting and we set the errors with tempErrors.
+    if (tempErrors.sides || tempErrors.options) {
+      // than we set the ErrorsState
+      return setErrors({
+        ...tempErrors,
+      });
+    }
+
+    // If we user selects all the required options and sides we add the item to the cart.
+    // We need to prepare the item to be added to the cart.
+
+    // We need a new id for the item that also includes the options and sides.
+    const newId = createItemId(item, selectedOptions, selectedSides);
+    console.log(item);
+    // dispatch({
+    //   type: "ADD_ITEM",
+    //   payload: { ...item, qwt },
+    // });
+    setOpen(false);
   };
 
   return (
     <Modal
       open={open}
       setOpen={setOpen}
-      className="bg-white h-auto w-10/12 max-w-sm rounded-lg relative flex flex-col overflow-hidden"
+      className="bg-white h-auto w-10/12 max-w-sm rounded-lg relative flex flex-col overflow-hidden select-none"
     >
       {/* Container for the title */}
       <div className="p-4 flex justify-between items-center shadow-sm border-b">
         <h1 className="text-xl font-semibold">{item.name[t.locale]}</h1>
       </div>
       {/* Container for the information and options. */}
-      <div className="p-4 bg-neutral-50">
+      <div
+        style={{ maxHeight: "calc(100vh - 185px)" }}
+        className="p-4 bg-neutral-50 flex-grow overflow-auto"
+      >
         <h2>{item.description[t.locale]}</h2>
         {/* Container for increment and decrement */}
         <div className="my-2">
@@ -61,8 +93,8 @@ const ItemModal = ({ item, open, setOpen }) => {
           {item.menuList && (
             <>
               {item.menuList.map((menuItem, idx) => (
-                <div className="flex space-x-1" key={idx}>
-                  <span>{menuItem.name[t.locale]}</span>
+                <div className="flex space-x-1 items-center" key={idx}>
+                  <span>• {menuItem.name[t.locale]}</span>
                   {menuItem.description && (
                     <Tooltip tip={menuItem.description[t.locale]} />
                   )}
@@ -87,8 +119,23 @@ const ItemModal = ({ item, open, setOpen }) => {
               }}
             />
           )}
+          {item.sides && (
+            <ItemOptions
+              options={item.sides}
+              selectedOptions={selectedSides}
+              setSelectedOptions={setSelectedSides}
+              qwtOptions={item.totalSides || 1}
+              errors={errors.sides}
+              resetErrors={() => {
+                setErrors((prev) => ({
+                  ...prev,
+                  sides: false,
+                }));
+              }}
+            />
+          )}
         </div>
-        <div className="flex items-center justify-evenly relative h-10">
+        <div className="flex items-center justify-evenly relative h-8">
           <IconButton
             onClick={() => setQwt((qwt) => (qwt > 1 ? qwt - 1 : qwt))}
             variant="remove_circle_outline"

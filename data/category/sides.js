@@ -75,6 +75,7 @@ export default {
           price: 0,
         },
       ],
+      optionIsMain: true,
     },
     {
       id: "11",

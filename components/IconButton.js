@@ -1,4 +1,4 @@
-const IconButton = ({ onClick, variant, color }) => {
+const IconButton = ({ onClick, variant, color, size, disabled }) => {
   return (
     <button
       onClick={() => {
@@ -11,8 +11,14 @@ const IconButton = ({ onClick, variant, color }) => {
     >
       <span
         className={`material-symbols-rounded ${
-          color === "main" && "text-main"
-        } absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
+          disabled
+            ? "text-gray-300 cursor-default"
+            : color === "main"
+            ? "text-main"
+            : ""
+        } absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${
+          size === "small" ? "text-lg" : ""
+        }`}
       >
         {variant}
       </span>

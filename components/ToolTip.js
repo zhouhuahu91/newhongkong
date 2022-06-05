@@ -7,7 +7,7 @@ const Tooltip = ({ children, tip, disabled }) => {
   return (
     <div className="relative">
       {show && (
-        <div className="absolute left-1/2 bottom-7 text-sm shadow-sm border bg-white p-1.5 rounded -translate-x-1/2 w-56">
+        <div className="absolute left-1/2 bottom-7 text-xs text-white shadow-sm bg-main p-2 rounded -translate-x-1/2 w-56">
           {tip}
         </div>
       )}
