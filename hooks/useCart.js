@@ -145,7 +145,7 @@ const addItem = (items, payload) => {
 const incrementItem = (items, payload) => {
   // We use the map function to increment the qwt of the item.
   return items.map((item) => {
-    return item.id === payload
+    return item.id === payload.id
       ? {
           ...item,
           qwt: item.qwt + 1,
@@ -164,7 +164,7 @@ const decrementItem = (items, payload) => {
   } else {
     // If there is more than one we decrement the qwt.
     return items.map((item) => {
-      return item.id === payload
+      return item.id === payload.id
         ? {
             ...item,
             qwt: item.qwt - 1,

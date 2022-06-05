@@ -51,7 +51,7 @@ const ItemOptions = ({
     <div ref={el} className="my-2">
       <h3
         className={`text-xs lowercase ${
-          errors ? "text-main" : "text-gray-600"
+          errors ? "text-main" : "text-gray-500"
         }`}
       >
         {qwtOptions > 1

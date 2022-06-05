@@ -22,7 +22,7 @@ class MyDocument extends Document {
           {/* https://fonts.google.com/icons ---> for more icons. */}
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,300,0,0"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,600,0,0"
           />
         </Head>
         <body>

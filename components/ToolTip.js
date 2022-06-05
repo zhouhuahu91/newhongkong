@@ -20,7 +20,7 @@ const Tooltip = ({ children, tip, disabled }) => {
           children
         ) : (
           <span
-            className={`material-symbols-rounded ${
+            className={`material-symbols-rounded text-lg ${
               disabled ? "text-gray-300" : ""
             }`}
           >
