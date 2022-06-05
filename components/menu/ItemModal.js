@@ -62,12 +62,14 @@ const ItemModal = ({ item, open, setOpen }) => {
     // We need to prepare the item to be added to the cart.
 
     // We need a new id for the item that also includes the options and sides.
-    const newId = createItemId(item, selectedOptions, selectedSides);
-    console.log(item);
-    // dispatch({
-    //   type: "ADD_ITEM",
-    //   payload: { ...item, qwt },
-    // });
+    const id = createItemId(item, selectedOptions, selectedSides);
+
+    // We add the item to the cart.
+    dispatch({
+      type: "ADD_ITEM",
+      payload: { id, qwt },
+    });
+    // We close the modal.
     setOpen(false);
   };
 
