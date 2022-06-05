@@ -14,7 +14,7 @@ const createItemId = (item, selectedOptions, selectedSides) => {
     id = selectedOptions[0];
     // If the item also has sides we want to add that to the id.
     if (selectedSides.length > 0) {
-      id += `_${selectedSides.sort().join("_")}`;
+      id += `_${selectedSides.join("_")}`;
     }
 
     return id;
@@ -24,8 +24,8 @@ const createItemId = (item, selectedOptions, selectedSides) => {
   // ...create a new id when them.
   // It converts like this: 96 ["A", "B"] ["B1"] => 96_A_B_B1.
   return `${item.id}${
-    selectedOptions.length ? `_${selectedOptions.sort().join("_")}` : ""
-  }${selectedSides.length ? `-${selectedSides.sort().join("_")}` : ""}`;
+    selectedOptions.length ? `_${selectedOptions.join("_")}` : ""
+  }${selectedSides.length ? `_${selectedSides.join("_")}` : ""}`;
 };
 
 export default createItemId;

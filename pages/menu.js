@@ -16,7 +16,7 @@ const Menu = () => {
   const { dispatch, cart } = useCart();
   const t = useI18n();
 
-  console.log(cart);
+  console.log(cart.items);
 
   // useEffect(() => {
   //   uploadData();

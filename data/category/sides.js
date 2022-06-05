@@ -50,27 +50,27 @@ export default {
         {
           id: "555",
           name: {
-            nl: "vegetarisch",
-            en: "vegetarian",
-            de: "vegetarisch",
+            nl: "loempia vegetarisch",
+            en: "roll vegetarian",
+            de: "Frühlingsrolle vegetarisch",
           },
           price: 0,
         },
         {
           id: "10",
           name: {
-            nl: "met varkensvlees",
-            en: "with pork",
-            de: "mit Schweinefleisch",
+            nl: "loempia varkensvlees",
+            en: "roll with pork",
+            de: "Frühlingsrolle Schweinefleisch",
           },
           price: 0,
         },
         {
           id: "151",
           name: {
-            nl: "met kippenvlees",
-            en: "with chicken",
-            de: "mit Hühnerfleisch",
+            nl: "loempia kippenvlees",
+            en: "roll with chicken",
+            de: "Frühlingsrolle Hühnerfleisch",
           },
           price: 0,
         },

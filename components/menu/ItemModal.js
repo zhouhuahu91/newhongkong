@@ -67,7 +67,15 @@ const ItemModal = ({ item, open, setOpen }) => {
     // We add the item to the cart.
     dispatch({
       type: "ADD_ITEM",
-      payload: { id, qwt },
+      payload: {
+        id,
+        qwt,
+        options: selectedOptions,
+        sides: selectedSides,
+        name: item.optionIsMain
+          ? item.options.find((x) => x.id === selectedOptions[0]).name
+          : item.name,
+      },
     });
     // We close the modal.
     setOpen(false);

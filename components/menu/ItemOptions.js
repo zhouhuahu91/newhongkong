@@ -42,7 +42,9 @@ const ItemOptions = ({
       );
     }
     // If it is not included we add the item to the array.
-    setSelectedOptions((selectedOptions) => [...selectedOptions, value]);
+    // We sort the array so that the id is always the same...
+    // ...even when users picks options in a different order.
+    setSelectedOptions((selectedOptions) => [...selectedOptions, value].sort());
   };
 
   return (
