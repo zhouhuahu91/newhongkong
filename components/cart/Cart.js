@@ -10,17 +10,17 @@ const Cart = () => {
   // t translates the text.
   const t = useI18n();
   // Return the cart.
-  const { cart, dispatch } = useCart();
+  const { cartState, dispatch } = useCart();
 
   return (
     <div
       style={{ maxHeight: "calc(100vh - 185px)" }}
       className="px-4 pb-4 select-none overflow-auto"
     >
-      {cart.items.map((item) => {
+      {cartState.cart.map((cartItem) => {
         return (
           // This is the main container where the cart items are.
-          <div key={item.id} className="flex mt-2 items-start">
+          <div key={cartItem.id} className="flex mt-2 items-start">
             {/* This container div is where we can increment and decrement the item in the cart. */}
             <div
               style={{ maxWidth: "3.25rem" }}
@@ -33,11 +33,11 @@ const Cart = () => {
                 onClick={() =>
                   dispatch({
                     type: "DECREMENT_ITEM",
-                    payload: item,
+                    payload: cartItem,
                   })
                 }
               />
-              <span>{item.qwt}</span>
+              <span>{cartItem.qwt}</span>
               <IconButton
                 variant="add_circle_outline"
                 size="small"
@@ -45,7 +45,7 @@ const Cart = () => {
                 onClick={() =>
                   dispatch({
                     type: "INCREMENT_ITEM",
-                    payload: item,
+                    payload: cartItem,
                   })
                 }
               />
@@ -53,19 +53,19 @@ const Cart = () => {
             {/* This is the cointainer for the cart item name and description. */}
             <div className="flex-grow mx-3">
               <div>
-                <span>{item.name[t.locale]}</span>
+                <span>{cartItem.name[t.locale]}</span>
               </div>
               <div className="leading-none">
                 {/* See modal for how the item description gets generated. */}
                 <span className="text-xs text-gray-500">
-                  {item.description[t.locale]}
+                  {cartItem.description[t.locale]}
                   {/* {getItemDescription(item, t.locale)} */}
                 </span>
               </div>
             </div>
             {/* This is the cointainer for the cart item price. */}
             <div className="justify-self-end">
-              <span>{euro(item.price)}</span>
+              <span>{euro(cartItem.price)}</span>
             </div>
           </div>
         );

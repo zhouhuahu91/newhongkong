@@ -11,11 +11,11 @@ const DesktopCart = () => {
   // t translates the text.
   const t = useI18n();
   // Return the cart.
-  const { cart } = useCart();
+  const { cartState } = useCart();
   // Return true if we are at /menu
   const { atMenu } = usePath();
   // This is true when cart is empty
-  const empty = cart.items.length === 0;
+  const empty = cartState.cart.length === 0;
 
   return (
     <div

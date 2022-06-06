@@ -13,10 +13,10 @@ import DesktopCart from "@/components/cart/DesktopCart";
 
 const Menu = () => {
   const { data } = useMenu();
-  const { dispatch, cart } = useCart();
+  const { dispatch, cartState } = useCart();
   const t = useI18n();
 
-  console.log(cart.items);
+  console.log(cartState.cart);
 
   // useEffect(() => {
   //   uploadData();
