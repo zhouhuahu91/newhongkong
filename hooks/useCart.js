@@ -173,6 +173,21 @@ const addItem = (cart, payload) => {
     // We need a description for the options and sides they have selected.
     // We need it in all the languages.
     const languages = ["nl", "en", "de"];
+    // We just need these translations to finish the description.
+    const t = {
+      nl: {
+        with: "met",
+        and: "en",
+      },
+      en: {
+        with: "with",
+        and: "and",
+      },
+      de: {
+        with: "mit",
+        and: "und",
+      },
+    };
     const description = {};
 
     languages.forEach((language) => {
@@ -194,14 +209,14 @@ const addItem = (cart, payload) => {
         // If there are two sides and the both sides are the same we return...
         // "with 2x sides".
         if (sides.length === 2 && sides[0].id === sides[1].id) {
-          tempDescription += `${t.with} 2x ${sides[0].name[language]}`;
+          tempDescription += `${t[language].with} 2x ${sides[0].name[language]}`;
         } else {
           // We map over the selectedSides.
           sides.map((side, idx) => {
             // If the current side is the first one we at "met " otherwise we add "en ".
             return idx === 0
-              ? (tempDescription += `${t.with} ${side.name[language]} `)
-              : (tempDescription += `${t.and} ${side.name[language]} `);
+              ? (tempDescription += `${t[language].with} ${side.name[language]} `)
+              : (tempDescription += `${t[language].and} ${side.name[language]} `);
           });
         }
       }
