@@ -19,7 +19,7 @@ const DesktopCart = () => {
 
   return (
     <div
-      className={`sticky mx-auto top-0 border rounded-lg max-w-sm w-full transition-shadow ease-in duration-300 ${
+      className={`sticky top-0 border rounded-lg max-w-sm w-full transition-shadow ease-in duration-300 ${
         !empty && "shadow bg-white"
       }`}
     >

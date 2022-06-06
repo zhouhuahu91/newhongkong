@@ -64,18 +64,40 @@ const ItemModal = ({ item, open, setOpen }) => {
     // We need a new id for the item that also includes the options and sides.
     const id = createItemId(item, selectedOptions, selectedSides);
 
+    // We need the actual options and sides instead of only there id.
+    const options = selectedOptions.map((selectedOption) =>
+      item.options.find((option) => option.id === selectedOption)
+    );
+    const sides = selectedSides.map((selectedSide) =>
+      item.sides.find((side) => side.id === selectedSide)
+    );
+
+    // We need the total price for the options and sides.
+    let addedPrice = 0;
+    if (options.length > 0) {
+      addedPrice += options.reduce((acc, option) => acc + option.price, 0);
+    }
+    if (sides.length > 0) {
+      addedPrice += sides.reduce((acc, side) => acc + side.price, 0);
+    }
+    // We need the total price for the item.
+    const price = (item.price + addedPrice) * qwt;
+
+    // The name of the item is different if optionIsMain is true.
+    const name = item.optionIsMain ? options[0].name : item.name;
+
+    // We need a description for the options and sides they have selected.
+
     // We add the item to the cart.
     dispatch({
       type: "ADD_ITEM",
       payload: {
         id,
         qwt,
-        options: selectedOptions,
-        sides: selectedSides,
-        // If option is main then we need the name of the option selected as the name of the dish.
-        name: item.optionIsMain
-          ? item.options.find((x) => x.id === selectedOptions[0]).name
-          : item.name,
+        options,
+        sides,
+        name,
+        price,
       },
     });
     // We close the modal.

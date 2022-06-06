@@ -65,7 +65,7 @@ const Cart = () => {
             </div>
             {/* This is the cointainer for the cart item price. */}
             <div className="justify-self-end">
-              <span>{euro(3110)}</span>
+              <span>{euro(item.price)}</span>
             </div>
           </div>
         );

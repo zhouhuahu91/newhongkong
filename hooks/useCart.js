@@ -131,8 +131,8 @@ const addItem = (items, payload) => {
         ? {
             ...item,
             qwt: item.qwt + payload.qwt,
-            // First we calculate the price per item and then we multiply it by the total qwt.
-            // price: (item.price / item.qwt) * (item.qwt + newItem.qwt),
+            // We need the price of 1 item to calculate the new price.
+            price: (item.price / item.qwt) * (item.qwt + payload.qwt),
           }
         : item;
     });
@@ -151,7 +151,7 @@ const incrementItem = (items, payload) => {
           qwt: item.qwt + 1,
           // We calculate the new price by getting the price of 1 and then...
           // multipling it with the new qwt + 1.
-          // price: (item.price / item.qwt) * (item.qwt + 1),
+          price: (item.price / item.qwt) * (item.qwt + 1),
         }
       : item;
   });
@@ -170,7 +170,7 @@ const decrementItem = (items, payload) => {
             qwt: item.qwt - 1,
             // We calculate the new price by getting the price of 1 and then...
             // multipling it with the new qwt - 1.
-            // price: (item.price / item.qwt) * (item.qwt - 1),
+            price: (item.price / item.qwt) * (item.qwt - 1),
           }
         : item;
     });
