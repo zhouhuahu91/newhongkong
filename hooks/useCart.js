@@ -1,4 +1,7 @@
+// React imports
 import { useReducer, useContext, createContext, useEffect } from "react";
+// Function imports
+import createItemId from "@/functions/createItemId";
 
 // First we create the context
 const cartContext = createContext();
@@ -122,24 +125,100 @@ export const CartProvider = ({ children }) => {
 // ******** REDUCER FUNCTIONS ********
 
 const addItem = (cart, payload) => {
+  const { qwt, item, selectedOptions, selectedSides } = payload;
+
+  // We need a new id for the item that also includes the options and sides.
+  const id = createItemId(item, selectedOptions, selectedSides);
+
   // We use the find method to check if the new item is already in the cart.
-  const found = cart.find((cartItem) => cartItem.id === payload.id);
+  const found = cart.find((cartItem) => cartItem.id === id);
+
   // If found we map over the cart array and increment the qwt.
   if (found) {
     return cart.map((cartItem) => {
-      return cartItem.id === payload.id
+      return cartItem.id === id
         ? {
             ...cartItem,
-            qwt: cartItem.qwt + payload.qwt,
+            qwt: cartItem.qwt + qwt,
             // We need the price of 1 item to calculate the new price.
-            price:
-              (cartItem.price / cartItem.qwt) * (cartItem.qwt + payload.qwt),
+            price: (cartItem.price / cartItem.qwt) * (cartItem.qwt + qwt),
           }
         : cartItem;
     });
   } else {
-    // If not found we add the new item to the cart.
-    return [...cart, payload];
+    // If not found we need to prepare a new item.
+    // We need the actual options and sides instead of only there id.
+    const options = selectedOptions.map((selectedOption) =>
+      item.options.find((option) => option.id === selectedOption)
+    );
+    const sides = selectedSides.map((selectedSide) =>
+      item.sides.find((side) => side.id === selectedSide)
+    );
+
+    // We need the total price for the options and sides.
+    let addedPrice = 0;
+    if (options.length > 0) {
+      addedPrice += options.reduce((acc, option) => acc + option.price, 0);
+    }
+    if (sides.length > 0) {
+      addedPrice += sides.reduce((acc, side) => acc + side.price, 0);
+    }
+
+    // We need the total price for the item.
+    const price = (item.price + addedPrice) * qwt;
+
+    // The name of the item is different if optionIsMain is true.
+    const name = item.optionIsMain ? options[0].name : item.name;
+
+    // We need a description for the options and sides they have selected.
+    // We need it in all the languages.
+    const languages = ["nl", "en", "de"];
+    const description = {};
+
+    languages.forEach((language) => {
+      let tempDescription = "";
+      // We only at description for the option if there are options and if the selected option...
+      // is not the main.
+      if (options.length && !item.optionIsMain) {
+        // We map over the selectedOptions.
+        options.map((option, idx) => {
+          // If the current option is the last one in the array we do not add a ",".
+          return options.length - 1 === idx
+            ? (tempDescription += `${option.name[language]} `)
+            : (tempDescription += `${option.name[language]}, `);
+        });
+      }
+
+      // We only at description for sides if there are sides.
+      if (sides.length) {
+        // If there are two sides and the both sides are the same we return...
+        // "with 2x sides".
+        if (sides.length === 2 && sides[0].id === sides[1].id) {
+          tempDescription += `${t.with} 2x ${sides[0].name[language]}`;
+        } else {
+          // We map over the selectedSides.
+          sides.map((side, idx) => {
+            // If the current side is the first one we at "met " otherwise we add "en ".
+            return idx === 0
+              ? (tempDescription += `${t.with} ${side.name[language]} `)
+              : (tempDescription += `${t.and} ${side.name[language]} `);
+          });
+        }
+      }
+
+      // We add the tempDescription to the description object.
+      description[language] = tempDescription;
+    });
+
+    const newItem = {
+      id,
+      name,
+      description,
+      price,
+      qwt,
+    };
+    // we add the new item to the cart.
+    return [...cart, newItem];
   }
 };
 
