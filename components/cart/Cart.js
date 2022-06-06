@@ -58,7 +58,7 @@ const Cart = () => {
               <div className="leading-none">
                 {/* See modal for how the item description gets generated. */}
                 <span className="text-xs text-gray-500">
-                  description
+                  {item.description[t.locale]}
                   {/* {getItemDescription(item, t.locale)} */}
                 </span>
               </div>
