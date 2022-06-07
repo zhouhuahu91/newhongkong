@@ -16,7 +16,7 @@ export const useCart = () => {
 const initial = {
   cart: [],
   delivery: true,
-  paymentMethod: "undecided",
+  paymentMethod: "ideal",
   tip: 0,
   bag: true,
   updatedAt: Date.now(),
@@ -69,10 +69,10 @@ const cartReducer = (cartState, action) => {
         paymentMethod: action.payload,
         updatedAt: Date.now(),
       };
-    case "SET_BAG":
+    case "TOGGLE_BAG":
       return {
         ...cartState,
-        bag: action.payload,
+        bag: !cartState.bag,
         updatedAt: Date.now(),
       };
     case "RESET_CART":
