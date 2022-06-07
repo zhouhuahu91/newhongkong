@@ -15,7 +15,7 @@ export const useCart = () => {
 // Declare initial state globally so that we can use it in the cartReducer.
 const initial = {
   cart: [],
-  delivery: "undecided",
+  delivery: true,
   paymentMethod: "undecided",
   tip: 0,
   bag: true,
@@ -25,7 +25,7 @@ const initial = {
 // The cartReducer provides the cart state and dispatch to manipulate it.
 const cartReducer = (cartState, action) => {
   switch (action.type) {
-    case "SET_cartState":
+    case "SET_CARTSTATE":
       return action.payload;
     case "ADD_ITEM":
       return {
@@ -94,7 +94,6 @@ const useCartProvider = () => {
     // Check if there is a localCartState.
     // If not we exit the function.
     if (!localCartState) return;
-
     // We check when the cart was last updated.
     const lastCartUpdate = Date.now() - localCartState.updatedAt;
     // If the cart is older than 3 hours we reset the cart.
@@ -105,7 +104,7 @@ const useCartProvider = () => {
     // Strict mode is causing this te rerender the cart state to initial.
     // That is why we only set cart state if it has items
     if (localCartState.cart.length) {
-      dispatch({ type: "SET_STATE", payload: localCartState });
+      dispatch({ type: "SET_CARTSTATE", payload: localCartState });
     }
   }, []);
 

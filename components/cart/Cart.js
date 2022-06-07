@@ -70,6 +70,20 @@ const Cart = () => {
           </div>
         );
       })}
+      {/* This is the container for subtotal, tips, delivery cost and total.  */}
+      <div className="border-t mt-6 py-4">
+        <div className="flex justify-between mt-2">
+          <span>{t.subtotal}</span>
+          <span>{euro(cartState.cart.reduce((x, y) => x + y.price, 0))}</span>
+        </div>
+        {/* If they selecte delivery during checkout we show the delivery price. */}
+        {cartState.delivery && cartState.delivery !== "undecided" && (
+          <div className="flex justify-between mt-2">
+            <span>{t.delivery_fee}</span>
+            <span>{euro(250)}</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
