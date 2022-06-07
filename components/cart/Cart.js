@@ -15,16 +15,13 @@ const Cart = () => {
   const { cartState, dispatch } = useCart();
 
   return (
-    <div
-      style={{ maxHeight: "calc(100vh - 185px)" }}
-      className="px-4 pb-4 select-none"
-    >
+    <div style={{ maxHeight: "calc(100vh - 185px)" }} className="select-none">
       {cartState.cart.map((cartItem) => {
         return (
           // This is the main container where the cart items are.
           <div
             key={cartItem.id}
-            className="flex mt-2 items-start overflow-auto"
+            className="flex mt-2 items-start overflow-auto px-4"
           >
             {/* This container div is where we can increment and decrement the item in the cart. */}
             <div
@@ -76,44 +73,48 @@ const Cart = () => {
         );
       })}
       {/* This is the container for subtotal, tips, delivery cost and total.  */}
-      <div className="border-t mt-6 py-4">
-        <div className="flex justify-between mt-2">
-          <span>{t.subtotal}</span>
-          <span>{euro(cartState.cart.reduce((x, y) => x + y.price, 0))}</span>
-        </div>
-        {/* If they selecte delivery we show the delivery price. */}
-        {cartState.delivery && cartState.delivery !== "undecided" && (
+      <div className="p-4 mt-6">
+        <div className="border-t pt-4">
           <div className="flex justify-between mt-2">
-            <span>{t.delivery_fee}</span>
-            <span>{euro(250)}</span>
+            <span>{t.subtotal}</span>
+            <span>{euro(cartState.cart.reduce((x, y) => x + y.price, 0))}</span>
           </div>
-        )}
-        {/* If they do NOT pay with cash we add the cost for transaction. */}
-        {cartState.paymentMethod !== "cash" &&
-          cartState.paymentMethod !== "undecided" && (
+          {/* If they selecte delivery we show the delivery price. */}
+          {cartState.delivery && cartState.delivery !== "undecided" && (
             <div className="flex justify-between mt-2">
-              <span>{t.transaction_fee}</span>
-              <span>{euro(30)}</span>
+              <span>{t.delivery_fee}</span>
+              <span>{euro(250)}</span>
             </div>
           )}
-      </div>
-      {/* If they select for pick up they have to pay for the platic bag or... */}
-      {/* they have to bring their own. */}
-      {(!cartState.delivery || cartState.delivery === "undecided" || true) && (
-        <div className="flex justify-between mt-2">
-          <div className="flex space-x-1 items-center">
-            <span>{t.bag}</span>
-            <Tooltip tip={t.bag_tooltip} />
-          </div>
-          <div className="flex items-center space-x-4">
-            <Switch
-              toggle={cartState.bag}
-              onClick={() => dispatch({ type: "TOGGLE_BAG" })}
-            />
-            <span>{cartState.bag ? euro(10) : euro(0)}</span>
-          </div>
+          {/* If they do NOT pay with cash we add the cost for transaction. */}
+          {cartState.paymentMethod !== "cash" &&
+            cartState.paymentMethod !== "undecided" && (
+              <div className="flex justify-between mt-2">
+                <span>{t.transaction_fee}</span>
+                <span>{euro(30)}</span>
+              </div>
+            )}
+          {/* If they select for pick up they have to pay for the platic bag or... */}
+          {/* they have to bring their own. */}
+          {(!cartState.delivery ||
+            cartState.delivery === "undecided" ||
+            true) && (
+            <div className="flex justify-between mt-2">
+              <div className="flex space-x-1 items-center">
+                <span>{t.bag}</span>
+                <Tooltip tip={t.bag_tooltip} />
+              </div>
+              <div className="flex items-center space-x-4">
+                <Switch
+                  toggle={cartState.bag}
+                  onClick={() => dispatch({ type: "TOGGLE_BAG" })}
+                />
+                <span>{cartState.bag ? euro(10) : euro(0)}</span>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
