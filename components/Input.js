@@ -63,7 +63,7 @@ const Input = ({
           autoComplete={autoComplete ? autoComplete : name}
           // Id is always the name it is needed to link the label to the input.
           id={name}
-          className={`appearance-none my-0.5 border rounded-lg w-full text-sm hover:shadow hover:scale-[1.04] transition-transform focus:scale-[1.04] focus:outline-none bg-inherit focus:shadow py-2 placeholder-gray-300 ${
+          className={`appearance-none my-0.5 border rounded-lg w-full text-sm hover:shadow-sm hover:scale-[1.04] transition-transform focus:scale-[1.04] focus:outline-none bg-inherit focus:shadow-sm py-2 placeholder-gray-300 ${
             capitalize ? "capitalize" : ""
             // If name is password we move add extra padding on the right side for the icon
           } ${name === "password" ? "pl-3 pr-8" : "px-3"}`}
