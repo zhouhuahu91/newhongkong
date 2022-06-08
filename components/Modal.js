@@ -9,8 +9,8 @@ const backdropVariant = {
 };
 
 const modalVariant = {
-  hidden: { opacity: 0, scale: 0.9, transition: { type: "tween" } },
-  visible: { opacity: 1, scale: 1, transition: { type: "tween" } },
+  hidden: { opacity: 0, scale: 0.85 },
+  visible: { opacity: 1, scale: 1 },
 };
 
 const Modal = ({ open, children, setOpen, className }) => {
@@ -33,6 +33,7 @@ const Modal = ({ open, children, setOpen, className }) => {
             className={className}
             onClick={(e) => e.stopPropagation()}
             variants={modalVariant}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
           >
             {children}
           </motion.div>

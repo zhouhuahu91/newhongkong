@@ -64,9 +64,10 @@ const I18nMenu = () => {
       <AnimatePresence>
         {i18nMenu && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1, transition: { duration: 0.3 } }}
-            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.3 } }}
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            exit={{ opacity: 0, scale: 0.85 }}
             className="absolute top-8 rounded-md border text-sm right-0 shadow-sm bg-white py-2 w-40 z-10"
           >
             {languages.map((language) => {
