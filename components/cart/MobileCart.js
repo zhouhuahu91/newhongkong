@@ -43,7 +43,7 @@ const MobileCart = () => {
             // To fix this we make the cart button a bit bigger.
             className={`md:hidden ${
               atCheckout
-                ? "top-0 sticky shadow-sm border-b"
+                ? "top-0 sticky shadow border-b"
                 : "bottom-0 fixed border-t"
             } p-4 w-full bg-white`}
           >

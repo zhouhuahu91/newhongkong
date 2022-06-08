@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
   // Translate this to different languages.
   return (
     <div className="flex flex-col justify-center items-center m-4">
-      <div className="flex flex-col justify-center rounded-xl py-8 px-6 w-full max-w-screen-md border bg-white shadow-sm">
+      <div className="flex flex-col justify-center rounded-xl py-8 px-6 w-full max-w-screen-md border bg-white shadow">
         <h1 className="text-3xl font-semibold mb-4">Privacybeleid</h1>
         <p className={p}>
           New Hong Kong, gevestigd aan Havenstraat 13 2211EE Noordwijkerhout, is
