@@ -8,6 +8,7 @@ import { useMenu } from "@/hooks/useMenu";
 // Component imports
 import Card from "@/components/menu/Card";
 import DesktopCart from "@/components/cart/DesktopCart";
+import MobileCart from "@/components/cart/MobileCart";
 // Upload new menu to firestore if needed.
 // import uploadData from "../data/uploadData";
 
@@ -44,12 +45,14 @@ const Menu = () => {
             );
           })}
         </div>
-        {/* This is the container where the cart is. */}
+        {/* This is the container where the desktopcart is. */}
         <div className="hidden md:block col-span-6 lg:col-span-5">
+          {/* This span is needed so that the desktop starts on the same height as the menu without title. */}
           <span className="block text-2xl mt-8 mb-4">&nbsp;</span>
           <DesktopCart />
         </div>
       </div>
+      <MobileCart />
     </div>
   );
 };
