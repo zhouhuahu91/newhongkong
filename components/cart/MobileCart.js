@@ -32,7 +32,7 @@ const MobileCart = () => {
         {/* If cart is empty we do not show this button */}
         {cartState.cart.length > 0 && (
           <motion.div
-            initial={{ y: atCheckout ? -200 : 100 }}
+            initial={{ y: atCheckout ? -100 : 100 }}
             animate={{ y: 0 }}
             transition={{
               duration: 0.5,

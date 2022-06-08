@@ -18,7 +18,7 @@ const Header = () => {
     <>
       {/* ********* HEADER ********* */}
       <div
-        className={`w-full flex justify-center ${
+        className={`w-full flex justify-center z-10 ${
           atHome
             ? "bg-main"
             : // on smaller screens we do not want shadow and border when at checkout because of the cart menu that hovers beneath the header.
