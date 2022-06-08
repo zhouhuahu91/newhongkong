@@ -9,7 +9,11 @@ import Switch from "@/components/Switch";
 import Tooltip from "@/components/ToolTip";
 // Function imports
 import euro from "@/functions/euro";
+<<<<<<< HEAD
 import calcCartTotal from "@/functions/calcCartTotal";
+=======
+import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
+>>>>>>> 62d310ddc073530ed51078be9d40647893dd62ac
 
 const Cart = () => {
   // t translates the text.
@@ -159,7 +163,11 @@ const Cart = () => {
         </div>
         <div className="flex justify-between mt-1">
           <span>{t.total}</span>
+<<<<<<< HEAD
           <span>{euro(calcCartTotal(cartState))}</span>
+=======
+          <span>{euro(calculateTotalCartPrice(cartState))}</span>
+>>>>>>> 62d310ddc073530ed51078be9d40647893dd62ac
         </div>
       </div>
     </>

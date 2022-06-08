@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
-// Function imports
-import createItemId from "@/functions/createItemId";
 // Component Imports
 import Modal from "@/components/Modal";
 import IconButton from "@/components/IconButton";
@@ -79,8 +77,9 @@ const ItemModal = ({ item, open, setOpen }) => {
       className="bg-white h-auto w-10/12 max-w-sm rounded-lg relative flex flex-col overflow-hidden select-none"
     >
       {/* Container for the title */}
-      <div className="p-4 flex justify-between items-center shadow-sm border-b">
+      <div className="p-4 flex justify-between items-center shadow border-b">
         <h1 className="text-xl font-semibold">{item.name[t.locale]}</h1>
+        <IconButton variant="close" onClick={() => setOpen(false)} />
       </div>
       {/* Container for the information and options. */}
       <div

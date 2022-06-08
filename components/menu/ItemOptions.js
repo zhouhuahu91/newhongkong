@@ -71,7 +71,7 @@ const ItemOptions = ({
           <div key={option.id} className="flex items-center">
             <div className="flex flex-grow items-center space-x-2">
               <input
-                className={`form-checkbox p-2 rounded shadow-sm border-gray-300 text-main focus:ring-red-200 focus:ring-offset-0 ${
+                className={`form-checkbox p-2 rounded shadow border-gray-300 text-main focus:ring-red-200 focus:ring-offset-0 ${
                   disabled ? "" : "cursor-pointer"
                 }`}
                 id={option.id}

@@ -22,7 +22,6 @@ const useMenuProvider = () => {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const menus = snapshot.docs.map((doc) => ({
         ...doc.data(),
-        id: doc.id,
       }));
       setData(menus);
     });

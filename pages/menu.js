@@ -1,5 +1,5 @@
 //React imports
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Hook imports
 import useI18n from "@/hooks/useI18n";
@@ -8,6 +8,8 @@ import { useMenu } from "@/hooks/useMenu";
 // Component imports
 import Card from "@/components/menu/Card";
 import DesktopCart from "@/components/cart/DesktopCart";
+import MobileCart from "@/components/cart/MobileCart";
+import CategoryHeader from "@/components/menu/CategoryHeader";
 // Upload new menu to firestore if needed.
 // import uploadData from "../data/uploadData";
 
@@ -15,8 +17,7 @@ const Menu = () => {
   const { data } = useMenu();
   const { dispatch, cartState } = useCart();
   const t = useI18n();
-
-  console.log(cartState.cart);
+  const categoryRef = useRef([]);
 
   // useEffect(() => {
   //   uploadData();
@@ -29,9 +30,15 @@ const Menu = () => {
       <div className="grid grid-cols-12 gap-4 mx-6 mt-4">
         {/* This is the container where all the cards are.*/}
         <div className="col-span-12 md:col-span-6 lg:col-span-7 place-self-center mb-20 w-full">
-          {data.map((category) => {
+          <CategoryHeader data={data} categoryRef={categoryRef} />
+          {data.map((category, idx) => {
+            console.log(category);
             return (
-              <div key={category.id}>
+              <div
+                ref={(e) => (categoryRef.current[idx] = e)}
+                id={category.id}
+                key={category.id}
+              >
                 <h2 className="font-semibold text-2xl uppercase mt-8 mb-4">
                   {category.category[t.locale]}
                 </h2>
@@ -44,12 +51,14 @@ const Menu = () => {
             );
           })}
         </div>
-        {/* This is the container where the cart is. */}
+        {/* This is the container where the desktopcart is. */}
         <div className="hidden md:block col-span-6 lg:col-span-5">
+          {/* This span is needed so that the desktop starts on the same height as the menu without title. */}
           <span className="block text-2xl mt-8 mb-4">&nbsp;</span>
           <DesktopCart />
         </div>
       </div>
+      <MobileCart />
     </div>
   );
 };

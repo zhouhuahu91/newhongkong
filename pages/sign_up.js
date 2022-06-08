@@ -67,7 +67,7 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col justify-center items-center mx-4 mt-10 sm:mt-32">
-      <div className="flex flex-col justify-center rounded-xl py-8 px-6 w-full max-w-sm border bg-white shadow-sm">
+      <div className="flex flex-col justify-center rounded-xl py-8 px-6 w-full max-w-sm border bg-white shadow">
         <h1 className="font-semibold text-3xl">{t.welcome}</h1>
         <h2 className="text-sm">{t.sign_in_text}</h2>
         <form className="grid gap-3 mt-10" onSubmit={handleSubmit(onSubmit)}>
