@@ -5,6 +5,7 @@ import Link from "next/link";
 // Component imports
 import Modal from "@/components/Modal";
 import Cart from "@/components/cart/Cart";
+import IconButton from "@/components/IconButton";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -31,7 +32,7 @@ const MobileCart = () => {
         {/* If cart is empty we do not show this button */}
         {cartState.cart.length > 0 && (
           <motion.div
-            initial={{ y: atCheckout ? -100 : 100 }}
+            initial={{ y: atCheckout ? -200 : 100 }}
             animate={{ y: 0 }}
             transition={{
               duration: 0.5,
@@ -60,10 +61,12 @@ const MobileCart = () => {
       <Modal
         open={open}
         setOpen={setOpen}
-        className="bg-white fixed inset-0 w-full h-full flex flex-col"
+        className="bg-white fixed inset-0 w-full h-full flex flex-col sm:p-4"
       >
-        {/*  */}
-        <h1 className="font-semibold text-2xl p-4">{t.cart}</h1>
+        <div className="flex items-center justify-between p-4">
+          <h1 className="font-semibold text-2xl">{t.cart}</h1>
+          <IconButton variant="close" onClick={() => setOpen(false)} />
+        </div>
         <Cart />
         <div className="p-4 flex flex-col space-y-2">
           {atMenu && (
