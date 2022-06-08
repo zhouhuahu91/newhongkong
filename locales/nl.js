@@ -135,7 +135,7 @@ export default {
   your_cart_is_empty: "Je lijstje is leeg.",
   subtotal: "subtotaal",
   delivery_fee: "bezorgkosten",
-  transaction_fee: "transactie kosten",
+  transaction_fee: "transactiekosten",
   restaurant_tip: "fooi",
   total: "totaal",
   bag: "tasje",

@@ -9,6 +9,7 @@ import Switch from "@/components/Switch";
 import Tooltip from "@/components/ToolTip";
 // Function imports
 import euro from "@/functions/euro";
+import calcCartTotal from "@/functions/calcCartTotal";
 
 const Cart = () => {
   // t translates the text.
@@ -158,7 +159,7 @@ const Cart = () => {
         </div>
         <div className="flex justify-between mt-1">
           <span>{t.total}</span>
-          <span>{euro(1000)}</span>
+          <span>{euro(calcCartTotal(cartState))}</span>
         </div>
       </div>
     </>
