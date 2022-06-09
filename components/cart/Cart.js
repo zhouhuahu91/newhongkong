@@ -33,7 +33,7 @@ const Cart = () => {
       {/* ********* CART ITEMS CONTAINER ********* */}
       <div
         ref={ref}
-        style={{ maxHeight: "calc(100vh - 170px)" }}
+        style={{ maxHeight: "calc(100vh - 250px)" }}
         className="select-none overflow-auto flex-grow px-4 pb-4"
       >
         {cartState.cart.map((cartItem) => {
