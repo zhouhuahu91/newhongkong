@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import useI18n from "@/hooks/useI18n";
 // Function imports
 import getElementDimensions from "@/functions/getElementDimensions";
+// Component imports
+import IconButton from "@/components/IconButton";
 
 const CategoryHeader = ({ data, categoryRef }) => {
   // This state stores the id of the current category in view.
@@ -12,6 +14,7 @@ const CategoryHeader = ({ data, categoryRef }) => {
   const t = useI18n();
   // This references to the category title itself.
   const categoryTitleRef = useRef([]);
+  // This is a reference to the container holding the titles.
   const containerRef = useRef();
 
   // This useEffect listens to scroll and changes the visableCategory state.
@@ -32,54 +35,104 @@ const CategoryHeader = ({ data, categoryRef }) => {
         setVisableCategory(currentCategory);
       }
     };
-
+    // We set the event listener.
     window.addEventListener("scroll", handleScroll);
-
+    // We clean up the event listener.
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // This useEffect hightlights the current category in the header.
   useEffect(() => {
+    // We first check if everything is loaded.
     if (containerRef.current && visableCategory && categoryTitleRef.current) {
+      // We look for the element that is currently visable.
+      // We filter out the title that has the same id.
       const element = categoryTitleRef.current.find(
         (title) => title.id === visableCategory.id
       );
+      // We then scroll to the element.
       const { offsetLeft } = getElementDimensions(element);
+      // We then scroll to this element in the container ref.
+      // We have an ajustment of 5 for the padding.
       containerRef.current.scrollTo({
-        left: offsetLeft - 40,
+        // We ajust it with the offset of the container because it has margins and paddings.
+        left: offsetLeft - containerRef.current.offsetLeft - 5,
         behavior: "smooth",
       });
     }
   }, [visableCategory, containerRef, categoryTitleRef]);
 
   return (
-    <div className="sticky top-0 bg-white z-10 rounded-full border mt-10 hover:shadow focus:shadow">
-      <div
-        ref={containerRef}
-        className="flex overflow-scroll mx-8 hide-scroll-bar"
-      >
-        {data.map((category, idx) => (
-          <div
-            id={category.id}
-            key={category.id}
-            ref={(e) => (categoryTitleRef.current[idx] = e)}
+    <div className="bg-white border-b sticky top-0 z-10">
+      <div className="mx-auto max-w-screen-xl flex items-center">
+        {/* This button scrolls the container holding the category titles to the left. */}
+        {/* It scrolls it only one client width at the time. */}
+        <div className="px-2 flex items-center">
+          <IconButton
             onClick={() => {
-              window.scrollTo({
-                behavior: "smooth",
-                // We scroll to the top of the category + 50px for ajustment.
-                top: categoryRef.current[idx].offsetTop + 50,
-              });
+              if (containerRef.current) {
+                containerRef.current.scrollTo({
+                  left:
+                    // We check where the current scroll position is and we subtract the width of the element.
+                    containerRef.current.scrollLeft -
+                    containerRef.current.clientWidth,
+                  behavior: "smooth",
+                });
+              }
             }}
-            className={`whitespace-nowrap my-2 cursor-pointer flex items-center`}
-          >
-            <span
-              className={`px-2 text-sm py-1 rounded-full transition-colors ease-in duration-200 ${
-                visableCategory?.id == category.id && "bg-main text-white"
-              }`}
+            variant="chevron_left"
+          />
+        </div>
+
+        {/* ********* CONTAINER FOR ALL THE TITLES ********* */}
+        <div
+          ref={containerRef}
+          className="flex overflow-scroll hide-scroll-bar"
+        >
+          {data.map((category, idx) => (
+            <div
+              id={category.id}
+              key={category.id}
+              ref={(e) => (categoryTitleRef.current[idx] = e)}
+              onClick={() => {
+                // This scrolls the main menu in the y axis.
+                window.scrollTo({
+                  behavior: "smooth",
+                  // We scroll to the top of the category + 80px for ajustment.
+                  top: categoryRef.current[idx].offsetTop + 80,
+                });
+              }}
+              className={`whitespace-nowrap my-3 cursor-pointer flex items-center`}
             >
-              {category.category[t.locale]}
-            </span>
-          </div>
-        ))}
+              {/* We highlight the category that is selected. */}
+              <span
+                className={`px-2 text-sm py-1 rounded-full transition-colors ease-in duration-200 ${
+                  visableCategory?.id == category.id &&
+                  "bg-main text-white shadow-md font-medium"
+                }`}
+              >
+                {category.category[t.locale]}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="px-2 flex items-center">
+          <IconButton
+            onClick={() => {
+              if (containerRef.current) {
+                containerRef.current.scrollTo({
+                  left:
+                    // We check where the current scroll position is and we add the scroll width of the element.
+                    containerRef.current.scrollLeft +
+                    containerRef.current.clientWidth,
+                  behavior: "smooth",
+                });
+              }
+            }}
+            variant="chevron_right"
+            className="px-2"
+          />
+        </div>
       </div>
     </div>
   );

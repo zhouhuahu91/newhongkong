@@ -12,19 +12,19 @@ const Header = () => {
   // This hook provides translations for the different languages.
   const t = useI18n();
   // We need the pathname because of different styling for home page.
-  const { atHome, atCheckout } = usePath();
+  const { atHome, atCheckout, atMenu } = usePath();
 
   return (
     <>
       {/* ********* HEADER ********* */}
       <div
         className={`w-full flex justify-center z-10 ${
-          atHome
-            ? "bg-main"
-            : // on smaller screens we do not want shadow and border when at checkout because of the cart menu that hovers beneath the header.
-              `bg-white md:border-b md:shadow-sm ${
-                !atCheckout && "shadow-sm border-b"
-              }`
+          atHome ? "bg-main" : "bg-white"
+        } ${
+          // If we are not at menu we need shadow and border.
+          // But if are on small screens on checkout page we don't need shadow and border.
+          !atMenu &&
+          `${atCheckout ? "md:shadow-sm md:border-b" : "shadow-sm border-b"}`
         }`}
       >
         {/* ******** MAIN CONTAINER ******** */}
