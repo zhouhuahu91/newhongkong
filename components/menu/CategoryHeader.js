@@ -12,6 +12,7 @@ const CategoryHeader = ({ data, categoryRef }) => {
   const t = useI18n();
   // This references to the category title itself.
   const categoryTitleRef = useRef([]);
+  const containerRef = useRef();
 
   // This useEffect listens to scroll and changes the visableCategory state.
   useEffect(() => {
@@ -22,13 +23,13 @@ const CategoryHeader = ({ data, categoryRef }) => {
       const currentCategory = categoryRef.current.find((e) => {
         if (e) {
           const { offsetBottom, offsetTop } = getElementDimensions(e);
-          return position >= offsetTop && position <= offsetBottom;
+          return position > offsetTop && position < offsetBottom;
         }
       });
       // If there is a currentCategory and it is not the same as the visableCategory...
       // ...then set the visableCategory to the curret category's id.
       if (currentCategory && currentCategory !== visableCategory) {
-        setVisableCategory(currentCategory.id);
+        setVisableCategory(currentCategory);
       }
     };
 
@@ -38,18 +39,27 @@ const CategoryHeader = ({ data, categoryRef }) => {
   }, []);
 
   useEffect(() => {
-    if (visableCategory) {
-      categoryTitleRef.current[visableCategory].scrollIntoView({
+    if (containerRef.current && visableCategory && categoryTitleRef.current) {
+      const element = categoryTitleRef.current.find(
+        (title) => title.id === visableCategory.id
+      );
+      const { offsetLeft } = getElementDimensions(element);
+      containerRef.current.scrollTo({
+        left: offsetLeft - 40,
         behavior: "smooth",
       });
     }
-  }, [visableCategory]);
+  }, [visableCategory, containerRef, categoryTitleRef]);
 
   return (
-    <div className="sticky top-0 bg-white z-10 rounded-full border max-w-screen-md mt-10">
-      <div className="flex overflow-scroll mx-8">
+    <div className="sticky top-0 bg-white z-10 rounded-full border mt-10 hover:shadow focus:shadow">
+      <div
+        ref={containerRef}
+        className="flex overflow-scroll mx-8 hide-scroll-bar"
+      >
         {data.map((category, idx) => (
           <div
+            id={category.id}
             key={category.id}
             ref={(e) => (categoryTitleRef.current[idx] = e)}
             onClick={() => {
@@ -63,7 +73,7 @@ const CategoryHeader = ({ data, categoryRef }) => {
           >
             <span
               className={`px-2 text-sm py-1 rounded-full transition-colors ease-in duration-200 ${
-                visableCategory == category.id && "bg-main text-white"
+                visableCategory?.id == category.id && "bg-main text-white"
               }`}
             >
               {category.category[t.locale]}

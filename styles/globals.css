@@ -21,3 +21,14 @@ a {
 .button {
   @apply flex items-center justify-center text-sm py-2 rounded-md shadow focus:outline-none font-medium;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scroll-bar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
