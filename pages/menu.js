@@ -29,6 +29,9 @@ const Menu = () => {
   // useEffect(() => {
   //   uploadData();
   // }, []);
+
+  if (data.length < 1) return <div>...loading</div>;
+
   return (
     <>
       <DeliveryOrPickUp open={open} setOpen={setOpen} />

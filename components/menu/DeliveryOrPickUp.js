@@ -45,9 +45,9 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
 
   return (
     <Modal
-      open={true}
+      open={open}
       setOpen={setOpen}
-      className="bg-white max-w-xs w-full p-4 rounded-lg flex flex-col space-y-4"
+      className="bg-white max-w-xs w-full h-60 p-4 rounded-lg flex flex-col space-y-4 justify-between"
     >
       <div className="flex justify-between">
         {/* This button sets delivery to false which means the customer will pcik up the order */}
@@ -84,36 +84,41 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
           </span>
         </div>
       )}
-      <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-2">
-        <Input
-          register={register}
-          errors={errors.postalcode}
-          name="postalcode"
-          autoComplete="postal-code"
-          type="text"
-          label={t.postalcode}
-          wrapper="w-4/12"
-          asterisk
-        />
-        {/* Container for the houseNumber. */}
-        <Input
-          register={register}
-          errors={errors.houseNumber}
-          name="houseNumber"
-          type="tel"
-          label={t.house_number}
-          wrapper="w-5/12"
-          asterisk
-        />
-        <Input
-          register={register}
-          errors={errors.addition}
-          name="addition"
-          type="text"
-          label={t.house_number_addition}
-          wrapper="w-3/12"
-        />
-      </form>
+      {delivery === true && (
+        <>
+          <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-2">
+            <Input
+              register={register}
+              errors={errors.postalcode}
+              name="postalcode"
+              autoComplete="postal-code"
+              type="text"
+              label={t.postalcode}
+              wrapper="w-4/12"
+              asterisk
+            />
+            {/* Container for the houseNumber. */}
+            <Input
+              register={register}
+              errors={errors.houseNumber}
+              name="houseNumber"
+              type="tel"
+              label={t.house_number}
+              wrapper="w-5/12"
+              asterisk
+            />
+            <Input
+              register={register}
+              errors={errors.addition}
+              name="addition"
+              type="text"
+              label={t.house_number_addition}
+              wrapper="w-3/12"
+            />
+          </form>
+          <div></div>
+        </>
+      )}
       <div>
         <button className="w-full bg-main text-white button">
           {t.back_to_menu}

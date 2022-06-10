@@ -21,9 +21,10 @@ const Header = () => {
         className={`w-full flex justify-center z-50 ${
           atHome ? "bg-main" : "bg-white"
         } ${
-          // If we are not at menu we need shadow and border.
+          // If we are not at menu and not at home we need shadow and border.
           // But if are on small screens on checkout page we don't need shadow and border.
           !atMenu &&
+          !atHome &&
           `${atCheckout ? "md:shadow-sm md:border-b" : "shadow-sm border-b"}`
         }`}
       >
