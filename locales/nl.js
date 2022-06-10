@@ -174,8 +174,8 @@ export default {
   almost_done: "Bijna klaar",
 
   // Pick up or delivery
-  pickup_delivery: "Wil je het eten zelf ophalen of bezorgd krijgen?",
-  pick_up: "Ophalen",
+  pickup_delivery: "Wil je het eten zelf afhalen of bezorgd krijgen?",
+  pick_up: "Afhalen",
   delivery: "Bezorgen",
   coming_up: "Binnenkort",
   no_orders: "Geen bestellingen",

@@ -68,6 +68,7 @@ const I18nMenu = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", damping: 20, stiffness: 300 }}
             exit={{ opacity: 0, scale: 0.85 }}
+            style={{ zIndex: 999 }}
             className="absolute top-8 rounded-md border text-sm right-0 shadow bg-white py-2 w-40 z-10"
           >
             {languages.map((language) => {

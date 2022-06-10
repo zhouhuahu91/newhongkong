@@ -18,7 +18,7 @@ const Header = () => {
     <>
       {/* ********* HEADER ********* */}
       <div
-        className={`w-full flex justify-center z-10 ${
+        className={`w-full flex justify-center z-50 ${
           atHome ? "bg-main" : "bg-white"
         } ${
           // If we are not at menu we need shadow and border.

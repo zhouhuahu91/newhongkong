@@ -57,7 +57,7 @@ const AuthMenu = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", damping: 20, stiffness: 300 }}
             exit={{ opacity: 0, scale: 0.85 }}
-            className="absolute top-9 rounded-md border text-sm right-0 shadow bg-white py-2 z-10"
+            className="absolute top-9 rounded-md border text-sm right-0 shadow bg-white py-2 z-20"
           >
             <div className="px-4 py-1 text-left w-full">
               {t.signed_in_as}{" "}
