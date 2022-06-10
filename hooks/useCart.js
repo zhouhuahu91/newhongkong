@@ -15,7 +15,7 @@ export const useCart = () => {
 // Declare initial state globally so that we can use it in the cartReducer.
 const initial = {
   cart: [],
-  delivery: true,
+  delivery: "undecided",
   paymentMethod: "ideal",
   tip: 0,
   bag: true,
