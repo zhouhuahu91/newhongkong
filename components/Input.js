@@ -40,6 +40,8 @@ const Input = ({
       </label>
       <div className="relative">
         <input
+          // "tailwind bg-white somehow doesn't work"
+          style={{ backgroundColor: "white" }}
           {...register(name)}
           type={
             // If there is no type we use name.

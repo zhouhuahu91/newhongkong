@@ -30,6 +30,7 @@ const Modal = ({ open, children, setOpen, className }) => {
           }}
         >
           <motion.div
+            layout
             className={className}
             onClick={(e) => e.stopPropagation()}
             variants={modalVariant}
