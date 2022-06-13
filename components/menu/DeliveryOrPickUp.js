@@ -19,30 +19,37 @@ import fetchAddressFromAPI from "@/functions/fetchAddressFromAPI";
 const DeliveryOrPickUp = ({ open, setOpen }) => {
   // Returns the state of the cart and dispatch to manipulate the cart.
   const { dispatch, cartState } = useCart();
+  // Stores the state of delivery or pickup. true = delivery, false = pickup.
   const [delivery, setDelivery] = useState(cartState.delivery);
+  // Store the state of the address.
+  const [address, setAddress] = useState({});
   // t is used to translate the text.
   const t = useI18n();
   // Style of the button.
   const btnStyle =
     "flex items-center justify-center text-sm py-2 focus:outline-none font-medium w-1/2 border transition-colors duration-200 ease-in-out";
   const schema = yup.object().shape({
-    postalcode: yup
-      .string()
-      .required(t.required)
-      // We check if the postalcode is a dutch postalcode e.g. 1234AB.
-      .matches(/^[1-9][0-9]{3}[\s]?[a-z]{2}[\s]?$/i, t.postalcode_not_valid)
-      // We check if the postalcode is in our area. Only 2211, 2212 and limited 2204.
-      // Note that 2204 is with limited options not all letter combos are allowed.
-      .matches(
-        /^(2211)[\s]?[a-z]{2}$|^(2212)[\s]?[a-z]{2}$|^(2204)[\s]?([a][bcjklnprstwx])|(2204)[\s]?([b-c][a-z])$/i,
-        t.no_delivery_here
-      ),
+    postalcode: delivery
+      ? yup
+          .string()
+          .required(t.required)
+          // We check if the postalcode is a dutch postalcode e.g. 1234AB.
+          .matches(/^[1-9][0-9]{3}[\s]?[a-z]{2}[\s]?$/i, t.postalcode_not_valid)
+          // We check if the postalcode is in our area. Only 2211, 2212 and limited 2204.
+          // Note that 2204 is with limited options not all letter combos are allowed.
+          .matches(
+            /^(2211)[\s]?[a-z]{2}$|^(2212)[\s]?[a-z]{2}$|^(2204)[\s]?([a][bcjklnprstwx])|(2204)[\s]?([b-c][a-z])$/i,
+            t.no_delivery_here
+          )
+      : yup.string(),
     // House number only needs validation when delivery is selected.
-    houseNumber: yup
-      .string()
-      // Only numbers are allowed 0-9.
-      .matches(/^[0-9]*[\s]?$/, t.house_number_not_valid)
-      .required(t.required),
+    houseNumber: delivery
+      ? yup
+          .string()
+          // Only numbers are allowed 0-9.
+          .matches(/^[0-9]*[\s]?$/, t.house_number_not_valid)
+          .required(t.required)
+      : yup.string(),
     // Can be whatever. Not sure is 10 is long enough but haven't encountered...
     // a addition to hosue number longer than 5 characters
     addition: yup.string().max(10),
@@ -60,15 +67,16 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
   });
   const postalcode = watch("postalcode");
   const houseNumber = watch("houseNumber");
+  const addition = watch("addition");
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log("test");
   };
 
   useEffect(() => {
     const fetchAddress = async () => {
       const response = await fetchAddressFromAPI(postalcode, houseNumber);
-      console.log(response);
+      setAddress(response);
     };
 
     fetchAddress();
@@ -78,7 +86,7 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
     <Modal
       open={open}
       setOpen={setOpen}
-      className="bg-white max-w-sm w-full m-4 rounded-lg flex flex-col justify-between"
+      className="bg-white max-w-md w-full m-4 rounded-lg flex flex-col justify-between"
     >
       <h2 className="text-lg p-4">{t.pickup_delivery}</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -120,7 +128,7 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
           )}
           {delivery === true && (
             <>
-              <div className="flex flex-col mt-4 space-y-2">
+              <div className="grid grid-cols-12 mt-4 gap-2">
                 <Input
                   register={register}
                   errors={errors.postalcode}
@@ -129,29 +137,38 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
                   type="text"
                   label={t.postalcode}
                   asterisk
+                  wrapper="col-span-12 sm:col-span-6"
                 />
                 {/* Container for the houseNumber. */}
-                <div className="w-full flex space-x-2">
-                  <Input
-                    register={register}
-                    errors={errors.houseNumber}
-                    name="houseNumber"
-                    type="tel"
-                    label={t.house_number}
-                    wrapper="w-7/12"
-                    asterisk
-                  />
-                  <Input
-                    register={register}
-                    errors={errors.addition}
-                    name="addition"
-                    type="text"
-                    label={t.house_number_addition}
-                    wrapper="w-5/12"
-                  />
-                </div>
+                <Input
+                  register={register}
+                  errors={errors.houseNumber}
+                  name="houseNumber"
+                  type="tel"
+                  label={t.house_number}
+                  wrapper="col-span-7 sm:col-span-3"
+                  asterisk
+                />
+                <Input
+                  register={register}
+                  errors={errors.addition}
+                  name="addition"
+                  type="text"
+                  label={t.house_number_addition}
+                  wrapper="col-span-5 sm:col-span-3"
+                />
+                {address.street && (
+                  <div className="text-xs text-gray-600 col-span-12">
+                    {address.street} {address.houseNumber}
+                    {addition && addition}, {address.postalcode} {address.city}
+                  </div>
+                )}
+                {address.error === "not found" && (
+                  <div className="text-xs text-gray-600 col-span-12">
+                    {t.can_not_find_address}
+                  </div>
+                )}
               </div>
-              <div></div>
             </>
           )}
         </div>
