@@ -61,6 +61,8 @@ export default {
   choose_three_options: "Choose three options *",
   cancel: "Cancel",
   add_for: "Add for",
+  rather_pick_up: "Would you rather pick it up?",
+  rather_deliver: "Would you rather have it deliverd?",
 
   // ******** MENU ********
 

@@ -16,7 +16,7 @@ import euro from "@/functions/euro";
 // Third party imports
 import { AnimatePresence, motion } from "framer-motion";
 
-const MobileCart = () => {
+const MobileCart = ({ setDeliveryOrPickUpOpen }) => {
   // State for opening and closing mobile cart
   const [open, setOpen] = useState(false);
   // t translates the text.
@@ -97,6 +97,18 @@ const MobileCart = () => {
               </Link>
             </>
           )}
+          <div className="mx-auto max-w-sm w-full text-start">
+            <button
+              onClick={() => {
+                setOpen(false);
+                setDeliveryOrPickUpOpen(true);
+              }}
+              type="button"
+              className="text-xs text-gray-500"
+            >
+              {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
+            </button>
+          </div>
         </div>
       </Modal>
     </>

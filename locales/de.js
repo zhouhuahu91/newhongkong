@@ -62,6 +62,9 @@ export default {
   choose_three_options: "Drei Optionen auswählen *",
   cancel: "Abbrechen",
   add_for: "Hinzufügen für",
+  rather_pick_up: "Möchten Sie Ihre Bestellung lieber abholen?",
+  rather_deliver:
+    "Möchten Sie lieber, dass Ihre Bestellung zu Ihnen geliefert wird?",
 
   // ******** MENU ********
 

@@ -195,7 +195,7 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
                   type="text"
                   label={t.postalcode}
                   asterisk
-                  wrapper="col-span-12 sm:col-span-6"
+                  wrapper="col-span-12 sm:col-span-5"
                 />
                 {/* Container for the houseNumber. */}
                 <Input
@@ -204,7 +204,7 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
                   name="houseNumber"
                   type="tel"
                   label={t.house_number}
-                  wrapper="col-span-7 sm:col-span-3"
+                  wrapper="col-span-7 sm:col-span-4"
                   asterisk
                 />
                 <Input

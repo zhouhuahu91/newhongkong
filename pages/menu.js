@@ -73,10 +73,10 @@ const Menu = () => {
           <div className="hidden md:block col-span-6 lg:col-span-5">
             {/* This span is needed so that the desktop starts on the same height as the menu without title. */}
             {/* <span className="block text-2xl mt-8 mb-4">&nbsp;</span> */}
-            <DesktopCart />
+            <DesktopCart setOpen={setOpen} />
           </div>
         </div>
-        <MobileCart />
+        <MobileCart setDeliveryOrPickUpOpen={setOpen} />
       </div>
     </>
   );

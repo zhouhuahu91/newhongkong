@@ -61,7 +61,8 @@ export default {
   choose_three_options: "Kies drie opties *",
   cancel: "Annuleren",
   add_for: "Toevoegen",
-
+  rather_pick_up: "Wil je liever afhalen?",
+  rather_deliver: "Wil je liever laten bezorgen?",
   // ******** MENU ********
 
   // Common
