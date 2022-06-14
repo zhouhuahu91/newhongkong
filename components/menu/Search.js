@@ -1,12 +1,17 @@
 // React imports
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Search = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
       {open && (
-        <div className="absolute bg-white z-10 border h-11 w-full max-w-sm shadow rounded-full"></div>
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          className="absolute bg-white z-10 border h-11 w-full max-w-sm shadow rounded-full"
+        ></motion.div>
       )}
       <button
         onClick={() => setOpen((prev) => !prev)}
