@@ -6,6 +6,7 @@ import useI18n from "@/hooks/useI18n";
 import getElementDimensions from "@/functions/getElementDimensions";
 // Component imports
 import IconButton from "@/components/IconButton";
+import Search from "@/components/menu/Search";
 
 const CategoryHeader = ({ data, categoryRef }) => {
   // This state stores the id of the current category in view.
@@ -63,10 +64,11 @@ const CategoryHeader = ({ data, categoryRef }) => {
   }, [visableCategory, containerRef, categoryTitleRef]);
 
   return (
-    <div className="bg-white border-b sticky top-0 z-10">
-      <div className="mx-auto max-w-screen-xl flex items-center">
+    <div className="bg-white border-b sticky top-0 z-10 p-2">
+      <div className="mx-auto max-w-screen-xl flex items-center relative">
         {/* This button scrolls the container holding the category titles to the left. */}
         {/* It scrolls it only one client width at the time. */}
+        <Search />
         <div className="px-2 flex items-center">
           <IconButton
             onClick={() => {
@@ -83,7 +85,6 @@ const CategoryHeader = ({ data, categoryRef }) => {
             variant="chevron_left"
           />
         </div>
-
         {/* ********* CONTAINER FOR ALL THE TITLES ********* */}
         <div
           ref={containerRef}
