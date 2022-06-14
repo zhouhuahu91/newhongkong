@@ -204,7 +204,8 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
                 {address.street && (
                   <div className="text-xs text-gray-600 col-span-12">
                     {address.street} {address.houseNumber}
-                    {addition && addition}, {address.postalcode} {address.city}
+                    {addition && ` ${addition}`}, {address.postalcode}{" "}
+                    {address.city}
                   </div>
                 )}
                 {address.error === "not found" && (
