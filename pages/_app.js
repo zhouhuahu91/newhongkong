@@ -10,17 +10,17 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <StoreInfoProvider>
-      <CartProvider>
-        <AuthProvider>
+    <AuthProvider>
+      <StoreInfoProvider>
+        <CartProvider>
           <MenuProvider>
             <Layout>
               <Component {...pageProps} />
             </Layout>
           </MenuProvider>
-        </AuthProvider>
-      </CartProvider>
-    </StoreInfoProvider>
+        </CartProvider>
+      </StoreInfoProvider>
+    </AuthProvider>
   );
 }
 

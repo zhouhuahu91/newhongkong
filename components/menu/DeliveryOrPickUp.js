@@ -6,10 +6,11 @@ import Input from "@/components/Input";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/hooks/useAuth";
 // Form imports
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { useForm, useFormState } from "react-hook-form";
 // Function imports
 import fetchAddressFromAPI from "@/functions/fetchAddressFromAPI";
 
@@ -25,6 +26,8 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
   const [address, setAddress] = useState({});
   // t is used to translate the text.
   const t = useI18n();
+  // We need the user to prefill the address if they have one.
+  const { user } = useAuth();
   // Style of the button.
   const btnStyle =
     "flex items-center justify-center text-sm py-2 focus:outline-none font-medium w-1/2 border transition-colors duration-200 ease-in-out";
@@ -59,20 +62,28 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
     handleSubmit,
     reset,
     setError,
+    setValue,
+    control,
     watch,
     formState: { errors },
   } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
+
+  // These variablles updates when users provide data.
   const postalcode = watch("postalcode");
   const houseNumber = watch("houseNumber");
   const addition = watch("addition");
+
+  // We need to know if the user is trying to fill in the form so that we do not override their data.
+  const { isDirty } = useFormState({ control });
 
   const onSubmit = (data) => {
     console.log("test");
   };
 
+  // This useEffect fetches the address from an API if the postalcode and house number are valid.
   useEffect(() => {
     const fetchAddress = async () => {
       const response = await fetchAddressFromAPI(postalcode, houseNumber);
@@ -81,6 +92,39 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
 
     fetchAddress();
   }, [postalcode, houseNumber]);
+
+  // We check cart, localstorage and user data to see if we can prefill the form.
+  useEffect(() => {
+    // If delivery is false we do not need to prefill the form.
+    if (!delivery) return;
+
+    // If the form is dirty we do not prefill the form.
+    if (isDirty) return;
+
+    // First we check if the cartState already has a address.
+    if (cartState.address) {
+      // We set the address to the cartState address.
+      setValue("postalcode", cartState.address.postalcode);
+      setValue("houseNumber", cartState.address.houseNumber);
+      return setValue("addition", cartState.address.addition);
+    }
+
+    // Then we check if the user has a address.
+    if (user && user.address) {
+      setValue("postalcode", user.address.postalcode);
+      setValue("houseNumber", user.address.houseNumber);
+      return setValue("addition", user.address.addition);
+    }
+    // Finally we check if the user has a localstorage address.
+    const guest = JSON.parse(localStorage.getItem("guest"));
+    if (guest && guest.address) {
+      setValue("postalcode", guest.address.postalcode);
+      setValue("houseNumber", guest.address.houseNumber);
+      return setValue("addition", guest.address.addition);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, delivery, cartState]);
 
   return (
     <Modal

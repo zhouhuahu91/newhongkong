@@ -16,6 +16,7 @@ export const useCart = () => {
 const initial = {
   cart: [],
   delivery: "undecided",
+  address: null,
   paymentMethod: "ideal",
   tip: 0,
   bag: true,
@@ -63,6 +64,11 @@ const cartReducer = (cartState, action) => {
         delivery: action.payload,
         updatedAt: Date.now(),
       };
+    case "SET_ADDRESS":
+      return {
+        ...cartState,
+        address: action.payload,
+      };
     case "SET_PAYMENT_MEHTOD":
       return {
         ...cartState,
@@ -85,7 +91,6 @@ const cartReducer = (cartState, action) => {
 // This hook provides the cart state and dispatch to manipulate it.
 const useCartProvider = () => {
   const [cartState, dispatch] = useReducer(cartReducer, initial);
-
   // First time this renders we check if there is localCartState in localStorage.
   // We would also want to clear cart if the user has been inactive for more than 12 hours.
   useEffect(() => {
