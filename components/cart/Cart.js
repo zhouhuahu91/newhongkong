@@ -117,9 +117,7 @@ const Cart = () => {
         {/* ******** BAG FEE ********* */}
         {/* If the user selects for pick up they have to pay for the platic bag or... */}
         {/* they have to bring their own. */}
-        {(!cartState.delivery ||
-          cartState.delivery === "undecided" ||
-          true) && (
+        {(!cartState.delivery || cartState.delivery === "undecided") && (
           <div className="flex justify-between mt-1">
             <div className="flex space-x-1 items-center">
               <span>{t.bag}</span>

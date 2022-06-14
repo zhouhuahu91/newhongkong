@@ -61,7 +61,6 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
     register,
     handleSubmit,
     reset,
-    setError,
     setValue,
     control,
     watch,
@@ -79,15 +78,30 @@ const DeliveryOrPickUp = ({ open, setOpen }) => {
   // We need to know if the user is trying to fill in the form so that we do not override their data.
   const { isDirty } = useFormState({ control });
 
-  const onSubmit = (data) => {
-    console.log("test");
+  const onSubmit = () => {
+    // If delivery === "undecided" we need to let the user know it needs to be decided.
+    // Not sure yet how to let the user know.
+    if (delivery === "undecided") return;
+
+    // If delivery === false we need to set the cartState to false for delivery
+    if (delivery === false) {
+      dispatch({ type: "SET_DELIVERY", payload: false });
+      return setOpen(false);
+    }
+
+    // If delivery === true we need to set the cartState to true for delivery and set the address.
+    if (delivery === true) {
+      dispatch({ type: "SET_ADDRESS", payload: address });
+      dispatch({ type: "SET_DELIVERY", payload: true });
+      return setOpen(false);
+    }
   };
 
   // This useEffect fetches the address from an API if the postalcode and house number are valid.
   useEffect(() => {
     const fetchAddress = async () => {
       const response = await fetchAddressFromAPI(postalcode, houseNumber);
-      setAddress(response);
+      setAddress({ ...response, addition });
     };
 
     fetchAddress();

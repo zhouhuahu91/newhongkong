@@ -17,7 +17,7 @@ const initial = {
   cart: [],
   delivery: "undecided",
   address: null,
-  paymentMethod: "ideal",
+  paymentMethod: "undecided",
   tip: 0,
   bag: true,
   updatedAt: Date.now(),
