@@ -7,7 +7,7 @@ import usePath from "@/hooks/usePath";
 // Component imports
 import Cart from "@/components/cart/Cart";
 
-const DesktopCart = ({ setOpen }) => {
+const DesktopCart = ({ setOpen, setDelivery }) => {
   // t translates the text.
   const t = useI18n();
   // Return the cart.
@@ -18,10 +18,10 @@ const DesktopCart = ({ setOpen }) => {
   const empty = cartState.cart.length === 0;
 
   return (
-    <>
+    <div className="sticky top-16 mt-20 mx-auto max-w-sm w-full">
       <div
         // mt-20 so that the cart start at the same height as the title.
-        className={`sticky top-16 mt-20 border rounded-lg mx-auto max-w-sm w-full transition-shadow ease-in duration-300 ${
+        className={`border rounded-lg transition-shadow ease-in duration-300 ${
           !empty && "shadow bg-white"
         }`}
       >
@@ -55,18 +55,21 @@ const DesktopCart = ({ setOpen }) => {
           </div>
         )}
       </div>
-      <div className="mx-auto max-w-sm w-full px-2">
-        <button
-          onClick={() => {
-            setOpen(true);
-          }}
-          type="button"
-          className="text-xs text-gray-500 text-right w-full"
-        >
-          {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
-        </button>
-      </div>
-    </>
+      {cartState.delivery !== "undecided" && (
+        <div className="mx-auto max-w-sm w-full px-2">
+          <button
+            onClick={() => {
+              setDelivery(!cartState.delivery);
+              setOpen(true);
+            }}
+            type="button"
+            className="text-xs text-gray-500 text-right w-full"
+          >
+            {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 

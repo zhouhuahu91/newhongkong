@@ -17,11 +17,12 @@ import fetchAddressFromAPI from "@/functions/fetchAddressFromAPI";
 // The user has to decide if they want to have there food delivered or picked up.
 // When the user clicks on an item card we check if delivery === "undecided".
 // If it is, we open the modal for them to pick one.
-const DeliveryOrPickUp = ({ open, setOpen }) => {
+const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
+  // We moved delivery and setDelivery up so that we can use it in the cart.
+  // When user switches from true to false we can preset it.
+
   // Returns the state of the cart and dispatch to manipulate the cart.
   const { dispatch, cartState } = useCart();
-  // Stores the state of delivery or pickup. true = delivery, false = pickup.
-  const [delivery, setDelivery] = useState(cartState.delivery);
   // Store the state of the address.
   const [address, setAddress] = useState({});
   // t is used to translate the text.

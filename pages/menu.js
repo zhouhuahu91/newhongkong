@@ -14,12 +14,15 @@ import DeliveryOrPickUp from "@/components/menu/DeliveryOrPickUp";
 // import uploadData from "../data/uploadData";
 
 const Menu = () => {
+  // This returns the cart state and dispatch functions.
+  const { dispatch, cartState } = useCart();
+  // This state holds the temporary state for delivery true || false.
+  // It is used mainly in the delivery or pickup modal.
+  const [delivery, setDelivery] = useState(cartState.delivery);
   // This state holds the open or closed modal for DeliveryOrPickUp.
   const [open, setOpen] = useState(false);
   // This return the products that the restaurant sells in an array of objects.
   const { data } = useMenu();
-  // This returns the cart state and dispatch functions.
-  const { dispatch, cartState } = useCart();
   // t is to translate the text.
   const t = useI18n();
   // This ref holds all the category divs. We need it for category header...
@@ -34,7 +37,12 @@ const Menu = () => {
 
   return (
     <>
-      <DeliveryOrPickUp open={open} setOpen={setOpen} />
+      <DeliveryOrPickUp
+        open={open}
+        setOpen={setOpen}
+        delivery={delivery}
+        setDelivery={setDelivery}
+      />
       <CategoryHeader data={data} categoryRef={categoryRef} />
       {/* // Menu page is mainly devided in three sections top side where the title */}
       {/* and the search bar is, */}
@@ -73,10 +81,13 @@ const Menu = () => {
           <div className="hidden md:block col-span-6 lg:col-span-5">
             {/* This span is needed so that the desktop starts on the same height as the menu without title. */}
             {/* <span className="block text-2xl mt-8 mb-4">&nbsp;</span> */}
-            <DesktopCart setOpen={setOpen} />
+            <DesktopCart setOpen={setOpen} setDelivery={setDelivery} />
           </div>
         </div>
-        <MobileCart setDeliveryOrPickUpOpen={setOpen} />
+        <MobileCart
+          setDeliveryOrPickUpOpen={setOpen}
+          setDelivery={setDelivery}
+        />
       </div>
     </>
   );
