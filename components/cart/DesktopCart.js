@@ -55,7 +55,7 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
           </div>
         )}
       </div>
-      {cartState.delivery !== "undecided" && atMenu && (
+      {cartState.delivery !== "undecided" && atMenu && !empty && (
         <div className="mx-auto max-w-sm w-full px-2">
           <button
             onClick={() => {

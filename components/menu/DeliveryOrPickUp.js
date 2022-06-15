@@ -79,7 +79,7 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
   // We need to know if the user is trying to fill in the form so that we do not override their data.
   const { isDirty } = useFormState({ control });
 
-  const onSubmit = () => {
+  const onSubmit = (data) => {
     // If delivery === "undecided" we need to let the user know it needs to be decided.
     // Not sure yet how to let the user know.
     if (delivery === "undecided") return;
@@ -92,7 +92,10 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
 
     // If delivery === true we need to set the cartState to true for delivery and set the address.
     if (delivery === true) {
-      dispatch({ type: "SET_ADDRESS", payload: address });
+      dispatch({
+        type: "SET_ADDRESS",
+        payload: { ...address, addition: data.addition },
+      });
       dispatch({ type: "SET_DELIVERY", payload: true });
       return setOpen(false);
     }
