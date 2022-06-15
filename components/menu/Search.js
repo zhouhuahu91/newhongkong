@@ -13,22 +13,42 @@ const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   // Holds the state of the search input.
   const [open, setOpen] = useState(false);
+  // This returns functions to filter the data.
+  const { filterData, resetFilter } = useMenu();
   // We need this reference to close the search when the user clicks outside of it.
   const el = useRef();
+  // We need the input ref to focus it when we clear the input.
   const inputRef = useRef();
   useOnClickOutside(el, () => {
     setOpen(false), setSearchInput("");
   });
 
-  const { filterData, resetFilter } = useMenu();
-
   useEffect(() => {
+    // If there is a search input we filter the data. If there is not we reset the filter.
     if (searchInput.length > 0) {
       filterData(searchInput);
     } else {
       resetFilter();
     }
   }, [searchInput]);
+
+  const handleKeyDown = (e) => {
+    // If user presses enter we open the search.
+    if (e.key === "Enter" && !open) {
+      setOpen(true);
+    }
+    // If user presses escape we close the search.
+    if (e.key === "Escape" && open) {
+      setOpen(false);
+    }
+  };
+  // listen for enter key with useEffect
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [setOpen, open]);
 
   return (
     <div ref={el}>
