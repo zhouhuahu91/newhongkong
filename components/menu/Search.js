@@ -19,9 +19,7 @@ const Search = () => {
   const el = useRef();
   // We need the input ref to focus it when we clear the input.
   const inputRef = useRef();
-  useOnClickOutside(el, () => {
-    setOpen(false), setSearchInput("");
-  });
+  useOnClickOutside(el, () => setOpen(false));
 
   useEffect(() => {
     // If there is a search input we filter the data. If there is not we reset the filter.
@@ -32,14 +30,18 @@ const Search = () => {
     }
   }, [searchInput]);
 
-  const handleKeyDown = (e) => {
-    // If user presses enter we open the search.
-    if (e.key === "Enter" && !open) {
-      setOpen(true);
+  // If search is closed we clear input and reset the filter.
+  useEffect(() => {
+    if (!open) {
+      setSearchInput("");
     }
-    // If user presses escape we close the search.
-    if (e.key === "Escape" && open) {
-      setOpen(false);
+  }, [open]);
+
+  const handleKeyDown = (e) => {
+    console.log();
+    // If user presses shit enter open or close the search.
+    if (e.key === "Enter" && e.shiftKey) {
+      setOpen((prev) => !prev);
     }
   };
   // listen for enter key with useEffect
