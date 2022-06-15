@@ -21,6 +21,12 @@ const Cart = () => {
   const { cartState, dispatch } = useCart();
   // We need the ref to scroll to the last item added to cart when cart is longer than the screen.
   const ref = useRef();
+  // This is the cart price without store fees
+  const subtotal = cartState.cart.reduce((x, y) => x + y.price, 0);
+  // Shortage to reach the required amount for delivery
+  const shortForDelivery =
+    storeFees.minimumOrderAmount - subtotal - cartState.tip;
+
   useEffect(() => {
     // TODO: smooth scroll not working on ios.
     // We get the scroll distance by subtracting the clientHeight form the scrollheight.
@@ -97,7 +103,7 @@ const Cart = () => {
         {/* ******** SUBTOTAL ********* */}
         <div className="flex justify-between border-t mt-6 pt-4">
           <span>{t.subtotal}</span>
-          <span>{euro(cartState.cart.reduce((x, y) => x + y.price, 0))}</span>
+          <span>{euro(subtotal)}</span>
         </div>
         {/* ********* END SUBTOTAL ********** */}
         {/* ******** DELIVERY FEE ********* */}
@@ -140,7 +146,11 @@ const Cart = () => {
         {/* ******** END BAG FEE ********* */}
         {/* ******** DELIVERY WARNING ********* */}
         {/* We need to let the user know there is a minimum for delivery. */}
-
+        {shortForDelivery > 0 && (
+          <div className="text-xs p-2 border mt-2 bg-amber-50">
+            {t.delivery_warning(shortForDelivery)}
+          </div>
+        )}
         {/* ******** END DELIVERY WARNING ********* */}
       </div>
       {/* ********* CART SUMMARY CONTAINER ********* */}
