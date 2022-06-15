@@ -7,7 +7,7 @@ const IconButton = ({ onClick, variant, color, size, disabled, className }) => {
         }
       }}
       type="button"
-      className={`relative w-4 h-4 ${className && className}`}
+      className={`relative select-none w-4 h-4 ${className && className}`}
     >
       <span
         className={`material-symbols-rounded ${
