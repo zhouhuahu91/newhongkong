@@ -190,7 +190,7 @@ export default {
   delivery_warning: (required) => (
     <>
       For delivery we have a minimum order amount of <Emp>€ 20,00</Emp>,{" "}
-      delivery costs excluded. Amount needed to reach the minimum order value is{" "}
+      delivery fee excluded. Amount needed to reach the minimum order value is{" "}
       <Emp>{euro(required)}</Emp>.
     </>
   ),
