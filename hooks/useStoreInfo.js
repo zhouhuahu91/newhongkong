@@ -14,7 +14,7 @@ export const useStoreInfo = () => {
 // This Hook provides store data to all pages suchs as closing hours, phone number, etc.
 const useStoreProvider = () => {
   const [storeInfo, setStoreInfo] = useState({
-    // true if store is open today. Defaults to true.
+    // True if store is open today. Defaults to true.
     open: true,
     // The time that the store opens. Defaults to "16:00".
     openingTime: 16 * 3600,
@@ -29,8 +29,18 @@ const useStoreProvider = () => {
     // ...computer's date is not correct.
     currentDate: getCurrentDate(),
   });
+  const [storeFees, setStoreFees] = useState({
+    // The transaction fee. Defaults to 30 cents
+    transactionFee: 30,
+    // Delivery fee. Defaults to 250 cents
+    deliveryFee: 250,
+    // Minimum order amount. Defaults to 2000 cents.
+    minimumOrderAmount: 2000,
+    // Plastic bag fee. Defaults to 10 cents.
+    plasticBagFee: 10,
+  });
 
-  return { ...storeInfo };
+  return { storeInfo, storeFees };
 };
 
 // We create the provider that we can rap our components.

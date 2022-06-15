@@ -10,6 +10,7 @@ import IconButton from "@/components/IconButton";
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
 import usePath from "@/hooks/usePath";
+import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Functions imports
 import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
 import euro from "@/functions/euro";
@@ -21,9 +22,12 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
   const [open, setOpen] = useState(false);
   // t translates the text.
   const t = useI18n();
+  // Returns true if we are that path.
   const { atMenu, atCheckout } = usePath();
   // Returns the cart state.
   const { cartState } = useCart();
+  // Returns information of the store
+  const { storeFees } = useStoreInfo();
 
   return (
     <>
@@ -52,7 +56,7 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
               className="button text-white bg-main w-full"
               onClick={() => setOpen(true)}
             >
-              {t.to_cart} {euro(calculateTotalCartPrice(cartState))}
+              {t.to_cart} {euro(calculateTotalCartPrice(cartState, storeFees))}
             </button>
           </motion.div>
         )}

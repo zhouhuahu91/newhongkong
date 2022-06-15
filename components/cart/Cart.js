@@ -10,10 +10,13 @@ import Tooltip from "@/components/ToolTip";
 // Function imports
 import euro from "@/functions/euro";
 import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
+import { useStoreInfo } from "@/hooks/useStoreInfo";
 
 const Cart = () => {
   // t translates the text.
   const t = useI18n();
+  // Returns information about the store.
+  const { storeFees } = useStoreInfo();
   // Return the cart.
   const { cartState, dispatch } = useCart();
   // We need the ref to scroll to the last item added to cart when cart is longer than the screen.
@@ -101,7 +104,7 @@ const Cart = () => {
         {cartState.delivery && cartState.delivery !== "undecided" && (
           <div className="flex justify-between mt-1">
             <span>{t.delivery_fee}</span>
-            <span>{euro(250)}</span>
+            <span>{euro(storeFees.deliveryFee)}</span>
           </div>
         )}
         {/* ******** END DELIVERY FEE ********* */}
@@ -110,7 +113,7 @@ const Cart = () => {
           cartState.paymentMethod !== "undecided" && (
             <div className="flex justify-between mt-1">
               <span>{t.transaction_fee}</span>
-              <span>{euro(30)}</span>
+              <span>{euro(storeFees.transactionFee)}</span>
             </div>
           )}
         {/* ******** END DELIVERY FEE ********* */}
@@ -128,11 +131,17 @@ const Cart = () => {
                 toggle={cartState.bag}
                 onClick={() => dispatch({ type: "TOGGLE_BAG" })}
               />
-              <span>{cartState.bag ? euro(10) : euro(0)}</span>
+              <span>
+                {cartState.bag ? euro(storeFees.plasticBagFee) : euro(0)}
+              </span>
             </div>
           </div>
         )}
         {/* ******** END BAG FEE ********* */}
+        {/* ******** DELIVERY WARNING ********* */}
+        {/* We need to let the user know there is a minimum for delivery. */}
+
+        {/* ******** END DELIVERY WARNING ********* */}
       </div>
       {/* ********* CART SUMMARY CONTAINER ********* */}
       <div className="mx-4 pb-4 border-t">
@@ -157,7 +166,7 @@ const Cart = () => {
         </div>
         <div className="flex justify-between mt-1">
           <span>{t.total}</span>
-          <span>{euro(calculateTotalCartPrice(cartState))}</span>
+          <span>{euro(calculateTotalCartPrice(cartState, storeFees))}</span>
         </div>
       </div>
     </>
