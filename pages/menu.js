@@ -10,6 +10,8 @@ import DesktopCart from "@/components/cart/DesktopCart";
 import MobileCart from "@/components/cart/MobileCart";
 import CategoryHeader from "@/components/menu/CategoryHeader";
 import DeliveryOrPickUp from "@/components/menu/DeliveryOrPickUp";
+// Third party imports
+import { motion, AnimatePresence } from "framer-motion";
 // Upload new menu to firestore if needed.
 // import uploadData from "../data/uploadData";
 
@@ -22,7 +24,7 @@ const Menu = () => {
   // This state holds the open or closed modal for DeliveryOrPickUp.
   const [open, setOpen] = useState(false);
   // This return the products that the restaurant sells in an array of objects.
-  const { data } = useMenu();
+  const { filteredData } = useMenu();
   // t is to translate the text.
   const t = useI18n();
   // This ref holds all the category divs. We need it for category header...
@@ -33,8 +35,6 @@ const Menu = () => {
   //   uploadData();
   // }, []);
 
-  if (data.length < 1) return <div>...loading</div>;
-
   return (
     <>
       <DeliveryOrPickUp
@@ -43,7 +43,7 @@ const Menu = () => {
         delivery={delivery}
         setDelivery={setDelivery}
       />
-      <CategoryHeader data={data} categoryRef={categoryRef} />
+      <CategoryHeader data={filteredData} categoryRef={categoryRef} />
       {/* // Menu page is mainly devided in three sections top side where the title */}
       {/* and the search bar is, */}
       {/* // the bottom left is where the menu cards are and the bottom right is where the cart is. */}
@@ -51,8 +51,11 @@ const Menu = () => {
         {/* This is the container where the menu cards and the cart. */}
         <div className="grid grid-cols-12 gap-4 mx-6 mt-3 mb-52">
           {/* This is the container where all the cards are.*/}
-          <div className="col-span-12 md:col-span-6 lg:col-span-7 place-self-center mb-20 w-full">
-            {data.map((category, idx) => {
+          <div
+            layout
+            className="col-span-12 md:col-span-6 lg:col-span-7 place-self-center mb-20 w-full"
+          >
+            {filteredData.map((category, idx) => {
               return (
                 <div
                   ref={(e) => (categoryRef.current[idx] = e)}
@@ -63,15 +66,17 @@ const Menu = () => {
                     {category.category[t.locale]}
                   </h2>
                   <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-                    {category.items.map((item) => {
-                      return (
-                        <Card
-                          key={item.id}
-                          item={item}
-                          setOpenDeliveryOrPickUp={setOpen}
-                        />
-                      );
-                    })}
+                    <AnimatePresence>
+                      {category.items.map((item) => {
+                        return (
+                          <Card
+                            key={item.id}
+                            item={item}
+                            setOpenDeliveryOrPickUp={setOpen}
+                          />
+                        );
+                      })}
+                    </AnimatePresence>
                   </div>
                 </div>
               );

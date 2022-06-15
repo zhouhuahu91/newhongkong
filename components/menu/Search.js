@@ -1,37 +1,67 @@
 // React imports
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+// Third party imports
 import { motion, AnimatePresence } from "framer-motion";
-import useOnClickOutside from "@/hooks/useOnClickOutside";
 // Hook imports
+import useOnClickOutside from "@/hooks/useOnClickOutside";
+import { useMenu } from "@/hooks/useMenu";
+// Component imports
+import IconButton from "@/components/IconButton";
 
 const Search = () => {
+  // This state holds the input for search,
+  const [searchInput, setSearchInput] = useState("");
+  // Holds the state of the search input.
   const [open, setOpen] = useState(false);
+  // We need this reference to close the search when the user clicks outside of it.
   const el = useRef();
+  const inputRef = useRef();
+  useOnClickOutside(el, () => {
+    setOpen(false), setSearchInput("");
+  });
 
-  useOnClickOutside(el, () => setOpen(false));
+  const { filterData, resetFilter } = useMenu();
+
+  useEffect(() => {
+    if (searchInput.length > 0) {
+      filterData(searchInput);
+    } else {
+      resetFilter();
+    }
+  }, [searchInput]);
 
   return (
     <div ref={el}>
       <AnimatePresence>
         {open && (
           <motion.div
-            sizeTransition
-            initial={{ width: 0 }}
+            initial={{ width: 0, opacity: 0 }}
             animate={{
               width: 384,
-              transition: {
-                duration: 0.5,
-                type: "spring",
-                stiffness: 300,
-                damping: 15,
-              },
+              opacity: 1,
             }}
-            exit={{ width: 44, transition: { duration: 0.2 } }}
+            exit={{ width: 44, transition: { duration: 0.1 } }}
             className="absolute bg-white z-10 border h-11 max-w-sm shadow rounded-full flex items-center justify-center"
           >
             <input
+              ref={inputRef}
+              type="text"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               autoFocus
-              className="w-full mx-14 h-full appearance-none focus:outline-none text-sm"
+              className="w-full ml-14 h-full appearance-none focus:outline-none text-sm"
+            />
+            <IconButton
+              // This clears the searc input.
+              onClick={() => {
+                setSearchInput("");
+                if (inputRef.current) {
+                  inputRef.current.focus();
+                }
+              }}
+              variant="close"
+              size="small"
+              className="mx-4"
             />
           </motion.div>
         )}

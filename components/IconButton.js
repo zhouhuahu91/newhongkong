@@ -1,4 +1,4 @@
-const IconButton = ({ onClick, variant, color, size, disabled }) => {
+const IconButton = ({ onClick, variant, color, size, disabled, className }) => {
   return (
     <button
       onClick={() => {
@@ -7,7 +7,7 @@ const IconButton = ({ onClick, variant, color, size, disabled }) => {
         }
       }}
       type="button"
-      className={`relative w-4 h-4`}
+      className={`relative w-4 h-4 ${className && className}`}
     >
       <span
         className={`material-symbols-rounded ${
