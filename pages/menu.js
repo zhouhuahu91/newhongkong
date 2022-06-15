@@ -51,10 +51,7 @@ const Menu = () => {
         {/* This is the container where the menu cards and the cart. */}
         <div className="grid grid-cols-12 gap-4 mx-6 mt-3 mb-52">
           {/* This is the container where all the cards are.*/}
-          <div
-            layout
-            className="col-span-12 md:col-span-6 lg:col-span-7 place-self-center mb-20 w-full"
-          >
+          <div className="col-span-12 md:col-span-6 lg:col-span-7 place-self-center mb-20 w-full">
             {filteredData.map((category, idx) => {
               return (
                 <div
