@@ -9,7 +9,7 @@ import Card from "@/components/menu/Card";
 import DesktopCart from "@/components/cart/DesktopCart";
 import MobileCart from "@/components/cart/MobileCart";
 import CategoryHeader from "@/components/menu/CategoryHeader";
-import DeliveryOrPickUp from "@/components/DeliveryOrPickUp";
+import DeliveryOrPickUp from "@/components/menu/DeliveryOrPickUp";
 // Third party imports
 import { motion, AnimatePresence } from "framer-motion";
 // Upload new menu to firestore if needed.
