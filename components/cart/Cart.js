@@ -43,7 +43,7 @@ const Cart = () => {
       <div
         ref={ref}
         style={{ maxHeight: "calc(100vh - 265px)" }}
-        className="select-none overflow-auto flex-grow px-4 pb-4"
+        className="overflow-auto flex-grow px-4 pb-4"
       >
         {cartState.cart.map((cartItem) => {
           return (
