@@ -16,25 +16,34 @@ export const useMenu = () => {
 
 // This hook provides the menu for the store. As in the products that they sell.
 const useMenuProvider = () => {
+  // This is the raw data that we get back from firebase.
   const [data, setData] = useState([]);
+  // This is the data that we use in the components it filters when filterData is called.
   const [filteredData, setFilteredData] = useState([]);
 
   const { locale } = useI18n();
 
+  // Simple function that check if the data is string.
+  // Makes it lowercase.
+  // And removes whitespaces.
   const sanitize = (string) => {
     if (typeof string !== "string") return string;
     return string.toLowerCase().replace(/\s/g, "");
   };
 
+  // When function gets called we filter the data with matching the input
   const filterData = (input) => {
     const sanitizedInput = sanitize(input);
-    const filteredMenu = [];
+    // This is the temporary array that we use to filter the data.
+    const tempMenu = [];
 
+    // We filter over the raw data and check every category and the items in that category.
     data.forEach((array) => {
       const { items, category } = array;
       // If the category matches with the input we push the whole array.
-      if (sanitize(category[locale]?.includes(sanitizedInput)))
-        return filteredMenu.push(array);
+      if (sanitize(category[locale]?.includes(sanitizedInput))) {
+        return tempMenu.push(array);
+      }
 
       // If the category name doesn't match we check the individual items in the...
       // category with .filter.
@@ -47,13 +56,13 @@ const useMenuProvider = () => {
       });
       // If there is length to the filteredItems that means that are matches.
       // We push those matches to the filtered menu.
-      if (filteredItem.length)
-        filteredMenu.push({ ...array, items: filteredItem });
+      if (filteredItem.length) tempMenu.push({ ...array, items: filteredItem });
     });
 
-    setFilteredData(filteredMenu);
+    setFilteredData(tempMenu);
   };
 
+  // We always reset the filtered data to the raw data.
   const resetFilter = () => {
     setFilteredData(data);
   };
