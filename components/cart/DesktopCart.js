@@ -18,7 +18,7 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
   const empty = cartState.cart.length === 0;
 
   return (
-    <div className="sticky top-16 mt-20 mx-auto max-w-sm w-full">
+    <div className="sticky top-20 mt-20 mx-auto max-w-sm w-full">
       <div
         // mt-20 so that the cart start at the same height as the title.
         className={`border rounded-lg transition-shadow ease-in duration-300 ${
