@@ -130,7 +130,7 @@ export const CartProvider = ({ children }) => {
 // ******** REDUCER FUNCTIONS ********
 
 const addItem = (cart, payload) => {
-  const { qwt, item, selectedOptions, selectedSides } = payload;
+  const { qwt, item, selectedOptions, selectedSides, remarks } = payload;
 
   // We need a new id for the item that also includes the options and sides.
   const id = createItemId(item, selectedOptions, selectedSides);
@@ -147,6 +147,7 @@ const addItem = (cart, payload) => {
             qwt: cartItem.qwt + qwt,
             // We need the price of 1 item to calculate the new price.
             price: (cartItem.price / cartItem.qwt) * (cartItem.qwt + qwt),
+            remarks,
           }
         : cartItem;
     });
@@ -184,6 +185,7 @@ const addItem = (cart, payload) => {
       description,
       price,
       qwt,
+      remarks,
     };
     // we add the new item to the cart.
     return [...cart, newItem];

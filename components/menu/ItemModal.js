@@ -22,6 +22,8 @@ const ItemModal = ({ item, open, setOpen }) => {
   const [selectedSides, setSelectedSides] = useState([]);
   // For the menu options e.g. babi pangang, foe yong hai.
   const [selectedOptions, setSelectedOptions] = useState([]);
+  // This state holds the remarks for the item
+  const [remarks, setRemarks] = useState("");
 
   // When we close modal we want to reset all the values.
   useEffect(() => {
@@ -30,6 +32,7 @@ const ItemModal = ({ item, open, setOpen }) => {
       setErrors({});
       setSelectedOptions([]);
       setSelectedSides([]);
+      setRemarks("");
     }
   }, [open]);
 
@@ -64,8 +67,10 @@ const ItemModal = ({ item, open, setOpen }) => {
         qwt,
         selectedOptions,
         selectedSides,
+        remarks,
       },
     });
+
     // We close the modal.
     setOpen(false);
   };
@@ -134,6 +139,18 @@ const ItemModal = ({ item, open, setOpen }) => {
               }}
             />
           )}
+          <div>
+            <label htmlFor="itemRemarks" className="text-xs text-gray-500">
+              {t.remarks}
+            </label>
+            <textarea
+              value={remarks}
+              onChange={(e) => setRemarks(e.target.value)}
+              id="itemRemarks"
+              rows="3"
+              className="appearance-none border w-full focus:outline-none py-2 px-3 rounded-lg text-sm"
+            />
+          </div>
         </div>
         <div className="flex items-center justify-evenly relative h-8">
           <IconButton

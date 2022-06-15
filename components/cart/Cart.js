@@ -46,6 +46,7 @@ const Cart = () => {
         className="overflow-auto flex-grow px-4 pb-4"
       >
         {cartState.cart.map((cartItem) => {
+          console.log(cartItem);
           return (
             // ********* CART ITEM CONTAINER *********
             <div key={cartItem.id} className="flex items-start mt-1">
@@ -87,6 +88,11 @@ const Cart = () => {
                 <div className="leading-none">
                   <span className="text-xs text-gray-500">
                     {cartItem.description[t.locale]}
+                  </span>
+                </div>
+                <div className="leading-none">
+                  <span className="text-xs text-gray-500">
+                    {cartItem.remarks}
                   </span>
                 </div>
               </div>
