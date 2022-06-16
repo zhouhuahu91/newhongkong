@@ -38,7 +38,7 @@ const Tooltip = ({ tip, disabled }) => {
               top: y ?? 0,
               left: x ?? 0,
             }}
-            className="border p-2 rounded bg-main text-white text-sm w-52"
+            className="border p-2 rounded bg-amber-50 text-xs w-52"
           >
             {tip}
           </motion.div>
