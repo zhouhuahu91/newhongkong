@@ -7,7 +7,7 @@ import { useCart } from "@/hooks/useCart";
 import Modal from "@/components/Modal";
 import IconButton from "@/components/IconButton";
 import Tooltip from "@/components/ToolTip";
-import ItemOptions from "@/components/menu/ItemOptions";
+import ItemOptions from "@/components/ItemOptions";
 
 const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
   // t is used to translate the text.

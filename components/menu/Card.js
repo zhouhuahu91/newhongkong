@@ -6,7 +6,7 @@ import { useCart } from "@/hooks/useCart";
 // Function imports
 import euro from "@/functions/euro";
 // Component imports
-import ItemModal from "@/components/menu/ItemModal";
+import AddItemToCartModal from "@/components/menu/AddItemToCartModal";
 
 const Card = ({ item, setOpenDeliveryOrPickUp }) => {
   // This state holds the open or closed modal for ItemModal.
@@ -18,7 +18,7 @@ const Card = ({ item, setOpenDeliveryOrPickUp }) => {
 
   return (
     <>
-      <ItemModal item={item} open={open} setOpen={setOpen} />
+      <AddItemToCartModal item={item} open={open} setOpen={setOpen} />
       <div
         onClick={() => {
           // If the user hasn't selected delivery or pick up, we open the modal for them to pick one.

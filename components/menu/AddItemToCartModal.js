@@ -7,9 +7,9 @@ import { useCart } from "@/hooks/useCart";
 import Modal from "@/components/Modal";
 import IconButton from "@/components/IconButton";
 import Tooltip from "@/components/ToolTip";
-import ItemOptions from "@/components/menu/ItemOptions";
+import ItemOptions from "@/components/ItemOptions";
 
-const ItemModal = ({ item, open, setOpen }) => {
+const NewItemModal = ({ item, open, setOpen }) => {
   // t is used to translate the text.
   const t = useI18n();
   // This hook is to acces cart dispatch
@@ -196,4 +196,4 @@ const ItemModal = ({ item, open, setOpen }) => {
   );
 };
 
-export default ItemModal;
+export default NewItemModal;
