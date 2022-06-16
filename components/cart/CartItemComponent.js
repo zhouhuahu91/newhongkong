@@ -9,7 +9,9 @@ import useI18n from "@/hooks/useI18n";
 import euro from "@/functions/euro";
 
 const CartItemComponent = ({ cartItem }) => {
+  // Retrieves dispatch to increment and decrement cart.
   const { dispatch } = useCart();
+  // t is used to translate.
   const t = useI18n();
 
   return (
