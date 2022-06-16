@@ -48,7 +48,7 @@ export default {
       price: 450,
       options: [
         {
-          id: "555",
+          id: "10V",
           name: {
             nl: "loempia vegetarisch",
             en: "roll vegetarian",
@@ -66,7 +66,7 @@ export default {
           price: 0,
         },
         {
-          id: "151",
+          id: "10K",
           name: {
             nl: "loempia kippenvlees",
             en: "roll with chicken",

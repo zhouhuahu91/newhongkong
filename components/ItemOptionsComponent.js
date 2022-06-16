@@ -74,7 +74,7 @@ const ItemOptionsComponent = ({
                 className={`form-checkbox p-2 rounded shadow border-gray-300 text-main focus:ring-red-200 focus:ring-offset-0 ${
                   disabled ? "" : "cursor-pointer"
                 }`}
-                id={option.id}
+                id={`id${option.id}`}
                 value={option.id}
                 type="checkbox"
                 onChange={handleChange}
@@ -83,7 +83,7 @@ const ItemOptionsComponent = ({
               />
               <label
                 className={`${disabled ? "text-gray-300" : "cursor-pointer"}`}
-                htmlFor={option.id}
+                htmlFor={`id${option.id}`}
               >
                 {option.name[t.locale]}
               </label>
@@ -99,7 +99,7 @@ const ItemOptionsComponent = ({
               {option.price > 0 && (
                 <label
                   className={`text-sm ${disabled && "text-gray-300"}`}
-                  htmlFor={option.id}
+                  htmlFor={`id${option.id}`}
                 >
                   {euro(option.price)}
                 </label>
