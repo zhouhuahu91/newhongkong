@@ -7,6 +7,7 @@ import { useCart } from "@/hooks/useCart";
 import IconButton from "@/components/IconButton";
 import Switch from "@/components/Switch";
 import Tooltip from "@/components/ToolTip";
+import CartItemComponent from "@/components/cart/CartItemComponent";
 // Function imports
 import euro from "@/functions/euro";
 import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
@@ -46,66 +47,7 @@ const Cart = () => {
         className="overflow-auto flex-grow px-4 pb-4"
       >
         {cartState.cart.map((cartItem) => {
-          console.log(cartItem);
-          return (
-            // ********* CART ITEM CONTAINER *********
-            <div key={cartItem.id} className="flex items-start mt-1">
-              {/* ********** INCREMENT & DECEREMENT ********** */}
-              <div
-                style={{ maxWidth: "3.25rem" }}
-                className="flex justify-between w-full items-center"
-              >
-                <IconButton
-                  variant="remove_circle_outline"
-                  size="small"
-                  color="main"
-                  onClick={() =>
-                    dispatch({
-                      type: "DECREMENT_ITEM",
-                      payload: cartItem,
-                    })
-                  }
-                />
-                <span>{cartItem.qwt}</span>
-                <IconButton
-                  variant="add_circle_outline"
-                  size="small"
-                  color="main"
-                  onClick={() =>
-                    dispatch({
-                      type: "INCREMENT_ITEM",
-                      payload: cartItem,
-                    })
-                  }
-                />
-              </div>
-              {/* ********** END INCREMENT & DECEREMENT ********** */}
-              {/* ********** PRODUCT NAME & DESCRIPTION ********** */}
-              <div className="flex-grow mx-3">
-                <div>
-                  <span>{cartItem.name[t.locale]}</span>
-                </div>
-                <div className="leading-none">
-                  <span className="text-xs text-gray-500">
-                    {cartItem.description[t.locale]}
-                  </span>
-                </div>
-                <div className="leading-none flex items-center">
-                  <IconButton variant="edit" size="small" />
-                  <span className="text-xs text-gray-500">
-                    {cartItem.remarks}
-                  </span>
-                </div>
-              </div>
-              {/* ********** END PRODUCT NAME & DESCRIPTION ********** */}
-              {/* ********** PRICE ********** */}
-              <div className="justify-self-end">
-                <span>{euro(cartItem.price)}</span>
-              </div>
-              {/* ********** PRICE ********** */}
-            </div>
-            // ********* END CART ITEM CONTAINER *********
-          );
+          return <CartItemComponent key={cartItem.id} cartItem={cartItem} />;
         })}
         {/* ******** SUBTOTAL ********* */}
         <div className="flex justify-between border-t mt-6 pt-4">
