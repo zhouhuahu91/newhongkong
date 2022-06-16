@@ -186,6 +186,8 @@ const addItem = (cart, payload) => {
       description,
       price,
       qwt,
+      selectedOptions,
+      selectedSides,
       remarks,
     };
     // we add the new item to the cart.
