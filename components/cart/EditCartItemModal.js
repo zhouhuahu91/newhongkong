@@ -38,7 +38,7 @@ const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
     }
   }, [open]);
 
-  // This function gets called when we add the item to the cart.
+  // This function gets called when we save the item to the cart.
   const saveChangesToCart = () => {
     // We define tempErrors so we can return all errors at the same time.
     // We do this because setState is asynchronous.
@@ -65,9 +65,9 @@ const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
       });
     }
 
-    // We add the item to the cart.
+    // We save the item.
     dispatch({
-      type: "ADD_ITEM",
+      type: "SAVE_ITEM",
       payload: {
         item,
         qwt,
@@ -191,7 +191,7 @@ const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
           type="button"
           className="bg-main text-white button col-span-7"
         >
-          {t.add_for}
+          {t.save}
         </button>
       </div>
     </Modal>
