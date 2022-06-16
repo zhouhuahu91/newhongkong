@@ -72,6 +72,7 @@ const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
         selectedOptions,
         selectedSides,
         remarks,
+        cartItem,
       },
     });
 

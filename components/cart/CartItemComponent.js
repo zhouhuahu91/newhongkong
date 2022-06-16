@@ -23,14 +23,20 @@ const CartItemComponent = ({ cartItem }) => {
   // is the original item in the data.
   const item = findItemInMenu(cartItem.id, data);
 
+  if (item === "item not found") {
+    console.log("item not found");
+  }
+
   return (
     <>
-      <EditCartItemModal
-        item={item}
-        cartItem={cartItem}
-        open={open}
-        setOpen={setOpen}
-      />
+      {item !== "item not found" && (
+        <EditCartItemModal
+          item={item}
+          cartItem={cartItem}
+          open={open}
+          setOpen={setOpen}
+        />
+      )}
       {/* // ********* CART ITEM CONTAINER ********* */}
       <div className="flex items-start mt-1">
         {/* ********** INCREMENT & DECEREMENT ********** */}

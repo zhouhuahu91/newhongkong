@@ -1,5 +1,5 @@
 const findItemInMenu = (id, menu) => {
-  const newId = id.split("_")[0];
+  const newId = id.split("_")[0].replace(/\D/g, "");
   let item = null;
   menu.forEach((category) => {
     const found = category.items.find((x) => {

@@ -34,6 +34,12 @@ const cartReducer = (cartState, action) => {
         cart: addItem(cartState.cart, action.payload),
         updatedAt: Date.now(),
       };
+    case "SAVE_ITEM":
+      return {
+        ...cartState,
+        cart: saveItem(cartState.cart, action.payload),
+        updatedAt: Date.now(),
+      };
     case "INCREMENT_ITEM":
       return {
         ...cartState,
@@ -129,6 +135,38 @@ export const CartProvider = ({ children }) => {
 
 // ******** REDUCER FUNCTIONS ********
 
+// Prepare Item to add to cart.
+
+const prepareItemToAddToCart = (selectedOptions, selectedSides, item, qwt) => {
+  // We need the actual options and sides instead of only there id.
+  const options = selectedOptions.map((selectedOption) =>
+    item.options.find((option) => option.id === selectedOption)
+  );
+  const sides = selectedSides.map((selectedSide) =>
+    item.sides.find((side) => side.id === selectedSide)
+  );
+
+  // We need the total price for the options and sides.
+  let addedPrice = 0;
+  if (options.length > 0) {
+    addedPrice += options.reduce((acc, option) => acc + option.price, 0);
+  }
+  if (sides.length > 0) {
+    addedPrice += sides.reduce((acc, side) => acc + side.price, 0);
+  }
+
+  // We need the total price for the item.
+  const price = (item.price + addedPrice) * qwt;
+
+  // The name of the item is different if optionIsMain is true.
+  const name = item.optionIsMain ? options[0].name : item.name;
+
+  // We need a description for the options and sides they have selected.
+  const description = createItemDescription(item, options, sides);
+
+  return { name, description, price };
+};
+
 const addItem = (cart, payload) => {
   const { qwt, item, selectedOptions, selectedSides, remarks } = payload;
 
@@ -154,44 +192,100 @@ const addItem = (cart, payload) => {
     });
   } else {
     // If not found we need to prepare a new item.
-    // We need the actual options and sides instead of only there id.
-    const options = selectedOptions.map((selectedOption) =>
-      item.options.find((option) => option.id === selectedOption)
+    const preparedItem = prepareItemToAddToCart(
+      selectedOptions,
+      selectedSides,
+      item,
+      qwt
     );
-    const sides = selectedSides.map((selectedSide) =>
-      item.sides.find((side) => side.id === selectedSide)
-    );
-
-    // We need the total price for the options and sides.
-    let addedPrice = 0;
-    if (options.length > 0) {
-      addedPrice += options.reduce((acc, option) => acc + option.price, 0);
-    }
-    if (sides.length > 0) {
-      addedPrice += sides.reduce((acc, side) => acc + side.price, 0);
-    }
-
-    // We need the total price for the item.
-    const price = (item.price + addedPrice) * qwt;
-
-    // The name of the item is different if optionIsMain is true.
-    const name = item.optionIsMain ? options[0].name : item.name;
-
-    // We need a description for the options and sides they have selected.
-    const description = createItemDescription(item, options, sides);
 
     const newItem = {
       id,
-      name,
-      description,
-      price,
       qwt,
+      ...preparedItem,
       selectedOptions,
       selectedSides,
       remarks,
     };
     // we add the new item to the cart.
     return [...cart, newItem];
+  }
+};
+
+const saveItem = (cart, payload) => {
+  // This item saves the item when users edits an cart item.
+  const { qwt, item, cartItem, selectedOptions, selectedSides, remarks } =
+    payload;
+
+  // We need a new id for the item that also includes the options and sides.
+  const id = createItemId(item, selectedOptions, selectedSides);
+
+  // We use the find method to check if the new item is already in the cart.
+  const found = cart.find((currentCartItem) => currentCartItem.id === id);
+
+  // If the cartItem.id === id that means that the user didn't change options and sides.
+  if (cartItem.id === id) {
+    return cart.map((currentCartItem) => {
+      return currentCartItem.id === id
+        ? {
+            ...currentCartItem,
+            qwt,
+            // We need the price of 1 item to calculate the new price.
+            price: (currentCartItem.price / currentCartItem.qwt) * qwt,
+            // We replace the remarks.
+            remarks,
+          }
+        : currentCartItem;
+    });
+
+    // If cartItem.id !== id that means the user changed the options and sides.
+    // We then first check if that options and sides combination  already exists in the cart.
+    // If it does we have to add on the new qwt on top of the existing one.
+    // And we also need to delete the old item.
+  } else if (found) {
+    return (
+      cart
+        .map((currentCartItem) => {
+          return currentCartItem.id === id
+            ? {
+                ...currentCartItem,
+                qwt: currentCartItem.qwt + qwt,
+                // We need the price of 1 item to calculate the new price.
+                price:
+                  (currentCartItem.price / currentCartItem.qwt) *
+                  (currentCartItem.qwt + qwt),
+                // We replace the remarks.
+                remarks,
+              }
+            : currentCartItem;
+        })
+        // We then filter out the old item.
+        .filter((x) => x.id !== cartItem.id)
+    );
+  } else {
+    // If item is not found we need to create a new item to add to the cart and delete the old item.
+    // If not found we need to prepare a new item.
+    const preparedItem = prepareItemToAddToCart(
+      selectedOptions,
+      selectedSides,
+      item,
+      qwt
+    );
+
+    const newItem = {
+      id,
+      qwt,
+      ...preparedItem,
+      selectedOptions,
+      selectedSides,
+      remarks,
+    };
+
+    // we add the new item to the cart and delete the old item.
+    return [
+      ...cart.filter((currentCartItem) => currentCartItem.id !== cartItem.id),
+      newItem,
+    ];
   }
 };
 
