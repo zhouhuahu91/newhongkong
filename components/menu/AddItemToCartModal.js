@@ -7,7 +7,7 @@ import { useCart } from "@/hooks/useCart";
 import Modal from "@/components/Modal";
 import IconButton from "@/components/IconButton";
 import Tooltip from "@/components/ToolTip";
-import ItemOptions from "@/components/ItemOptions";
+import ItemOptionsComponent from "@/components/ItemOptionsComponent";
 
 const NewItemModal = ({ item, open, setOpen }) => {
   // t is used to translate the text.
@@ -114,7 +114,7 @@ const NewItemModal = ({ item, open, setOpen }) => {
         </div>
         <div className="my-2">
           {item.options && (
-            <ItemOptions
+            <ItemOptionsComponent
               options={item.options}
               selectedOptions={selectedOptions}
               setSelectedOptions={setSelectedOptions}
@@ -129,7 +129,7 @@ const NewItemModal = ({ item, open, setOpen }) => {
             />
           )}
           {item.sides && (
-            <ItemOptions
+            <ItemOptionsComponent
               options={item.sides}
               selectedOptions={selectedSides}
               setSelectedOptions={setSelectedSides}

@@ -8,7 +8,7 @@ import IconButton from "@/components/IconButton";
 // Function imports
 import euro from "@/functions/euro";
 
-const ItemOptions = ({
+const ItemOptionsComponent = ({
   options,
   selectedOptions,
   setSelectedOptions,
@@ -154,4 +154,4 @@ const ItemOptions = ({
   );
 };
 
-export default ItemOptions;
+export default ItemOptionsComponent;
