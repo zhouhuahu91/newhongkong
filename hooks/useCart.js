@@ -224,6 +224,8 @@ const saveItem = (cart, payload) => {
   const found = cart.find((currentCartItem) => currentCartItem.id === id);
 
   // If the cartItem.id === id that means that the user didn't change options and sides.
+  // We map over the current cart and change the remarks and the qwt.
+  // Those are the only things that can be changed if user didn't change sides and options.
   if (cartItem.id === id) {
     return cart.map((currentCartItem) => {
       return currentCartItem.id === id
@@ -239,9 +241,9 @@ const saveItem = (cart, payload) => {
     });
 
     // If cartItem.id !== id that means the user changed the options and sides.
-    // We then first check if that options and sides combination  already exists in the cart.
+    // We then first check if that options and sides combination already exists in the cart.
     // If it does we have to add on the new qwt on top of the existing one.
-    // And we also need to delete the old item.
+    // And we also need to delete the old item and change the remarks.
   } else if (found) {
     return (
       cart
@@ -283,7 +285,9 @@ const saveItem = (cart, payload) => {
 
     // we add the new item to the cart and delete the old item.
     return [
+      // We filter out the old one.
       ...cart.filter((currentCartItem) => currentCartItem.id !== cartItem.id),
+      // And add the new one.
       newItem,
     ];
   }
