@@ -32,7 +32,7 @@ const CartItemComponent = ({ cartItem }) => {
         setOpen={setOpen}
       />
       {/* // ********* CART ITEM CONTAINER ********* */}
-      <div onClick={() => setOpen(true)} className="flex items-start mt-1">
+      <div className="flex items-start mt-1">
         {/* ********** INCREMENT & DECEREMENT ********** */}
         <div
           style={{ maxWidth: "3.25rem" }}
@@ -65,8 +65,13 @@ const CartItemComponent = ({ cartItem }) => {
         {/* ********** END INCREMENT & DECEREMENT ********** */}
         {/* ********** PRODUCT NAME & DESCRIPTION ********** */}
         <div className="flex-grow mx-3">
-          <div>
-            <span>{cartItem.name[t.locale]}</span>
+          <div className="flex items-center">
+            <span className="mr-2">{cartItem.name[t.locale]}</span>
+            <IconButton
+              onClick={() => setOpen(true)}
+              variant="edit"
+              size="small"
+            />
           </div>
           <div className="leading-none">
             <span className="text-xs text-gray-500">
@@ -75,7 +80,6 @@ const CartItemComponent = ({ cartItem }) => {
           </div>
           {cartItem.remarks && (
             <div className="leading-none flex items-center">
-              <IconButton variant="edit" size="small" />
               <span className="text-xs text-gray-500">{cartItem.remarks}</span>
             </div>
           )}
