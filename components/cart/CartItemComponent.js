@@ -57,10 +57,12 @@ const CartItemComponent = ({ cartItem }) => {
             {cartItem.description[t.locale]}
           </span>
         </div>
-        <div className="leading-none flex items-center">
-          <IconButton variant="edit" size="small" />
-          <span className="text-xs text-gray-500">{cartItem.remarks}</span>
-        </div>
+        {cartItem.remarks && (
+          <div className="leading-none flex items-center">
+            <IconButton variant="edit" size="small" />
+            <span className="text-xs text-gray-500">{cartItem.remarks}</span>
+          </div>
+        )}
       </div>
       {/* ********** END PRODUCT NAME & DESCRIPTION ********** */}
       {/* ********** PRICE ********** */}
