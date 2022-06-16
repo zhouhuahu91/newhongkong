@@ -90,7 +90,8 @@ const Cart = () => {
                     {cartItem.description[t.locale]}
                   </span>
                 </div>
-                <div className="leading-none">
+                <div className="leading-none flex items-center">
+                  <IconButton variant="edit" size="small" />
                   <span className="text-xs text-gray-500">
                     {cartItem.remarks}
                   </span>
