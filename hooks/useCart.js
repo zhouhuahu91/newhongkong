@@ -147,7 +147,8 @@ const addItem = (cart, payload) => {
             qwt: cartItem.qwt + qwt,
             // We need the price of 1 item to calculate the new price.
             price: (cartItem.price / cartItem.qwt) * (cartItem.qwt + qwt),
-            remarks,
+            // If the item has remarks we replace the old remarks with the new ones.
+            remarks: remarks ? remarks : cartItem.remarks,
           }
         : cartItem;
     });

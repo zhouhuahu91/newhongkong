@@ -51,8 +51,12 @@ const ItemModal = ({ item, open, setOpen }) => {
     if (item.sides && selectedSides.length < (item.totalSides || 1)) {
       tempErrors.sides = true;
     }
+    // We check if remarks isn't longer than 100 characters.
+    if (remarks.length > 500) {
+      tempErrors.remarks = true;
+    }
     // If we have an error we return from submitting and we set the errors with tempErrors.
-    if (tempErrors.sides || tempErrors.options) {
+    if (tempErrors.sides || tempErrors.options || tempErrors.remarks) {
       // than we set the ErrorsState
       return setErrors({
         ...tempErrors,
@@ -139,16 +143,21 @@ const ItemModal = ({ item, open, setOpen }) => {
               }}
             />
           )}
-          <div>
-            <label htmlFor="itemRemarks" className="text-xs text-gray-500">
-              {t.remarks}
+          <div className="">
+            <label
+              htmlFor="itemRemarks"
+              className={`text-xs ${
+                errors.remarks ? "text-red-400" : "text-gray-500"
+              }`}
+            >
+              {errors.remarks ? t.remarks_max : t.remarks}
             </label>
             <textarea
               value={remarks}
               onChange={(e) => setRemarks(e.target.value)}
-              id="itemRemarks"
               rows="3"
-              className="appearance-none border w-full focus:outline-none py-2 px-3 rounded-lg text-sm"
+              id="itemRemarks"
+              className="appearance-none border w-full focus:outline-none py-2 px-3 rounded-lg text-sm focus:shadow hover:shadow transition-shadow"
             />
           </div>
         </div>
