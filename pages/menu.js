@@ -95,3 +95,5 @@ const Menu = () => {
 };
 
 export default Menu;
+
+// TODO: Filter out postalcodes and base delivery fee on distance.
