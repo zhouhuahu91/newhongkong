@@ -61,10 +61,10 @@ const Search = () => {
         {open && (
           <motion.div
             initial={{ width: 0, opacity: 0 }}
-            // Animate will override max width so we check width of screen and if it is bigger than 384...
+            // Animate will override max width so we check width of screen and if it is bigger than 384 + 16 padding...
             // ...search width is than screen width minues padding which is 16px
             animate={{
-              width: width < 384 ? width - 16 : 384,
+              width: width < 400 ? width - 16 : 384,
               opacity: 1,
             }}
             exit={{ width: 44, transition: { duration: 0.1 } }}
