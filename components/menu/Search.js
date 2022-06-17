@@ -75,8 +75,9 @@ const Search = () => {
               className="w-full ml-14 h-full appearance-none focus:outline-none text-sm"
             />
             <IconButton
-              // This clears the searc input.
+              // This clears the search input.
               onClick={() => {
+                // If search input is already clear we close the search.
                 if (!searchInput.length) {
                   return setOpen(false);
                 }
