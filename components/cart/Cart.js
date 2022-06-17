@@ -6,7 +6,7 @@ import { useCart } from "@/hooks/useCart";
 // Component imports
 import IconButton from "@/components/IconButton";
 import Switch from "@/components/Switch";
-import Tooltip from "@/components/ToolTip";
+import ToolTip from "@/components/ToolTip";
 import CartItemComponent from "@/components/cart/CartItemComponent";
 // Function imports
 import euro from "@/functions/euro";
@@ -79,7 +79,7 @@ const Cart = () => {
           <div className="flex justify-between mt-1">
             <div className="flex space-x-1 items-center">
               <span>{t.bag}</span>
-              <Tooltip tip={t.bag_tooltip} />
+              <ToolTip tip={t.bag_tooltip} />
             </div>
             <div className="flex items-center space-x-4">
               <Switch

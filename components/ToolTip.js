@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useFloating } from "@floating-ui/react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Tooltip = ({ tip, disabled }) => {
+const ToolTip = ({ tip, disabled }) => {
   const [open, setOpen] = useState(false);
   // We need this third party library to make the tooltip show outside of the scroll area.
   // Position relative doesn't work when the tooltip is outside of the scroll area.
@@ -48,4 +48,4 @@ const Tooltip = ({ tip, disabled }) => {
   );
 };
 
-export default Tooltip;
+export default ToolTip;

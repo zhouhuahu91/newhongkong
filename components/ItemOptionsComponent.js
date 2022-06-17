@@ -3,7 +3,7 @@ import { useRef, useEffect } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 // Component imports
-import Tooltip from "@/components/ToolTip";
+import ToolTip from "@/components/ToolTip";
 import IconButton from "@/components/IconButton";
 // Function imports
 import euro from "@/functions/euro";
@@ -88,7 +88,7 @@ const ItemOptionsComponent = ({
                 {option.name[t.locale]}
               </label>
               {option.description && (
-                <Tooltip
+                <ToolTip
                   tip={option.description[t.locale]}
                   disabled={disabled}
                 />
