@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // Hook imports
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useMenu } from "@/hooks/useMenu";
+import useWindowSize from "@/hooks/useWindowSize";
 // Component imports
 import IconButton from "@/components/IconButton";
 
@@ -21,6 +22,7 @@ const Search = () => {
   const inputRef = useRef();
   // This doesn't work it closes the search and clears input before we can open the item.
   // useOnClickOutside(el, () => setOpen(false));
+  const { width } = useWindowSize();
 
   useEffect(() => {
     // If there is a search input we filter the data. If there is not we reset the filter.
@@ -59,12 +61,14 @@ const Search = () => {
         {open && (
           <motion.div
             initial={{ width: 0, opacity: 0 }}
+            // Animate will override max width so we check width of screen and if it is bigger than 384...
+            // ...search width is than screen width minues padding which is 16px
             animate={{
-              width: 384,
+              width: width < 384 ? width - 16 : 384,
               opacity: 1,
             }}
             exit={{ width: 44, transition: { duration: 0.1 } }}
-            className="absolute bg-white z-10 border h-11 max-w-sm shadow rounded-full flex items-center justify-center"
+            className="absolute bg-white z-10 border h-11 shadow rounded-full flex items-center justify-center"
           >
             <input
               ref={inputRef}
