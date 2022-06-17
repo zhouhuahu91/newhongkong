@@ -19,7 +19,8 @@ const Search = () => {
   const el = useRef();
   // We need the input ref to focus it when we clear the input.
   const inputRef = useRef();
-  useOnClickOutside(el, () => setOpen(false));
+  // This doesn't work it closes the search and clears input before we can open the item.
+  // useOnClickOutside(el, () => setOpen(false));
 
   useEffect(() => {
     // If there is a search input we filter the data. If there is not we reset the filter.
@@ -76,6 +77,9 @@ const Search = () => {
             <IconButton
               // This clears the searc input.
               onClick={() => {
+                if (!searchInput.length) {
+                  return setOpen(false);
+                }
                 setSearchInput("");
                 if (inputRef.current) {
                   inputRef.current.focus();
