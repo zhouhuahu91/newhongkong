@@ -115,7 +115,7 @@ const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
     <Modal
       open={open}
       setOpen={setOpen}
-      className="bg-white h-auto w-10/12 max-w-sm rounded-lg relative flex flex-col overflow-hidden select-none"
+      className="bg-white h-auto w-11/12 sm:w-10/12 max-w-sm rounded-lg relative flex flex-col overflow-hidden select-none"
     >
       <ItemModalContent
         item={item}
