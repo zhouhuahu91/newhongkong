@@ -66,6 +66,7 @@ const Search = () => {
             animate={{
               width: width < 400 ? width - 16 : 384,
               opacity: 1,
+              transition: { duration: 0.3 },
             }}
             exit={{ width: 44, transition: { duration: 0.1 } }}
             className="absolute bg-white z-10 border h-11 shadow rounded-full flex items-center justify-center"
