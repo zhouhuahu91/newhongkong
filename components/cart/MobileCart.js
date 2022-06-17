@@ -29,8 +29,6 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
   // Returns information of the store
   const { storeFees } = useStoreInfo();
 
-  console.log("i ran");
-
   return (
     <>
       {/* Container for the button to open cart on small devices. */}
