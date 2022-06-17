@@ -5,9 +5,6 @@ import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
 // Component Imports
 import Modal from "@/components/Modal";
-import IconButton from "@/components/IconButton";
-import Tooltip from "@/components/ToolTip";
-import ItemOptionsComponent from "@/components/ItemOptionsComponent";
 import ItemModalContent from "../ItemModalContent";
 
 const NewItemModal = ({ item, open, setOpen }) => {
