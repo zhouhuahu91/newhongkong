@@ -43,7 +43,7 @@ const ItemModalContent = ({
                 <div className="flex space-x-1 items-center" key={idx}>
                   <span>• {menuItem.name[t.locale]}</span>
                   {menuItem.description && (
-                    <Tooltip tip={menuItem.description[t.locale]} />
+                    <ToolTip tip={menuItem.description[t.locale]} />
                   )}
                 </div>
               ))}
