@@ -5,9 +5,7 @@ const CheckOut = () => {
   return (
     <div className="relative">
       <MobileCart />
-      <div className="hidden md:block">
-        <DesktopCart />
-      </div>
+      <DesktopCart />
     </div>
   );
 };
