@@ -6,6 +6,8 @@ import { useCart } from "@/hooks/useCart";
 // Component Imports
 import Modal from "@/components/Modal";
 import ItemModalContent from "@/components/ItemModalContent";
+// Function imports
+import euro from "@/functions/euro";
 
 const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
   // t is used to translate the text.
@@ -35,6 +37,35 @@ const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
       setRemarks(cartItem.remarks);
     }
   }, [open]);
+
+  // We need the total cost of the item + options & sides to show the user the price.
+  const calcTotalItemPriceWithOptionsAndSides = () => {
+    // base price is the price of the item.
+    let total = item.price;
+    // 1. We check if item has option, if true we add it on the price.
+    if (selectedOptions.length > 0) {
+      // 2. We loop over the selectedOptions and accumulate all the prices.
+      total += selectedOptions.reduce((acc, selectedOption) => {
+        // 3. We get the price by filtering the items.options matching the id
+        const [{ price }] = item.options.filter(
+          (option) => option.id === selectedOption
+        );
+        return acc + (price || 0);
+      }, 0);
+    }
+    // Here we do the same for the sides.
+    if (selectedSides.length) {
+      total += selectedSides.reduce((acc, selectedSides) => {
+        const [{ price }] = item.sides.filter(
+          (side) => side.id === selectedSides
+        );
+        return acc + (price || 0);
+      }, 0);
+    }
+
+    // We return the price * the qwt.
+    return total * qwt;
+  };
 
   // This function gets called when we save the item to the cart.
   const saveChangesToCart = () => {
@@ -114,7 +145,7 @@ const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
           type="button"
           className="bg-main text-white button col-span-7"
         >
-          {t.save}
+          {t.save} {euro(calcTotalItemPriceWithOptionsAndSides())}
         </button>
       </div>
     </Modal>
