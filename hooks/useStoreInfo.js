@@ -55,8 +55,6 @@ const useStoreProvider = () => {
     return () => clearInterval(interval);
   }, []);
 
-  console.log(currentTime);
-
   return { storeInfo, storeFees };
 };
 

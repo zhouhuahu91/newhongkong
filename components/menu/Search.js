@@ -41,7 +41,6 @@ const Search = () => {
   }, [open]);
 
   const handleKeyDown = (e) => {
-    console.log();
     // If user presses shit enter open or close the search.
     if (e.key === "Enter" && e.shiftKey) {
       setOpen((prev) => !prev);
