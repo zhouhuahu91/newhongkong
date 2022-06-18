@@ -12,6 +12,8 @@ import CartItemComponent from "@/components/cart/CartItemComponent";
 import euro from "@/functions/euro";
 import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
+// Animation imports
+import { AnimatePresence } from "framer-motion";
 
 const Cart = () => {
   // t translates the text.
@@ -46,9 +48,11 @@ const Cart = () => {
         style={{ maxHeight: "calc(100vh - 265px)" }}
         className="overflow-auto flex-grow px-4 pb-4"
       >
-        {cartState.cart.map((cartItem) => {
-          return <CartItemComponent key={cartItem.id} cartItem={cartItem} />;
-        })}
+        <AnimatePresence>
+          {cartState.cart.map((cartItem) => {
+            return <CartItemComponent key={cartItem.id} cartItem={cartItem} />;
+          })}
+        </AnimatePresence>
         {/* ******** SUBTOTAL ********* */}
         <div className="flex justify-between border-t mt-6 pt-4">
           <span>{t.subtotal}</span>

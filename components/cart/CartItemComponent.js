@@ -10,6 +10,8 @@ import { useMenu } from "@/hooks/useMenu";
 // Function imports
 import euro from "@/functions/euro";
 import findItemInMenu from "@/functions/findItemInMenu";
+// Animation imports
+import { motion } from "framer-motion";
 
 const CartItemComponent = ({ cartItem }) => {
   const [open, setOpen] = useState(false);
@@ -38,7 +40,12 @@ const CartItemComponent = ({ cartItem }) => {
         />
       )}
       {/* // ********* CART ITEM CONTAINER ********* */}
-      <div className="flex items-start mt-1">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="flex items-start mt-1"
+      >
         {/* ********** INCREMENT & DECEREMENT ********** */}
         <div
           style={{ maxWidth: "3.25rem" }}
@@ -96,7 +103,7 @@ const CartItemComponent = ({ cartItem }) => {
           <span>{euro(cartItem.price)}</span>
         </div>
         {/* ********** PRICE ********** */}
-      </div>
+      </motion.div>
       {/* // ********* END CART ITEM CONTAINER ********* */}
     </>
   );

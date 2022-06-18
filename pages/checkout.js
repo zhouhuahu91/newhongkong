@@ -1,3 +1,5 @@
+// React imports
+import { useState } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -6,12 +8,17 @@ import DesktopCart from "@/components/cart/DesktopCart";
 import MobileCart from "@/components/cart/MobileCart";
 import PickUpOrDelivery from "@/components/checkout/PickUpOrDelivery";
 import ForWho from "@/components/checkout/ForWho";
+import ToWhere from "@/components/checkout/ToWhere";
 // Form imports
 import { useForm, useFormState } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+// Animation imports
+import { AnimatePresence, motion } from "framer-motion";
 
 const CheckOut = () => {
+  // We use this state to store the address that the api returns.
+  const [address, setAddress] = useState({});
   // t is used to translate text.
   const t = useI18n();
   // Returns dispatch and cartState from cart provider.
@@ -79,18 +86,39 @@ const CheckOut = () => {
 
   const { isDirty } = useFormState({ control });
 
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
-    <div className="w-full max-w-screen-xl mx-auto relative">
+    <div className="w-full max-w-screen-lg mx-auto relative">
       <MobileCart />
       <div className="grid md:grid-cols-12 gap-6 mx-4">
         {/* Container for left part of the content, the form. */}
         <div className="col-span-12 md:col-span-6 lg:col-span-7 mb-20 w-full">
           {/* Main title of the checkout form. */}
-          <h1 className="text-5xl uppercase font-semibold mt-4 mb-8">
+          <h1 className="text-5xl uppercase font-semibold my-8">
             {t.almost_done}
           </h1>
           <PickUpOrDelivery />
-          <ForWho register={register} errors={errors} />
+          <motion.form
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <ForWho register={register} errors={errors} />
+            <AnimatePresence>
+              {cartState.delivery === true && (
+                <ToWhere
+                  register={register}
+                  errors={errors}
+                  watch={watch}
+                  address={address}
+                  setAddress={setAddress}
+                />
+              )}
+            </AnimatePresence>
+          </motion.form>
         </div>
         {/* Container for the cart. */}
         <div className="col-span-6 lg:col-span-5">

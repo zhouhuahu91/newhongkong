@@ -20,6 +20,7 @@ const ForWho = ({ register, errors }) => {
           type="text"
           label={t.name}
           wrapper="col-span-2 sm:col-span-1"
+          asterisk
         />
         {/* The container for the telephone input. */}
         <Input
@@ -28,6 +29,7 @@ const ForWho = ({ register, errors }) => {
           name="tel"
           label={t.phone_number}
           wrapper="col-span-2 sm:col-span-1"
+          asterisk
         />
         {/* The container for the email input. */}
         <Input
@@ -36,6 +38,7 @@ const ForWho = ({ register, errors }) => {
           name="email"
           label={t.email}
           wrapper="col-span-2"
+          asterisk
         />
       </div>
     </>
