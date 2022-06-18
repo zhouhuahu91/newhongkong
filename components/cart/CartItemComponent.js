@@ -25,10 +25,6 @@ const CartItemComponent = ({ cartItem }) => {
   // is the original item in the data.
   const item = findItemInMenu(cartItem.id, data);
 
-  if (item === "item not found") {
-    console.log("item not found");
-  }
-
   return (
     <>
       {item !== "item not found" && (
@@ -80,11 +76,13 @@ const CartItemComponent = ({ cartItem }) => {
         <div className="flex-grow mx-3">
           <div className="flex items-center">
             <span className="mr-2">{cartItem.name[t.locale]}</span>
-            <IconButton
-              onClick={() => setOpen(true)}
-              variant="edit"
-              size="small"
-            />
+            {item !== "item not found" && (
+              <IconButton
+                onClick={() => setOpen(true)}
+                variant="edit"
+                size="small"
+              />
+            )}
           </div>
           <div className="leading-none">
             <span className="text-xs text-gray-500">
