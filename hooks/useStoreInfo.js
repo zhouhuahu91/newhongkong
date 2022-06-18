@@ -41,21 +41,58 @@ const useStoreProvider = () => {
     // Plastic bag fee. Defaults to 10 cents.
     plasticBagFee: 10,
   });
-  const [currentTime, setCurrentTime] = useState(getCurrentTimeInSeconds());
+  const [currentTimeInSeconds, setCurrentTimeInSeconds] = useState(
+    getCurrentTimeInSeconds()
+  );
+  const [liveMessage, setLiveMessage] = useState("");
   // These variables are just fixed and can't be changed by admin.
   // Users can order from 8 am while store is still closed.
   const preorderTime = 8 * 3600;
 
+  // True if users can start placing orders.
+  const openingSoon =
+    currentTimeInSeconds > preorderTime &&
+    currentTimeInSeconds < storeInfo.openingTime &&
+    storeInfo.open;
+
+  // True if we are closing soon to warn users..
+  // In this case it is 30 minutes before closing time.
+  // Also only is true when we are still open otherwise we are closed of course.
+  const closingSoon =
+    currentTimeInSeconds > storeInfo.closingTime - 1800 &&
+    currentTimeInSeconds < storeInfo.closingTime &&
+    storeInfo.open;
+
+  // The remaining minutes untill we close.
+  const remainingMinutes = Math.ceil(
+    (storeInfo.closingTime - currentTimeInSeconds) / 60
+  );
+
+  // True if we are closed.
+  const closed =
+    currentTimeInSeconds > storeInfo.closingTime ||
+    currentTimeInSeconds < preorderTime ||
+    !storeInfo.open;
+
   // This useEffect update the currentTime every minute.
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(getCurrentTimeInSeconds());
+      setCurrentTimeInSeconds(getCurrentTimeInSeconds());
     }, 60000);
 
     return () => clearInterval(interval);
   }, []);
 
-  return { storeInfo, storeFees };
+  return {
+    storeInfo,
+    storeFees,
+    currentTimeInSeconds,
+    openingSoon,
+    closingSoon,
+    remainingMinutes,
+    closed,
+    liveMessage,
+  };
 };
 
 // We create the provider that we can rap our components.
