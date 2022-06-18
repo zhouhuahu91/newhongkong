@@ -2,6 +2,7 @@
 import { useState, useEffect, useContext, createContext } from "react";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
+import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 
 // First we create a context
 const storeInfoContext = createContext();
@@ -13,6 +14,7 @@ export const useStoreInfo = () => {
 
 // This Hook provides store data to all pages suchs as closing hours, phone number, etc.
 const useStoreProvider = () => {
+  // Information that we store in state we can let admins change.
   const [storeInfo, setStoreInfo] = useState({
     // True if store is open today. Defaults to true.
     open: true,
@@ -39,6 +41,21 @@ const useStoreProvider = () => {
     // Plastic bag fee. Defaults to 10 cents.
     plasticBagFee: 10,
   });
+  const [currentTime, setCurrentTime] = useState(getCurrentTimeInSeconds());
+  // These variables are just fixed and can't be changed by admin.
+  // Users can order from 8 am while store is still closed.
+  const preorderTime = 8 * 3600;
+
+  // This useEffect update the currentTime every minute.
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(getCurrentTimeInSeconds());
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  console.log(currentTime);
 
   return { storeInfo, storeFees };
 };

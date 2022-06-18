@@ -10,8 +10,7 @@ import DesktopCart from "@/components/cart/DesktopCart";
 import MobileCart from "@/components/cart/MobileCart";
 import CategoryHeader from "@/components/menu/CategoryHeader";
 import DeliveryOrPickUp from "@/components/menu/DeliveryOrPickUp";
-// Third party imports
-import { motion, AnimatePresence } from "framer-motion";
+
 // Upload new menu to firestore if needed.
 // import uploadData from "../data/uploadData";
 
@@ -63,17 +62,15 @@ const Menu = () => {
                     {category.category[t.locale]}
                   </h2>
                   <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-                    <AnimatePresence>
-                      {category.items.map((item) => {
-                        return (
-                          <Card
-                            key={item.id}
-                            item={item}
-                            setOpenDeliveryOrPickUp={setOpen}
-                          />
-                        );
-                      })}
-                    </AnimatePresence>
+                    {category.items.map((item) => {
+                      return (
+                        <Card
+                          key={item.id}
+                          item={item}
+                          setOpenDeliveryOrPickUp={setOpen}
+                        />
+                      );
+                    })}
                   </div>
                 </div>
               );
