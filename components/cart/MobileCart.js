@@ -27,7 +27,7 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
   // Returns the cart state.
   const { cartState } = useCart();
   // Returns information of the store
-  const { storeFees } = useStoreInfo();
+  const { storeFees, closed } = useStoreInfo();
 
   return (
     <>
@@ -76,7 +76,13 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
           {atMenu && (
             <>
               <Link href="/checkout">
-                <a className="button bg-main text-white">{t.to_checkout}</a>
+                <a
+                  className={`${
+                    closed ? "bg-gray-300 pointer-events-none" : "bg-main"
+                  } button text-white`}
+                >
+                  {closed ? t.closed : t.to_checkout}
+                </a>
               </Link>
               <button
                 onClick={() => setOpen(false)}

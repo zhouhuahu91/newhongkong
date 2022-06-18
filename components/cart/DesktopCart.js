@@ -4,6 +4,7 @@ import Link from "next/link";
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
 import usePath from "@/hooks/usePath";
+import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Component imports
 import Cart from "@/components/cart/Cart";
 
@@ -16,6 +17,8 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
   const { atMenu } = usePath();
   // This is true when cart is empty
   const empty = cartState.cart.length === 0;
+  // Returns true if store is closed
+  const { closed } = useStoreInfo();
 
   return (
     <div className="hidden md:block sticky top-20 mt-20 mx-auto max-w-sm w-full z-40">
@@ -30,10 +33,12 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
             <Link href="/checkout">
               <a
                 className={`button w-full text-white ${
-                  empty ? "bg-gray-300 pointer-events-none" : "bg-main"
+                  empty || closed
+                    ? "bg-gray-300 pointer-events-none"
+                    : "bg-main"
                 }`}
               >
-                {t.to_checkout}
+                {closed ? t.closed : t.to_checkout}
               </a>
             </Link>
           ) : (
