@@ -9,6 +9,9 @@ import MobileCart from "@/components/cart/MobileCart";
 import PickUpOrDelivery from "@/components/checkout/PickUpOrDelivery";
 import ForWho from "@/components/checkout/ForWho";
 import ToWhere from "@/components/checkout/ToWhere";
+import ForWhen from "@/components/checkout/ForWhen";
+import Remarks from "@/components/checkout/Remarks";
+
 // Form imports
 import { useForm, useFormState } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -118,6 +121,13 @@ const CheckOut = () => {
                 />
               )}
             </AnimatePresence>
+            <ForWhen
+              register={register}
+              errors={errors}
+              watch={watch}
+              setValue={setValue}
+            />
+            <Remarks errors={errors} register={register} />
           </motion.form>
         </div>
         {/* Container for the cart. */}
