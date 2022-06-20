@@ -68,11 +68,11 @@ const useStoreProvider = () => {
     (storeInfo.closingTime - currentTimeInSeconds) / 60
   );
 
-  // True if we are closed.
-  const closed =
-    currentTimeInSeconds > storeInfo.closingTime ||
-    currentTimeInSeconds < preorderTime ||
-    !storeInfo.open;
+  // True if we are closed. // Uncomment this when going in production.
+  const closed = false;
+  // currentTimeInSeconds > storeInfo.closingTime ||
+  // currentTimeInSeconds < preorderTime ||
+  // !storeInfo.open;
 
   // This useEffect update the currentTime every minute.
   useEffect(() => {
