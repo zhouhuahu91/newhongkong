@@ -34,9 +34,9 @@ const ToWhere = ({ register, errors, watch, address, setAddress }) => {
       exit={{ opacity: 0 }}
     >
       {/* Title of this part of the form */}
-      <h2 className="text-lg my-4">{t.to_where}</h2>
+      <h2 className="text-lg mb-2 mt-6">{t.to_where}</h2>
       {/* Main container of the inputs */}
-      <div className="grid grid-cols-12 gap-2 my-4">
+      <div className="grid grid-cols-12 gap-2 my-2">
         {/* Container for the postalcode. */}
         <Input
           register={register}

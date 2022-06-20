@@ -5,7 +5,7 @@ const Remarks = ({ register, errors }) => {
   const t = useI18n();
   return (
     <>
-      <div className="flex flex-col mt-2">
+      <div className="flex flex-col my-2">
         <label htmlFor="remarks" className={`text-xs text-gray-500`}>
           {t.remarks}
         </label>

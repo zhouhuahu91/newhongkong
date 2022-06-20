@@ -15,7 +15,7 @@ const PickUpOrDelivery = () => {
 
   return (
     <>
-      <h2 className="text-lg mt-2 my-4">{t.pickup_delivery}</h2>
+      <h2 className="text-lg mb-2 mt-10">{t.pickup_delivery}</h2>
       <div className="flex justify-between my-2">
         {/* This button sets delivery to false which means the customer will pcik up the order */}
         <button
