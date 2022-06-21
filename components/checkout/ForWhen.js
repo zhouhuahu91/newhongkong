@@ -28,7 +28,7 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
   return (
     <>
       {/* The title of this component. */}
-      <h2 className="text-xl font-medium mt-4 mb-2">{t.for_when}</h2>
+      <h2 className="text-xl font-medium mt-4">{t.for_when}</h2>
       {/* The main container for the inputs. */}
       <div className="relative">
         <label

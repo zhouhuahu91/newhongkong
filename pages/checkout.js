@@ -123,7 +123,6 @@ const CheckOut = () => {
               )}
             </AnimatePresence>
             <ForWho register={register} errors={errors} />
-
             <ForWhen
               register={register}
               errors={errors}
