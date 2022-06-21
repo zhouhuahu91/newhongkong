@@ -94,7 +94,7 @@ const CheckOut = () => {
   };
 
   return (
-    <div className="w-full max-w-screen-lg mx-auto relative">
+    <div className="w-full max-w-screen-xl mx-auto relative">
       <MobileCart />
       <div className="grid md:grid-cols-12 gap-6 mx-4">
         {/* Container for left part of the content, the form. */}
@@ -109,7 +109,6 @@ const CheckOut = () => {
             animate={{ opacity: 1 }}
             onSubmit={handleSubmit(onSubmit)}
           >
-            <ForWho register={register} errors={errors} />
             <AnimatePresence>
               {cartState.delivery === true && (
                 <ToWhere
@@ -118,9 +117,13 @@ const CheckOut = () => {
                   watch={watch}
                   address={address}
                   setAddress={setAddress}
+                  setValue={setValue}
+                  isDirty={isDirty}
                 />
               )}
             </AnimatePresence>
+            <ForWho register={register} errors={errors} />
+
             <ForWhen
               register={register}
               errors={errors}

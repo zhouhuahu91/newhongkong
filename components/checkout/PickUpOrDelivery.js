@@ -15,8 +15,8 @@ const PickUpOrDelivery = () => {
 
   return (
     <>
-      <h2 className="text-lg mb-2 mt-10">{t.pickup_delivery}</h2>
-      <div className="flex justify-between my-2">
+      <h2 className="text-xl font-medium mb-2 mt-10">{t.pickup_delivery}</h2>
+      <div className="flex justify-between">
         {/* This button sets delivery to false which means the customer will pcik up the order */}
         <button
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: false })}

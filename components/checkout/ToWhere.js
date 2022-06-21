@@ -2,20 +2,35 @@
 import { useEffect } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
+import { useAuth } from "@/hooks/useAuth";
+import { useCart } from "@/hooks/useCart";
 // Component imports
 import Input from "@/components/Input";
 // Function imports
 import fetchAddressFromAPI from "@/functions/fetchAddressFromAPI";
-// Animation imports
-import { motion } from "framer-motion";
 
-const ToWhere = ({ register, errors, watch, address, setAddress }) => {
+const ToWhere = ({
+  register,
+  errors,
+  watch,
+  address,
+  setAddress,
+  setValue,
+  isDirty,
+}) => {
   // Watch function is from react hook form it returns the current input.
   const postalcode = watch("postalcode");
   const houseNumber = watch("houseNumber");
   const addition = watch("addition");
   // t is used to translate.
   const t = useI18n();
+  // returns the current user.
+  const { user } = useAuth();
+  // returns delivery in cartState.
+  const {
+    cartState: { delivery },
+    cartState,
+  } = useCart();
 
   // This useEffect fetches the address from an API if the postalcode and house number are valid.
   useEffect(() => {
@@ -27,16 +42,43 @@ const ToWhere = ({ register, errors, watch, address, setAddress }) => {
     fetchAddress();
   }, [postalcode, houseNumber]);
 
+  // We check cart, localstorage and user data to see if we can prefill the form.
+  useEffect(() => {
+    // If delivery is false we do not need to prefill the form.
+    if (!delivery) return;
+
+    // If the form is dirty we do not prefill the form.
+    if (isDirty) return;
+
+    // First we check if the cartState already has a address.
+    if (cartState.address) {
+      // We set the address to the cartState address.
+      setValue("postalcode", cartState.address.postalcode);
+      setValue("houseNumber", cartState.address.houseNumber);
+      return setValue("addition", cartState.address.addition);
+    }
+
+    // Then we check if the user has a address.
+    if (user && user.address) {
+      setValue("postalcode", user.address.postalcode);
+      setValue("houseNumber", user.address.houseNumber);
+      return setValue("addition", user.address.addition);
+    }
+    // Finally we check if the user has a localstorage address.
+    const guest = JSON.parse(localStorage.getItem("guest"));
+    if (guest && guest.address) {
+      setValue("postalcode", guest.address.postalcode);
+      setValue("houseNumber", guest.address.houseNumber);
+      return setValue("addition", guest.address.addition);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, delivery, cartState]);
+
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      {/* Title of this part of the form */}
-      <h2 className="text-lg mb-2 mt-6">{t.to_where}</h2>
+    <>
       {/* Main container of the inputs */}
-      <div className="grid grid-cols-12 gap-2 my-2">
+      <div className="grid grid-cols-12 gap-2 my-4">
         {/* Container for the postalcode. */}
         <Input
           register={register}
@@ -79,7 +121,7 @@ const ToWhere = ({ register, errors, watch, address, setAddress }) => {
           </div>
         )}
       </div>
-    </motion.div>
+    </>
   );
 };
 
