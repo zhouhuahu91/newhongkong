@@ -1,8 +1,11 @@
 // React imports
 import { useState } from "react";
+// NextJs imports
+import Link from "next/link";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
+import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Component imports
 import DesktopCart from "@/components/cart/DesktopCart";
 import MobileCart from "@/components/cart/MobileCart";
@@ -12,7 +15,7 @@ import ToWhere from "@/components/checkout/ToWhere";
 import ForWhen from "@/components/checkout/ForWhen";
 import Remarks from "@/components/checkout/Remarks";
 import Payment from "@/components/checkout/Payment";
-
+import SubmitButton from "@/components/SubmitButton";
 // Form imports
 import { useForm, useFormState } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,16 +26,23 @@ import { AnimatePresence, motion } from "framer-motion";
 const CheckOut = () => {
   // We use this state to store the address that the api returns.
   const [address, setAddress] = useState({});
+  // Holds the state for when submit is processing
+  const [processing, setProcessing] = useState(false);
   // t is used to translate text.
   const t = useI18n();
   // Returns dispatch and cartState from cart provider.
-  const { dispatch, cartState } = useCart();
+  const {
+    dispatch,
+    cartState: { delivery, paymentMethod, cart },
+  } = useCart();
+  // Returns information about the store
+  const { closed } = useStoreInfo();
 
   const schema = yup.object().shape({
     // Postalcode only needs validation when delivery is selected.
     // If we would to remove this, eventhough the ToWhere component is not rendered the submit won't work...
     // because the postalcode and houseNumber are getting validated by yup.
-    postalcode: cartState.delivery
+    postalcode: delivery
       ? yup
           .string()
           .required(t.required)
@@ -46,7 +56,7 @@ const CheckOut = () => {
           )
       : yup.string(),
     // House number only needs validation when delivery is selected.
-    houseNumber: cartState.delivery
+    houseNumber: delivery
       ? yup
           .string()
           // Only numbers are allowed 0-9.
@@ -111,7 +121,7 @@ const CheckOut = () => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <AnimatePresence>
-              {cartState.delivery === true && (
+              {delivery === true && (
                 <ToWhere
                   register={register}
                   errors={errors}
@@ -132,6 +142,24 @@ const CheckOut = () => {
             />
             <Remarks errors={errors} register={register} />
             <Payment />
+            {paymentMethod !== "undecided" && cart.length > 0 && !closed && (
+              <>
+                <SubmitButton processing={processing}>
+                  {paymentMethod === "online" ? t.pay : t.place_order}
+                </SubmitButton>
+                <div className="text-xs flex justify-center sm:justify-start w-full max-w-sm">
+                  <span className="mt-2 text-gray-600">
+                    {t.our}{" "}
+                    <Link href="/privacy_policy">
+                      <a className="text-main font-medium">
+                        {t.privacy_policy}
+                      </a>
+                    </Link>{" "}
+                    {t.applies}.
+                  </span>
+                </div>
+              </>
+            )}
           </motion.form>
         </div>
         {/* Container for the cart. */}

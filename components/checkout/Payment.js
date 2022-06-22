@@ -45,7 +45,6 @@ const Payment = () => {
         >
           <span className="material-symbols-rounded mr-3">credit_card</span>
           {t.online}
-          Online
         </button>
       </div>
     </>

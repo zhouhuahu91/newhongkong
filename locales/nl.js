@@ -63,7 +63,16 @@ export default {
   add_for: "Toevoegen",
   rather_pick_up: "Wil je liever afhalen?",
   rather_deliver: "Wil je liever laten bezorgen?",
+
   // ******** MENU ********
+
+  // ******** CHECKOUT ********
+
+  almost_done: "Bijna Klaar",
+  online: "Online",
+  pay: "Betalen",
+
+  // ******** CHECKOUT ********
 
   // Common
   customer_service: "Klantenservice",
@@ -170,9 +179,6 @@ export default {
     "november",
     "december",
   ],
-
-  // Checkout
-  almost_done: "Bijna klaar",
 
   // Pick up or delivery
   pickup_delivery: "Wil je het eten zelf afhalen of bezorgd krijgen?",

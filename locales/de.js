@@ -68,6 +68,14 @@ export default {
 
   // ******** MENU ********
 
+  // ******** CHECKOUT ********
+
+  almost_done: "Fast geschafft",
+  online: "Online",
+  pay: "Zahlen",
+
+  // ******** CHECKOUT ********
+
   // Common
   customer_service: "Kundendienst",
   yesterday: "gestern",
@@ -175,9 +183,6 @@ export default {
     "November",
     "Dezember",
   ],
-
-  // Checkout
-  almost_done: "Fast geschafft",
 
   // Pick up or delivery
   pickup_delivery: "Wollen Sie die Bestellung abholen oder geliefert bekommen?",
