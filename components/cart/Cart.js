@@ -68,7 +68,7 @@ const Cart = () => {
         )}
         {/* ******** END DELIVERY FEE ********* */}
         {/* ******** DELIVERY FEE ********* */}
-        {cartState.paymentMethod !== "cash" &&
+        {cartState.paymentMethod !== "in_person" &&
           cartState.paymentMethod !== "undecided" && (
             <div className="flex justify-between mt-1">
               <span>{t.transaction_fee}</span>

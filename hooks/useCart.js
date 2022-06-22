@@ -75,7 +75,7 @@ const cartReducer = (cartState, action) => {
         ...cartState,
         address: action.payload,
       };
-    case "SET_PAYMENT_MEHTOD":
+    case "SET_PAYMENT_METHOD":
       return {
         ...cartState,
         paymentMethod: action.payload,

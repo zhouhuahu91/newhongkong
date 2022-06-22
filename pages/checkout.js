@@ -11,6 +11,7 @@ import ForWho from "@/components/checkout/ForWho";
 import ToWhere from "@/components/checkout/ToWhere";
 import ForWhen from "@/components/checkout/ForWhen";
 import Remarks from "@/components/checkout/Remarks";
+import Payment from "@/components/checkout/Payment";
 
 // Form imports
 import { useForm, useFormState } from "react-hook-form";
@@ -130,6 +131,7 @@ const CheckOut = () => {
               setValue={setValue}
             />
             <Remarks errors={errors} register={register} />
+            <Payment />
           </motion.form>
         </div>
         {/* Container for the cart. */}

@@ -6,9 +6,9 @@ const calculateTotalCartPrice = (cartState, storeFees) => {
   if (cartState.delivery && cartState.delivery !== "undecided") {
     total += storeFees.deliveryFee;
   }
-  // We add the fee if user doesn't pay with cash.
+  // We add the fee if user pays online.
   if (
-    cartState.paymentMethod !== "cash" &&
+    cartState.paymentMethod !== "in_person" &&
     cartState.paymentMethod !== "undecided"
   ) {
     total += storeFees.transactionFee;
