@@ -1,9 +1,10 @@
 // React imports
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // NextJs imports
 import Link from "next/link";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
+import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Component imports
@@ -41,6 +42,8 @@ const CheckOut = () => {
   } = useCart();
   // Returns information about the store
   const { closed, storeFees } = useStoreInfo();
+  // Returns the users info
+  const { user } = useAuth();
 
   const schema = yup.object().shape({
     // Postalcode only needs validation when delivery is selected.
@@ -101,10 +104,44 @@ const CheckOut = () => {
     // We store the delivery method and payment method in the global state aka context.
     // We need there value outside the checkout.
   });
-
+  // We need this to check if user already started with the form or not.
   const { isDirty } = useFormState({ control });
 
-  const onSubmit = async (data) => {
+  // If there is no user signed in we check the local storage if there is a guest object.
+  // With that object we fill in the form.
+  useEffect(() => {
+    const guest = JSON.parse(localStorage.getItem("guest"));
+    // If user already started on the form we exit this function.
+    if (isDirty) return;
+    if (user) {
+      // We check every just in case.
+      if (user.name) setValue("name", user.name);
+      if (user.email) setValue("email", user.email);
+      if (user.tel) setValue("tel", user.tel);
+      if (user.saveRemarks) setValue("saveRemarks", user.saveRemarks);
+      if (user.saveRemarks && user.remarks) setValue("remarks", user.remarks);
+      if (user.address) {
+        setValue("postalcode", user.address.postalcode);
+        setValue("houseNumber", user.address.houseNumber);
+        setValue("addition", user.address.addition);
+      }
+    } else if (guest) {
+      setValue("name", guest.name);
+      setValue("email", guest.email);
+      setValue("tel", guest.tel);
+      setValue("postalcode", guest.postalcode);
+      setValue("houseNumber", guest.houseNumber);
+      setValue("addition", guest.addition);
+      setValue("saveRemarks", guest.saveRemarks);
+      // We check if the saveRemarks is true if it is we set it's value.
+      if (guest.saveRemarks) {
+        setValue("remarks", guest.remarks);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  const onSubmit = async (formData) => {
     // We disable the submit button by setting the processing state to true.
     setProcessing(true);
 
@@ -112,6 +149,25 @@ const CheckOut = () => {
     if (delivery === true && !address.street) {
       return setProcessing(false);
     }
+    // We collect al the users data in an object.
+    const data = {
+      user: user ? user.uid : "guest",
+      ...formData,
+      total: calculateTotalCartPrice(cartState, storeFees),
+      ...cartState,
+      address: { ...address, addition: formData.addition },
+    };
+
+    // If there is a user we update there info to the database.
+    if (user) {
+      // updateUser(data); TODO MAKE A FUNCTION THAT UPDATES THE USERS INFO.
+    }
+    // We always save the information to localstorage.
+    localStorage.setItem("guest", JSON.stringify({ ...data }));
+
+    console.log(formData);
+    // We turn off Processing
+    setProcessing(false);
   };
 
   return (
