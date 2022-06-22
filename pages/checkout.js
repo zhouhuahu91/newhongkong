@@ -22,6 +22,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 // Animation imports
 import { AnimatePresence, motion } from "framer-motion";
+// Function imports
+import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
+import euro from "@/functions/euro";
 
 const CheckOut = () => {
   // We use this state to store the address that the api returns.
@@ -33,10 +36,11 @@ const CheckOut = () => {
   // Returns dispatch and cartState from cart provider.
   const {
     dispatch,
+    cartState,
     cartState: { delivery, paymentMethod, cart },
   } = useCart();
   // Returns information about the store
-  const { closed } = useStoreInfo();
+  const { closed, storeFees } = useStoreInfo();
 
   const schema = yup.object().shape({
     // Postalcode only needs validation when delivery is selected.
@@ -100,8 +104,14 @@ const CheckOut = () => {
 
   const { isDirty } = useFormState({ control });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    // We disable the submit button by setting the processing state to true.
+    setProcessing(true);
+
+    // If user selects for delivery and there is no street it means that the user hasn't filled in a correct address.
+    if (delivery === true && !address.street) {
+      return setProcessing(false);
+    }
   };
 
   return (
@@ -145,7 +155,8 @@ const CheckOut = () => {
             {paymentMethod !== "undecided" && cart.length > 0 && !closed && (
               <>
                 <SubmitButton processing={processing}>
-                  {paymentMethod === "online" ? t.pay : t.place_order}
+                  {paymentMethod === "online" ? t.pay : t.place_order}{" "}
+                  {euro(calculateTotalCartPrice(cartState, storeFees))}
                 </SubmitButton>
                 <div className="text-xs flex justify-center sm:justify-start w-full max-w-sm">
                   <span className="mt-2 text-gray-600">

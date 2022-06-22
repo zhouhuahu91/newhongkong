@@ -205,7 +205,7 @@ export default {
   postalcode: "postalcode",
   house_number: "house number",
   house_number_addition: "addition",
-  can_not_find_address: "no address found",
+  can_not_find_address: "No address found. Try again.",
   for_who: "For who is it?",
 
   // For Who

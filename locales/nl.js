@@ -205,7 +205,7 @@ export default {
   postalcode: "postcode",
   house_number: "huisnummer",
   house_number_addition: "toevoeging",
-  can_not_find_address: "geen adres gevonden",
+  can_not_find_address: "Geen adres gevonden. Probeer het nog eens.",
   for_who: "Voor wie is het eten?",
 
   // For Who

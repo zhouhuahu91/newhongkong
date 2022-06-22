@@ -209,7 +209,8 @@ export default {
   postalcode: "Postleitzahl",
   house_number: "Straßennummer",
   house_number_addition: "Zusatz",
-  can_not_find_address: "Adresse konnte nicht gefunden werden",
+  can_not_find_address:
+    "Adresse konnte nicht gefunden werden. Versuchen Sie es nochmal.",
   for_who: "Für wen ist das?",
 
   // For Who
