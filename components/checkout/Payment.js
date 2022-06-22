@@ -28,7 +28,9 @@ const Payment = () => {
               : "shadow-md bg-white"
           }`}
         >
-          <span className="material-symbols-rounded mr-3">point_of_sale</span>
+          <span className="material-symbols-rounded mr-3">
+            {delivery === true ? "account_balance_wallet" : "point_of_sale"}
+          </span>
           {delivery === true ? t.cash : t.at_store}
         </button>
         {/* This button sets delivery to true which means the order will be delivered. */}
