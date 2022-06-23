@@ -98,7 +98,9 @@ const SignIn = () => {
             >
               {t.forgot_password}
             </button>
-            <SubmitButton processing={processing}>{t.sign_in}</SubmitButton>
+            <SubmitButton className="mt-12" processing={processing}>
+              {t.sign_in}
+            </SubmitButton>
             <SignInProviders setError={setError} />
           </form>
         </div>

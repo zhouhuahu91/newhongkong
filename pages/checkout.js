@@ -34,11 +34,11 @@ import getURL from "@/functions/getURL";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC_TEST
-);
-
 const CheckOut = () => {
+  // Store stripe Promise in state.
+  const [stripePromise, setStripePromise] = useState(() =>
+    loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC_TEST)
+  );
   // We store stripe client secret.
   const [clientSecret, setClientSecret] = useState(null);
   // Store state for stripe payment modal.
@@ -200,7 +200,7 @@ const CheckOut = () => {
       // return router.push(`/succes?redirect_status=succeeded&id=${id}`);
     } else if (paymentMethod === "online") {
       setClientSecret(secret);
-      setStripePaymentModal(true);
+      return setStripePaymentModal(true);
       // If it is not cash we use the stripe secret generated in create order api...
       // to open the payment modal.
     } else {
@@ -251,7 +251,7 @@ const CheckOut = () => {
               <Payment />
               {paymentMethod !== "undecided" && cart.length > 0 && !closed && (
                 <>
-                  <SubmitButton processing={processing}>
+                  <SubmitButton processing={processing} className="mt-12">
                     {paymentMethod === "online" ? t.pay : t.place_order}{" "}
                     {euro(calculateTotalCartPrice(cartState, storeFees))}
                   </SubmitButton>
@@ -279,8 +279,12 @@ const CheckOut = () => {
       {clientSecret && (
         <Elements stripe={stripePromise} options={{ clientSecret }}>
           <StripePaymentModal
-            open={stripePaymentModal}
-            setOpen={setStripePaymentModal}
+            toggle={stripePaymentModal}
+            cancel={() => {
+              setStripePaymentModal(false);
+              setClientSecret(null);
+              setProcessing(false);
+            }}
           />
         </Elements>
       )}

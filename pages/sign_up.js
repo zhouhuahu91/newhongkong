@@ -98,7 +98,9 @@ const SignUp = () => {
               <a className="text-main font-medium">{t.sign_in}</a>
             </Link>
           </span>
-          <SubmitButton processing={processing}>{t.send}</SubmitButton>
+          <SubmitButton className="mt-12" processing={processing}>
+            {t.send}
+          </SubmitButton>
           <SignInProviders setError={setError} />
         </form>
       </div>

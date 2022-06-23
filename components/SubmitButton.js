@@ -1,11 +1,13 @@
-const SubmitButton = ({ processing, children }) => {
+const SubmitButton = ({ processing, children, className }) => {
   return (
     <>
       {/* When processing we add an invisible div over the screen so that user can't interact with the screen */}
       {processing && <div className="absolute inset-0 z-50" />}
       <button
         type="submit"
-        className={`button mt-12 w-full text-white relative ${
+        className={`${
+          className && className
+        } button w-full text-white relative ${
           processing ? "pointer-events-none bg-gray-300" : "bg-main"
         }`}
         disabled={processing}

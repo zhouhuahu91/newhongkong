@@ -14,7 +14,7 @@ import {
 // Function imports
 import getURL from "@/functions/getURL";
 
-const StripePaymentModal = ({ open, setOpen }) => {
+const StripePaymentModal = ({ toggle, cancel }) => {
   const stripe = useStripe();
   const elements = useElements();
   // Store state for processing payment
@@ -47,15 +47,29 @@ const StripePaymentModal = ({ open, setOpen }) => {
   };
   return (
     <Modal
-      toggle={open}
-      close={() => setOpen(false)}
+      toggle={toggle}
+      // We do not allow user to close the modal via click on backdrop.
+      // User can only close the modal via the cancel button.
+      close={() => true}
       className="bg-white w-full max-w-md p-6 rounded"
     >
       <form onSubmit={handleSubmit}>
         <PaymentElement id="payment-element" />
-        <SubmitButton processing={processing || !stripe || !elements}>
-          {t.pay}
-        </SubmitButton>
+        <div className="mt-4 grid grid-cols-12 gap-4">
+          <button
+            onClick={() => cancel()}
+            type="button"
+            className="button border col-span-5"
+          >
+            {t.cancel}
+          </button>
+          <SubmitButton
+            className="col-span-7"
+            processing={processing || !stripe || !elements}
+          >
+            {t.pay}
+          </SubmitButton>
+        </div>
       </form>
     </Modal>
   );

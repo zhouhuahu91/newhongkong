@@ -77,7 +77,9 @@ const ResetPassword = ({ open, setOpen }) => {
             {t.reset_password_succes}
           </label>
         )}
-        <SubmitButton processing={processing}>{t.send}</SubmitButton>
+        <SubmitButton className="mt-12" processing={processing}>
+          {t.send}
+        </SubmitButton>
       </form>
     </Modal>
   );
