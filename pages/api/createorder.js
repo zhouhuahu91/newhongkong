@@ -2,7 +2,6 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY_TEST);
 import { db } from "@/firebase/admin";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
-import createMailContent from "@/functions/createMailContent";
 import sendMail from "@/functions/sendMail";
 
 // We activate stripe by passing in the stripe secret.
@@ -53,7 +52,7 @@ const createorder = async (req, res) => {
     // 2. The user pays in person, then we need to send a confirmation email and add the time slot.
     if (data.paymentMethod === "in_person") {
       // We send the email.
-      sendMail(data);
+      await sendMail({ ...data, id });
       // TODO: ADD TIME SLOT.
     } else if (data.paymentMethod === "online") {
       // We create the secret and return it to the front-end where user get redirected to pay with stripe.

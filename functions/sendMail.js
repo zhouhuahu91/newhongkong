@@ -21,21 +21,23 @@ const sendMail = async (data) => {
   // We create the email with the create mail function.
   const mail = createMail(data);
 
-  await new Promise((resolve, reject) => {
-    // send mail
-    transporter.sendMail(mail, async (err, info) => {
-      if (err) {
-        console.error(err);
-        reject(err);
-      } else {
-        const ref = db.doc(`orders/${data.id}`);
-        await ref.update({
-          mailSent: true,
-        });
-        resolve(info);
-      }
+  try {
+    // Mail never gets send if we do not use await here.
+    const response = await transporter.sendMail(mail);
+
+    // If there is a response.err it means something went wrong we return and console.log it.
+    if (response.err) {
+      return console.log(response.err);
+    }
+
+    // If there is no response.err we update the order status with the email send.
+    const ref = db.doc(`orders/${data.id}`);
+    await ref.update({
+      mailSent: true,
     });
-  });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export default sendMail;
