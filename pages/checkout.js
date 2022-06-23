@@ -156,6 +156,7 @@ const CheckOut = () => {
       total: calculateTotalCartPrice(cartState, storeFees),
       ...cartState,
       address: { ...address, addition: formData.addition },
+      storeFees,
     };
 
     // If there is a user we update there info to the database.

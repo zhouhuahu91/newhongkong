@@ -50,6 +50,7 @@ const Cart = () => {
       >
         <AnimatePresence>
           {cartState.cart.map((cartItem) => {
+            console.log(cartItem);
             return <CartItemComponent key={cartItem.id} cartItem={cartItem} />;
           })}
         </AnimatePresence>
