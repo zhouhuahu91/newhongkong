@@ -7,7 +7,7 @@ const addTimeSlot = async (data) => {
   try {
     const ref = db.doc(`timeSlots${delivery ? "Delivery" : "PickUp"}/${date}`);
     const snapshot = await ref.get();
-    if (snapshot.exists()) {
+    if (snapshot.exists) {
       existingOptions = snapshot.data().slots;
     }
     await ref.set({

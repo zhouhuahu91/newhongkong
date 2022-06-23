@@ -55,7 +55,7 @@ const createorder = async (req, res) => {
       // We send the email.
       await sendMail({ ...data, id });
       // We add time slot.
-      await addTimeSlot(data);
+      await addTimeSlot({ ...data, date });
     } else if (data.paymentMethod === "online") {
       // We create the secret and return it to the front-end where user get redirected to pay with stripe.
       secret = await createSecret(id, data);
