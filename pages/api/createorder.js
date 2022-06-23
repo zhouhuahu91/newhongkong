@@ -3,6 +3,7 @@ import { db } from "@/firebase/admin";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 import sendMail from "@/functions/sendMail";
+import addTimeSlot from "@/functions/addTimeSlot";
 
 // We activate stripe by passing in the stripe secret.
 
@@ -53,7 +54,8 @@ const createorder = async (req, res) => {
     if (data.paymentMethod === "in_person") {
       // We send the email.
       await sendMail({ ...data, id });
-      // TODO: ADD TIME SLOT.
+      // We add time slot.
+      await addTimeSlot(data);
     } else if (data.paymentMethod === "online") {
       // We create the secret and return it to the front-end where user get redirected to pay with stripe.
       secret = await createSecret(id, data);
