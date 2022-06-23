@@ -1,4 +1,5 @@
-import admin from "firebase-admin";
+// firebase admin can only be used on the server.
+const admin = require("firebase-admin");
 
 if (!admin.apps.length) {
   admin.initializeApp({
