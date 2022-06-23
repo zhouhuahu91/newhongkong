@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 // NextJs imports
 import Link from "next/link";
+import { useRouter } from "next/router";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useAuth } from "@/hooks/useAuth";
@@ -17,15 +18,18 @@ import ForWhen from "@/components/checkout/ForWhen";
 import Remarks from "@/components/checkout/Remarks";
 import Payment from "@/components/checkout/Payment";
 import SubmitButton from "@/components/SubmitButton";
-// Form imports
+// Third party imports
 import { useForm, useFormState } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
 // Animation imports
 import { AnimatePresence, motion } from "framer-motion";
 // Function imports
 import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
 import euro from "@/functions/euro";
+import createMailContent from "@/functions/createMailContent";
+import getURL from "@/functions/getURL";
 
 const CheckOut = () => {
   // We use this state to store the address that the api returns.
@@ -44,6 +48,10 @@ const CheckOut = () => {
   const { closed, storeFees } = useStoreInfo();
   // Returns the users info
   const { user } = useAuth();
+  // Returns real URL or prodution URL
+  const URL = getURL();
+  // We need router to push the user to the succes page.
+  const router = useRouter();
 
   const schema = yup.object().shape({
     // Postalcode only needs validation when delivery is selected.
@@ -166,9 +174,31 @@ const CheckOut = () => {
     // We always save the information to localstorage.
     localStorage.setItem("guest", JSON.stringify({ ...data }));
 
-    console.log(formData);
-    // We turn off Processing
-    setProcessing(false);
+    const {
+      data: { secret, id, date },
+    } = await axios.post(`${URL}/api/createorder`, data);
+
+    console.log(secret, id, date);
+
+    // There are two ways to this function can go.
+    // 1. User pays in person.
+    // 2. User pays online.
+    if (paymentMethod === "in_person") {
+      // User doesn't pay online we can wrap up the order here.
+      // First we create the email.
+      const email = createMailContent(data);
+      // We send the email.
+
+      // We add the time slot the user has selected.
+
+      // We push the user to the succes page.
+      return router.push(`/succes?redirect_status=succeeded&id=${id}`);
+    } else if (paymentMethod === "online") {
+    } else {
+      // Just in case something went wrong.
+      // We turn off Processing
+      return setProcessing(false);
+    }
   };
 
   return (

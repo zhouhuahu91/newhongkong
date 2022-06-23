@@ -1,6 +1,6 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY_TEST);
 import { db } from "@/firebase/admin";
-import { getCurrentDate } from "@/functions/getCurrentDate";
+import getCurrentDate from "@/functions/getCurrentDate";
 
 // We activate stripe by passing in the stripe secret.
 

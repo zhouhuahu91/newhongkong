@@ -1,7 +1,7 @@
 // Function imports
 import euro from "@/functions/euro";
 
-const createMail = (data) => {
+const createMailContent = (data) => {
   // This is the cart "table" in the email.
   const createTable = (data) => {
     // Container for the order table with the title.
@@ -210,4 +210,4 @@ const createMail = (data) => {
   return mailData;
 };
 
-export default createMail;
+export default createMailContent;
