@@ -19,6 +19,8 @@ const StripePaymentModal = ({ toggle, cancel }) => {
   const elements = useElements();
   // Store state for processing payment
   const [processing, setProcessing] = useState(false);
+  // Shows loader when payment element is not ready
+  const [loading, setLoading] = useState(true);
   // t is used to translate text.
   const t = useI18n();
   // GetUrl returns the URL depending on the environment.
@@ -45,6 +47,7 @@ const StripePaymentModal = ({ toggle, cancel }) => {
     // TODO handle ERROR
     setProcessing(false);
   };
+
   return (
     <Modal
       toggle={toggle}
@@ -54,7 +57,11 @@ const StripePaymentModal = ({ toggle, cancel }) => {
       className="bg-white w-full max-w-md p-6 rounded"
     >
       <form onSubmit={handleSubmit}>
-        <PaymentElement id="payment-element" />
+        {loading && <div>loading...</div>}
+        <PaymentElement
+          id="payment-element"
+          onReady={() => setLoading(false)}
+        />
         <div className="mt-4 grid grid-cols-12 gap-4">
           <button
             onClick={() => cancel()}
