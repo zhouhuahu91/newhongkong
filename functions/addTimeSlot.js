@@ -1,8 +1,10 @@
-import { db, FieldValue } from "@/firebase/admin";
+import { db } from "@/firebase/admin";
 
 // This function only works on server because it uses the firebase admin sdk.
 const addTimeSlot = async (data) => {
   const { date, time, delivery } = data;
+  let existingSlots = [];
+
   try {
     // We look up the ref.
     const ref = db.doc(`timeSlots${delivery ? "Delivery" : "PickUp"}/${date}`);
@@ -11,14 +13,12 @@ const addTimeSlot = async (data) => {
     // Exists is not a method in contrary to normal firebase.
     // We check if it exists.
     if (snapshot.exists) {
-      // If the array already exists we push the new time on the array.
-      return await ref.update({
-        slots: FieldValue.arrayUnion(time),
-      });
+      // If it exists we replace the existingSlots
+      // We can not array.union because that doesn't allow duplicates.
+      existingSlots = snapshot.data().slots;
     }
-    // If it doesn't we set the new array to slots.
-    return await ref.set({
-      slots: [time],
+    await ref.set({
+      slots: [...existingSlots, time],
     });
   } catch (e) {
     console.log(e);
