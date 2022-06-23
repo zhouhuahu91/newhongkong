@@ -2,7 +2,7 @@
 // If we are in production we return the URL of the server.
 // If we are in development we return the URL of the localhost.
 const getURL = () => {
-  let URL = "https://newhongkong.nl";
+  let URL = "https://newhongkong.vercel.app/";
   if (process.env.NODE_ENV === "development") URL = "http://localhost:3000";
 
   return URL;
