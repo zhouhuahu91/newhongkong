@@ -114,7 +114,7 @@ const createMailContent = (data) => {
       <td colspan="3" style="text-align: left; padding-top: 1rem;">betaalmethode:
         <span style="float: right">${
           data.cash === "in_person"
-            ? data.delivery
+            ? data.delivery === true
               ? "bij bezorging"
               : "bij afhalen"
             : "Betaald online"
@@ -165,7 +165,7 @@ const createMailContent = (data) => {
                 data.name
               )} en
               ${
-                data.delivery
+                data.delivery === true
                   ? `wordt ${
                       asap
                         ? Emp("zo snel mogelijk")

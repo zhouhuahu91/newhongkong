@@ -7,7 +7,9 @@ const addTimeSlot = async (data) => {
 
   try {
     // We look up the ref.
-    const ref = db.doc(`timeSlots${delivery ? "Delivery" : "PickUp"}/${date}`);
+    const ref = db.doc(
+      `timeSlots${delivery === true ? "Delivery" : "PickUp"}/${date}`
+    );
     // We get the snapshot of the ref.
     const snapshot = await ref.get();
     // Exists is not a method in contrary to normal firebase.
