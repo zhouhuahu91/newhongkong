@@ -28,6 +28,9 @@ const createSecret = async (id, data) => {
   }
 };
 
+// TODO:
+// This function calculates the total amount again just in case user tries to manipulate the total.
+
 const createorder = async (req, res) => {
   try {
     const data = req.body;

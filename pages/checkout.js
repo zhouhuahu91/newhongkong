@@ -184,17 +184,12 @@ const CheckOut = () => {
     // 1. User pays in person.
     // 2. User pays online.
     if (paymentMethod === "in_person") {
-      // User doesn't pay online we can wrap up the order here.
-      // First we create the email.
-      const email = createMailContent(data);
-      // We send the email.
-
-      // We add the time slot the user has selected.
-
-      // We push the user to the succes page.
+      // If user pays in person we send mail and add time slot on the server.
+      setProcessing(false);
       // return router.push(`/succes?redirect_status=succeeded&id=${id}`);
-      return setProcessing(false);
     } else if (paymentMethod === "online") {
+      // If it is not cash we use the stripe secret generated in create order api...
+      // to open the payment modal.
     } else {
       // Just in case something went wrong.
       // We turn off Processing
