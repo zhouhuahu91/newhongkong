@@ -1,3 +1,5 @@
+import { db } from "@/firebase/admin";
+
 // This function only works on server because it uses the firebase admin sdk.
 const addTimeSlot = async (data) => {
   const { date, time, delivery } = data;
