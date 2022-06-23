@@ -23,20 +23,19 @@ const sendMail = async (data) => {
 
   await new Promise((resolve, reject) => {
     // send mail
-    transporter.sendMail(mail, (err, info) => {
+    transporter.sendMail(mail, async (err, info) => {
       if (err) {
         console.error(err);
         reject(err);
       } else {
         const ref = db.doc(`orders/${data.id}`);
         await ref.update({
-         mailSent: true,
+          mailSent: true,
         });
         resolve(info);
       }
     });
   });
-
 };
 
 export default sendMail;

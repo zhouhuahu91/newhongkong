@@ -1,6 +1,9 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY_TEST);
 import { db } from "@/firebase/admin";
+// Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
+import createMailContent from "@/functions/createMailContent";
+import sendMail from "@/functions/sendMail";
 
 // We activate stripe by passing in the stripe secret.
 
@@ -44,9 +47,25 @@ const createorder = async (req, res) => {
     });
 
     let secret = null;
-    // We create a secret if user doesn't pay with cash
-    if (data.cash !== "in_person") {
+
+    // The user has two options.
+    // 1. The user pays online if he/she does we need to create an secret key.
+    // 2. The user pays in person, then we need to send a confirmation email and add the time slot.
+    if (data.paymentMethod === "in_person") {
+      // We send the email.
+      sendMail(data);
+      // TODO: ADD TIME SLOT.
+    } else if (data.paymentMethod === "online") {
+      // We create the secret and return it to the front-end where user get redirected to pay with stripe.
       secret = await createSecret(id, data);
+    } else {
+      console.log(
+        "Something went wrong with the payment method.",
+        data.paymentMethod
+      );
+      return res
+        .status(500)
+        .json({ error: "Something went wrong with the payment methid." });
     }
 
     // We return the secret to the front end.

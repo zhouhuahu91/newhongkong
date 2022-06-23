@@ -192,7 +192,8 @@ const CheckOut = () => {
       // We add the time slot the user has selected.
 
       // We push the user to the succes page.
-      return router.push(`/succes?redirect_status=succeeded&id=${id}`);
+      // return router.push(`/succes?redirect_status=succeeded&id=${id}`);
+      return setProcessing(false);
     } else if (paymentMethod === "online") {
     } else {
       // Just in case something went wrong.

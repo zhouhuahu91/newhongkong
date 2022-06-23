@@ -45,7 +45,7 @@ const createMailContent = (data) => {
     <tr>
       <td colspan="2" style="text-align: left; padding-top: 1rem">subtotaal</td>
       <td colspan="1" style="text-align: right; padding-top: 1rem">${euro(
-        cart.reduce((x, y) => x + y.price, 0)
+        data.cart.reduce((x, y) => x + y.price, 0)
       )}</td>
     </tr>`;
 
