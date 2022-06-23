@@ -113,8 +113,8 @@ const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
 
   return (
     <Modal
-      open={open}
-      setOpen={setOpen}
+      toggle={open}
+      close={() => setOpen(false)}
       className="bg-white h-auto w-11/12 sm:w-10/12 max-w-sm rounded-lg relative flex flex-col overflow-hidden select-none"
     >
       <ItemModalContent

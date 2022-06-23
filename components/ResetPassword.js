@@ -58,8 +58,8 @@ const ResetPassword = ({ open, setOpen }) => {
 
   return (
     <Modal
-      open={open}
-      setOpen={setOpen}
+      toggle={open}
+      close={() => setOpen(false)}
       className="bg-white w-80 shadow border py-8 px-6 m-4 rounded-xl"
     >
       <h1 className="font-semibold text-3xl">{t.reset_password}</h1>

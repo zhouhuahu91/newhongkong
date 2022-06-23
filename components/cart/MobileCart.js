@@ -63,8 +63,8 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
       </AnimatePresence>
       {/* Container for the cart that covers the whole screen. */}
       <Modal
-        open={open}
-        setOpen={setOpen}
+        toggle={open}
+        close={() => setOpen(false)}
         className="bg-white fixed inset-0 w-full h-full flex flex-col sm:p-4"
       >
         <div className="flex items-center justify-between p-4">

@@ -13,11 +13,11 @@ const modalVariant = {
   visible: { opacity: 1, scale: 1 },
 };
 
-const Modal = ({ open, children, setOpen, className }) => {
-  useLockBodyScroll(open);
+const Modal = ({ toggle, children, close, className }) => {
+  useLockBodyScroll(toggle);
   return (
     <AnimatePresence>
-      {open && (
+      {toggle && (
         <motion.div
           variants={backdropVariant}
           animate="visible"
@@ -25,7 +25,7 @@ const Modal = ({ open, children, setOpen, className }) => {
           exit="hidden"
           className="fixed inset-0 w-full bg-opacity-50 bg-black h-full flex justify-center items-center z-50"
           onClick={(e) => {
-            setOpen(false);
+            close();
             e.stopPropagation();
           }}
         >

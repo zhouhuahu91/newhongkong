@@ -146,8 +146,8 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
 
   return (
     <Modal
-      open={open}
-      setOpen={setOpen}
+      toggle={open}
+      close={() => setOpen(false)}
       className="bg-white max-w-md w-full m-4 rounded-lg flex flex-col justify-between"
     >
       <h2 className="text-lg p-4">{t.pickup_delivery}</h2>

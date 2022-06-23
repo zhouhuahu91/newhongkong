@@ -110,8 +110,8 @@ const NewItemModal = ({ item, open, setOpen }) => {
 
   return (
     <Modal
-      open={open}
-      setOpen={setOpen}
+      toggle={open}
+      close={() => setOpen(false)}
       className="bg-white h-auto w-10/12 max-w-sm rounded-lg relative flex flex-col overflow-hidden select-none"
     >
       <ItemModalContent
