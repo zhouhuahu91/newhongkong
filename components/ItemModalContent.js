@@ -82,21 +82,21 @@ const ItemModalContent = ({
             />
           )}
           <div className="">
-            <label
-              htmlFor="itemRemarks"
-              className={`text-xs ${
-                errors.remarks ? "text-red-400" : "text-gray-500"
-              }`}
-            >
-              {errors.remarks ? t.remarks_max : t.remarks}
+            <label htmlFor="itemRemarks" className={`text-sm text-gray-500`}>
+              {t.remarks}
             </label>
             <textarea
               value={remarks}
               onChange={(e) => setRemarks(e.target.value)}
               rows="3"
               id="itemRemarks"
-              className="appearance-none border w-full focus:outline-none py-2 px-3 rounded-lg text-sm focus:shadow hover:shadow transition-shadow"
+              className={`appearance-none border w-full red-focus-ring py-2 px-3 rounded-md text-sm ${
+                errors.remarks && "border-main border-2"
+              }`}
             />
+            <label htmlFor="itemRemarks" className={`text-sm text-red-400`}>
+              {errors.remarks && t.remarks_max}
+            </label>
           </div>
         </div>
         <div className="flex items-center justify-evenly relative h-8">

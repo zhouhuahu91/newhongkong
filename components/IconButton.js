@@ -7,7 +7,7 @@ const IconButton = ({ onClick, variant, color, size, disabled, className }) => {
         }
       }}
       type="button"
-      className={`relative select-none w-4 h-4 red-focus-ring focus:outline-none ${
+      className={`relative rounded-full ring-offset-[3px] select-none w-4 h-4 red-focus-ring focus:outline-none ${
         className && className
       }`}
     >
