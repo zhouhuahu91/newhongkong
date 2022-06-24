@@ -19,8 +19,8 @@ const ToolTip = ({ tip, disabled }) => {
         ref={reference}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
-        className={`material-symbols-rounded ${
-          disabled ? "text-gray-300" : ""
+        className={`material-symbols-rounded text-lg-important ${
+          disabled && "text-gray-300"
         }`}
       >
         help
@@ -38,7 +38,7 @@ const ToolTip = ({ tip, disabled }) => {
               top: y ?? 0,
               left: x ?? 0,
             }}
-            className="border p-2 rounded bg-amber-50 text-xs w-52"
+            className="border p-2 rounded-md bg-amber-50 text-sm w-52"
           >
             {tip}
           </motion.div>

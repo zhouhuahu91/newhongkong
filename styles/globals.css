@@ -36,3 +36,7 @@ a {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.text-lg-important {
+  font-size: 18px !important;
+}
