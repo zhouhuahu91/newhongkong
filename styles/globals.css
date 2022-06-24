@@ -23,7 +23,7 @@ a {
 }
 
 .red-focus-ring {
-  @apply focus:ring focus:border-red-200 ring-red-100;
+  @apply focus:outline-none focus:ring focus:border-red-200 ring-red-100;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

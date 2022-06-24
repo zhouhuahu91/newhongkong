@@ -19,7 +19,7 @@ const ToolTip = ({ tip, disabled }) => {
         ref={reference}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
-        className={`material-symbols-rounded text-lg ${
+        className={`material-symbols-rounded ${
           disabled ? "text-gray-300" : ""
         }`}
       >

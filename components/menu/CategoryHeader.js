@@ -107,9 +107,9 @@ const CategoryHeader = ({ data, categoryRef }) => {
             >
               {/* We highlight the category that is selected. */}
               <span
-                className={`px-2 text-sm py-1 rounded-full transition-colors ease-in duration-200 ${
+                className={`px-2 text-sm py-1 rounded-full transition-colors ease-in duration-200 red-focus-ring ${
                   visableCategory?.id == category.id &&
-                  "bg-main text-white shadow-md font-medium"
+                  "border-main border-2 font-medium text-main"
                 }`}
               >
                 {category.category[t.locale]}

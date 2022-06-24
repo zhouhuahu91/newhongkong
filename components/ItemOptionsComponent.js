@@ -110,7 +110,6 @@ const ItemOptionsComponent = ({
                   <IconButton
                     variant="remove_circle_outline"
                     color="main"
-                    size="small"
                     onClick={() => {
                       // First we reset the errors.
                       resetErrors();
@@ -133,7 +132,6 @@ const ItemOptionsComponent = ({
                   <IconButton
                     color="main"
                     variant="add_circle_outline"
-                    size="small"
                     disabled={selectedOptions.length === qwtOptions}
                     onClick={() => {
                       // If the maximum is reached we exit this function.

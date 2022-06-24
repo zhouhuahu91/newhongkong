@@ -7,7 +7,9 @@ const IconButton = ({ onClick, variant, color, size, disabled, className }) => {
         }
       }}
       type="button"
-      className={`relative select-none w-4 h-4 ${className && className}`}
+      className={`relative select-none w-4 h-4 red-focus-ring focus:outline-none ${
+        className && className
+      }`}
     >
       <span
         className={`material-symbols-rounded ${
@@ -16,9 +18,7 @@ const IconButton = ({ onClick, variant, color, size, disabled, className }) => {
             : color === "main"
             ? "text-main"
             : ""
-        } absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${
-          size === "small" ? "text-lg" : ""
-        }`}
+        } absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
       >
         {variant}
       </span>

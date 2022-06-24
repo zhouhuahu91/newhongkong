@@ -73,7 +73,7 @@ const Input = ({
         {(name === "password" || type === "password") && (
           <span
             onClick={() => setShow((prev) => !prev)}
-            className="material-symbols-rounded text-lg text-gray-500 absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
+            className="material-symbols-rounded text-gray-500 absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
           >
             {show ? "visibility" : "visibility_off"}
           </span>
