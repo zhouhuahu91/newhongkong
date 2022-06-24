@@ -277,7 +277,21 @@ const CheckOut = () => {
         </div>
       </div>
       {clientSecret && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
+        <Elements
+          stripe={stripePromise}
+          options={{
+            clientSecret,
+            appearance: {
+              variables: {
+                colorPrimary: "#e76f51",
+                colorText: "#6b7280",
+                colorDanger: "#f87171",
+                fontFamily: "Poppins",
+                // fontSizeBase: "16px",
+              },
+            },
+          }}
+        >
           <StripePaymentModal
             toggle={stripePaymentModal}
             cancel={() => {

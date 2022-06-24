@@ -54,15 +54,17 @@ const StripePaymentModal = ({ toggle, cancel }) => {
       // We do not allow user to close the modal via click on backdrop.
       // User can only close the modal via the cancel button.
       close={() => true}
-      className="bg-white w-full max-w-md p-6 rounded"
+      className="bg-neutral-50 w-full max-w-md rounded-md overflow-hidden"
     >
       <form onSubmit={handleSubmit}>
-        {loading && <div>loading...</div>}
-        <PaymentElement
-          id="payment-element"
-          onReady={() => setLoading(false)}
-        />
-        <div className="mt-4 grid grid-cols-12 gap-4">
+        <div className="px-4 pt-6">
+          {loading && <div>loading...</div>}
+          <PaymentElement
+            id="payment-element"
+            onReady={() => setLoading(false)}
+          />
+        </div>
+        <div className="mt-4 grid grid-cols-12 gap-4 bg-white shadow p-4">
           <button
             onClick={() => cancel()}
             type="button"
