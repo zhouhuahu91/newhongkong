@@ -11,7 +11,7 @@ const PickUpOrDelivery = () => {
 
   // Style of the button.
   const btnStyle =
-    "flex flex-col p-3 rounded-md text-sm focus:outline-none font-medium w-32 border bg-white";
+    "flex flex-col p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
 
   return (
     <>
@@ -22,9 +22,8 @@ const PickUpOrDelivery = () => {
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: false })}
           type="button"
           className={`${btnStyle} ${
-            delivery === false
-              ? "border-main red-focus-ring border-2 text-main"
-              : ""
+            delivery === false &&
+            "border-main red-focus-ring border-2 text-main"
           }`}
         >
           <span className="material-symbols-rounded text-inherit">store</span>
@@ -35,7 +34,7 @@ const PickUpOrDelivery = () => {
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: true })}
           type="button"
           className={`${btnStyle} ${
-            delivery === true ? "border-main border-2 text-main" : ""
+            delivery === true && "border-main border-2 red-focus-ring text-main"
           }`}
         >
           <span className="material-symbols-rounded text-inherit">

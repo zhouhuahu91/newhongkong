@@ -10,25 +10,24 @@ const Payment = () => {
   const t = useI18n();
 
   const btnStyle =
-    "flex items-center justify-center text-sm py-2 focus:outline-none font-medium w-1/2 border transition-colors duration-200 ease-in-out";
+    "flex flex-col p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
 
   return (
     <>
       {/* <h2 className="text-xl font-medium mt-4 mb-2">{t.payment_method}</h2> */}
-      <div className="flex justify-between mt-2">
+      <div className="flex space-x-2 mt-2">
         {/* This button sets delivery to false which means the customer will pcik up the order */}
         <button
           onClick={() =>
             dispatch({ type: "SET_PAYMENT_METHOD", payload: "in_person" })
           }
           type="button"
-          className={`${btnStyle} rounded-l-md ${
-            paymentMethod === "in_person"
-              ? "bg-neutral-100"
-              : "shadow-md bg-white"
+          className={`${btnStyle} ${
+            paymentMethod === "in_person" &&
+            "border-main red-focus-ring border-2 text-main"
           }`}
         >
-          <span className="material-symbols-rounded mr-3">
+          <span className="material-symbols-rounded text-inherit">
             {delivery === true ? "account_balance_wallet" : "point_of_sale"}
           </span>
           {delivery === true ? t.cash : t.at_store}
@@ -39,11 +38,14 @@ const Payment = () => {
             dispatch({ type: "SET_PAYMENT_METHOD", payload: "online" })
           }
           type="button"
-          className={`${btnStyle} rounded-r-md ${
-            paymentMethod === "online" ? "bg-neutral-100" : "shadow-md bg-white"
+          className={`${btnStyle} ${
+            paymentMethod === "online" &&
+            "border-main red-focus-ring border-2 text-main"
           }`}
         >
-          <span className="material-symbols-rounded mr-3">credit_card</span>
+          <span className="material-symbols-rounded text-inherit">
+            credit_card
+          </span>
           {t.online}
         </button>
       </div>
