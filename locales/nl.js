@@ -139,7 +139,7 @@ export default {
   // Cart
   cart: "Bestellijst",
   to_cart: "Lijstje bekijken",
-  to_checkout: "Naar betalen",
+  to_checkout: "Naar bestellen",
   back_to_checkout: "Terug naar betalen",
   back_to_menu: "Terug naar menu",
   your_cart_is_empty: "Je lijstje is leeg.",
