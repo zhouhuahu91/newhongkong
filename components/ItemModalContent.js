@@ -30,7 +30,7 @@ const ItemModalContent = ({
       </div>
       {/* Container for the information and options. */}
       <div
-        style={{ maxHeight: "calc(100vh - 185px)" }}
+        style={{ maxHeight: "calc(100vh - 265px)" }}
         className="p-4 bg-neutral-50 flex-grow overflow-auto"
       >
         <h2>{item.description[t.locale]}</h2>
