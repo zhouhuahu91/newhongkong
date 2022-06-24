@@ -32,10 +32,7 @@ const Input = ({
   const [show, setShow] = useState(false);
   return (
     <div className={`flex flex-col w-full ${wrapper && wrapper}`}>
-      <label
-        htmlFor={name}
-        className={`text-xs ${errors ? "text-red-400" : "text-gray-500"}`}
-      >
+      <label htmlFor={name} className={`text-sm text-gray-500`}>
         {label} {asterisk && "*"}
       </label>
       <div className="relative">
@@ -65,7 +62,9 @@ const Input = ({
           autoComplete={autoComplete ? autoComplete : name}
           // Id is always the name it is needed to link the label to the input.
           id={name}
-          className={`appearance-none my-0.5 border rounded-lg w-full text-sm hover:shadow hover:scale-[1.02] transition-all focus:scale-[1.02] focus:outline-none bg-inherit focus:shadow py-2 placeholder-gray-300 ${
+          className={`appearance-none my-0.5 border rounded-md w-full text-sm focus:outline-none bg-inherit red-focus-ring py-2 placeholder-gray-500 ${
+            errors && "border-main border-2"
+          } ${
             capitalize ? "capitalize" : ""
             // If name is password we move add extra padding on the right side for the icon
           } ${name === "password" ? "pl-3 pr-8" : "px-3"}`}
@@ -81,7 +80,7 @@ const Input = ({
         )}
       </div>
       {/* If errors has a message we display it beneath te input. */}
-      <label htmlFor={name} className="text-red-400 text-xs">
+      <label htmlFor={name} className="text-red-400 text-sm">
         {errors?.message}
       </label>
     </div>

@@ -28,23 +28,23 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
   return (
     <>
       {/* The title of this component. */}
-      <h2 className="text-xl font-medium mt-4">{t.for_when}</h2>
+      {/* <h2 className="text-xl font-medium mt-4">{t.for_when}</h2> */}
       {/* The main container for the inputs. */}
-      <div className="relative">
+      <div className="relative mt-2">
         <label
           htmlFor="time"
-          className={`text-xs ${
+          className={`text-sm ${
             errors.time ? "text-red-400" : "text-gray-500"
           }`}
         >
-          {t.time} *
+          {t.time}
         </label>
         <select
           {...register("time")}
           id="time"
-          className={`appearance-none my-0.5 border rounded-lg w-full text-sm py-2 px-3 focus:outline-none focus:shadow hover:shadow transition-shadow ease-linear duration-150 cursor-pointer ${
+          className={`appearance-none my-0.5 border rounded-lg w-full text-sm py-2 px-3 focus:outline-none red-focus-ring cursor-pointer ${
             // If the selected time is null than the text will be set to gray.
-            selectedTime === "null" ? "text-gray-400" : ""
+            selectedTime === "null" ? "text-gray-500" : ""
           }`}
         >
           {/* First value is null and can't be selected. This also gives instruction to the user. */}
@@ -62,7 +62,7 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
             );
           })}
         </select>
-        <label htmlFor="time" className="text-red-400 text-xs">
+        <label htmlFor="time" className="text-red-400 text-sm">
           {errors.time?.message}
         </label>
         {/* // Problem with this label is that you can't open a select dropdown with a label you can only put focus on it. */}

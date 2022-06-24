@@ -11,32 +11,36 @@ const PickUpOrDelivery = () => {
 
   // Style of the button.
   const btnStyle =
-    "flex items-center justify-center text-sm py-2 focus:outline-none font-medium w-1/2 border transition-colors duration-200 ease-in-out";
+    "flex flex-col p-3 rounded-md text-sm focus:outline-none font-medium w-32 border bg-white";
 
   return (
     <>
-      <h2 className="text-xl font-medium mb-2 mt-10">{t.pickup_delivery}</h2>
-      <div className="flex justify-between">
+      {/* <h2 className="text-xl font-medium mb-2 mt-10">{t.pickup_delivery}</h2> */}
+      <div className="flex space-x-2">
         {/* This button sets delivery to false which means the customer will pcik up the order */}
         <button
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: false })}
           type="button"
-          className={`${btnStyle} rounded-l-md ${
-            delivery === false ? "bg-neutral-100" : "shadow-md bg-white"
+          className={`${btnStyle} ${
+            delivery === false
+              ? "border-main red-focus-ring border-2 text-main"
+              : ""
           }`}
         >
-          <span className="material-symbols-rounded mr-3">store</span>
+          <span className="material-symbols-rounded text-inherit">store</span>
           {t.pick_up}
         </button>
         {/* This button sets delivery to true which means the order will be delivered. */}
         <button
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: true })}
           type="button"
-          className={`${btnStyle} rounded-r-md ${
-            delivery === true ? "bg-neutral-100" : "shadow-md bg-white"
+          className={`${btnStyle} ${
+            delivery === true ? "border-main border-2 text-main" : ""
           }`}
         >
-          <span className="material-symbols-rounded mr-3">pedal_bike</span>
+          <span className="material-symbols-rounded text-inherit">
+            pedal_bike
+          </span>
           {t.delivery}
         </button>
       </div>

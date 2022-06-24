@@ -287,7 +287,7 @@ const CheckOut = () => {
                 colorText: "#6b7280",
                 colorDanger: "#f87171",
                 fontFamily: "Poppins",
-                // fontSizeBase: "16px",
+                fontSizeBase: "16px",
               },
             },
           }}

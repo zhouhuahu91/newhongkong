@@ -225,8 +225,8 @@ export default {
   asap: "Sobald wie möglich",
   remarks: "Bemerkungen",
   remarks_placeholder: "Babi Pangang ohne Soße",
-  save_remarks: "Bemerkungen speichern",
-  closed_for_delivery: "Lieferung nicht verfügbar, Abholung ist möglich",
+  save_remarks: "Bemerkungen speichern.",
+  closed_for_delivery: "Lieferung nicht verfügbar, Abholung ist möglich.",
 
   // Payment
   payment_method: "Wie wollen Sie bezahlen?",
@@ -236,14 +236,14 @@ export default {
   place_order: "Bestellung aufgeben",
 
   // Validation
-  postalcode_not_valid: "Postleitzahl nicht gültig",
-  no_delivery_here: "wir liefern nicht zu dieser Postleitzahl",
-  house_number_not_valid: "Straßennummer ungültig",
-  required: "benötigt",
-  tel_not_valid: "Telefonnummer ungültig",
-  email_not_valid: "E-Mail ungültig",
-  remarks_max: "max. 500 Zeichen erlaubt",
-  min_6: "muss mindestens 6 Zeichen enthalten",
+  postalcode_not_valid: "Postleitzahl nicht gültig.",
+  no_delivery_here: "wir liefern nicht zu dieser Postleitzahl.",
+  house_number_not_valid: "Straßennummer ungültig.",
+  required: "Benötigt.",
+  tel_not_valid: "Telefonnummer ungültig.",
+  email_not_valid: "E-Mail ungültig.",
+  remarks_max: "max. 500 Zeichen erlaubt.",
+  min_6: "muss mindestens 6 Zeichen enthalten.",
 
   // Succes page
   thank_you: "Vielen Dank!",

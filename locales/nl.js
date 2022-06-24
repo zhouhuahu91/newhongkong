@@ -25,15 +25,15 @@ export default {
   or: "of",
   sign_in_google: "Inloggen via Google",
   sign_in_facebook: "Inloggen via Facebook",
-  forgot_password: "wachtwoord vergeten?",
+  forgot_password: "Wachtwoord vergeten?",
   sign_in_failed:
     "Er is geen account gevonden met dit e-mailadres en wachtwoord. Probeer het opnieuw.",
   exists_with_different_credential:
     "Er bestaat al een account met dit e-mailadres.",
   no_account: "Heb je nog geen account?",
   sign_up_here: "Meld je aan",
-  email: "e-mailadres",
-  password: "wachtwoord",
+  email: "E-mailadres",
+  password: "Wachtwoord",
 
   // ******** SIGN IN ********
 
@@ -81,7 +81,7 @@ export default {
   back_to: "Terug naar",
   profile: "Profiel",
   settings: "Instellingen",
-  address: "adres",
+  address: "Adres",
   dashboard: "Dashboard",
   favorites: "Favorieten",
   order_history: "Bestellingen",
@@ -134,7 +134,7 @@ export default {
   new_email: "nieuw e-mailadres",
   current_password: "huidig wachtwoord",
   new_password: "nieuw wachtwoord",
-  wrong_password: "wachtwoord is niet geldig",
+  wrong_password: "Wachtwoord is niet geldig.",
 
   // Cart
   cart: "Bestellijst",
@@ -143,12 +143,12 @@ export default {
   back_to_checkout: "Terug naar betalen",
   back_to_menu: "Terug naar menu",
   your_cart_is_empty: "Je lijstje is leeg.",
-  subtotal: "subtotaal",
-  delivery_fee: "bezorgkosten",
-  transaction_fee: "transactiekosten",
-  restaurant_tip: "fooi",
-  total: "totaal",
-  bag: "tasje",
+  subtotal: "Subtotaal",
+  delivery_fee: "Bezorgkosten",
+  transaction_fee: "Transactiekosten",
+  restaurant_tip: "Fooi",
+  total: "Totaal",
+  bag: "Tasje",
   bag_tooltip:
     "Wij zijn verplicht de plastic tasjes te verrekenen. Ben je van plan om je eigen tas mee te nemen? Zorg dan dat je dit uitschakelt.",
 
@@ -202,26 +202,26 @@ export default {
 
   // To where
   to_where: "Waar wil je dat het eten bezorgd wordt?",
-  postalcode: "postcode",
-  house_number: "huisnummer",
-  house_number_addition: "toevoeging",
+  postalcode: "Postcode",
+  house_number: "Huisnummer",
+  house_number_addition: "Toevoeging",
   can_not_find_address: "Geen adres gevonden. Probeer het nog eens.",
   for_who: "Voor wie is het eten?",
 
   // For Who
-  name: "naam",
-  phone_number: "telefoonnummer",
+  name: "Naam",
+  phone_number: "Telefoonnummer",
 
   // For when
   for_when: "Voor wanneer is het eten?",
-  date: "datum",
-  time: "tijdstip",
+  date: "Datum",
+  time: "Tijdstip",
   select_time: "Selecteer een tijdstip",
   asap: "zo snel mogelijk",
-  remarks: "opmerkingen",
+  remarks: "Opmerkingen",
   remarks_placeholder: "babi pangang zonder saus",
-  save_remarks: "mijn opmerkingen opslaan",
-  closed_for_delivery: "gesloten voor bezorgen, u kunt nog wel afhalen",
+  save_remarks: "Mijn opmerkingen opslaan.",
+  closed_for_delivery: "Gesloten voor bezorgen, u kunt nog wel afhalen.",
 
   //Payment
   payment_method: "Hoe wil je betalen?",
@@ -231,14 +231,14 @@ export default {
   place_order: "Bestelling plaatsen",
 
   // Validation
-  postalcode_not_valid: "postcode is ongeldig",
-  no_delivery_here: "wij bezorgen niet in uw regio",
-  house_number_not_valid: "huisnummer is ongeldig",
-  required: "verplicht",
-  tel_not_valid: "telefoonnummer is ongeldig",
-  email_not_valid: "e-mailadres is ongeldig",
-  remarks_max: "mag niet meer dan 500 tekens bevatten",
-  min_6: "moet minstens 6 tekens bevatten",
+  postalcode_not_valid: "Postcode is ongeldig.",
+  no_delivery_here: "Wij bezorgen niet in uw regio.",
+  house_number_not_valid: "Huisnummer is ongeldig.",
+  required: "Verplicht.",
+  tel_not_valid: "Telefoonnummer is ongeldig.",
+  email_not_valid: "E-mailadres is ongeldig.",
+  remarks_max: "Mag niet meer dan 500 tekens bevatten.",
+  min_6: "Moet minstens 6 tekens bevatten.",
 
   // Succes page
   thank_you: "Dankjewel!",

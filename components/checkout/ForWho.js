@@ -9,9 +9,9 @@ const ForWho = ({ register, errors }) => {
   return (
     <>
       {/* The title of this component. */}
-      <h2 className="text-xl font-medium mt-4 mb-2">{t.for_who}</h2>
+      {/* <h2 className="text-xl font-medium mt-4 mb-2">{t.for_who}</h2> */}
       {/* The main container */}
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 gap-2 mt-2">
         {/* The container for the name input. */}
         <Input
           register={register}
@@ -20,7 +20,6 @@ const ForWho = ({ register, errors }) => {
           type="text"
           label={t.name}
           wrapper="col-span-2 sm:col-span-1"
-          asterisk
         />
         {/* The container for the telephone input. */}
         <Input
@@ -29,7 +28,6 @@ const ForWho = ({ register, errors }) => {
           name="tel"
           label={t.phone_number}
           wrapper="col-span-2 sm:col-span-1"
-          asterisk
         />
         {/* The container for the email input. */}
         <Input
@@ -38,7 +36,6 @@ const ForWho = ({ register, errors }) => {
           name="email"
           label={t.email}
           wrapper="col-span-2"
-          asterisk
         />
       </div>
     </>

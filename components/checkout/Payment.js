@@ -14,8 +14,8 @@ const Payment = () => {
 
   return (
     <>
-      <h2 className="text-xl font-medium mt-4 mb-2">{t.payment_method}</h2>
-      <div className="flex justify-between">
+      {/* <h2 className="text-xl font-medium mt-4 mb-2">{t.payment_method}</h2> */}
+      <div className="flex justify-between mt-2">
         {/* This button sets delivery to false which means the customer will pcik up the order */}
         <button
           onClick={() =>

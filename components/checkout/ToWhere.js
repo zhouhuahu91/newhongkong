@@ -78,7 +78,7 @@ const ToWhere = ({
   return (
     <>
       {/* Main container of the inputs */}
-      <div className="grid grid-cols-12 gap-2 my-4">
+      <div className="grid grid-cols-12 gap-2 mt-2">
         {/* Container for the postalcode. */}
         <Input
           register={register}
@@ -87,7 +87,6 @@ const ToWhere = ({
           autoComplete="postal-code"
           type="text"
           label={t.postalcode}
-          asterisk
           wrapper="col-span-12 xs:col-span-5 sm:col-span-5 md:col-span-5 lg:col-span-5"
         />
         {/* Container for the houseNumber. */}
@@ -97,7 +96,6 @@ const ToWhere = ({
           name="houseNumber"
           type="tel"
           label={t.house_number}
-          asterisk
           wrapper="col-span-6 xs:col-span-4 sm:col-span-5 md:col-span-4 lg:col-span-5"
         />
         {/* Container for the addition. */}

@@ -25,15 +25,15 @@ export default {
   or: "or",
   sign_in_google: "Sign in with Google",
   sign_in_facebook: "Sign in with Facebook",
-  forgot_password: "forgot password?",
+  forgot_password: "Forgot password?",
   sign_in_failed:
     "We couldn't find this email and password combination in our records. Try again.",
   exists_with_different_credential:
     "Account already exists with this email address.",
   no_account: "Don't have an account?",
   sign_up_here: "Sign up",
-  email: "email",
-  password: "password",
+  email: "Email",
+  password: "Password",
 
   // ******** SIGN IN ********
 
@@ -202,26 +202,26 @@ export default {
 
   // To where
   to_where: "To where do you want the food to be delivered?",
-  postalcode: "postalcode",
-  house_number: "house number",
-  house_number_addition: "addition",
+  postalcode: "Postalcode",
+  house_number: "House number",
+  house_number_addition: "Addition",
   can_not_find_address: "No address found. Try again.",
   for_who: "For who is it?",
 
   // For Who
-  name: "name",
-  phone_number: "phone number",
+  name: "Name",
+  phone_number: "Phone number",
 
   // For When
   for_when: "When do you want the food?",
-  date: "date",
-  time: "time",
+  date: "Date",
+  time: "Time",
   select_time: "Select a time",
   asap: "as soon as posible",
-  remarks: "remarks",
+  remarks: "Remarks",
   remarks_placeholder: "babi pangang without sauce",
-  save_remarks: "save my remarks",
-  closed_for_delivery: "closed for delivery, pick up is still possible",
+  save_remarks: "Save my remarks.",
+  closed_for_delivery: "Closed for delivery, pick up is still possible.",
 
   // Payment
   payment_method: "How do you want to pay?",
@@ -231,14 +231,14 @@ export default {
   place_order: "Place order",
 
   // Validation
-  postalcode_not_valid: "postalcode is not valid",
-  no_delivery_here: "we do not deliver to this postalcode",
-  house_number_not_valid: "is not a valid house number",
-  required: "required",
-  tel_not_valid: "phone number is not valid",
-  email_not_valid: "email is not valid",
-  remarks_max: "can't contain more than 500 characters",
-  min_6: "must contain atleast 6 characters",
+  postalcode_not_valid: "Postalcode is not valid.",
+  no_delivery_here: "We do not deliver to this postalcode.",
+  house_number_not_valid: "Is not a valid house number.",
+  required: "Required.",
+  tel_not_valid: "Phone number is not valid.",
+  email_not_valid: "Email is not valid.",
+  remarks_max: "Can't contain more than 500 characters.",
+  min_6: "Must contain atleast 6 characters.",
 
   // Succes page
   thank_you: "Thank you!",
