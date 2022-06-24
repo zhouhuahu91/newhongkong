@@ -16,7 +16,7 @@ const Payment = () => {
   return (
     <>
       <h2 className="text-lg mt-4 mb-2">{t.payment_method}</h2>
-      <div className="flex space-x-2 mt-2">
+      <div className="flex space-x-2">
         {/* This button sets delivery to false which means the customer will pcik up the order */}
         <button
           onClick={() =>
@@ -42,14 +42,35 @@ const Payment = () => {
             paymentMethod === "online" && "border-main border-2 text-main"
           }`}
         >
-          <div className="flex items-center text-inherit">
-            <Image src="/ideal.svg" alt="ideal icon" width={24} height={18} />
-            <span className="material-symbols-rounded text-inherit mx-1">
+          <div className="grid grid-flow-col gap-1">
+            <span
+              className={`material-symbols-rounded ${
+                paymentMethod === "online" && "text-main"
+              }`}
+            >
               credit_card
             </span>
-            <Image src="/giropay.svg" alt="ideal icon" width={26} height={22} />
+            <Image src="/ideal.svg" alt="ideal icon" width={24} height={24} />
+            <Image src="/klarna.svg" alt="klarna icon" width={20} height={20} />
+            <Image
+              src="/giropay.svg"
+              alt="giropay icon"
+              width={24}
+              height={24}
+            />
+            <Image
+              src="/banconnect.svg"
+              alt="banconnect icon"
+              width={24}
+              height={24}
+            />
+            <Image
+              src="/przelewy24.svg"
+              alt="przelewy24 icon"
+              width={20}
+              height={20}
+            />
           </div>
-
           {t.online}
         </button>
       </div>
