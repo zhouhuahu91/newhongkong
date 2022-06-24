@@ -1,6 +1,7 @@
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import useI18n from "@/hooks/useI18n";
+import Image from "next/image";
 
 const Payment = () => {
   const {
@@ -14,7 +15,7 @@ const Payment = () => {
 
   return (
     <>
-      {/* <h2 className="text-xl font-medium mt-4 mb-2">{t.payment_method}</h2> */}
+      <h2 className="text-lg mt-4 mb-2">{t.payment_method}</h2>
       <div className="flex space-x-2 mt-2">
         {/* This button sets delivery to false which means the customer will pcik up the order */}
         <button
@@ -22,9 +23,8 @@ const Payment = () => {
             dispatch({ type: "SET_PAYMENT_METHOD", payload: "in_person" })
           }
           type="button"
-          className={`${btnStyle} ${
-            paymentMethod === "in_person" &&
-            "border-main red-focus-ring border-2 text-main"
+          className={`${btnStyle} red-focus-ring ${
+            paymentMethod === "in_person" && "border-main border-2 text-main"
           }`}
         >
           <span className="material-symbols-rounded text-inherit">
@@ -38,14 +38,18 @@ const Payment = () => {
             dispatch({ type: "SET_PAYMENT_METHOD", payload: "online" })
           }
           type="button"
-          className={`${btnStyle} ${
-            paymentMethod === "online" &&
-            "border-main red-focus-ring border-2 text-main"
+          className={`${btnStyle} red-focus-ring ${
+            paymentMethod === "online" && "border-main border-2 text-main"
           }`}
         >
-          <span className="material-symbols-rounded text-inherit">
-            credit_card
-          </span>
+          <div className="flex items-center text-inherit">
+            <Image src="/ideal.svg" alt="ideal icon" width={24} height={18} />
+            <span className="material-symbols-rounded text-inherit mx-1">
+              credit_card
+            </span>
+            <Image src="/giropay.svg" alt="ideal icon" width={26} height={22} />
+          </div>
+
           {t.online}
         </button>
       </div>

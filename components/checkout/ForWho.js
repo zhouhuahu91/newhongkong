@@ -9,9 +9,9 @@ const ForWho = ({ register, errors }) => {
   return (
     <>
       {/* The title of this component. */}
-      {/* <h2 className="text-xl font-medium mt-4 mb-2">{t.for_who}</h2> */}
+      <h2 className="text-lg font-normal mt-4 mb-2">{t.for_who}</h2>
       {/* The main container */}
-      <div className="grid grid-cols-2 gap-2 mt-2">
+      <div className="grid grid-cols-2 gap-2">
         {/* The container for the name input. */}
         <Input
           register={register}

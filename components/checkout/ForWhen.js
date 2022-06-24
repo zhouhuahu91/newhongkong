@@ -28,21 +28,18 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
   return (
     <>
       {/* The title of this component. */}
-      {/* <h2 className="text-xl font-medium mt-4">{t.for_when}</h2> */}
+      <h2 className="text-lg font-normal mt-4 mb-2">{t.for_when}</h2>
       {/* The main container for the inputs. */}
-      <div className="relative mt-2">
-        <label
-          htmlFor="time"
-          className={`text-sm ${
-            errors.time ? "text-red-400" : "text-gray-500"
-          }`}
-        >
+      <div className="relative">
+        <label htmlFor="time" className={`text-sm text-gray-500`}>
           {t.time}
         </label>
         <select
           {...register("time")}
           id="time"
           className={`appearance-none my-0.5 border rounded-lg w-full text-sm py-2 px-3 focus:outline-none red-focus-ring cursor-pointer ${
+            errors.time && "border-main border-2"
+          } ${
             // If the selected time is null than the text will be set to gray.
             selectedTime === "null" ? "text-gray-500" : ""
           }`}

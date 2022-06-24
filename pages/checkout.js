@@ -218,9 +218,7 @@ const CheckOut = () => {
           {/* Container for left part of the content, the form. */}
           <div className="col-span-12 md:col-span-6 lg:col-span-7 mb-20 w-full">
             {/* Main title of the checkout form. */}
-            <h1 className="text-5xl uppercase font-semibold my-8">
-              {t.almost_done}
-            </h1>
+            <h1 className="text-3xl font-semibold my-8">{t.almost_done}</h1>
             <PickUpOrDelivery />
             <motion.form
               initial={{ opacity: 0 }}
@@ -255,7 +253,7 @@ const CheckOut = () => {
                     {paymentMethod === "online" ? t.pay : t.place_order}{" "}
                     {euro(calculateTotalCartPrice(cartState, storeFees))}
                   </SubmitButton>
-                  <div className="text-xs flex justify-center sm:justify-start w-full max-w-sm">
+                  <div className="text-xs flex justify-start w-full max-w-sm">
                     <span className="mt-2 text-gray-600">
                       {t.our}{" "}
                       <Link href="/privacy_policy">

@@ -13,7 +13,9 @@ const Remarks = ({ register, errors }) => {
           {...register("remarks")}
           type="text"
           id="remarks"
-          className="h-20 appearance-none my-0.5 border rounded-lg w-full text-sm py-2 px-3 focus:outline-none red-focus-ring"
+          className={`h-20 appearance-none my-0.5 border rounded-lg w-full text-sm py-2 px-3 focus:outline-none red-focus-ring ${
+            errors.remarks && "border-main border-2"
+          }`}
         />
         <label htmlFor="remarks" className="text-red-400 text-xs">
           {errors.remarks?.message}

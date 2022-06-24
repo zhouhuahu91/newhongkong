@@ -15,15 +15,14 @@ const PickUpOrDelivery = () => {
 
   return (
     <>
-      {/* <h2 className="text-xl font-medium mb-2 mt-10">{t.pickup_delivery}</h2> */}
+      <h2 className="text-lg mb-2 font-normal">{t.pickup_delivery}</h2>
       <div className="flex space-x-2">
         {/* This button sets delivery to false which means the customer will pcik up the order */}
         <button
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: false })}
           type="button"
-          className={`${btnStyle} ${
-            delivery === false &&
-            "border-main red-focus-ring border-2 text-main"
+          className={`${btnStyle} red-focus-ring ${
+            delivery === false && "border-main border-2 text-main"
           }`}
         >
           <span className="material-symbols-rounded text-inherit">store</span>
@@ -33,8 +32,8 @@ const PickUpOrDelivery = () => {
         <button
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: true })}
           type="button"
-          className={`${btnStyle} ${
-            delivery === true && "border-main border-2 red-focus-ring text-main"
+          className={`${btnStyle} red-focus-ring ${
+            delivery === true && "border-main border-2 text-main"
           }`}
         >
           <span className="material-symbols-rounded text-inherit">
