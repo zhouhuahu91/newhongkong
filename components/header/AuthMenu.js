@@ -30,7 +30,7 @@ const AuthMenu = () => {
       {/* ******** AUTH BUTTON ******** */}
       {auth.user ? (
         <button
-          className="flex items-center"
+          className="flex items-center red-focus-ring"
           type="button"
           onClick={() => setAuthMenu((prev) => !prev)}
         >
@@ -45,7 +45,11 @@ const AuthMenu = () => {
         </button>
       ) : (
         <Link href="/sign_in">
-          <a className={`text-sm ${atHome && "text-white"}`}>{t.sign_in}</a>
+          <a
+            className={`text-sm red-focus-ring p-0.5 ${atHome && "text-white"}`}
+          >
+            {t.sign_in}
+          </a>
         </Link>
       )}
       {/* ******** AUTH BUTTON ******** */}

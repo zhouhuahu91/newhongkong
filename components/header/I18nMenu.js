@@ -51,7 +51,7 @@ const I18nMenu = () => {
     <div ref={ref} className="relative">
       {/* ******** LOCALE BUTTON ******** */}
       <button
-        className="flex items-center"
+        className="flex items-center red-focus-ring rounded-full"
         type="button"
         onClick={() => setI18nMenu((prev) => !prev)}
       >
