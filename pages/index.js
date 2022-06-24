@@ -78,13 +78,14 @@ const Home = () => {
       {/* This button is pushes to the menu where users can order. */}
       <Link href="/menu">
         <a
-          type="button"
-          className={`button border border-opacity-10 border-white px-6 py-1.5 absolute top-96 mt-40 md:mt-72 right-1/2 translate-x-1/2 bg-white bg-opacity-20 backdrop-blur-sm`}
+          className={`button border-md border-opacity-10 border-white px-6 py-1.5 absolute top-96 mt-40 md:mt-72 right-1/2 translate-x-1/2 bg-white bg-opacity-20 backdrop-blur-sm`}
         >
           <span className="material-symbols-rounded text-white">
             local_dining
           </span>
-          <span className="text-white uppercase text-sm ml-3">{t.order}</span>
+          <span className="text-white uppercas font-medium uppercase text-sm ml-3">
+            {t.order}
+          </span>
         </a>
       </Link>
     </div>
