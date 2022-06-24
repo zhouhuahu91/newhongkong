@@ -50,22 +50,32 @@ const Payment = () => {
             >
               credit_card
             </span>
-            <Image src="/ideal.svg" alt="ideal icon" width={24} height={24} />
-            <Image src="/klarna.svg" alt="klarna icon" width={20} height={20} />
             <Image
-              src="/giropay.svg"
+              src="/paymentIcons/ideal.svg"
+              alt="ideal icon"
+              width={24}
+              height={24}
+            />
+            <Image
+              src="/paymentIcons/klarna.svg"
+              alt="klarna icon"
+              width={20}
+              height={20}
+            />
+            <Image
+              src="/paymentIcons/giropay.svg"
               alt="giropay icon"
               width={24}
               height={24}
             />
             <Image
-              src="/banconnect.svg"
+              src="/paymentIcons/banconnect.svg"
               alt="banconnect icon"
               width={24}
               height={24}
             />
             <Image
-              src="/przelewy24.svg"
+              src="/paymentIcons/przelewy24.svg"
               alt="przelewy24 icon"
               width={20}
               height={20}
