@@ -27,7 +27,7 @@ const Card = ({ item, setOpenDeliveryOrPickUp }) => {
           }
           setOpen((prev) => !prev);
         }}
-        className="p-4 flex flex-col rounded-lg bg-white hover:shadow hover:scale-[1.04] transition-all ease-in border cursor-pointer"
+        className="p-3 flex flex-col rounded-lg bg-white hover:shadow hover:scale-[1.04] transition-all ease-in border cursor-pointer"
       >
         <h3 className="font-medium capitalize">{item.name[t.locale]}</h3>
         <span className="text-xs text-gray-500 block my-2 flex-grow line-clamp-2">
