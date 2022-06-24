@@ -49,11 +49,7 @@ const ItemOptionsComponent = ({
 
   return (
     <div ref={el} className="my-2">
-      <h3
-        className={`text-sm lowercase ${
-          errors ? "text-main" : "text-gray-500"
-        }`}
-      >
+      <h3 className={`text-sm ${errors ? "text-main" : "text-gray-500"}`}>
         {qwtOptions > 1
           ? qwtOptions > 2
             ? t.choose_three_options

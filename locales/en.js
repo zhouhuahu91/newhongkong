@@ -56,9 +56,9 @@ export default {
 
   // ******** MENU ********
 
-  choose_an_option: "Choose an option.",
-  choose_two_options: "Choose two options.",
-  choose_three_options: "Choose three options.",
+  choose_an_option: "Choose an option:",
+  choose_two_options: "Choose two options:",
+  choose_three_options: "Choose three options:",
   cancel: "Cancel",
   add_for: "Add for",
   rather_pick_up: "Would you rather pick it up?",

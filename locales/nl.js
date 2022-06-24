@@ -56,9 +56,9 @@ export default {
 
   // ******** MENU ********
 
-  choose_an_option: "Kies een optie.",
-  choose_two_options: "Kies twee opties.",
-  choose_three_options: "Kies drie opties.",
+  choose_an_option: "Kies een optie:",
+  choose_two_options: "Kies twee opties:",
+  choose_three_options: "Kies drie opties:",
   cancel: "Annuleren",
   add_for: "Toevoegen",
   rather_pick_up: "Wil je liever afhalen?",

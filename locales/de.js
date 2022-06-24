@@ -57,9 +57,9 @@ export default {
 
   // ******** MENU ********
 
-  choose_an_option: "Eine Option auswählen.",
-  choose_two_options: "Zwei Optionen auswählen.",
-  choose_three_options: "Drei Optionen auswählen.",
+  choose_an_option: "Eine Option auswählen:",
+  choose_two_options: "Zwei Optionen auswählen:",
+  choose_three_options: "Drei Optionen auswählen:",
   cancel: "Abbrechen",
   add_for: "Hinzufügen für",
   rather_pick_up: "Möchten Sie Ihre Bestellung lieber abholen?",
