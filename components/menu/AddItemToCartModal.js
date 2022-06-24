@@ -112,7 +112,7 @@ const NewItemModal = ({ item, open, setOpen }) => {
     <Modal
       toggle={open}
       close={() => setOpen(false)}
-      className="bg-white h-auto w-10/12 max-w-sm rounded-lg relative flex flex-col overflow-hidden select-none"
+      className="bg-white h-auto w-full mx-2 max-w-sm rounded-lg relative flex flex-col overflow-hidden select-none"
     >
       <ItemModalContent
         item={item}
