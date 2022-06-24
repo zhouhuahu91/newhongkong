@@ -297,6 +297,7 @@ const CheckOut = () => {
               setClientSecret(null);
               setProcessing(false);
             }}
+            total={calculateTotalCartPrice(cartState, storeFees)}
           />
         </Elements>
       )}

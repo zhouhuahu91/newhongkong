@@ -5,6 +5,7 @@ import useI18n from "@/hooks/useI18n";
 // Component imports
 import Modal from "@/components/Modal";
 import SubmitButton from "@/components/SubmitButton";
+import IconButton from "@/components/IconButton";
 // Stripe imports
 import {
   PaymentElement,
@@ -13,8 +14,9 @@ import {
 } from "@stripe/react-stripe-js";
 // Function imports
 import getURL from "@/functions/getURL";
+import euro from "@/functions/euro";
 
-const StripePaymentModal = ({ toggle, cancel }) => {
+const StripePaymentModal = ({ toggle, cancel, total }) => {
   const stripe = useStripe();
   const elements = useElements();
   // Store state for processing payment
@@ -54,17 +56,21 @@ const StripePaymentModal = ({ toggle, cancel }) => {
       // We do not allow user to close the modal via click on backdrop.
       // User can only close the modal via the cancel button.
       close={() => true}
-      className="bg-neutral-50 w-full max-w-md rounded-md overflow-hidden"
+      className="bg-neutral-50 w-full mx-2 max-w-md rounded-md overflow-hidden"
     >
       <form onSubmit={handleSubmit}>
-        <div className="px-4 pt-6">
+        <div className="p-4 bg-white border flex justify-between items-center">
+          <h1 className="text-xl font-semibold">{t.pay}</h1>
+          <IconButton variant="close" onClick={() => cancel()} />
+        </div>
+        <div className="p-4">
           {loading && <div>loading...</div>}
           <PaymentElement
             id="payment-element"
             onReady={() => setLoading(false)}
           />
         </div>
-        <div className="mt-4 grid grid-cols-12 gap-4 bg-white shadow p-4">
+        <div className="grid grid-cols-12 gap-4 bg-white shadow p-4">
           <button
             onClick={() => cancel()}
             type="button"
@@ -76,7 +82,7 @@ const StripePaymentModal = ({ toggle, cancel }) => {
             className="col-span-7"
             processing={processing || !stripe || !elements}
           >
-            {t.pay}
+            {t.pay} {euro(total)}
           </SubmitButton>
         </div>
       </form>
