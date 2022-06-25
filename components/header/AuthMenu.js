@@ -46,9 +46,9 @@ const AuthMenu = () => {
       ) : (
         <Link href="/sign_in">
           <a
-            className={`text-sm red-focus-ring rounded-md px-0.5 ${
-              atHome && "text-white"
-            }`}
+            className={`text-sm font-medium rounded-md px-1 ${
+              atHome ? "red-focus-ring" : "red-focus-text"
+            } ${atHome && "text-white"}`}
           >
             {t.sign_in}
           </a>

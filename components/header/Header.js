@@ -29,12 +29,12 @@ const Header = () => {
         }`}
       >
         {/* ******** MAIN CONTAINER ******** */}
-        <div className="max-w-screen-xl w-full flex items-center justify-between h-16 px-4 ">
+        <div className="max-w-screen-xl w-full flex items-center justify-between h-16 px-4">
           <BurgerMenu />
           {/* This is the main logo nHK */}
           <Link href="/">
             <a
-              className={`text-2xl font-bold red-focus-ring rounded-md px-0.5 ${
+              className={`text-2xl font-bold red-focus-ring rounded-md px-1 ${
                 atHome ? "text-white" : "text-main"
               }`}
             >
@@ -48,17 +48,29 @@ const Header = () => {
             } absolute left-1/2 -translate-x-1/2`}
           >
             <Link href="/menu">
-              <a className="text-sm mx-8 red-focus-ring rounded-md px-0.5">
+              <a
+                className={`text-sm mx-8 rounded-md px-1 font-medium ${
+                  atHome ? "red-focus-ring" : "red-focus-text"
+                }`}
+              >
                 {t.menu}
               </a>
             </Link>
             <Link href="/catering">
-              <a className="text-sm mx-8 red-focus-ring rounded-md px-0.5">
+              <a
+                className={`text-sm mx-8 rounded-md px-1 font-medium ${
+                  atHome ? "red-focus-ring" : "red-focus-text"
+                }`}
+              >
                 {t.catering}
               </a>
             </Link>
             <Link href="/contact">
-              <a className="text-sm mx-8 red-focus-ring rounded-md px-0.5">
+              <a
+                className={`text-sm mx-8 rounded-md px-1 font-medium ${
+                  atHome ? "red-focus-ring" : "red-focus-text"
+                }`}
+              >
                 {t.contact}
               </a>
             </Link>
