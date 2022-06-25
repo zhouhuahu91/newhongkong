@@ -27,9 +27,11 @@ const Payment = () => {
             paymentMethod === "in_person" && "border-main border-2 text-main"
           }`}
         >
-          <span className="material-symbols-rounded text-inherit">
-            {delivery === true ? "account_balance_wallet" : "point_of_sale"}
-          </span>
+          <div className="flex items-center space-x-1 text-inherit">
+            <span className="material-symbols-rounded text-inherit">
+              {delivery === true ? "payments" : "store"}
+            </span>
+          </div>
           {delivery === true ? t.cash : t.at_store}
         </button>
         {/* This button sets delivery to true which means the order will be delivered. */}
