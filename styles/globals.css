@@ -27,7 +27,7 @@ a {
 }
 
 .red-focus-text {
-  @apply focus:outline-none focus:text-main focus:font-medium;
+  @apply focus:outline-none focus:text-main;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

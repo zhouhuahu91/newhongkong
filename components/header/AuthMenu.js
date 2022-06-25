@@ -30,7 +30,7 @@ const AuthMenu = () => {
       {/* ******** AUTH BUTTON ******** */}
       {auth.user ? (
         <button
-          className="flex items-center red-focus-ring"
+          className="flex items-center red-focus-ring rounded-full"
           type="button"
           onClick={() => setAuthMenu((prev) => !prev)}
         >
@@ -63,11 +63,13 @@ const AuthMenu = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", damping: 20, stiffness: 300 }}
             exit={{ opacity: 0, scale: 0.85 }}
-            className="absolute top-9 rounded-md border text-sm right-0 shadow bg-white py-2 z-20"
+            className="absolute top-9 rounded-md border text-sm right-0 shadow bg-white py-2 z-10"
           >
             <div className="px-4 py-1 text-left w-full">
               {t.signed_in_as}{" "}
-              <b>{auth.user.name ? auth.user.name : auth.user.email}</b>
+              <span className="font-medium">
+                {auth.user.name ? auth.user.name : auth.user.email}
+              </span>
             </div>
             <button
               type="button"
@@ -75,10 +77,12 @@ const AuthMenu = () => {
                 auth.signOutUser();
                 setAuthMenu(false);
               }}
-              className="px-4 py-1 hover:bg-gray-100 flex items-center w-full"
+              className="px-4 py-1 hover:bg-gray-100 flex items-center red-focus-text"
             >
               {t.sign_out}
-              <span className="material-symbols-rounded ml-9">logout</span>
+              <span className="material-symbols-rounded ml-9 text-inherit">
+                logout
+              </span>
             </button>
           </motion.div>
         )}

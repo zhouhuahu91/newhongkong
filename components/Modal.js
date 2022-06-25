@@ -2,6 +2,7 @@
 import useLockBodyScroll from "@/hooks/useLockBodyScroll";
 // Third party libraries imports
 import { motion, AnimatePresence } from "framer-motion";
+import FocusTrap from "focus-trap-react";
 
 const backdropVariant = {
   hidden: { opacity: 0, transition: { type: "tween" } },
@@ -18,27 +19,29 @@ const Modal = ({ toggle, children, close, className }) => {
   return (
     <AnimatePresence>
       {toggle && (
-        <motion.div
-          variants={backdropVariant}
-          animate="visible"
-          initial="hidden"
-          exit="hidden"
-          className="fixed inset-0 w-full bg-opacity-50 bg-black h-full flex justify-center items-center z-50"
-          onClick={(e) => {
-            close();
-            e.stopPropagation();
-          }}
-        >
+        <FocusTrap>
           <motion.div
-            layout
-            className={className}
-            onClick={(e) => e.stopPropagation()}
-            variants={modalVariant}
-            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            variants={backdropVariant}
+            animate="visible"
+            initial="hidden"
+            exit="hidden"
+            className="fixed inset-0 w-full bg-opacity-50 bg-black h-full flex justify-center items-center z-50"
+            onClick={(e) => {
+              close();
+              e.stopPropagation();
+            }}
           >
-            {children}
+            <motion.div
+              layout
+              className={className}
+              onClick={(e) => e.stopPropagation()}
+              variants={modalVariant}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            >
+              {children}
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </FocusTrap>
       )}
     </AnimatePresence>
   );

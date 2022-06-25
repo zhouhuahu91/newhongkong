@@ -76,7 +76,7 @@ const I18nMenu = () => {
                 <button
                   type="button"
                   key={language.value}
-                  className="py-1 px-4 w-full text-left hover:bg-gray-100"
+                  className="py-1 px-4 w-full text-left hover:bg-gray-100 red-focus-text font-normal"
                   onClick={(e) => handleButtonClick(e)}
                   value={language.value}
                 >
