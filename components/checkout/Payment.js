@@ -1,17 +1,39 @@
+// React imports
+import { useRef, useEffect, useState } from "react";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import useI18n from "@/hooks/useI18n";
 import Image from "next/image";
 
 const Payment = () => {
+  // Online payment button has too many icons when button width.
+  // We need the width of the button to see when we should remove icons.
+  const [buttonWidth, setButtonWidth] = useState(undefined);
   const {
     dispatch,
     cartState: { paymentMethod, delivery },
   } = useCart();
   const t = useI18n();
+  const el = useRef();
 
   const btnStyle =
     "flex flex-col p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
+
+  // This useEffect updates the button width.
+  useEffect(() => {
+    // Handler to call on window resize
+    const handleResize = () => {
+      if (el.current) {
+        setButtonWidth(el.current.offsetWidth);
+      }
+    };
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
@@ -36,6 +58,7 @@ const Payment = () => {
         </button>
         {/* This button sets delivery to true which means the order will be delivered. */}
         <button
+          ref={el}
           onClick={() =>
             dispatch({ type: "SET_PAYMENT_METHOD", payload: "online" })
           }
@@ -70,18 +93,22 @@ const Payment = () => {
               width={24}
               height={24}
             />
-            <Image
-              src="/paymentIcons/banconnect.svg"
-              alt="banconnect icon"
-              width={24}
-              height={24}
-            />
-            <Image
-              src="/paymentIcons/przelewy24.svg"
-              alt="przelewy24 icon"
-              width={20}
-              height={20}
-            />
+            {buttonWidth > 155 && (
+              <Image
+                src="/paymentIcons/banconnect.svg"
+                alt="banconnect icon"
+                width={24}
+                height={24}
+              />
+            )}
+            {buttonWidth > 178 && (
+              <Image
+                src="/paymentIcons/przelewy24.svg"
+                alt="przelewy24 icon"
+                width={20}
+                height={20}
+              />
+            )}
           </div>
           {t.online}
         </button>
