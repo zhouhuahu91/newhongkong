@@ -93,7 +93,7 @@ const Payment = () => {
               width={24}
               height={24}
             />
-            {buttonWidth > 155 && (
+            {buttonWidth > 148 && (
               <Image
                 src="/paymentIcons/banconnect.svg"
                 alt="banconnect icon"
@@ -101,7 +101,7 @@ const Payment = () => {
                 height={24}
               />
             )}
-            {buttonWidth > 178 && (
+            {buttonWidth > 174 && (
               <Image
                 src="/paymentIcons/przelewy24.svg"
                 alt="przelewy24 icon"
