@@ -10,6 +10,7 @@ import DesktopCart from "@/components/cart/DesktopCart";
 import MobileCart from "@/components/cart/MobileCart";
 import CategoryHeader from "@/components/menu/CategoryHeader";
 import DeliveryOrPickUp from "@/components/menu/DeliveryOrPickUp";
+import Spinner from "@/components/Spinner";
 
 // Upload new menu to firestore if needed.
 // import uploadData from "../data/uploadData";
@@ -33,6 +34,10 @@ const Menu = () => {
   // useEffect(() => {
   //   uploadData();
   // }, []);
+
+  if (!data.length) {
+    return <Spinner />;
+  }
 
   return (
     <>
