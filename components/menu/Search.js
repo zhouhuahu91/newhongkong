@@ -68,7 +68,7 @@ const Search = () => {
               transition: { duration: 0.3 },
             }}
             exit={{ width: 44, transition: { duration: 0.1 } }}
-            className="absolute bg-white z-10 border h-11 shadow rounded-full flex items-center justify-center"
+            className="absolute bg-white z-10 border h-11 shadow rounded-full flex items-center justify-center red-focus-ring"
           >
             <input
               ref={inputRef}
@@ -102,7 +102,7 @@ const Search = () => {
         type="button"
         className={`${
           open ? "shadow" : "border"
-        } relative transition-shadow rounded-full aspect-square w-11 h-11 flex items-center justify-center px-2 z-10`}
+        } relative red-focus-ring transition-shadow rounded-full aspect-square w-11 h-11 flex items-center justify-center px-2 z-10`}
       >
         <span className="material-symbols-rounded">search</span>
       </button>

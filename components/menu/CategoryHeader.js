@@ -91,7 +91,8 @@ const CategoryHeader = ({ data, categoryRef }) => {
           className="flex overflow-scroll hide-scroll-bar"
         >
           {data.map((category, idx) => (
-            <div
+            <button
+              type="button"
               id={category.id}
               key={category.id}
               ref={(e) => (categoryTitleRef.current[idx] = e)}
@@ -103,18 +104,15 @@ const CategoryHeader = ({ data, categoryRef }) => {
                   top: categoryRef.current[idx].offsetTop + 80,
                 });
               }}
-              className={`whitespace-nowrap my-3 cursor-pointer flex items-center`}
+              className={`whitespace-nowrap my-3 rounded-full px-2 text-sm py-1 transition-colors ease-in duration-200 ${
+                visableCategory?.id == category.id
+                  ? "border-main font-medium text-main border-2 red-focus-ring mx-1"
+                  : "red-focus-text"
+              }`}
             >
               {/* We highlight the category that is selected. */}
-              <span
-                className={`px-2 text-sm py-1 rounded-full transition-colors ease-in duration-200 red-focus-ring ${
-                  visableCategory?.id == category.id &&
-                  "border-main border-2 font-medium text-main"
-                }`}
-              >
-                {category.category[t.locale]}
-              </span>
-            </div>
+              {category.category[t.locale]}
+            </button>
           ))}
         </div>
         <div className="px-2 flex items-center">

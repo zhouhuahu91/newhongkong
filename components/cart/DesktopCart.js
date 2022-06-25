@@ -68,7 +68,7 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
               setOpen(true);
             }}
             type="button"
-            className="text-xs text-gray-500 text-right w-full"
+            className="text-xs text-gray-500 text-right w-full red-focus-text"
           >
             {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
           </button>
