@@ -63,6 +63,7 @@ export default {
   add_for: "Toevoegen",
   rather_pick_up: "Wil je liever afhalen?",
   rather_deliver: "Wil je liever laten bezorgen?",
+  pick_up_or_deliver: "Afhalen of bezorgen?",
 
   // ******** MENU ********
 

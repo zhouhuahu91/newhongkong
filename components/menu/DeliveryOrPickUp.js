@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 // Component imports
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
+import IconButton from "@/components/IconButton";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -13,6 +14,8 @@ import * as yup from "yup";
 import { useForm, useFormState } from "react-hook-form";
 // Function imports
 import fetchAddressFromAPI from "@/functions/fetchAddressFromAPI";
+// Animation imports
+import { motion, AnimatePresence } from "framer-motion";
 
 // The user has to decide if they want to have there food delivered or picked up.
 // When the user clicks on an item card we check if delivery === "undecided".
@@ -31,7 +34,7 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
   const { user } = useAuth();
   // Style of the button.
   const btnStyle =
-    "flex items-center justify-center text-sm py-2 focus:outline-none font-medium w-1/2 border transition-colors duration-200 ease-in-out";
+    "flex flex-col p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
   const schema = yup.object().shape({
     postalcode: delivery
       ? yup
@@ -148,92 +151,109 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
     <Modal
       toggle={open}
       close={() => setOpen(false)}
-      className="bg-white max-w-md w-full m-4 rounded-lg flex flex-col justify-between"
+      className="bg-white max-w-sm w-full m-4 rounded-lg flex flex-col justify-between"
     >
-      <h2 className="text-lg p-4">{t.pickup_delivery}</h2>
+      <div className="flex justify-between items-center p-4">
+        <h2 className="text-lg font-normal">{t.pick_up_or_deliver}</h2>
+        <IconButton variant="close" onClick={() => setOpen(false)} />
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-neutral-50 p-4 border">
-          <div className="flex justify-between">
+          <div className="flex space-x-2">
             {/* This button sets delivery to false which means the customer will pcik up the order */}
             <button
               onClick={() => setDelivery(false)}
               type="button"
-              className={`${btnStyle} rounded-l-md ${
-                delivery === false ? "bg-neutral-100" : "shadow-md bg-white"
+              className={`${btnStyle} red-focus-ring ${
+                delivery === false && "border-main border-2 text-main"
               }`}
             >
-              <span className="material-symbols-rounded mr-3">store</span>
+              <span className="material-symbols-rounded text-inherit">
+                store
+              </span>
               {t.pick_up}
             </button>
             {/* This button sets delivery to true which means the order will be delivered. */}
             <button
               onClick={() => setDelivery(true)}
               type="button"
-              className={`${btnStyle} rounded-r-md ${
-                delivery === true ? "bg-neutral-100" : "shadow-md bg-white"
+              className={`${btnStyle} red-focus-ring ${
+                delivery === true && "border-main border-2 text-main"
               }`}
             >
-              <span className="material-symbols-rounded mr-3">pedal_bike</span>
+              <span className="material-symbols-rounded text-inherit">
+                pedal_bike
+              </span>
               {t.delivery}
             </button>
           </div>
           {/* We show the adress for the store if users decides to pick it up. */}
-          {delivery === false && (
-            <div className="text-xs p-2 mt-4">
-              <h3 className="font-semibold">{t.address}:</h3>
-              <span className="">
-                Havenstraat 13
-                <br />
-                2211EE Noordwijkerhout
-              </span>
-            </div>
-          )}
-          {delivery === true && (
-            <>
-              <div className="grid grid-cols-12 mt-4 gap-2">
-                <Input
-                  register={register}
-                  errors={errors.postalcode}
-                  name="postalcode"
-                  autoComplete="postal-code"
-                  type="text"
-                  label={t.postalcode}
-                  asterisk
-                  wrapper="col-span-12 sm:col-span-5"
-                />
-                {/* Container for the houseNumber. */}
-                <Input
-                  register={register}
-                  errors={errors.houseNumber}
-                  name="houseNumber"
-                  type="tel"
-                  label={t.house_number}
-                  wrapper="col-span-7 sm:col-span-4"
-                  asterisk
-                />
-                <Input
-                  register={register}
-                  errors={errors.addition}
-                  name="addition"
-                  type="text"
-                  label={t.house_number_addition}
-                  wrapper="col-span-5 sm:col-span-3"
-                />
-                {address.street && (
-                  <div className="text-xs text-gray-600 col-span-12">
-                    {address.street} {address.houseNumber}
-                    {addition && ` ${addition}`}, {address.postalcode}{" "}
-                    {address.city}
-                  </div>
-                )}
-                {address.error === "not found" && (
-                  <div className="text-xs text-gray-600 col-span-12">
-                    {t.can_not_find_address}
-                  </div>
-                )}
-              </div>
-            </>
-          )}
+          <AnimatePresence>
+            {delivery === false && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1, transition: { delay: 0.2 } }}
+                className="text-sm p-2 mt-4"
+              >
+                <h3 className="font-semibold">{t.address}:</h3>
+                <span className="">
+                  Havenstraat 13
+                  <br />
+                  2211EE Noordwijkerhout
+                </span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {delivery === true && (
+              <>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { delay: 0.2 } }}
+                  className="grid grid-cols-12 mt-4 gap-2"
+                >
+                  <Input
+                    register={register}
+                    errors={errors.postalcode}
+                    name="postalcode"
+                    autoComplete="postal-code"
+                    type="text"
+                    label={t.postalcode}
+                    wrapper="col-span-12"
+                  />
+                  {/* Container for the houseNumber. */}
+                  <Input
+                    register={register}
+                    errors={errors.houseNumber}
+                    name="houseNumber"
+                    type="tel"
+                    label={t.house_number}
+                    wrapper="col-span-6"
+                  />
+                  <Input
+                    register={register}
+                    errors={errors.addition}
+                    name="addition"
+                    type="text"
+                    label={t.house_number_addition}
+                    wrapper="col-span-6"
+                  />
+                  {address.street && (
+                    <div className="text-xs text-gray-600 col-span-12">
+                      {address.street} {address.houseNumber}
+                      {addition && ` ${addition}`}, {address.postalcode}{" "}
+                      {address.city}
+                    </div>
+                  )}
+                  {address.error === "not found" && (
+                    <div className="text-xs text-gray-600 col-span-12">
+                      {t.can_not_find_address}
+                    </div>
+                  )}
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
         </div>
         <div className="p-4 space-x-4 flex w-full">
           <button

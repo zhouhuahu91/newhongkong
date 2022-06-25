@@ -65,6 +65,7 @@ export default {
   rather_pick_up: "Möchten Sie Ihre Bestellung lieber abholen?",
   rather_deliver:
     "Möchten Sie lieber, dass Ihre Bestellung zu Ihnen geliefert wird?",
+  pick_up_or_deliver: "Abholen oder Liefern?",
 
   // ******** MENU ********
 

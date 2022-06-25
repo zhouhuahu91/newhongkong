@@ -63,6 +63,7 @@ export default {
   add_for: "Add for",
   rather_pick_up: "Would you rather pick it up?",
   rather_deliver: "Would you rather have it deliverd?",
+  pick_up_or_deliver: "Pick up or deliver?",
 
   // ******** MENU ********
 
