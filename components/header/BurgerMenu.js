@@ -27,7 +27,7 @@ const BurgerMenu = () => {
       <button
         type="button"
         onClick={() => setBurgerMenu((prev) => !prev)}
-        className="flex items-center md:hidden"
+        className="flex items-center md:hidden red-focus-ring rounded-md"
       >
         <span className={`material-symbols-rounded ${atHome && "text-white"}`}>
           menu
@@ -63,7 +63,7 @@ const BurgerMenu = () => {
                     onClick={() => {
                       setBurgerMenu(false);
                     }}
-                    className="text-2xl font-bold px-2 text-main"
+                    className="text-2xl font-bold px-2 text-main red-focus-ring rounded-md"
                   >
                     nHK
                   </a>
@@ -75,7 +75,7 @@ const BurgerMenu = () => {
                     onClick={() => {
                       setBurgerMenu(false);
                     }}
-                    className="py-2 pl-6 hover:bg-gray-100 block"
+                    className="py-2 pl-6 hover:bg-gray-100 block red-focus-text"
                   >
                     {t.home}
                   </a>
@@ -85,7 +85,7 @@ const BurgerMenu = () => {
                     onClick={() => {
                       setBurgerMenu(false);
                     }}
-                    className="py-2 pl-6 hover:bg-gray-100 block"
+                    className="py-2 pl-6 hover:bg-gray-100 block red-focus-text"
                   >
                     {t.menu}
                   </a>
@@ -95,7 +95,7 @@ const BurgerMenu = () => {
                     onClick={() => {
                       setBurgerMenu(false);
                     }}
-                    className="py-2 pl-6 hover:bg-gray-100 block"
+                    className="py-2 pl-6 hover:bg-gray-100 block red-focus-text"
                   >
                     {t.catering}
                   </a>
@@ -105,7 +105,7 @@ const BurgerMenu = () => {
                     onClick={() => {
                       setBurgerMenu(false);
                     }}
-                    className="py-2 pl-6 hover:bg-gray-100 block"
+                    className="py-2 pl-6 hover:bg-gray-100 block red-focus-text"
                   >
                     {t.contact}
                   </a>
@@ -122,10 +122,10 @@ const BurgerMenu = () => {
                           auth.signOutUser();
                           setBurgerMenu(false);
                         }}
-                        className="py-2 pl-6 hover:bg-gray-100 flex items-center w-full"
+                        className="py-2 pl-6 hover:bg-gray-100 flex items-center w-full red-focus-text"
                       >
                         {t.sign_out}
-                        <span className="material-symbols-rounded ml-9">
+                        <span className="material-symbols-rounded ml-9 text-inherit">
                           logout
                         </span>
                       </button>
@@ -136,11 +136,11 @@ const BurgerMenu = () => {
                         onClick={() => {
                           setBurgerMenu(false);
                         }}
-                        className="py-2 pl-6 hover:bg-gray-100 flex items-center"
+                        className="py-2 pl-6 hover:bg-gray-100 flex items-center red-focus-text"
                       >
                         {t.sign_in}
 
-                        <span className="material-symbols-rounded ml-9">
+                        <span className="material-symbols-rounded ml-9 text-inherit">
                           login
                         </span>
                       </a>

@@ -34,7 +34,7 @@ const Header = () => {
           {/* This is the main logo nHK */}
           <Link href="/">
             <a
-              className={`text-2xl font-bold red-focus-ring p-0.5 ${
+              className={`text-2xl font-bold red-focus-ring rounded-md px-0.5 ${
                 atHome ? "text-white" : "text-main"
               }`}
             >
@@ -48,13 +48,19 @@ const Header = () => {
             } absolute left-1/2 -translate-x-1/2`}
           >
             <Link href="/menu">
-              <a className="text-sm mx-8 red-focus-ring p-0.5">{t.menu}</a>
+              <a className="text-sm mx-8 red-focus-ring rounded-md px-0.5">
+                {t.menu}
+              </a>
             </Link>
             <Link href="/catering">
-              <a className="text-sm mx-8 red-focus-ring p-0.5">{t.catering}</a>
+              <a className="text-sm mx-8 red-focus-ring rounded-md px-0.5">
+                {t.catering}
+              </a>
             </Link>
             <Link href="/contact">
-              <a className="text-sm mx-8 red-focus-ring p-0.5">{t.contact}</a>
+              <a className="text-sm mx-8 red-focus-ring rounded-md px-0.5">
+                {t.contact}
+              </a>
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
