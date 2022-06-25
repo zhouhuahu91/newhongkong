@@ -80,7 +80,7 @@ const BurgerMenu = () => {
                     {t.home}
                   </a>
                 </Link>
-                <Link href="/order">
+                <Link href="/menu">
                   <a
                     onClick={() => {
                       setBurgerMenu(false);
