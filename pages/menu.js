@@ -34,6 +34,12 @@ const Menu = () => {
   // useEffect(() => {
   //   uploadData();
   // }, []);
+  useEffect(() => {
+    const localCartState = JSON.parse(localStorage.getItem("localCartState"));
+    if (localCartState?.delivery === "undecided" || !localCartState) {
+      setOpen(true);
+    }
+  }, []);
 
   if (!data.length) {
     return <Spinner />;

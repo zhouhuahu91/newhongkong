@@ -114,9 +114,9 @@ const useCartProvider = () => {
     // If the cart is not older than 3 hours we set the localCartState.
     // Strict mode is causing this te rerender the cart state to initial.
     // That is why we only set cart state if it has items
-    if (localCartState.cart.length) {
-      dispatch({ type: "SET_CARTSTATE", payload: localCartState });
-    }
+    // if (localCartState.cart.length) {
+    dispatch({ type: "SET_CARTSTATE", payload: localCartState });
+    // }
   }, []);
 
   // Every time the cart updates we save it to the local storage.

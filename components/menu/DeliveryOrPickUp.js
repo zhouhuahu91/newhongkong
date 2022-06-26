@@ -188,11 +188,12 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
             </button>
           </div>
           {/* We show the adress for the store if users decides to pick it up. */}
-          <AnimatePresence>
-            {delivery === false && (
+          <AnimatePresence exitBeforeEnter>
+            {delivery === false ? (
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { delay: 0.2 } }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 className="text-sm p-2 mt-4"
               >
                 <h3 className="font-semibold">{t.address}:</h3>
@@ -202,14 +203,12 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
                   2211EE Noordwijkerhout
                 </span>
               </motion.div>
-            )}
-          </AnimatePresence>
-          <AnimatePresence>
-            {delivery === true && (
+            ) : (
               <>
                 <motion.div
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { delay: 0.2 } }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
                   className="grid grid-cols-12 mt-4 gap-2"
                 >
                   <Input
