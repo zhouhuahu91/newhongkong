@@ -14,14 +14,13 @@ const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   // Holds the state of the search input.
   const [open, setOpen] = useState(false);
+  // Holds state for focus on input to change styling for parent div.
+  const [inputFocus, setInputFocus] = useState(false);
   // This returns functions to filter the data.
   const { filterData, resetFilter } = useMenu();
-  // We need this reference to close the search when the user clicks outside of it.
-  const el = useRef();
   // We need the input ref to focus it when we clear the input.
   const inputRef = useRef();
   // This doesn't work it closes the search and clears input before we can open the item.
-  // useOnClickOutside(el, () => setOpen(false));
   const { width } = useWindowSize();
 
   useEffect(() => {
@@ -55,10 +54,12 @@ const Search = () => {
   }, [setOpen, open]);
 
   return (
-    <div ref={el}>
+    <div>
       <AnimatePresence>
         {open && (
           <motion.div
+            onFocus={() => setInputFocus(true)}
+            onBlur={() => setInputFocus(false)}
             initial={{ width: 0, opacity: 0 }}
             // Animate will override max width so we check width of screen and if it is bigger than 384 + 16 padding...
             // ...search width is than screen width minues padding which is 16px
@@ -68,7 +69,9 @@ const Search = () => {
               transition: { duration: 0.3 },
             }}
             exit={{ width: 44, transition: { duration: 0.1 } }}
-            className="absolute bg-white z-10 border h-11 shadow rounded-full flex items-center justify-center red-focus-ring"
+            className={`absolute bg-white z-10 border h-11 rounded-full flex items-center justify-center ${
+              inputFocus && "border-red-200 ring ring-red-100"
+            }`}
           >
             <input
               ref={inputRef}
