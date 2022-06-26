@@ -204,53 +204,55 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
                 </span>
               </motion.div>
             ) : (
-              <>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="grid grid-cols-12 mt-4 gap-2"
-                >
-                  <Input
-                    register={register}
-                    errors={errors.postalcode}
-                    name="postalcode"
-                    autoComplete="postal-code"
-                    type="text"
-                    label={t.postalcode}
-                    wrapper="col-span-12"
-                  />
-                  {/* Container for the houseNumber. */}
-                  <Input
-                    register={register}
-                    errors={errors.houseNumber}
-                    name="houseNumber"
-                    type="tel"
-                    label={t.house_number}
-                    wrapper="col-span-6"
-                  />
-                  <Input
-                    register={register}
-                    errors={errors.addition}
-                    name="addition"
-                    type="text"
-                    label={t.house_number_addition}
-                    wrapper="col-span-6"
-                  />
-                  {address.street && (
-                    <div className="text-xs text-gray-600 col-span-12">
-                      {address.street} {address.houseNumber}
-                      {addition && ` ${addition}`}, {address.postalcode}{" "}
-                      {address.city}
-                    </div>
-                  )}
-                  {address.error === "not found" && (
-                    <div className="text-xs text-gray-600 col-span-12">
-                      {t.can_not_find_address}
-                    </div>
-                  )}
-                </motion.div>
-              </>
+              delivery === true && (
+                <>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="grid grid-cols-12 mt-4 gap-2"
+                  >
+                    <Input
+                      register={register}
+                      errors={errors.postalcode}
+                      name="postalcode"
+                      autoComplete="postal-code"
+                      type="text"
+                      label={t.postalcode}
+                      wrapper="col-span-12"
+                    />
+                    {/* Container for the houseNumber. */}
+                    <Input
+                      register={register}
+                      errors={errors.houseNumber}
+                      name="houseNumber"
+                      type="tel"
+                      label={t.house_number}
+                      wrapper="col-span-6"
+                    />
+                    <Input
+                      register={register}
+                      errors={errors.addition}
+                      name="addition"
+                      type="text"
+                      label={t.house_number_addition}
+                      wrapper="col-span-6"
+                    />
+                    {address.street && (
+                      <div className="text-xs text-gray-600 col-span-12">
+                        {address.street} {address.houseNumber}
+                        {addition && ` ${addition}`}, {address.postalcode}{" "}
+                        {address.city}
+                      </div>
+                    )}
+                    {address.error === "not found" && (
+                      <div className="text-xs text-gray-600 col-span-12">
+                        {t.can_not_find_address}
+                      </div>
+                    )}
+                  </motion.div>
+                </>
+              )
             )}
           </AnimatePresence>
         </div>
