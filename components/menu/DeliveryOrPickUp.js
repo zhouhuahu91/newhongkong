@@ -45,10 +45,11 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
           // We check if the postalcode is in our area. Only 2211, 2212 and limited 2204.
           // Note that 2204 is with limited options not all letter combos are allowed.
           .matches(
-            /^(2211)[\s]?[a-z]{2}$|^(2212)[\s]?[a-z]{2}$|^(2204)[\s]?([a][bcjklnprstwx])|(2204)[\s]?([b-c][a-z])$/i,
+            /^(2211|2212)[\s]?[a-z]{2}$|^(2204)[\s]?([a][bcjklnprstwx]|[b-c][a-z])$/i,
             t.no_delivery_here
           )
-      : yup.string(),
+      : // .matches(/^(?!(2211)[\s]?(v[klmn]|zg|we)$)/i, t.no_delivery_here)
+        yup.string(),
     // House number only needs validation when delivery is selected.
     houseNumber: delivery
       ? yup
