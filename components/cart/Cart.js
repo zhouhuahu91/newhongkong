@@ -104,10 +104,8 @@ const Cart = () => {
             {t.delivery_warning(
               shortForDelivery,
               storeFees.minimumOrderAmount,
-              `${
-                cartState.address
-                  ? `${cartState.address?.street} ${cartState.address?.houseNumber} ${cartState.address?.addition}`
-                  : ""
+              `${cartState.address.street} ${cartState.address.houseNumber} ${
+                cartState.address.addition ? cartState.address.addition : ""
               }`
             )}
           </div>
