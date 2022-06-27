@@ -25,7 +25,7 @@ const PickUpOrDelivery = () => {
             delivery === false && "border-main selected text-main"
           }`}
         >
-          <span className="material-symbols-rounded text-inherit text-lg-important">
+          <span className="material-symbols-rounded text-inherit icon-small">
             store
           </span>
           {t.pick_up}
@@ -38,7 +38,7 @@ const PickUpOrDelivery = () => {
             delivery === true && "border-main selected text-main"
           }`}
         >
-          <span className="material-symbols-rounded text-inherit text-lg-important">
+          <span className="material-symbols-rounded text-inherit icon-small">
             pedal_bike
           </span>
           {t.delivery}

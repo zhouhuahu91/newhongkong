@@ -85,7 +85,7 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
                     }`}
                   >
                     {slot.includes(":") && (
-                      <span className="material-symbols-rounded text-inherit text-lg-important">
+                      <span className="material-symbols-rounded text-inherit icon-small">
                         {delivery ? "pedal_bike" : "store"}
                       </span>
                     )}

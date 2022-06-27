@@ -34,7 +34,7 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
   const { user } = useAuth();
   // Style of the button.
   const btnStyle =
-    "flex flex-col p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
+    "flex flex-col red-focus-ring p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
   const schema = yup.object().shape({
     postalcode: delivery
       ? yup
@@ -164,11 +164,11 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
             <button
               onClick={() => setDelivery(false)}
               type="button"
-              className={`${btnStyle} red-focus-ring ${
-                delivery === false && "border-main border-2 text-main"
+              className={`${btnStyle} ${
+                delivery === false && "border-main selected text-main"
               }`}
             >
-              <span className="material-symbols-rounded text-inherit">
+              <span className="material-symbols-rounded text-inherit icon-small">
                 store
               </span>
               {t.pick_up}
@@ -177,11 +177,11 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
             <button
               onClick={() => setDelivery(true)}
               type="button"
-              className={`${btnStyle} red-focus-ring ${
-                delivery === true && "border-main border-2 text-main"
+              className={`${btnStyle} ${
+                delivery === true && "border-main selected text-main"
               }`}
             >
-              <span className="material-symbols-rounded text-inherit">
+              <span className="material-symbols-rounded text-inherit icon-small">
                 pedal_bike
               </span>
               {t.delivery}

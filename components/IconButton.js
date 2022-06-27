@@ -19,7 +19,7 @@ const IconButton = ({ onClick, variant, color, size, disabled, className }) => {
             ? "text-main"
             : ""
         } absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ${
-          size === "small" && "text-lg-important"
+          size === "small" && "icon-small"
         }`}
       >
         {variant}
