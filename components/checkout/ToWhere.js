@@ -30,6 +30,7 @@ const ToWhere = ({
   const {
     cartState: { delivery },
     cartState,
+    dispatch,
   } = useCart();
 
   // This useEffect fetches the address from an API if the postalcode and house number are valid.
@@ -37,6 +38,11 @@ const ToWhere = ({
     const fetchAddress = async () => {
       const response = await fetchAddressFromAPI(postalcode, houseNumber);
       setAddress({ ...response, addition });
+      if (response.error) return;
+      dispatch({
+        type: "SET_ADDRESS",
+        payload: { ...response, addition },
+      });
     };
 
     fetchAddress();

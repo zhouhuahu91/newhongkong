@@ -167,7 +167,7 @@ const CheckOut = () => {
     setProcessing(true);
 
     // If delivery === true && the address is not found we need to show the user an error.
-    if (address.error === "not found" && delivery === true) {
+    if (address.error && delivery === true) {
       setError("houseNumber", {
         type: "manual",
       });
