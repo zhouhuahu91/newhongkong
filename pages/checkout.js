@@ -128,6 +128,11 @@ const CheckOut = () => {
       postalcode: cartState.address.postalcode || "",
       houseNumber: cartState.address.houseNumber || "",
       addition: cartState.address.addition || "",
+      name: "",
+      tel: "",
+      email: "",
+      time: "",
+      remarks: "",
     },
     // We store the delivery method and payment method in the global state aka context.
     // We need there value outside the checkout.
