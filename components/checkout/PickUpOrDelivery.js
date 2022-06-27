@@ -22,7 +22,7 @@ const PickUpOrDelivery = () => {
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: false })}
           type="button"
           className={`${btnStyle} ${
-            delivery === false && "border-main border-2 text-main"
+            delivery === false && "border-main selected text-main"
           }`}
         >
           <span className="material-symbols-rounded text-inherit text-lg-important">
@@ -35,7 +35,7 @@ const PickUpOrDelivery = () => {
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: true })}
           type="button"
           className={`${btnStyle} ${
-            delivery === true && "border-main border-2 text-main"
+            delivery === true && "border-main selected text-main"
           }`}
         >
           <span className="material-symbols-rounded text-inherit text-lg-important">
