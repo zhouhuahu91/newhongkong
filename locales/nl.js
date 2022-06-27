@@ -193,11 +193,12 @@ export default {
       <Emp>19:00</Emp> uur.
     </>
   ),
-  delivery_warning: (required) => (
+  delivery_warning: (required, minimum, address) => (
     <>
-      Voor bezorgen hanteren wij een minimum bestelbedrag van <Emp>€ 20,00</Emp>{" "}
-      exclusief bezorgkosten. Benodigd bedrag om de minimum bezorgwaarde te
-      bereiken is <Emp>{euro(required)}</Emp>.
+      Voor bezorgen naar <Emp>{address}</Emp> hanteren wij een minimum
+      bestelbedrag van <Emp>{euro(minimum)}</Emp> exclusief bezorgkosten.
+      Benodigd bedrag om de minimum bezorgwaarde te bereiken is{" "}
+      <Emp>{euro(required)}</Emp>.
     </>
   ),
 

@@ -3,6 +3,8 @@ import { useState, useEffect, useContext, createContext } from "react";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
+// Hook imports
+import { useCart } from "@/hooks/useCart";
 
 // First we create a context
 const storeInfoContext = createContext();
@@ -14,6 +16,7 @@ export const useStoreInfo = () => {
 
 // This Hook provides store data to all pages suchs as closing hours, phone number, etc.
 const useStoreProvider = () => {
+  const { cartState } = useCart();
   // Information that we store in state we can let admins change.
   const [storeInfo, setStoreInfo] = useState({
     // True if store is open today. Defaults to true.
@@ -82,6 +85,19 @@ const useStoreProvider = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  // minimumOrderAmout and deliveryFee depends on the postalcode.
+  useEffect(() => {
+    // If there is no address in the cart we don't do anything.
+    if (!cartState.address) return;
+    if (/^(2204)[\s]?[a-z]{2}$/i.test(cartState.address.postalcode)) {
+      setStoreFees((prev) => ({
+        ...prev,
+        minimumOrderAmount: 3000,
+        deliveryFee: 350,
+      }));
+    }
+  }, [cartState.address]);
 
   return {
     storeInfo,

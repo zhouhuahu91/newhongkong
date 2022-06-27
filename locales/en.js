@@ -193,11 +193,11 @@ export default {
       <Emp>19:00</Emp> o'clock.
     </>
   ),
-  delivery_warning: (required) => (
+  delivery_warning: (required, minimum, address) => (
     <>
-      For delivery we have a minimum order amount of <Emp>€ 20,00</Emp>,{" "}
-      delivery fee excluded. Amount needed to reach the minimum order value is{" "}
-      <Emp>{euro(required)}</Emp>.
+      For delivery to <Emp>{address}</Emp> we have a minimum order amount of{" "}
+      <Emp>{euro(minimum)}</Emp>, delivery fee excluded. Amount needed to reach
+      the minimum order value is <Emp>{euro(required)}</Emp>.
     </>
   ),
 

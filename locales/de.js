@@ -197,11 +197,12 @@ export default {
       <Emp>17.00Uhr</Emp> und <Emp>19.00Uhr</Emp> nicht aus.
     </>
   ),
-  delivery_warning: (required) => (
+  delivery_warning: (required, minimum, address) => (
     <>
-      Der Mindestbestellwert für eine Lieferung beträgt <Emp>€ 20,00</Emp>,{" "}
-      wobei Lieferkosten nicht inkludiert sind. Es fehlen noch{" "}
-      <Emp>{euro(required)}</Emp> bis zur Erreichung des Mindestbestellwerts.
+      Für die Lieferung an <Emp>{address}</Emp> verwenden wir einen
+      Mindestbestellwert von <Emp>{euro(minimum)}</Emp> ohne Versandkosten. Der
+      erforderliche Betrag zum Erreichen des Mindestlieferwertes beträgt{" "}
+      <Emp>{euro(required)}</Emp>.
     </>
   ),
 
