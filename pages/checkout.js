@@ -51,6 +51,7 @@ const CheckOut = () => {
   const [stripePaymentModal, setStripePaymentModal] = useState(false);
   // We use this state to store the address that the api returns.
   const [address, setAddress] = useState(cartState.address || {});
+  console.log(address);
   // Holds the state for when submit is processing
   const [processing, setProcessing] = useState(false);
   // t is used to translate text.
@@ -123,6 +124,11 @@ const CheckOut = () => {
   } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
+    defaultValues: {
+      postalcode: cartState.address.postalcode || "",
+      houseNumber: cartState.address.houseNumber || "",
+      addition: cartState.address.addition || "",
+    },
     // We store the delivery method and payment method in the global state aka context.
     // We need there value outside the checkout.
   });
@@ -135,14 +141,6 @@ const CheckOut = () => {
     const guest = JSON.parse(localStorage.getItem("guest"));
     // If user already started on the form we exit this function.
     if (isDirty) return;
-
-    // First we check if the cartState already has a address.
-    if (cartState.address) {
-      // We set the address to the cartState address.
-      setValue("postalcode", cartState.address.postalcode);
-      setValue("houseNumber", cartState.address.houseNumber);
-      setValue("addition", cartState.address.addition);
-    }
 
     if (user) {
       // We check every just in case.
