@@ -74,6 +74,11 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
   } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
+    defaultValues: {
+      postalcode: cartState.address.postalcode || "",
+      houseNumber: cartState.address.houseNumber || "",
+      addition: cartState.address.addition || "",
+    },
   });
 
   // These variablles updates when users provide data.
@@ -122,8 +127,14 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
       const response = await fetchAddressFromAPI(postalcode, houseNumber);
       setAddress({ ...response, addition });
     };
-
-    fetchAddress();
+    // If postalcode and house number of the input is the same as the postalcode and house number of the address we don't need to fetch.
+    if (
+      postalcode !== cartState.address?.postalcode ||
+      houseNumber !== cartState.address?.houseNumber ||
+      !cartState.address
+    ) {
+      fetchAddress();
+    }
   }, [postalcode, houseNumber]);
 
   // We check cart, localstorage and user data to see if we can prefill the form.
@@ -135,12 +146,7 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
     if (isDirty) return;
 
     // First we check if the cartState already has a address.
-    if (cartState.address) {
-      // We set the address to the cartState address.
-      setValue("postalcode", cartState.address.postalcode);
-      setValue("houseNumber", cartState.address.houseNumber);
-      return setValue("addition", cartState.address.addition);
-    }
+    if (cartState.address) return;
 
     // Then we check if the user has a address.
     if (user && user.address) {
