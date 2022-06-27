@@ -256,7 +256,7 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
                       </div>
                     )}
                     {address.error === "not found" && (
-                      <div className="text-sm text-gray-600 col-span-12">
+                      <div className="text-sm text-red-400 col-span-12">
                         {t.can_not_find_address}
                       </div>
                     )}

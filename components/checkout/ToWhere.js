@@ -114,7 +114,7 @@ const ToWhere = ({
           </div>
         )}
         {address.error === "not found" && (
-          <div className="text-sm text-gray-600 col-span-12 p-2 bg-amber-50 border w-fit">
+          <div className="text-sm text-red-400 col-span-12 p-2 bg-amber-50 border w-fit">
             {t.can_not_find_address}
           </div>
         )}
