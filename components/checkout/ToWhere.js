@@ -108,13 +108,13 @@ const ToWhere = ({
           wrapper="col-span-6 xs:col-span-3 sm:col-span-2 md:col-span-3 lg:col-span-2"
         />
         {address.street && (
-          <div className="text-xs text-gray-600 col-span-12">
+          <div className="text-sm text-gray-600 col-span-12">
             {address.street} {address.houseNumber}
             {addition && ` ${addition}`}, {address.postalcode} {address.city}
           </div>
         )}
         {address.error === "not found" && (
-          <div className="text-xs text-gray-600 col-span-12 p-2 bg-amber-50 border w-fit">
+          <div className="text-sm text-gray-600 col-span-12 p-2 bg-amber-50 border w-fit">
             {t.can_not_find_address}
           </div>
         )}
