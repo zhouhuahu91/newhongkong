@@ -220,53 +220,55 @@ const CheckOut = () => {
             {/* Main title of the checkout form. */}
             <h1 className="text-3xl font-semibold my-8">{t.almost_done}</h1>
             <PickUpOrDelivery />
-            <motion.form
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <AnimatePresence>
-                {delivery === true && (
-                  <ToWhere
-                    register={register}
-                    errors={errors}
-                    watch={watch}
-                    address={address}
-                    setAddress={setAddress}
-                    setValue={setValue}
-                    isDirty={isDirty}
-                  />
+            {delivery !== "undecided" && (
+              <motion.form
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <AnimatePresence>
+                  {delivery === true && (
+                    <ToWhere
+                      register={register}
+                      errors={errors}
+                      watch={watch}
+                      address={address}
+                      setAddress={setAddress}
+                      setValue={setValue}
+                      isDirty={isDirty}
+                    />
+                  )}
+                </AnimatePresence>
+                <ForWho register={register} errors={errors} />
+                <ForWhen
+                  register={register}
+                  errors={errors}
+                  watch={watch}
+                  setValue={setValue}
+                />
+                <Remarks errors={errors} register={register} />
+                <Payment />
+                {paymentMethod !== "undecided" && cart.length > 0 && !closed && (
+                  <>
+                    <SubmitButton processing={processing} className="mt-12">
+                      {paymentMethod === "online" ? t.pay : t.place_order}{" "}
+                      {euro(calculateTotalCartPrice(cartState, storeFees))}
+                    </SubmitButton>
+                    <div className="text-xs flex justify-start w-full max-w-sm">
+                      <span className="mt-2 text-gray-600">
+                        {t.our}{" "}
+                        <Link href="/privacy_policy">
+                          <a className="text-main font-medium">
+                            {t.privacy_policy}
+                          </a>
+                        </Link>{" "}
+                        {t.applies}.
+                      </span>
+                    </div>
+                  </>
                 )}
-              </AnimatePresence>
-              <ForWho register={register} errors={errors} />
-              <ForWhen
-                register={register}
-                errors={errors}
-                watch={watch}
-                setValue={setValue}
-              />
-              <Remarks errors={errors} register={register} />
-              <Payment />
-              {paymentMethod !== "undecided" && cart.length > 0 && !closed && (
-                <>
-                  <SubmitButton processing={processing} className="mt-12">
-                    {paymentMethod === "online" ? t.pay : t.place_order}{" "}
-                    {euro(calculateTotalCartPrice(cartState, storeFees))}
-                  </SubmitButton>
-                  <div className="text-xs flex justify-start w-full max-w-sm">
-                    <span className="mt-2 text-gray-600">
-                      {t.our}{" "}
-                      <Link href="/privacy_policy">
-                        <a className="text-main font-medium">
-                          {t.privacy_policy}
-                        </a>
-                      </Link>{" "}
-                      {t.applies}.
-                    </span>
-                  </div>
-                </>
-              )}
-            </motion.form>
+              </motion.form>
+            )}
           </div>
           {/* Container for the cart. */}
           <div className="col-span-6 lg:col-span-5">

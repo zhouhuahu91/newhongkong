@@ -23,7 +23,7 @@ const useStoreProvider = () => {
     // The time that the store closes. Defaults to "21:00".
     closingTime: 24 * 3600,
     // The time we start to deliver. Defaults to "17:00".
-    startTimeDelivery: 17 * 3600,
+    startTimeDelivery: 16 * 3600,
     // The time we stop to deliver. Defaults to "21:00".
     endTimeDelivery: 24 * 3600,
     // This creates a date based on the current date on users computer.

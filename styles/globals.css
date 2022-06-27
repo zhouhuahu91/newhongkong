@@ -22,6 +22,10 @@ a {
   @apply flex items-center justify-center text-sm py-2 rounded-md shadow focus:ring ring-red-100 focus:outline-none font-medium;
 }
 
+.selected {
+  box-shadow: 0px 0px 0px 1px #e76f51;
+}
+
 .red-focus-ring {
   @apply focus:outline-none focus:ring focus:border-red-200 ring-red-100;
 }

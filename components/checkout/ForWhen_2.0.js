@@ -1,11 +1,14 @@
 // React imports
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+// NextJs imports
+import Image from "next/image";
 // Hooks imports
 import useI18n from "@/hooks/useI18n";
 import useTimePicker from "@/hooks/useTimePicker";
 import { useCart } from "@/hooks/useCart";
 
 const ForWhen = ({ register, errors, watch, setValue }) => {
+  const [slotsContainerRoom, setSlotsContainerRoom] = useState();
   // t is used to translate
   const t = useI18n();
   // Returns delivery state of cart.
@@ -16,6 +19,8 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
   const selectedTime = watch("time");
   // Returns the available options.
   const timeSlots = useTimePicker();
+  // Ref for slots container
+  const slotsContainerRef = useRef(null);
 
   // We reset the value of "time" everytime the user changes delivery.
   useEffect(() => {
@@ -25,6 +30,24 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delivery]);
 
+  // This useEffect checks how many slots fit in the div.
+  useEffect(() => {
+    // Handler to call on window resize
+    const handleResize = () => {
+      if (slotsContainerRef.current) {
+        setSlotsContainerRoom(
+          Math.floor(slotsContainerRef.current.offsetWidth / 126)
+        );
+      }
+    };
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       {/* The title of this component. */}
@@ -32,13 +55,72 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
       {/* The main container for the inputs. */}
       <div className="relative">
         <label htmlFor="time" className={`text-sm text-gray-500`}>
-          {t.time}
+          {t.select_time}
         </label>
-        {timeSlots.map((slot) => {
-          return (
-            <input {...register("time")} type="radio" key={slot} value={slot} />
-          );
-        })}
+        <div ref={slotsContainerRef} className="flex space-x-2">
+          {timeSlots.map((slot, idx) => {
+            // We want to display the frist n slots.
+            // But if the selectime is not in these n slots we want to display one less.
+            let nrOfSlotsToDisplay = slotsContainerRoom;
+            if (timeSlots.indexOf(selectedTime) >= slotsContainerRoom) {
+              nrOfSlotsToDisplay -= 1;
+            }
+            // We also make sure to display the selected slot.
+            if (
+              idx < nrOfSlotsToDisplay ||
+              idx === timeSlots.indexOf(selectedTime)
+            ) {
+              return (
+                <div
+                  key={slot}
+                  style={{ width: `${100 / slotsContainerRoom}%` }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setValue("time", slot)}
+                    className={`border w-full h-16 text-left red-focus-ring text-sm font-medium p-3 bg-white rounded-md flex flex-col ${
+                      selectedTime === slot
+                        ? "border-main selected text-main"
+                        : "text-gray-500"
+                    }`}
+                  >
+                    {slot.includes(":") && (
+                      <span className="material-symbols-rounded text-inherit text-lg-important">
+                        {delivery ? "pedal_bike" : "store"}
+                      </span>
+                    )}
+                    {slot}
+                  </button>
+                </div>
+              );
+            }
+          })}
+          {/* Here we display all the other options that are not shows as buttons. */}
+          <div
+            style={{ minWidth: "40px" }}
+            className="relative border bg-white red-focus-ring rounded-md overflow-hidden p-3"
+          >
+            <div className="absolute top-0 left-1/2 -translate-x-1/2">
+              <Image src="/moreHoriz.svg" width={10} height={10} />
+            </div>
+            <select
+              {...register("time")}
+              id="time"
+              className="appearance-none cursor-pointer bg-transparent focus:outline-none absolute inset-0 h-full w-full text-white"
+            >
+              <option value="null">
+                {timeSlots.length ? t.select_time : t.closed_for_delivery}
+              </option>
+              {timeSlots.map((slot) => {
+                return (
+                  <option key={slot} value={slot}>
+                    {slot}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
         <label htmlFor="time" className="text-red-400 text-sm">
           {errors.time?.message}
         </label>
