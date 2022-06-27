@@ -50,13 +50,11 @@ const CheckOut = () => {
   // Store state for stripe payment modal.
   const [stripePaymentModal, setStripePaymentModal] = useState(false);
   // We use this state to store the address that the api returns.
-  const [address, setAddress] = useState(cartState.address || {});
-  console.log(address);
+  const [address, setAddress] = useState(cartState.address);
   // Holds the state for when submit is processing
   const [processing, setProcessing] = useState(false);
   // t is used to translate text.
   const t = useI18n();
-
   // Returns information about the store
   const { closed, storeFees } = useStoreInfo();
   // Returns the users info

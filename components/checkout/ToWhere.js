@@ -63,10 +63,6 @@ const ToWhere = ({
       });
     };
 
-    console.log(cartState.address?.postalcode && !address.postalcode);
-    // If cartState has an address but checkout doesn't we wait untill it is loaded.
-    if (cartState.address?.postalcode && !address.postalcode) return;
-
     // If postalcode and house number of the input is the same as the postalcode and house number of the address we don't need to fetch.
     if (
       postalcode !== cartState.address?.postalcode ||
