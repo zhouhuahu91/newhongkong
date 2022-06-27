@@ -256,8 +256,6 @@ const CheckOut = () => {
                       watch={watch}
                       address={address}
                       setAddress={setAddress}
-                      setValue={setValue}
-                      isDirty={isDirty}
                     />
                   )}
                 </AnimatePresence>

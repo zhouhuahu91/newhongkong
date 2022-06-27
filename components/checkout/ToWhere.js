@@ -15,8 +15,6 @@ const ToWhere = ({
   watch,
   address,
   setAddress,
-  setValue,
-  isDirty,
   clearErrors,
   setError,
 }) => {
