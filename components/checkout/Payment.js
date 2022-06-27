@@ -17,7 +17,7 @@ const Payment = () => {
   const el = useRef();
 
   const btnStyle =
-    "flex flex-col p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
+    "flex flex-col red-focus-ring p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
 
   // This useEffect updates the button width.
   useEffect(() => {
@@ -45,12 +45,14 @@ const Payment = () => {
             dispatch({ type: "SET_PAYMENT_METHOD", payload: "in_person" })
           }
           type="button"
-          className={`${btnStyle} red-focus-ring ${
-            paymentMethod === "in_person" && "border-main selected text-main"
+          className={`${btnStyle} ${
+            paymentMethod === "in_person"
+              ? "border-main selected text-main"
+              : "text-gray-500"
           }`}
         >
           <div className="flex items-center space-x-1 text-inherit">
-            <span className="material-symbols-rounded text-inherit">
+            <span className="material-symbols-rounded text-inherit icon-small">
               {delivery === true ? "payments" : "store"}
             </span>
           </div>
@@ -63,14 +65,14 @@ const Payment = () => {
             dispatch({ type: "SET_PAYMENT_METHOD", payload: "online" })
           }
           type="button"
-          className={`${btnStyle} red-focus-ring ${
+          className={`${btnStyle} ${
             paymentMethod === "online" && "border-main selected text-main"
           }`}
         >
           <div className="grid grid-flow-col gap-1">
             <span
-              className={`material-symbols-rounded ${
-                paymentMethod === "online" && "text-main"
+              className={`material-symbols-rounded icon-small ${
+                paymentMethod === "online" ? "text-main" : "text-gray-500"
               }`}
             >
               credit_card
@@ -78,35 +80,33 @@ const Payment = () => {
             <Image
               src="/paymentIcons/ideal.svg"
               alt="ideal icon"
-              width={24}
-              height={24}
+              width={17}
+              height={17}
             />
             <Image
               src="/paymentIcons/klarna.svg"
               alt="klarna icon"
-              width={20}
-              height={20}
+              width={17}
+              height={17}
             />
             <Image
               src="/paymentIcons/giropay.svg"
               alt="giropay icon"
-              width={24}
-              height={24}
+              width={17}
+              height={17}
             />
-            {buttonWidth > 148 && (
-              <Image
-                src="/paymentIcons/banconnect.svg"
-                alt="banconnect icon"
-                width={24}
-                height={24}
-              />
-            )}
-            {buttonWidth > 174 && (
+            <Image
+              src="/paymentIcons/banconnect.svg"
+              alt="banconnect icon"
+              width={17}
+              height={17}
+            />
+            {buttonWidth > 150 && (
               <Image
                 src="/paymentIcons/przelewy24.svg"
                 alt="przelewy24 icon"
-                width={20}
-                height={20}
+                width={17}
+                height={17}
               />
             )}
           </div>
