@@ -63,7 +63,7 @@ const Input = ({
           // Id is always the name it is needed to link the label to the input.
           id={name}
           className={`appearance-none my-0.5 border rounded-md w-full text-sm focus:outline-none bg-inherit red-focus-ring py-2 placeholder-gray-500 ${
-            errors && "border-main border-2"
+            errors && "border-main selected"
           } ${
             capitalize ? "capitalize" : ""
             // If name is password we move add extra padding on the right side for the icon

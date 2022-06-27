@@ -91,7 +91,7 @@ const ItemModalContent = ({
               rows="3"
               id="itemRemarks"
               className={`appearance-none border w-full red-focus-ring py-2 px-3 rounded-md text-sm ${
-                errors.remarks && "border-main border-2"
+                errors.remarks && "border-main selected"
               }`}
             />
             <label htmlFor="itemRemarks" className={`text-sm text-red-400`}>

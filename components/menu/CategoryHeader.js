@@ -106,7 +106,7 @@ const CategoryHeader = ({ data, categoryRef }) => {
               }}
               className={`whitespace-nowrap my-3 rounded-full px-2 text-sm py-1 transition-colors ease-in duration-200 ${
                 visableCategory?.id == category.id
-                  ? "border-main font-medium text-main border-2 red-focus-ring mx-1"
+                  ? "border-main font-medium text-main selected red-focus-ring mx-1"
                   : "red-focus-text"
               }`}
             >

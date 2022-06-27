@@ -46,7 +46,7 @@ const Payment = () => {
           }
           type="button"
           className={`${btnStyle} red-focus-ring ${
-            paymentMethod === "in_person" && "border-main border-2 text-main"
+            paymentMethod === "in_person" && "border-main selected text-main"
           }`}
         >
           <div className="flex items-center space-x-1 text-inherit">
@@ -64,7 +64,7 @@ const Payment = () => {
           }
           type="button"
           className={`${btnStyle} red-focus-ring ${
-            paymentMethod === "online" && "border-main border-2 text-main"
+            paymentMethod === "online" && "border-main selected text-main"
           }`}
         >
           <div className="grid grid-flow-col gap-1">

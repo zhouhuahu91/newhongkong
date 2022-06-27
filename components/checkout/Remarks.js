@@ -14,7 +14,7 @@ const Remarks = ({ register, errors }) => {
           type="text"
           id="remarks"
           className={`h-20 appearance-none my-0.5 border rounded-lg w-full text-sm py-2 px-3 focus:outline-none red-focus-ring ${
-            errors.remarks && "border-main border-2"
+            errors.remarks && "border-main selected"
           }`}
         />
         <label htmlFor="remarks" className="text-red-400 text-xs">

@@ -38,7 +38,7 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
           {...register("time")}
           id="time"
           className={`appearance-none my-0.5 border rounded-lg w-full text-sm py-2 px-3 focus:outline-none red-focus-ring cursor-pointer ${
-            errors.time && "border-main border-2"
+            errors.time && "border-main selected"
           } ${
             // If the selected time is null than the text will be set to gray.
             selectedTime === "null" ? "text-gray-500" : ""
