@@ -16,7 +16,7 @@ export const useCart = () => {
 const initial = {
   cart: [],
   delivery: "undecided",
-  address: null,
+  address: {},
   paymentMethod: "undecided",
   tip: 0,
   bag: true,
