@@ -63,46 +63,24 @@ const ToWhere = ({
       });
     };
 
-    fetchAddress();
+    console.log(cartState.address?.postalcode && !address.postalcode);
+    // If cartState has an address but checkout doesn't we wait untill it is loaded.
+    if (cartState.address?.postalcode && !address.postalcode) return;
+
+    // If postalcode and house number of the input is the same as the postalcode and house number of the address we don't need to fetch.
+    if (
+      postalcode !== cartState.address?.postalcode ||
+      houseNumber !== cartState.address?.houseNumber ||
+      !cartState.address
+    ) {
+      fetchAddress();
+    }
   }, [postalcode, houseNumber]);
 
   // If addition changes we also want to update the address in cartState.
   useEffect(() => {
     setAddress((prev) => ({ ...prev, addition }));
   }, [addition]);
-
-  // We check cart, localstorage and user data to see if we can prefill the form.
-  useEffect(() => {
-    // If delivery is false we do not need to prefill the form.
-    if (!delivery) return;
-
-    // If the form is dirty we do not prefill the form.
-    if (isDirty) return;
-
-    // First we check if the cartState already has a address.
-    if (cartState.address) {
-      // We set the address to the cartState address.
-      setValue("postalcode", cartState.address.postalcode);
-      setValue("houseNumber", cartState.address.houseNumber);
-      return setValue("addition", cartState.address.addition);
-    }
-
-    // Then we check if the user has a address.
-    if (user && user.address) {
-      setValue("postalcode", user.address.postalcode);
-      setValue("houseNumber", user.address.houseNumber);
-      return setValue("addition", user.address.addition);
-    }
-    // Finally we check if the user has a localstorage address.
-    const guest = JSON.parse(localStorage.getItem("guest"));
-    if (guest && guest.address) {
-      setValue("postalcode", guest.address.postalcode);
-      setValue("houseNumber", guest.address.houseNumber);
-      return setValue("addition", guest.address.addition);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, delivery, cartState]);
 
   return (
     <>
