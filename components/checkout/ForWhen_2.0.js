@@ -36,7 +36,9 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
     const handleResize = () => {
       if (slotsContainerRef.current) {
         setSlotsContainerRoom(
-          Math.floor(slotsContainerRef.current.offsetWidth / 126)
+          // 38 is the width of the select box.
+          // 126 is the minimum width needed for the buttons.
+          Math.floor((slotsContainerRef.current.offsetWidth - 38) / 126)
         );
       }
     };
