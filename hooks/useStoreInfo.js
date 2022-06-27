@@ -90,7 +90,11 @@ const useStoreProvider = () => {
   useEffect(() => {
     // If there is no address in the cart we don't do anything.
     if (!cartState.address) return;
-    if (/^(2204)[\s]?[a-z]{2}$/i.test(cartState.address.postalcode)) {
+    if (
+      /^(2204)[\s]?[a-z]{2}$|^(2211)[\s]?(v[klmn]|zg|we)$/i.test(
+        cartState.address.postalcode
+      )
+    ) {
       setStoreFees((prev) => ({
         ...prev,
         minimumOrderAmount: 3000,
