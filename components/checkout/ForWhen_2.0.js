@@ -54,9 +54,9 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
       <h2 className="text-lg font-normal mt-4 mb-2">{t.for_when}</h2>
       {/* The main container for the inputs. */}
       <div className="relative">
-        <label htmlFor="time" className={`text-sm text-gray-500`}>
+        {/* <label htmlFor="time" className={`text-sm text-gray-500`}>
           {t.select_time}
-        </label>
+        </label> */}
         <div ref={slotsContainerRef} className="flex space-x-2">
           {timeSlots.map((slot, idx) => {
             // We want to display the frist n slots.

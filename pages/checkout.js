@@ -103,9 +103,9 @@ const CheckOut = () => {
     // Date does't need much validation because it is a select input.
     time: yup
       .string()
-      .required(t.required)
+      .required(t.select_time)
       // Default value is set to null so that people always select a time.
-      .matches(/^(?!null$).*/, t.required),
+      .matches(/^(?!null$).*/, t.select_time),
     // Remarks is set to max 500 characters.
     remarks: yup.string().max(500, t.remarks_max),
   });

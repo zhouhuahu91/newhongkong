@@ -11,7 +11,7 @@ const PickUpOrDelivery = () => {
 
   // Style of the button.
   const btnStyle =
-    "flex flex-col p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
+    "flex flex-col p-3 red-focus-ring text-gray-500 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
 
   return (
     <>
@@ -21,22 +21,24 @@ const PickUpOrDelivery = () => {
         <button
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: false })}
           type="button"
-          className={`${btnStyle} red-focus-ring ${
+          className={`${btnStyle} ${
             delivery === false && "border-main border-2 text-main"
           }`}
         >
-          <span className="material-symbols-rounded text-inherit">store</span>
+          <span className="material-symbols-rounded text-inherit text-lg-important">
+            store
+          </span>
           {t.pick_up}
         </button>
         {/* This button sets delivery to true which means the order will be delivered. */}
         <button
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: true })}
           type="button"
-          className={`${btnStyle} red-focus-ring ${
+          className={`${btnStyle} ${
             delivery === true && "border-main border-2 text-main"
           }`}
         >
-          <span className="material-symbols-rounded text-inherit">
+          <span className="material-symbols-rounded text-inherit text-lg-important">
             pedal_bike
           </span>
           {t.delivery}

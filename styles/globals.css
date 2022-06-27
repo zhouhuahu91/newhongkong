@@ -23,7 +23,7 @@ a {
 }
 
 .selected {
-  box-shadow: 0px 0px 0px 1px #e76f51;
+  box-shadow: 0px 0px 0px 1px #e76f51 inset;
 }
 
 .red-focus-ring {
