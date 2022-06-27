@@ -114,6 +114,8 @@ const CheckOut = () => {
     register,
     handleSubmit,
     watch,
+    setError,
+    setFocus,
     setValue,
     control,
     formState: { errors },
@@ -164,10 +166,18 @@ const CheckOut = () => {
     // We disable the submit button by setting the processing state to true.
     setProcessing(true);
 
-    // If user selects for delivery and there is no street it means that the user hasn't filled in a correct address.
-    if (delivery === true && !address.street) {
+    // If delivery === true && the address is not found we need to show the user an error.
+    if (address.error === "not found" && delivery === true) {
+      setError("houseNumber", {
+        type: "manual",
+      });
+      setError("postalcode", {
+        type: "manual",
+      });
+      setFocus("postalcode");
       return setProcessing(false);
     }
+
     // We collect al the users data in an object.
     const data = {
       user: user ? user.uid : "guest",
