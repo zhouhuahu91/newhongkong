@@ -17,6 +17,8 @@ const ToWhere = ({
   setAddress,
   setValue,
   isDirty,
+  clearErrors,
+  setError,
 }) => {
   // Watch function is from react hook form it returns the current input.
   const postalcode = watch("postalcode");
@@ -36,9 +38,25 @@ const ToWhere = ({
   // This useEffect fetches the address from an API if the postalcode and house number are valid.
   useEffect(() => {
     const fetchAddress = async () => {
+      // We clear errors if there are errors
+      if (errors) {
+        clearErrors(["postalcode", "houseNumber"]);
+      }
+      // We fetch the address
       const response = await fetchAddressFromAPI(postalcode, houseNumber);
       setAddress({ ...response, addition });
-      if (response.error) return;
+
+      // If there are errors with the response we set errors.
+      if (response.error) {
+        setError("houseNumber", {
+          type: "manual",
+        });
+        return setError("postalcode", {
+          type: "manual",
+        });
+      }
+
+      // If not we update the cartState with the new address.
       dispatch({
         type: "SET_ADDRESS",
         payload: { ...response, addition },
@@ -47,6 +65,11 @@ const ToWhere = ({
 
     fetchAddress();
   }, [postalcode, houseNumber]);
+
+  // If addition changes we also want to update the address in cartState.
+  useEffect(() => {
+    setAddress((prev) => ({ ...prev, addition }));
+  }, [addition]);
 
   // We check cart, localstorage and user data to see if we can prefill the form.
   useEffect(() => {

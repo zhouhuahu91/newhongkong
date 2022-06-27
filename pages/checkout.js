@@ -39,22 +39,23 @@ const CheckOut = () => {
   const [stripePromise, setStripePromise] = useState(() =>
     loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC_TEST)
   );
-  // We store stripe client secret.
-  const [clientSecret, setClientSecret] = useState(null);
-  // Store state for stripe payment modal.
-  const [stripePaymentModal, setStripePaymentModal] = useState(false);
-  // We use this state to store the address that the api returns.
-  const [address, setAddress] = useState({});
-  // Holds the state for when submit is processing
-  const [processing, setProcessing] = useState(false);
-  // t is used to translate text.
-  const t = useI18n();
   // Returns dispatch and cartState from cart provider.
   const {
     dispatch,
     cartState,
     cartState: { delivery, paymentMethod, cart },
   } = useCart();
+  // We store stripe client secret.
+  const [clientSecret, setClientSecret] = useState(null);
+  // Store state for stripe payment modal.
+  const [stripePaymentModal, setStripePaymentModal] = useState(false);
+  // We use this state to store the address that the api returns.
+  const [address, setAddress] = useState(cartState.address || {});
+  // Holds the state for when submit is processing
+  const [processing, setProcessing] = useState(false);
+  // t is used to translate text.
+  const t = useI18n();
+
   // Returns information about the store
   const { closed, storeFees } = useStoreInfo();
   // Returns the users info
@@ -115,8 +116,8 @@ const CheckOut = () => {
     handleSubmit,
     watch,
     setError,
-    setFocus,
     setValue,
+    clearErrors,
     control,
     formState: { errors },
   } = useForm({
@@ -134,6 +135,15 @@ const CheckOut = () => {
     const guest = JSON.parse(localStorage.getItem("guest"));
     // If user already started on the form we exit this function.
     if (isDirty) return;
+
+    // First we check if the cartState already has a address.
+    if (cartState.address) {
+      // We set the address to the cartState address.
+      setValue("postalcode", cartState.address.postalcode);
+      setValue("houseNumber", cartState.address.houseNumber);
+      setValue("addition", cartState.address.addition);
+    }
+
     if (user) {
       // We check every just in case.
       if (user.name) setValue("name", user.name);
@@ -141,7 +151,8 @@ const CheckOut = () => {
       if (user.tel) setValue("tel", user.tel);
       if (user.saveRemarks) setValue("saveRemarks", user.saveRemarks);
       if (user.saveRemarks && user.remarks) setValue("remarks", user.remarks);
-      if (user.address) {
+      // If user has an address and cartState doesn't have one we set the address to the user address.
+      if (user.address && !cartState.address) {
         setValue("postalcode", user.address.postalcode);
         setValue("houseNumber", user.address.houseNumber);
         setValue("addition", user.address.addition);
@@ -150,10 +161,13 @@ const CheckOut = () => {
       setValue("name", guest.name);
       setValue("email", guest.email);
       setValue("tel", guest.tel);
-      setValue("postalcode", guest.postalcode);
-      setValue("houseNumber", guest.houseNumber);
-      setValue("addition", guest.addition);
       setValue("saveRemarks", guest.saveRemarks);
+      // If cartState doesn't have an address we set it to the guest address.
+      if (!cartState.address) {
+        setValue("postalcode", guest.postalcode);
+        setValue("houseNumber", guest.houseNumber);
+        setValue("addition", guest.addition);
+      }
       // We check if the saveRemarks is true if it is we set it's value.
       if (guest.saveRemarks) {
         setValue("remarks", guest.remarks);
@@ -168,13 +182,8 @@ const CheckOut = () => {
 
     // If delivery === true && the address is not found we need to show the user an error.
     if (address.error && delivery === true) {
-      setError("houseNumber", {
-        type: "manual",
-      });
-      setError("postalcode", {
-        type: "manual",
-      });
-      setFocus("postalcode");
+      setError("postalcode", { type: "manual" }, { shouldFocus: true });
+      setError("houseNumber", { type: "manual" });
       return setProcessing(false);
     }
 
@@ -239,8 +248,10 @@ const CheckOut = () => {
                 <AnimatePresence>
                   {delivery === true && (
                     <ToWhere
+                      clearErrors={clearErrors}
                       register={register}
                       errors={errors}
+                      setError={setError}
                       watch={watch}
                       address={address}
                       setAddress={setAddress}
