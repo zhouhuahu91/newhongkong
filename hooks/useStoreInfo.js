@@ -96,6 +96,12 @@ const useStoreProvider = () => {
         minimumOrderAmount: 3000,
         deliveryFee: 350,
       }));
+    } else {
+      setStoreFees((prev) => ({
+        ...prev,
+        minimumOrderAmount: 2000,
+        deliveryFee: 250,
+      }));
     }
   }, [cartState.address]);
 

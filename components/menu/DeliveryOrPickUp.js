@@ -67,6 +67,7 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
     handleSubmit,
     reset,
     setValue,
+    setError,
     control,
     watch,
     formState: { errors },
@@ -92,6 +93,14 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
     if (delivery === false) {
       dispatch({ type: "SET_DELIVERY", payload: false });
       return setOpen(false);
+    }
+
+    // If delivery === true && the address is not found we need to show the user an error.
+    if (address.error === "not found" && delivery === true) {
+      return setError("postalcode", {
+        type: "manual",
+        message: t.can_not_find_address,
+      });
     }
 
     // If delivery === true we need to set the cartState to true for delivery and set the address.
@@ -240,14 +249,14 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
                       wrapper="col-span-6"
                     />
                     {address.street && (
-                      <div className="text-xs text-gray-600 col-span-12">
+                      <div className="text-sm text-gray-600 col-span-12">
                         {address.street} {address.houseNumber}
                         {addition && ` ${addition}`}, {address.postalcode}{" "}
                         {address.city}
                       </div>
                     )}
                     {address.error === "not found" && (
-                      <div className="text-xs text-gray-600 col-span-12">
+                      <div className="text-sm text-gray-600 col-span-12">
                         {t.can_not_find_address}
                       </div>
                     )}
