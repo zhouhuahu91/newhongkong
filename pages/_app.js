@@ -11,15 +11,15 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <StoreInfoProvider>
-        <CartProvider>
+      <CartProvider>
+        <StoreInfoProvider>
           <MenuProvider>
             <Layout>
               <Component {...pageProps} />
             </Layout>
           </MenuProvider>
-        </CartProvider>
-      </StoreInfoProvider>
+        </StoreInfoProvider>
+      </CartProvider>
     </AuthProvider>
   );
 }
