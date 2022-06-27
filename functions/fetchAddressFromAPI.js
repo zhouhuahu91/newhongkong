@@ -14,6 +14,7 @@ const fetchAddressFromAPI = async (postalcode, houseNumber) => {
 
   // We check if the postalcode has 6 characters and if the houseNumber has atleast 1 character.
   if (sanitizedPostalcode.length === 6 && sanitizedHouseNumber > 0) {
+    console.log("fetching address from API");
     // If both critiria's meet we fetch data from the api.
     // It's a free api from the goverment, not sure if it will stay online forever.
     const res = await fetch(
