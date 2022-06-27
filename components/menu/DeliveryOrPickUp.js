@@ -97,9 +97,11 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
 
     // If delivery === true && the address is not found we need to show the user an error.
     if (address.error === "not found" && delivery === true) {
+      setError("houseNumber", {
+        type: "manual",
+      });
       return setError("postalcode", {
         type: "manual",
-        message: t.can_not_find_address,
       });
     }
 
