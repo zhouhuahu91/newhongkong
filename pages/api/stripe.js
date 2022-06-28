@@ -37,8 +37,6 @@ const webhookHandler = async (req, res) => {
 
     let event;
 
-    console.log(sig, webhookSecret);
-
     try {
       event = stripe.webhooks.constructEvent(
         buf.toString(),
@@ -47,9 +45,7 @@ const webhookHandler = async (req, res) => {
       );
     } catch (e) {
       console.log(`Error message: ${e.message}`);
-      res
-        .status(400)
-        .send(`Webhook Error: ${e.message} ${sig} ${webhookSecret}`);
+      res.status(400).send(`Webhook Error: ${e.message}`);
       return;
     }
     // *******
