@@ -65,7 +65,6 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
   const {
     register,
     handleSubmit,
-    reset,
     setValue,
     setError,
     control,
@@ -88,6 +87,8 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
 
   // We need to know if the user is trying to fill in the form so that we do not override their data.
   const { isDirty } = useFormState({ control });
+
+  console.log(address);
 
   const onSubmit = (data) => {
     // If delivery === "undecided" we need to let the user know it needs to be decided.
@@ -129,8 +130,8 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
     };
     // If postalcode and house number of the input is the same as the postalcode and house number of the address we don't need to fetch.
     if (
-      postalcode !== cartState.address?.postalcode ||
-      houseNumber !== cartState.address?.houseNumber ||
+      postalcode !== cartState.address.postalcode ||
+      houseNumber !== cartState.address.houseNumber ||
       !cartState.address.postalcode
     ) {
       fetchAddress();
@@ -149,7 +150,9 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
     if (cartState.address.postalcode) {
       setValue("postalcode", cartState.address.postalcode);
       setValue("houseNumber", cartState.address.houseNumber);
-      return setValue("addition", cartState.address.addition);
+      setValue("addition", cartState.address.addition);
+      // We also set the cartState address to address.
+      return setAddress(cartState.address);
     }
 
     // Then we check if the user has a address.
@@ -281,7 +284,6 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
         <div className="p-4 space-x-4 flex w-full">
           <button
             onClick={() => {
-              reset();
               setDelivery(cartState.delivery);
               setOpen(false);
             }}

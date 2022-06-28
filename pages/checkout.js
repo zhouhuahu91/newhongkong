@@ -50,7 +50,7 @@ const CheckOut = () => {
   // Store state for stripe payment modal.
   const [stripePaymentModal, setStripePaymentModal] = useState(false);
   // We use this state to store the address that the api returns.
-  const [address, setAddress] = useState(cartState.address);
+  const [address, setAddress] = useState({});
   // Holds the state for when submit is processing
   const [processing, setProcessing] = useState(false);
   // t is used to translate text.
@@ -123,9 +123,9 @@ const CheckOut = () => {
     mode: "onBlur",
     resolver: yupResolver(schema),
     defaultValues: {
-      postalcode: cartState.address.postalcode || "",
-      houseNumber: cartState.address.houseNumber || "",
-      addition: cartState.address.addition || "",
+      postalcode: "",
+      houseNumber: "",
+      addition: "",
       name: "",
       tel: "",
       email: "",
@@ -138,12 +138,24 @@ const CheckOut = () => {
   // We need this to check if user already started with the form or not.
   const { isDirty } = useFormState({ control });
 
+  console.log(address);
+
   // If there is no user signed in we check the local storage if there is a guest object.
   // With that object we fill in the form.
   useEffect(() => {
     const guest = JSON.parse(localStorage.getItem("guest"));
     // If user already started on the form we exit this function.
     if (isDirty) return;
+
+    // First we check if the cartState already has a address.
+    if (cartState.address.postalcode) {
+      console.log("test");
+      setValue("postalcode", cartState.address.postalcode);
+      setValue("houseNumber", cartState.address.houseNumber);
+      setValue("addition", cartState.address.addition);
+      // We also need to put this address in the address state.
+      return setAddress(cartState.address);
+    }
 
     if (user) {
       // We check every just in case.
@@ -175,7 +187,7 @@ const CheckOut = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, cartState.address]);
 
   const onSubmit = async (formData) => {
     // We disable the submit button by setting the processing state to true.

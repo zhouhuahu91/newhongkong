@@ -40,6 +40,10 @@ const ToWhere = ({
       if (errors) {
         clearErrors(["postalcode", "houseNumber"]);
       }
+
+      // If delivery === false we do not need to fetch
+      if (delivery === false) return;
+
       // We fetch the address
       const response = await fetchAddressFromAPI(postalcode, houseNumber);
       setAddress({ ...response, addition });
@@ -69,7 +73,7 @@ const ToWhere = ({
     ) {
       fetchAddress();
     }
-  }, [postalcode, houseNumber]);
+  }, [postalcode, houseNumber, delivery]);
 
   // If addition changes we also want to update the address in cartState.
   useEffect(() => {
