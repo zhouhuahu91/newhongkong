@@ -67,6 +67,7 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
     handleSubmit,
     setValue,
     setError,
+    reset,
     control,
     watch,
     formState: { errors },
@@ -74,9 +75,9 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
     mode: "onBlur",
     resolver: yupResolver(schema),
     defaultValues: {
-      postalcode: "",
-      houseNumber: "",
-      addition: "",
+      postalcode: cartState.address.postalcode || "",
+      houseNumber: cartState.address.houseNumber || "",
+      addition: cartState.address.addition || "",
     },
   });
 
@@ -88,8 +89,6 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
   // We need to know if the user is trying to fill in the form so that we do not override their data.
   const { isDirty } = useFormState({ control });
 
-  console.log(address);
-
   const onSubmit = (data) => {
     // If delivery === "undecided" we need to let the user know it needs to be decided.
     // Not sure yet how to let the user know.
@@ -98,6 +97,9 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
     // If delivery === false we need to set the cartState to false for delivery
     if (delivery === false) {
       dispatch({ type: "SET_DELIVERY", payload: false });
+      // We also reset address and the address in the form.
+      setAddress(cartState.address);
+      reset();
       return setOpen(false);
     }
 
@@ -129,9 +131,10 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
       if (delivery === false) return;
 
       // If postalcode and housenumber in the input are the same as the cartState we do not need to fetch the address.
+
       if (
-        postalcode === cartState.postalcode &&
-        houseNumber === cartState.houseNumber
+        postalcode === cartState.address.postalcode &&
+        houseNumber === cartState.address.houseNumber
       ) {
         return;
       }
@@ -292,6 +295,10 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
         <div className="p-4 space-x-4 flex w-full">
           <button
             onClick={() => {
+              // We reset the form.
+              reset();
+              // We reset the address.
+              setAddress(cartState.address);
               setDelivery(cartState.delivery);
               setOpen(false);
             }}
