@@ -44,7 +44,7 @@ const StripePaymentModal = ({ toggle, cancel, total, id }) => {
         return_url: `${URL}/succes?id=${id}`,
       },
     });
-
+    console.log(error);
     // If there is no error customer will get redirected to the return url.
     // TODO handle ERROR
     setProcessing(false);
