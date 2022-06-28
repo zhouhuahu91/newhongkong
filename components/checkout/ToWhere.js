@@ -41,8 +41,22 @@ const ToWhere = ({
         clearErrors(["postalcode", "houseNumber"]);
       }
 
-      // If delivery === false we do not need to fetch
+      // If delivery === false we do not need the address.
       if (delivery === false) return;
+
+      // If postalcode and housenumber in the input are the same as the cartState we do not need to fetch the address.
+
+      if (
+        postalcode === cartState.address.postalcode &&
+        houseNumber === cartState.address.houseNumber
+      ) {
+        return;
+      }
+
+      // If there is not postalcode and house number in the input we do not need to fetch the address.
+      if (!postalcode || !houseNumber) {
+        return;
+      }
 
       // We fetch the address
       const response = await fetchAddressFromAPI(postalcode, houseNumber);
@@ -65,16 +79,7 @@ const ToWhere = ({
       });
     };
 
-    // If postalcode and house number of the input is the same as the postalcode and house number of the address we don't need to fetch.
-    if (
-      (postalcode !== cartState.address?.postalcode ||
-        houseNumber !== cartState.address?.houseNumber ||
-        !cartState.address.postalcode) &&
-      postalcode &&
-      houseNumber
-    ) {
-      fetchAddress();
-    }
+    fetchAddress();
   }, [postalcode, houseNumber, delivery]);
 
   // If addition changes we also want to update the address in cartState.

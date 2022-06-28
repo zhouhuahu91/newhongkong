@@ -123,9 +123,9 @@ const CheckOut = () => {
     mode: "onBlur",
     resolver: yupResolver(schema),
     defaultValues: {
-      postalcode: "",
-      houseNumber: "",
-      addition: "",
+      postalcode: cartState.address.postalcode || "",
+      houseNumber: cartState.address.houseNumber || "",
+      addition: cartState.address.addition || "",
       name: "",
       tel: "",
       email: "",
@@ -137,8 +137,6 @@ const CheckOut = () => {
   });
   // We need this to check if user already started with the form or not.
   const { isDirty } = useFormState({ control });
-  console.log(address);
-
   // If there is no user signed in we check the local storage if there is a guest object.
   // With that object we fill in the form.
   useEffect(() => {
