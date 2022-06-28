@@ -55,7 +55,7 @@ const webhookHandler = async (req, res) => {
         const { id } = event.data.object.metadata;
 
         // Look up the order on firebase.
-        const ref = db.doc(`orders_2021/${id}`);
+        const ref = db.doc(`orders/${id}`);
         const snapshot = await ref.get();
         // Check if order exists.
         if (snapshot.exists) {
