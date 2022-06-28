@@ -134,7 +134,8 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
 
       if (
         postalcode === cartState.address.postalcode &&
-        houseNumber === cartState.address.houseNumber
+        houseNumber === cartState.address.houseNumber &&
+        !address.error
       ) {
         return;
       }

@@ -45,10 +45,10 @@ const ToWhere = ({
       if (delivery === false) return;
 
       // If postalcode and housenumber in the input are the same as the cartState we do not need to fetch the address.
-
       if (
         postalcode === cartState.address.postalcode &&
-        houseNumber === cartState.address.houseNumber
+        houseNumber === cartState.address.houseNumber &&
+        !address.error
       ) {
         return;
       }
