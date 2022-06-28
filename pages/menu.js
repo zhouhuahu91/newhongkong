@@ -9,7 +9,7 @@ import Card from "@/components/menu/Card";
 import DesktopCart from "@/components/cart/DesktopCart";
 import MobileCart from "@/components/cart/MobileCart";
 import CategoryHeader from "@/components/menu/CategoryHeader";
-import DeliveryOrPickUp from "@/components/menu/DeliveryOrPickUp";
+import PickUpOrDeliveryModal from "@/components/menu/PickUpOrDeliveryModal";
 import Spinner from "@/components/Spinner";
 
 // Upload new menu to firestore if needed.
@@ -21,7 +21,7 @@ const Menu = () => {
   // This state holds the temporary state for delivery true || false.
   // It is used mainly in the delivery or pickup modal.
   const [delivery, setDelivery] = useState(cartState.delivery);
-  // This state holds the open or closed modal for DeliveryOrPickUp.
+  // This state holds the open or closed modal for PickUpOrDeliveryModal.
   const [open, setOpen] = useState(false);
   // This return the products that the restaurant sells in an array of objects.
   const { filteredData, data } = useMenu();
@@ -47,7 +47,7 @@ const Menu = () => {
 
   return (
     <>
-      <DeliveryOrPickUp
+      <PickUpOrDeliveryModal
         open={open}
         setOpen={setOpen}
         delivery={delivery}

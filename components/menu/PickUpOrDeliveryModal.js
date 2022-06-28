@@ -20,7 +20,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // The user has to decide if they want to have there food delivered or picked up.
 // When the user clicks on an item card we check if delivery === "undecided".
 // If it is, we open the modal for them to pick one.
-const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
+const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
   // We moved delivery and setDelivery up so that we can use it in the cart.
   // When user switches from true to false we can preset it.
 
@@ -295,4 +295,4 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
   );
 };
 
-export default DeliveryOrPickUp;
+export default PickUpOrDeliveryModal;
