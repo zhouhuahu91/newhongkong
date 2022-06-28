@@ -6,6 +6,7 @@ import useI18n from "@/hooks/useI18n";
 import Modal from "@/components/Modal";
 import SubmitButton from "@/components/SubmitButton";
 import IconButton from "@/components/IconButton";
+import Spinner from "@/components/Spinner";
 // Stripe imports
 import {
   PaymentElement,
@@ -52,7 +53,7 @@ const StripePaymentModal = ({ toggle, cancel, total, id }) => {
 
   return (
     <Modal
-      toggle={toggle}
+      toggle={true}
       // We do not allow user to close the modal via click on backdrop.
       // User can only close the modal via the cancel button.
       close={() => true}
@@ -64,7 +65,11 @@ const StripePaymentModal = ({ toggle, cancel, total, id }) => {
           <IconButton variant="close" onClick={() => cancel()} />
         </div>
         <div className="p-4">
-          {loading && <div>loading...</div>}
+          {loading && (
+            <div className="h-72 p-3">
+              <Spinner />
+            </div>
+          )}
           <PaymentElement
             id="payment-element"
             onReady={() => setLoading(false)}
