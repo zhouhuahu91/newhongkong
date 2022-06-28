@@ -5,12 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import FocusTrap from "focus-trap-react";
 
 const backdropVariant = {
-  hidden: { opacity: 0, transition: { type: "tween" } },
+  hidden: { opacity: 0 },
   visible: { opacity: 1 },
 };
 
 const modalVariant = {
-  hidden: { opacity: 0, scale: 0.85 },
+  hidden: { opacity: 0, scale: 0.95 },
   visible: { opacity: 1, scale: 1 },
 };
 
