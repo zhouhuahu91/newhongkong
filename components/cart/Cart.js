@@ -99,17 +99,20 @@ const Cart = () => {
         {/* ******** END BAG FEE ********* */}
         {/* ******** DELIVERY WARNING ********* */}
         {/* We need to let the user know there is a minimum for delivery. */}
-        {shortForDelivery > 0 && cartState.delivery && (
-          <div className="text-xs p-2 border mt-2 bg-amber-50">
-            {t.delivery_warning(
-              shortForDelivery,
-              storeFees.minimumOrderAmount,
-              `${cartState.address.street} ${cartState.address.houseNumber} ${
-                cartState.address.addition ? cartState.address.addition : ""
-              }`
-            )}
-          </div>
-        )}
+        {shortForDelivery > 0 &&
+          cartState.delivery &&
+          cartState.address.postalcode &&
+          cartState.address.houseNumber && (
+            <div className="text-xs p-2 border mt-2 bg-amber-50">
+              {t.delivery_warning(
+                shortForDelivery,
+                storeFees.minimumOrderAmount,
+                `${cartState.address.street} ${cartState.address.houseNumber} ${
+                  cartState.address.addition ? cartState.address.addition : ""
+                }`
+              )}
+            </div>
+          )}
         {/* ******** END DELIVERY WARNING ********* */}
       </div>
       {/* ********* CART SUMMARY CONTAINER ********* */}
