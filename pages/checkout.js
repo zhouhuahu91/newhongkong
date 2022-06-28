@@ -49,6 +49,8 @@ const CheckOut = () => {
   const [clientSecret, setClientSecret] = useState(null);
   // Store state for stripe payment modal.
   const [stripePaymentModal, setStripePaymentModal] = useState(false);
+  // We need to store the id for the order if user pays online.
+  const [orderIdForPayment, setOrderIdForPayment] = useState(null);
   // We use this state to store the address that the api returns.
   const [address, setAddress] = useState(cartState.address);
   // Holds the state for when submit is processing
@@ -226,6 +228,7 @@ const CheckOut = () => {
       // return router.push(`/succes?redirect_status=succeeded&id=${id}`);
     } else if (paymentMethod === "online") {
       setClientSecret(secret);
+      setOrderIdForPayment(id);
       return setStripePaymentModal(true);
       // If it is not cash we use the stripe secret generated in create order api...
       // to open the payment modal.
@@ -326,6 +329,7 @@ const CheckOut = () => {
               setProcessing(false);
             }}
             total={calculateTotalCartPrice(cartState, storeFees)}
+            id={orderIdForPayment}
           />
         </Elements>
       )}
