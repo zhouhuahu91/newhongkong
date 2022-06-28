@@ -14,7 +14,7 @@ import MobileCart from "@/components/cart/MobileCart";
 import PickUpOrDelivery from "@/components/checkout/PickUpOrDelivery";
 import ForWho from "@/components/checkout/ForWho";
 import ToWhere from "@/components/checkout/ToWhere";
-import ForWhen from "@/components/checkout/ForWhen_2.0";
+import ForWhen from "@/components/checkout/ForWhen";
 import Remarks from "@/components/checkout/Remarks";
 import Payment from "@/components/checkout/Payment";
 import SubmitButton from "@/components/SubmitButton";
