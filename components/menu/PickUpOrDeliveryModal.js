@@ -27,7 +27,7 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
   // Returns the state of the cart and dispatch to manipulate the cart.
   const { dispatch, cartState } = useCart();
   // Store the state of the address.
-  const [address, setAddress] = useState({});
+  const [address, setAddress] = useState(cartState.address);
   // t is used to translate the text.
   const t = useI18n();
   // We need the user to prefill the address if they have one.
@@ -125,18 +125,28 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
   // This useEffect fetches the address from an API if the postalcode and house number are valid.
   useEffect(() => {
     const fetchAddress = async () => {
+      // If delivery === false we do not need the address.
+      if (delivery === false) return;
+
+      // If postalcode and housenumber in the input are the same as the cartState we do not need to fetch the address.
+      if (
+        postalcode === cartState.postalcode &&
+        houseNumber === cartState.houseNumber
+      ) {
+        return;
+      }
+
+      // If there is not postalcode and house number in the input we do not need to fetch the address.
+      if (!postalcode || !houseNumber) {
+        return;
+      }
+
       const response = await fetchAddressFromAPI(postalcode, houseNumber);
       setAddress({ ...response, addition });
     };
-    // If postalcode and house number of the input is the same as the postalcode and house number of the address we don't need to fetch.
-    if (
-      postalcode !== cartState.address.postalcode ||
-      houseNumber !== cartState.address.houseNumber ||
-      !cartState.address.postalcode
-    ) {
-      fetchAddress();
-    }
-  }, [postalcode, houseNumber]);
+
+    fetchAddress();
+  }, [postalcode, houseNumber, delivery]);
 
   // We check cart, localstorage and user data to see if we can prefill the form.
   useEffect(() => {
@@ -150,9 +160,7 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
     if (cartState.address.postalcode) {
       setValue("postalcode", cartState.address.postalcode);
       setValue("houseNumber", cartState.address.houseNumber);
-      setValue("addition", cartState.address.addition);
-      // We also set the cartState address to address.
-      return setAddress(cartState.address);
+      return setValue("addition", cartState.address.addition);
     }
 
     // Then we check if the user has a address.

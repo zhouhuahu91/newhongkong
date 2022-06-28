@@ -67,9 +67,11 @@ const ToWhere = ({
 
     // If postalcode and house number of the input is the same as the postalcode and house number of the address we don't need to fetch.
     if (
-      postalcode !== cartState.address?.postalcode ||
-      houseNumber !== cartState.address?.houseNumber ||
-      !cartState.address.postalcode
+      (postalcode !== cartState.address?.postalcode ||
+        houseNumber !== cartState.address?.houseNumber ||
+        !cartState.address.postalcode) &&
+      postalcode &&
+      houseNumber
     ) {
       fetchAddress();
     }

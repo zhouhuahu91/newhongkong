@@ -50,7 +50,7 @@ const CheckOut = () => {
   // Store state for stripe payment modal.
   const [stripePaymentModal, setStripePaymentModal] = useState(false);
   // We use this state to store the address that the api returns.
-  const [address, setAddress] = useState({});
+  const [address, setAddress] = useState(cartState.address);
   // Holds the state for when submit is processing
   const [processing, setProcessing] = useState(false);
   // t is used to translate text.
@@ -137,7 +137,6 @@ const CheckOut = () => {
   });
   // We need this to check if user already started with the form or not.
   const { isDirty } = useFormState({ control });
-
   console.log(address);
 
   // If there is no user signed in we check the local storage if there is a guest object.
@@ -149,12 +148,9 @@ const CheckOut = () => {
 
     // First we check if the cartState already has a address.
     if (cartState.address.postalcode) {
-      console.log("test");
       setValue("postalcode", cartState.address.postalcode);
       setValue("houseNumber", cartState.address.houseNumber);
-      setValue("addition", cartState.address.addition);
-      // We also need to put this address in the address state.
-      return setAddress(cartState.address);
+      return setValue("addition", cartState.address.addition);
     }
 
     if (user) {
