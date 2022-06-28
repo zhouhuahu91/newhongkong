@@ -75,9 +75,9 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
     mode: "onBlur",
     resolver: yupResolver(schema),
     defaultValues: {
-      postalcode: cartState.address.postalcode || "",
-      houseNumber: cartState.address.houseNumber || "",
-      addition: cartState.address.addition || "",
+      postalcode: "",
+      houseNumber: "",
+      addition: "",
     },
   });
 
@@ -146,7 +146,11 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
     if (isDirty) return;
 
     // First we check if the cartState already has a address.
-    if (cartState.address.postalcode) return;
+    if (cartState.address.postalcode) {
+      setValue("postalcode", cartState.address.postalcode);
+      setValue("houseNumber", cartState.address.houseNumber);
+      return setValue("addition", cartState.address.addition);
+    }
 
     // Then we check if the user has a address.
     if (user && user.address) {
