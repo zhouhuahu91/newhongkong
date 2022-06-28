@@ -153,7 +153,7 @@ const CheckOut = () => {
       if (user.saveRemarks) setValue("saveRemarks", user.saveRemarks);
       if (user.saveRemarks && user.remarks) setValue("remarks", user.remarks);
       // If user has an address and cartState doesn't have one we set the address to the user address.
-      if (user.address && !cartState.address) {
+      if (user.address && !cartState.address.postalcode) {
         setValue("postalcode", user.address.postalcode);
         setValue("houseNumber", user.address.houseNumber);
         setValue("addition", user.address.addition);
@@ -164,7 +164,7 @@ const CheckOut = () => {
       setValue("tel", guest.tel);
       setValue("saveRemarks", guest.saveRemarks);
       // If cartState doesn't have an address we set it to the guest address.
-      if (!cartState.address) {
+      if (!cartState.address.postalcode) {
         setValue("postalcode", guest.postalcode);
         setValue("houseNumber", guest.houseNumber);
         setValue("addition", guest.addition);

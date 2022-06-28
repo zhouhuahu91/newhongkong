@@ -131,7 +131,7 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
     if (
       postalcode !== cartState.address?.postalcode ||
       houseNumber !== cartState.address?.houseNumber ||
-      !cartState.address
+      !cartState.address.postalcode
     ) {
       fetchAddress();
     }
@@ -146,7 +146,7 @@ const DeliveryOrPickUp = ({ open, setOpen, delivery, setDelivery }) => {
     if (isDirty) return;
 
     // First we check if the cartState already has a address.
-    if (cartState.address) return;
+    if (cartState.address.postalcode) return;
 
     // Then we check if the user has a address.
     if (user && user.address) {

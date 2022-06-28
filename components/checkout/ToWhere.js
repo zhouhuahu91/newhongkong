@@ -65,7 +65,7 @@ const ToWhere = ({
     if (
       postalcode !== cartState.address?.postalcode ||
       houseNumber !== cartState.address?.houseNumber ||
-      !cartState.address
+      !cartState.address.postalcode
     ) {
       fetchAddress();
     }
