@@ -148,7 +148,7 @@ const CheckOut = () => {
     if (cartState.address.postalcode) {
       setValue("postalcode", cartState.address.postalcode);
       setValue("houseNumber", cartState.address.houseNumber);
-      return setValue("addition", cartState.address.addition);
+      setValue("addition", cartState.address.addition);
     }
 
     if (user) {
