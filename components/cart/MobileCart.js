@@ -74,7 +74,7 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
         <Cart />
         <div className="p-4 flex flex-col space-y-2">
           {atMenu && cartState.delivery !== "undecided" && (
-            <div className="mx-auto max-w-sm w-full px-1">
+            <div className="w-full px-1">
               <button
                 onClick={() => {
                   setOpen(false);
