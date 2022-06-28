@@ -45,7 +45,7 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
             }}
             // When spring animation bounces it shows the bottom of the cart button.
             // To fix this we make the cart button a bit bigger.
-            className={`md:hidden ${
+            className={`md:hidden z-10 ${
               atCheckout
                 ? "top-0 sticky shadow-sm border-b"
                 : "bottom-0 fixed border-t"
