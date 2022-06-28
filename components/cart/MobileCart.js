@@ -73,6 +73,21 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
         </div>
         <Cart />
         <div className="p-4 flex flex-col space-y-2">
+          {atMenu && cartState.delivery !== "undecided" && (
+            <div className="mx-auto max-w-sm w-full px-1">
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  setDelivery(!cartState.delivery);
+                  setDeliveryOrPickUpOpen(true);
+                }}
+                type="button"
+                className="text-xs text-gray-500 text-right w-full red-focus-text"
+              >
+                {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
+              </button>
+            </div>
+          )}
           {atMenu && (
             <>
               <Link href="/checkout">
@@ -106,21 +121,6 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
                 <a className="button border">{t.back_to_menu}</a>
               </Link>
             </>
-          )}
-          {atMenu && cartState.delivery !== "undecided" && (
-            <div className="mx-auto max-w-sm w-full px-1">
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  setDelivery(!cartState.delivery);
-                  setDeliveryOrPickUpOpen(true);
-                }}
-                type="button"
-                className="text-xs text-gray-500 text-right w-full red-focus-text"
-              >
-                {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
-              </button>
-            </div>
           )}
         </div>
       </Modal>
