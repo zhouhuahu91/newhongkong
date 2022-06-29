@@ -131,10 +131,9 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
       if (delivery === false) return;
 
       // If postalcode and housenumber in the input are the same as the cartState we do not need to fetch the address.
-
       if (
-        postalcode === cartState.address.postalcode &&
-        houseNumber === cartState.address.houseNumber &&
+        postalcode === address.postalcode &&
+        houseNumber === address.houseNumber &&
         !address.error
       ) {
         return;
