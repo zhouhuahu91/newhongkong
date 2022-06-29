@@ -52,7 +52,7 @@ const SignInProviders = ({ setError }) => {
         type="button"
         className="button border w-full relative text-gray-500"
       >
-        <div className="absolute w-5 h-5 left-4 top-1/2 -translate-y-1/2">
+        <div className="absolute w-5 h-5 left-4 top-1/2 -translate-y-1/2 bg-white">
           <Image src="/google.svg" alt="google icon" width={20} height={20} />
         </div>
 
