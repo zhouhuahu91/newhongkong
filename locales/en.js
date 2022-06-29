@@ -71,6 +71,7 @@ export default {
 
   almost_done: "Almost done",
   online: "Online",
+  to_pay: "To pay",
   pay: "Pay",
 
   // ******** CHECKOUT ********

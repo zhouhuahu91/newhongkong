@@ -73,6 +73,7 @@ export default {
 
   almost_done: "Fast geschafft",
   online: "Online",
+  to_pay: "Zu zahlen",
   pay: "Zahlen",
 
   // ******** CHECKOUT ********

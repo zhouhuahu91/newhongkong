@@ -280,7 +280,7 @@ const CheckOut = () => {
                 {paymentMethod !== "undecided" && cart.length > 0 && !closed && (
                   <>
                     <SubmitButton processing={processing} className="mt-12">
-                      {paymentMethod === "online" ? t.pay : t.place_order}{" "}
+                      {paymentMethod === "online" ? t.to_pay : t.place_order}{" "}
                       {euro(calculateTotalCartPrice(cartState, storeFees))}
                     </SubmitButton>
                     <div className="text-xs flex justify-start w-full max-w-sm">

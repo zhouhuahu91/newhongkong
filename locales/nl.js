@@ -71,6 +71,7 @@ export default {
 
   almost_done: "Bijna Klaar",
   online: "Online",
+  to_pay: "Naar Betalen",
   pay: "Betalen",
 
   // ******** CHECKOUT ********
