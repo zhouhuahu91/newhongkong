@@ -1,6 +1,9 @@
 import useI18n from "@/hooks/useI18n";
 
 import Emp from "@/components/Emphasize";
+import ToolTip from "@/components/ToolTip";
+
+// Is onyl in dutch. English and German is not yet implemented.
 
 const Catering = () => {
   const t = useI18n();
@@ -41,7 +44,7 @@ const Catering = () => {
         en: "chicken satay",
       },
       description: {
-        nl: "1 stokje saté per persoon",
+        nl: "1 stokje kip saté per persoon",
         en: "1 chicken satay per person",
       },
     },
@@ -97,10 +100,10 @@ const Catering = () => {
     },
   ];
   return (
-    <div className="max-w-lg mx-auto">
-      <div className="sm:border rounded-xl p-4 space-y-3 sm:mt-10 sm:bg-white sm:shadow overflow-hidden">
-        <h1 className="font-semibold text-3xl my-2">{t.catering}</h1>
-        <p className="text-sm">
+    <div className="max-w-md mx-auto">
+      <div className="relative sm:border p-4 sm:p-6 space-y-2 rounded-xl sm:mt-10 sm:bg-white sm:shadow">
+        <h1 className="font-semibold text-3xl">{t.catering}</h1>
+        <p className="">
           Voor zowel particuliere als zakelijke gasten verzorgt New Hong Kong de
           catering in de vorm van lopende buffetten. Deze lopende buffetten
           worden bij u <Emp>thuis of op de zaak bezorgd</Emp>, waarna de
@@ -111,15 +114,13 @@ const Catering = () => {
         </p>
         <div>
           {dishes.map((dish) => (
-            <div key={dish.name[t.locale]}>
-              <p className="text-sm">{dish.name[t.locale]}</p>
-              <span className="text-xs text-gray-500">
-                {dish.description[t.locale]}
-              </span>
+            <div className="flex items-center" key={dish.name["nl"]}>
+              <p className="list-item ml-4 mr-1">{dish.name["nl"]}</p>
+              <ToolTip tip={dish.description["nl"]} />
             </div>
           ))}
         </div>
-        <p className="text-sm">
+        <p className="">
           Naast onze standaard samengestelde lopende buffetten, kunt u uiteraard
           een samenstelling naar uw eigen wensen maken. Heeft u een feestelijke
           activiteit thuis of op werk,{" "}
