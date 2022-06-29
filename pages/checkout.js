@@ -132,7 +132,7 @@ const CheckOut = () => {
       tel: "",
       email: "",
       time: "",
-      remarks: "",
+      remarks: cartState.remarks,
     },
     // We store the delivery method and payment method in the global state aka context.
     // We need there value outside the checkout.
@@ -199,9 +199,9 @@ const CheckOut = () => {
     // We collect al the users data in an object.
     const data = {
       user: user ? user.uid : "guest",
+      ...cartState,
       ...formData,
       total: calculateTotalCartPrice(cartState, storeFees),
-      ...cartState,
       address: { ...address, addition: formData.addition },
       storeFees,
     };
@@ -275,7 +275,7 @@ const CheckOut = () => {
                   watch={watch}
                   setValue={setValue}
                 />
-                <Remarks errors={errors} register={register} />
+                <Remarks errors={errors} register={register} watch={watch} />
                 <Payment />
                 {paymentMethod !== "undecided" && cart.length > 0 && !closed && (
                   <>

@@ -1,8 +1,12 @@
 // Hook imports
 import useI18n from "@/hooks/useI18n";
+import { useCart } from "@/hooks/useCart";
 
-const Remarks = ({ register, errors }) => {
+const Remarks = ({ register, errors, watch }) => {
   const t = useI18n();
+  const { dispatch } = useCart();
+  const remarks = watch("remarks");
+
   return (
     <>
       <div className="flex flex-col mt-2">
@@ -16,6 +20,7 @@ const Remarks = ({ register, errors }) => {
           className={`h-20 appearance-none my-0.5 border rounded-lg w-full text-sm py-2 px-3 focus:outline-none red-focus-ring ${
             errors.remarks && "border-main selected"
           }`}
+          onBlur={() => dispatch({ type: "SET_REMARKS", payload: remarks })}
         />
         <label htmlFor="remarks" className="text-red-400 text-xs">
           {errors.remarks?.message}

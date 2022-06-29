@@ -16,10 +16,16 @@ export const useCart = () => {
 const initial = {
   cart: [],
   delivery: "undecided",
-  address: {},
   paymentMethod: "undecided",
   tip: 0,
   bag: true,
+  address: {},
+  // We save remarks in cart because we need a temp save point for when...
+  // users fail the check out process.
+  // This way they don't have to refill everything.
+  // This is only needed with remarks because all the other inputs are saved with guest.
+  // But guest doesn't update remarks because that only updates remarks if they choose to save remarks.
+  remarks: "",
   updatedAt: Date.now(),
 };
 
@@ -74,6 +80,11 @@ const cartReducer = (cartState, action) => {
       return {
         ...cartState,
         address: action.payload,
+      };
+    case "SET_REMARKS":
+      return {
+        ...cartState,
+        remarks: action.payload,
       };
     case "SET_PAYMENT_METHOD":
       return {
