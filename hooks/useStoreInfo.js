@@ -3,6 +3,7 @@ import { useState, useEffect, useContext, createContext } from "react";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
+import getDigitalTime from "@/functions/getDigitalTime";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 
@@ -77,6 +78,9 @@ const useStoreProvider = () => {
   // currentTimeInSeconds < preorderTime ||
   // !storeInfo.open;
 
+  const digitalClosingTime = getDigitalTime(storeInfo.closingTime);
+  const digitalOpeningTime = getDigitalTime(storeInfo.openingTime);
+
   // This useEffect update the currentTime every minute.
   useEffect(() => {
     const interval = setInterval(() => {
@@ -118,6 +122,8 @@ const useStoreProvider = () => {
     remainingMinutes,
     closed,
     liveMessage,
+    digitalClosingTime,
+    digitalOpeningTime,
   };
 };
 
