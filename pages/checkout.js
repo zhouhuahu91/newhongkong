@@ -120,6 +120,7 @@ const CheckOut = () => {
     setValue,
     clearErrors,
     control,
+    getValues,
     formState: { errors },
   } = useForm({
     mode: "onBlur",
@@ -182,7 +183,15 @@ const CheckOut = () => {
         setValue("remarks", guest.remarks);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // When user exits the page we want to save the form data in the local storage.
+    // We save remarks in the cartState because when saved in guest it checks first if the has wants the remarks saved.
+    // This way we can temp save remarks in the local storage for when something goes wrong with checkout.
+    return () => {
+      const formData = getValues();
+      dispatch({ type: "SET_REMARKS", payload: formData.remarks });
+      localStorage.setItem("guest", JSON.stringify({ ...formData }));
+    };
   }, [user, cartState.address]);
 
   const onSubmit = async (formData) => {
@@ -205,13 +214,6 @@ const CheckOut = () => {
       address: { ...address, addition: formData.addition },
       storeFees,
     };
-
-    // If there is a user we update there info to the database.
-    if (user) {
-      // updateUser(data); TODO MAKE A FUNCTION THAT UPDATES THE USERS INFO.
-    }
-    // We always save the information to localstorage.
-    localStorage.setItem("guest", JSON.stringify({ ...data }));
 
     const {
       data: { secret, id, date },
