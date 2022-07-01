@@ -107,7 +107,7 @@ const useStoreProvider = () => {
     ) {
       setStoreFees((prev) => ({
         ...prev,
-        minimumOrderAmount: 3000,
+        minimumOrderAmount: 2500,
         deliveryFee: 350,
       }));
     } else if (
@@ -117,8 +117,8 @@ const useStoreProvider = () => {
     ) {
       setStoreFees((prev) => ({
         ...prev,
-        minimumOrderAmount: 4000,
-        deliveryFee: 450,
+        minimumOrderAmount: 3000,
+        deliveryFee: 350,
       }));
     } else {
       setStoreFees((prev) => ({
