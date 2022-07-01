@@ -121,7 +121,7 @@ const useAuthProvider = () => {
   };
 
   // This function updates the user.
-  const updateUser = async (user, data) => {
+  const updateUser = async (data) => {
     try {
       // We update the user.
       const ref = doc(db, `users/${user.uid}`);
@@ -129,7 +129,22 @@ const useAuthProvider = () => {
       const snapshot = await getDoc(ref);
       // If user exists we update it.
       if (snapshot.exists()) {
-        return await updateDoc(ref, data);
+        await updateDoc(ref, {
+          name: data.name,
+          tel: data.tel,
+          saveRemarks: data.saveRemarks,
+          remarks: data.saveRemarks ? data.remarks : "",
+        });
+        // if (data.delivery === true) {
+        console.log(data);
+        await updateDoc(ref, {
+          "address.postalcode": data.address.postalcode,
+          "address.street": data.address.street,
+          "address.houseNumber": data.address.houseNumber,
+          "address.addition": data.address.addition,
+          "address.city": data.address.city,
+        });
+        // }
       } else {
         // If user doesn't exist we return error message.
         return "User doesn't exist";

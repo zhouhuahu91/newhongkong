@@ -60,7 +60,7 @@ const CheckOut = () => {
   // Returns information about the store
   const { closed, storeFees } = useStoreInfo();
   // Returns the users info
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   // Returns real URL or prodution URL
   const URL = getURL();
   // We need router to push the user to the succes page.
@@ -209,11 +209,14 @@ const CheckOut = () => {
       storeFees,
     };
 
+    // If there is a user and payment is in person we update it here.
+    if (user) {
+      updateUser({ ...formData, address, delivery });
+    }
+
     const {
       data: { secret, id, date },
     } = await axios.post(`${URL}/api/createorder`, data);
-
-    console.log(secret, id, date);
 
     // There are two ways to this function can go.
     // 1. User pays in person.
