@@ -95,7 +95,7 @@ const useStoreProvider = () => {
     // If there is no address in the cart we don't do anything.
     if (!cartState.address.postalcode) return;
     if (
-      /^(2204)[\s]?[a-z]{2}$|^(2211)[\s]?(v[klmn]|zg|we)$/i.test(
+      /^(2204)[\s]?[a-z]{2}$|^(2211)[\s]?(v[klmn]|zg|we)$|^(2212)[\s]?a[abcegh]$/i.test(
         cartState.address.postalcode
       )
     ) {
