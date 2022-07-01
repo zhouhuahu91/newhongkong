@@ -20,6 +20,11 @@ const Search = () => {
   const { filterData, resetFilter } = useMenu();
   // We need the input ref to focus it when we clear the input.
   const inputRef = useRef();
+  useOnClickOutside(inputRef, () => {
+    if (searchInput === "") {
+      setOpen(false);
+    }
+  });
   // This doesn't work it closes the search and clears input before we can open the item.
   const { width } = useWindowSize();
 
