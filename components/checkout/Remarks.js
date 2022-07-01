@@ -1,8 +1,24 @@
+// React imports
+import { useEffect } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
+import { useCart } from "@/hooks/useCart";
 
-const Remarks = ({ register, errors }) => {
+const Remarks = ({ register, errors, getValues, isDirty, setValue }) => {
   const t = useI18n();
+  const {
+    dispatch,
+    cartState: { remarks },
+  } = useCart();
+
+  useEffect(() => {
+    // If form is dirty we return
+    if (isDirty) return;
+    // If remarks is the same as the remarks in the form we also exit the function.
+    if (remarks === getValues("remarks")) return;
+    // If remarks is not the same as the remarks in the cartState we set the form value to the cartState value.
+    setValue("remarks", remarks);
+  }, [remarks]);
 
   return (
     <>
@@ -17,6 +33,9 @@ const Remarks = ({ register, errors }) => {
           className={`h-20 appearance-none my-0.5 border rounded-lg w-full text-sm py-2 px-3 focus:outline-none red-focus-ring ${
             errors.remarks && "border-main selected"
           }`}
+          onBlur={() => {
+            dispatch({ type: "SET_REMARKS", payload: getValues("remarks") });
+          }}
         />
         <label htmlFor="remarks" className="text-red-400 text-xs">
           {errors.remarks?.message}

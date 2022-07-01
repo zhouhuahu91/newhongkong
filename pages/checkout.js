@@ -183,15 +183,6 @@ const CheckOut = () => {
         setValue("remarks", guest.remarks);
       }
     }
-
-    // When user exits the page we want to save the form data in the local storage.
-    // We save remarks in the cartState because when saved in guest it checks first if the has wants the remarks saved.
-    // This way we can temp save remarks in the local storage for when something goes wrong with checkout.
-    return () => {
-      const formData = getValues();
-      dispatch({ type: "SET_REMARKS", payload: formData.remarks });
-      localStorage.setItem("guest", JSON.stringify({ ...formData }));
-    };
   }, [user, cartState.address]);
 
   const onSubmit = async (formData) => {
@@ -204,6 +195,9 @@ const CheckOut = () => {
       setError("houseNumber", { type: "manual" });
       return setProcessing(false);
     }
+
+    // We store the formdata in the local storage.
+    localStorage.setItem("guest", JSON.stringify({ ...formData }));
 
     // We collect al the users data in an object.
     const data = {
@@ -277,7 +271,13 @@ const CheckOut = () => {
                   watch={watch}
                   setValue={setValue}
                 />
-                <Remarks errors={errors} register={register} watch={watch} />
+                <Remarks
+                  errors={errors}
+                  register={register}
+                  getValues={getValues}
+                  isDirty={isDirty}
+                  setValue={setValue}
+                />
                 <Payment />
                 {paymentMethod !== "undecided" && cart.length > 0 && !closed && (
                   <>
