@@ -95,7 +95,13 @@ const useStoreProvider = () => {
     // If there is no address in the cart we don't do anything.
     if (!cartState.address.postalcode) return;
     if (
-      /^(2204)[\s]?[a-z]{2}$|^(2211)[\s]?(v[klmn]|zg|we)$|^(2212)[\s]?a[abcegh]$/i.test(
+      // 2211 postalcode is the hardest
+      // We need to check every combination and see how far away it is. If it is pretty far away we add the extra cost...
+      // ... and a higher minimum
+      // 2211SW is vlak bij ruigerhoekerweg.
+      // 2211TW is zo wat in Noordwijk.
+      // 2211V... dat niet herenweg is ver weg.
+      /^(2204)[\s]?[a-z]{2}$|^(2211)[\s]?(a[degl]|bl|nx|v[cdeghjst]|w[dekjhg]|x[nptwxz]|z[bceh])$|^(2212)[\s]?a[abcegh]$/i.test(
         cartState.address.postalcode
       )
     ) {
@@ -103,6 +109,16 @@ const useStoreProvider = () => {
         ...prev,
         minimumOrderAmount: 3000,
         deliveryFee: 350,
+      }));
+    } else if (
+      /^(2211)[\s]?(s[wz]|tw|v[klmnrp]|we|x[rs]|zg)$/i.test(
+        cartState.address.postalcode
+      )
+    ) {
+      setStoreFees((prev) => ({
+        ...prev,
+        minimumOrderAmount: 4000,
+        deliveryFee: 450,
       }));
     } else {
       setStoreFees((prev) => ({
