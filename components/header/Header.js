@@ -76,6 +76,16 @@ const Header = () => {
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
+            {/* Dashboard menu for admins. */}
+            <Link href="/dashboard">
+              <a
+                className={`material-symbols-rounded red-focus-ring ${
+                  atHome && "text-white "
+                }`}
+              >
+                dashboard
+              </a>
+            </Link>
             {/* Options for language, available on all screen sizes. */}
             <I18nMenu />
             {/* Auth menu is only availeble on screens bigger than md. */}
