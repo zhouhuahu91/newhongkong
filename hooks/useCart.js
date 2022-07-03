@@ -108,6 +108,7 @@ const cartReducer = (cartState, action) => {
 // This hook provides the cart state and dispatch to manipulate it.
 const useCartProvider = () => {
   const [cartState, dispatch] = useReducer(cartReducer, initial);
+
   // First time this renders we check if there is localCartState in localStorage.
   // We would also want to clear cart if the user has been inactive for more than 12 hours.
   useEffect(() => {
@@ -119,7 +120,7 @@ const useCartProvider = () => {
     // We check when the cart was last updated.
     const lastCartUpdate = Date.now() - localCartState.updatedAt;
     // If the cart is older than 3 hours we reset the cart.
-    if (lastCartUpdate > 1000 * 60 * 60 * 3) {
+    if (lastCartUpdate > 1000 * 60 * 60 * 6) {
       return dispatch({ type: "RESET_CART" });
     }
     // If the cart is not older than 3 hours we set the localCartState.
@@ -130,9 +131,18 @@ const useCartProvider = () => {
     // }
   }, []);
 
-  // Every time the cart updates we save it to the local storage.
   useEffect(() => {
+    // Every time the cart updates we save it to the local storage.
     localStorage.setItem("localCartState", JSON.stringify(cartState));
+
+    // We also set a time out to delete the cart.
+    const deleteCart = setTimeout(() => {
+      dispatch({ type: "RESET_CART" });
+      // We clear the cart if the user has been inactive on the site for more than 6 hours
+    }, 1000 * 60 * 60 * 6);
+
+    // We reset the interval if the cart changes.
+    return () => clearTimeout(deleteCart);
   }, [cartState]);
 
   return { cartState, dispatch };
