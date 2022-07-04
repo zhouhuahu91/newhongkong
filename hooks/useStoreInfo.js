@@ -80,6 +80,7 @@ const useStoreProvider = () => {
 
   const digitalClosingTime = getDigitalTime(storeInfo.closingTime);
   const digitalOpeningTime = getDigitalTime(storeInfo.openingTime);
+  const digitalCurrentTime = getDigitalTime(currentTimeInSeconds);
 
   // This useEffect update the currentTime every minute.
   useEffect(() => {
@@ -140,6 +141,7 @@ const useStoreProvider = () => {
     liveMessage,
     digitalClosingTime,
     digitalOpeningTime,
+    digitalCurrentTime,
   };
 };
 
