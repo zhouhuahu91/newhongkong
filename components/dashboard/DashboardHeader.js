@@ -7,6 +7,7 @@ import { useState } from "react";
 // Component imports
 import DatePicker from "@/components/DatePicker";
 import Switch from "@/components/Switch";
+import StoreSettings from "@/components/dashboard/StoreSettings";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 
@@ -25,13 +26,15 @@ const DashboardHeader = () => {
             nHK
           </a>
         </Link>
-        <div className="flex items-center space-x-6 text-xl">
-          <span className="mt-1">{digitalCurrentTime}</span>
+        <div className="flex items-center text-xl">
+          <span className="mt-1 mx-2">{digitalCurrentTime}</span>
           <DatePicker date={date} setDate={setDate} />
           <Switch
+            className="mx-2"
             toggle={showAll}
             onClick={() => setShowAll((prev) => !prev)}
           />
+          <StoreSettings />
         </div>
       </div>
     </header>

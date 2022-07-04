@@ -1,8 +1,8 @@
-const Switch = ({ toggle, onClick }) => {
+const Switch = ({ toggle, onClick, className }) => {
   return (
     <button
       onClick={onClick}
-      className={`${
+      className={`${className && className} ${
         toggle && "bg-main"
       } relative inline-flex flex-shrink-0 h-[18px] w-[30px] border rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-main focus-visible:ring-opacity-75`}
     >

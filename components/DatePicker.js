@@ -16,13 +16,13 @@ const DatePickerComponent = ({ setDate, className, date }) => {
   useOnClickOutside(ref, () => setShow(false));
 
   return (
-    <div ref={ref} className={`relative ${className && className} flex`}>
+    <div ref={ref} className={`relative mx-2 ${className && className} flex`}>
       <button
         onClick={() => {
           setShow((prev) => !prev);
         }}
         type="button"
-        className="flex items-center"
+        className="flex items-center red-focus-ring px-1 rounded-md"
       >
         <span className={`mt-1 mr-2`}>{date}</span>
         <span
