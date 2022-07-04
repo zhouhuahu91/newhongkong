@@ -6,11 +6,13 @@ import { useStoreInfo } from "@/hooks/useStoreInfo";
 import { useState } from "react";
 // Component imports
 import DatePicker from "@/components/DatePicker";
+import Switch from "@/components/Switch";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 
 const DashboardHeader = () => {
   const [date, setDate] = useState(getCurrentDate());
+  const [showAll, setShowAll] = useState(false);
   const { digitalCurrentTime } = useStoreInfo();
 
   return (
@@ -26,6 +28,10 @@ const DashboardHeader = () => {
         <div className="flex items-center space-x-3">
           <span className="font-semibold mt-1">{digitalCurrentTime}</span>
           <DatePicker date={date} setDate={setDate} />
+          <Switch
+            toggle={showAll}
+            onClick={() => setShowAll((prev) => !prev)}
+          />
         </div>
       </div>
     </header>
