@@ -16,7 +16,7 @@ const DashboardHeader = () => {
   const { digitalCurrentTime } = useStoreInfo();
 
   return (
-    <header className="bg-white shadow-sm border-b">
+    <header className="bg-white shadow-sm border-b select-none">
       <div className="mx-auto max-w-screen-lg flex justify-between h-16 items-center px-4">
         <Link href="/">
           <a
@@ -25,8 +25,8 @@ const DashboardHeader = () => {
             nHK
           </a>
         </Link>
-        <div className="flex items-center space-x-3">
-          <span className="font-semibold mt-1">{digitalCurrentTime}</span>
+        <div className="flex items-center space-x-6 text-xl">
+          <span className="mt-1">{digitalCurrentTime}</span>
           <DatePicker date={date} setDate={setDate} />
           <Switch
             toggle={showAll}

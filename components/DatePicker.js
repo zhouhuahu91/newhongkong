@@ -16,10 +16,7 @@ const DatePickerComponent = ({ setDate, className, date }) => {
   useOnClickOutside(ref, () => setShow(false));
 
   return (
-    <div
-      ref={ref}
-      className={`relative ${className && className} flex select-none`}
-    >
+    <div ref={ref} className={`relative ${className && className} flex`}>
       <button
         onClick={() => {
           setShow((prev) => !prev);
@@ -27,7 +24,7 @@ const DatePickerComponent = ({ setDate, className, date }) => {
         type="button"
         className="flex items-center"
       >
-        <span className={`font-bold mt-1 mr-2`}>{date}</span>
+        <span className={`mt-1 mr-2`}>{date}</span>
         <span
           className={`material-symbols-rounded cursor-pointer ${
             getCurrentDate() !== date ? "text-main" : "text-gray-700"
