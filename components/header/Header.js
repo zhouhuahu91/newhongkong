@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <>
       {/* ********* HEADER ********* */}
-      <div
+      <header
         className={`w-full flex justify-center z-50 ${
           atHome ? "bg-main" : "bg-white"
         } ${
@@ -94,7 +94,7 @@ const Header = () => {
           </div>
         </div>
         {/* ********* MAIN CONTAINER  ********* */}
-      </div>
+      </header>
       {/*  ********* HEADER ********* */}
     </>
   );
