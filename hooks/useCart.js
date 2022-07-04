@@ -119,7 +119,7 @@ const useCartProvider = () => {
     if (!localCartState) return;
     // We check when the cart was last updated.
     const lastCartUpdate = Date.now() - localCartState.updatedAt;
-    // If the cart is older than 3 hours we reset the cart.
+    // If the cart is older than 6 hours we reset the cart.
     if (lastCartUpdate > 1000 * 60 * 60 * 6) {
       return dispatch({ type: "RESET_CART" });
     }
