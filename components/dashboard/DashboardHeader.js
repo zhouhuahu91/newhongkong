@@ -9,6 +9,7 @@ import DatePicker from "@/components/DatePicker";
 import Switch from "@/components/Switch";
 import StoreSettings from "@/components/dashboard/StoreSettings";
 import BurgerMenu from "@/components/header/BurgerMenu";
+import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 
@@ -40,6 +41,7 @@ const DashboardHeader = () => {
             toggle={showAll}
             onClick={() => setShowAll((prev) => !prev)}
           />
+          <AddEmployeeRoll />
           <StoreSettings />
         </div>
       </div>
