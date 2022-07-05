@@ -8,6 +8,7 @@ import { useState } from "react";
 import DatePicker from "@/components/DatePicker";
 import Switch from "@/components/Switch";
 import StoreSettings from "@/components/dashboard/StoreSettings";
+import BurgerMenu from "@/components/header/BurgerMenu";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 
@@ -19,15 +20,20 @@ const DashboardHeader = () => {
   return (
     <header className="bg-white shadow-sm border-b select-none">
       <div className="mx-auto max-w-screen-lg flex justify-between h-16 items-center px-4">
-        <Link href="/">
-          <a
-            className={`text-2xl font-bold red-focus-ring rounded-md px-1 text-main`}
-          >
-            nHK
-          </a>
-        </Link>
+        <div className="hidden md:block">
+          <Link href="/menu">
+            <a
+              className={`text-2xl font-bold red-focus-ring rounded-md px-1 text-main`}
+            >
+              nHK
+            </a>
+          </Link>
+        </div>
+        <BurgerMenu />
         <div className="flex items-center text-xl">
-          <span className="mt-1 font-medium -mr-0.5">{digitalCurrentTime}</span>
+          <span className="mt-1 hidden sm:block font-medium -mr-0.5">
+            {digitalCurrentTime}
+          </span>
           <DatePicker date={date} setDate={setDate} />
           <Switch
             className="mr-3 ml-1"
