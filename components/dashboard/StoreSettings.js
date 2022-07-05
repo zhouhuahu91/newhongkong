@@ -73,7 +73,13 @@ const StoreSettings = () => {
       >
         <div className="flex items-center justify-between p-4 shadow border-b">
           <h2 className="text-lg font-normal">Store Settings</h2>
-          <IconButton variant="close" onClick={() => setOpen(false)} />
+          <IconButton
+            variant="close"
+            onClick={() => {
+              fetchSettings();
+              setOpen(false);
+            }}
+          />
         </div>
         <div className="p-3 bg-gray-50">
           <div className="flex">
