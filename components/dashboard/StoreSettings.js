@@ -65,7 +65,10 @@ const StoreSettings = () => {
       />
       <Modal
         toggle={open}
-        close={() => setOpen(false)}
+        close={() => {
+          fetchSettings();
+          setOpen(false);
+        }}
         className="bg-white max-w-md w-full rounded-lg overflow-hidden text-sm mx-2"
       >
         <div className="flex items-center justify-between p-4 shadow border-b">
