@@ -27,10 +27,10 @@ const DashboardHeader = () => {
           </a>
         </Link>
         <div className="flex items-center text-xl">
-          <span className="mt-1 mx-2">{digitalCurrentTime}</span>
+          <span className="mt-1 font-medium -mr-0.5">{digitalCurrentTime}</span>
           <DatePicker date={date} setDate={setDate} />
           <Switch
-            className="mx-2"
+            className="mr-3 ml-1"
             toggle={showAll}
             onClick={() => setShowAll((prev) => !prev)}
           />
