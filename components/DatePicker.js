@@ -7,6 +7,8 @@ import getCurrentDate from "@/functions/getCurrentDate";
 // Date Picker imports
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+// Animation imports
+import { motion, AnimatePresence } from "framer-motion";
 
 const DatePickerComponent = ({ setDate, className, date }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -24,7 +26,9 @@ const DatePickerComponent = ({ setDate, className, date }) => {
         type="button"
         className="flex items-center red-focus-ring px-1 rounded-md"
       >
-        <span className={`mt-1 mr-2 font-medium hidden sm:block`}>{date}</span>
+        <span className={`mt-1 mr-2 font-medium hidden sm:block`}>
+          {date.slice(0, 5)}
+        </span>
         <span
           className={`material-symbols-rounded cursor-pointer ${
             getCurrentDate() !== date ? "text-main" : "text-gray-700"
@@ -33,17 +37,27 @@ const DatePickerComponent = ({ setDate, className, date }) => {
           today
         </span>
       </button>
-      <div className={`absolute top-10 right-0 ${!show && "hidden"} z-10`}>
-        <DatePicker
-          selected={selectedDate}
-          onChange={(d) => {
-            setShow(false);
-            setSelectedDate(d);
-            setDate(getCurrentDate(d));
-          }}
-          inline
-        />
-      </div>
+      <AnimatePresence>
+        {show && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+            exit={{ opacity: 0, scale: 0.85 }}
+            className={`absolute top-10 right-0 z-10`}
+          >
+            <DatePicker
+              selected={selectedDate}
+              onChange={(d) => {
+                setShow(false);
+                setSelectedDate(d);
+                setDate(getCurrentDate(d));
+              }}
+              inline
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
