@@ -9,10 +9,6 @@ const PickUpOrDelivery = () => {
   } = useCart();
   const t = useI18n();
 
-  // Style of the button.
-  const btnStyle =
-    "flex flex-col p-3 red-focus-ring rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
-
   return (
     <>
       <h2 className="text-lg mb-2 font-normal">{t.pickup_delivery}</h2>
@@ -21,7 +17,7 @@ const PickUpOrDelivery = () => {
         <button
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: false })}
           type="button"
-          className={`${btnStyle} ${
+          className={`pick-up-deliver ${
             delivery === false
               ? "border-main selected text-main"
               : "text-gray-500"
@@ -36,7 +32,7 @@ const PickUpOrDelivery = () => {
         <button
           onClick={() => dispatch({ type: "SET_DELIVERY", payload: true })}
           type="button"
-          className={`${btnStyle} ${
+          className={`pick-up-deliver ${
             delivery === true
               ? "border-main selected text-main"
               : "text-gray-500"

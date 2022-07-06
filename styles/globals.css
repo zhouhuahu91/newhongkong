@@ -34,6 +34,10 @@ a {
   @apply focus:outline-none focus:text-main;
 }
 
+.pick-up-deliver {
+  @apply flex flex-col p-3 red-focus-ring rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scroll-bar::-webkit-scrollbar {
   display: none;

@@ -32,9 +32,7 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
   const t = useI18n();
   // We need the user to prefill the address if they have one.
   const { user } = useAuth();
-  // Style of the button.
-  const btnStyle =
-    "flex flex-col red-focus-ring p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
+
   const schema = yup.object().shape({
     postalcode: delivery
       ? yup
@@ -200,7 +198,7 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
             <button
               onClick={() => setDelivery(false)}
               type="button"
-              className={`${btnStyle} ${
+              className={`pick-up-deliver ${
                 delivery === false && "border-main selected text-main"
               }`}
             >
@@ -213,7 +211,7 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
             <button
               onClick={() => setDelivery(true)}
               type="button"
-              className={`${btnStyle} ${
+              className={`pick-up-deliver ${
                 delivery === true && "border-main selected text-main"
               }`}
             >

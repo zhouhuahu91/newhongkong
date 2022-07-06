@@ -16,9 +16,6 @@ const Payment = () => {
   const t = useI18n();
   const el = useRef();
 
-  const btnStyle =
-    "flex flex-col red-focus-ring p-3 rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white";
-
   // This useEffect updates the button width.
   useEffect(() => {
     // Handler to call on window resize
@@ -45,7 +42,7 @@ const Payment = () => {
             dispatch({ type: "SET_PAYMENT_METHOD", payload: "in_person" })
           }
           type="button"
-          className={`${btnStyle} ${
+          className={`pick-up-deliver ${
             paymentMethod === "in_person"
               ? "border-main selected text-main"
               : "text-gray-500"
@@ -65,7 +62,7 @@ const Payment = () => {
             dispatch({ type: "SET_PAYMENT_METHOD", payload: "online" })
           }
           type="button"
-          className={`${btnStyle} ${
+          className={`pick-up-deliver ${
             paymentMethod === "online" && "border-main selected text-main"
           }`}
         >
