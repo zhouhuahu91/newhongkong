@@ -25,7 +25,8 @@ const Modal = ({ toggle, children, close, className }) => {
             animate="visible"
             initial="hidden"
             exit="hidden"
-            className="fixed inset-0 w-full bg-opacity-50 bg-black h-full flex justify-center items-center z-50"
+            className="fixed inset-0 w-full bg-opacity-50 bg-black h-full flex justify-center items-center"
+            style={{ zIndex: "100" }}
             onClick={(e) => {
               close();
               e.stopPropagation();
@@ -34,8 +35,10 @@ const Modal = ({ toggle, children, close, className }) => {
             <motion.div
               className={className}
               onClick={(e) => e.stopPropagation()}
-              variants={modalVariant}
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1, transition: { delay: 0.25 } }}
               transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              exit={{ opacity: 0, scale: 0.85 }}
             >
               {children}
             </motion.div>
