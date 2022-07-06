@@ -40,7 +40,7 @@ const AddTimeSlotModal = () => {
         close={() => setOpen(false)}
       >
         <div className="flex p-4 justify-between items-center border-b shadow">
-          <h1 className="font-semibold text-lg">Time Slots</h1>
+          <h1 className="font-semibold text-lg">Delete Time Slots</h1>
           <IconButton variant="close" onClick={() => setOpen(false)} />
         </div>
         <div
