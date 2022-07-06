@@ -10,6 +10,7 @@ import Switch from "@/components/Switch";
 import StoreSettings from "@/components/dashboard/StoreSettings";
 import BurgerMenu from "@/components/header/BurgerMenu";
 import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
+import AddTimeSlotModal from "@/components/dashboard/AddTimeSlotModal";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 
@@ -42,6 +43,7 @@ const DashboardHeader = () => {
             onClick={() => setShowAll((prev) => !prev)}
           />
           <AddEmployeeRoll />
+          <AddTimeSlotModal />
           <StoreSettings />
         </div>
       </div>
