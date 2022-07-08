@@ -35,10 +35,6 @@ const useStoreProvider = () => {
     startTimeDelivery: 16 * 3600,
     // The time we stop to deliver. Defaults to "21:00".
     endTimeDelivery: 24 * 3600,
-    // This creates a date based on the current date on users computer.
-    // We later fetch the current date from server just in case the users...
-    // ...computer's date is not correct.
-    currentDate: getCurrentDate(),
   });
   const [storeFees, setStoreFees] = useState({
     // The transaction fee. Defaults to 30 cents
@@ -50,6 +46,8 @@ const useStoreProvider = () => {
     // Plastic bag fee. Defaults to 10 cents.
     plasticBagFee: 10,
   });
+  const [currentDate, setCurrentDate] = useState(getCurrentDate());
+  const [currentDay, setCurrentDay] = useState(new Date().getDay());
   const [currentTimeInSeconds, setCurrentTimeInSeconds] = useState(
     getCurrentTimeInSeconds()
   );
@@ -99,15 +97,40 @@ const useStoreProvider = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // This useEffect fetches the currentDate and currentDay from the server.
+  useEffect(() => {
+    const fetchCurrentDate = async () => {
+      try {
+        const { data } = await axios.get(`${URL}/api/fetchdate`);
+        // If the dates are the same it means the users pc date is not wrong.
+        if (currentDate !== data.currentDate) {
+          setCurrentDate(data.currentDate);
+        }
+        // The same for day.
+        if (currentDay !== data.day) {
+          setCurrentDay(data.day);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    const fetchDatesInterval = setInterval(() => {
+      fetchCurrentDate();
+      // We refetch the dates every 3 hours.
+    }, 10800000);
+
+    return () => clearInterval(fetchDatesInterval);
+  }, []);
+
+  // Fetches the store settings from server.
+  // We need new store info every day.
   useEffect(() => {
     const ref = doc(db, "general/settings");
     const unsubscribe = onSnapshot(ref, async (snapshot) => {
-      const {
-        data: { dates },
-      } = await axios.get(`${URL}/api/fetchdate`);
       if (snapshot.exists()) {
         const data = snapshot.data();
-        setStoreInfo({ ...data.openingHours[dates.day], ...dates });
+        setStoreInfo({ ...data.openingHours[currentDay] });
         setLiveMessage(data.liveMessage);
       }
     });
@@ -115,7 +138,8 @@ const useStoreProvider = () => {
     return () => {
       unsubscribe();
     };
-  }, [currentTimeInSeconds]);
+    // We refetch if the current date changes.
+  }, [currentDate]);
 
   // minimumOrderAmout and deliveryFee depends on the postalcode.
   useEffect(() => {
@@ -168,6 +192,8 @@ const useStoreProvider = () => {
     digitalClosingTime,
     digitalOpeningTime,
     digitalCurrentTime,
+    currentDay,
+    currentDate,
   };
 };
 

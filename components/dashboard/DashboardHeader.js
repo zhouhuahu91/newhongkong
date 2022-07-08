@@ -12,12 +12,11 @@ import BurgerMenu from "@/components/header/BurgerMenu";
 import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
 import AddTimeSlotModal from "@/components/dashboard/AddTimeSlotModal";
 // Function imports
-import getCurrentDate from "@/functions/getCurrentDate";
 
 const DashboardHeader = () => {
   const [showAll, setShowAll] = useState(false);
-  const { digitalCurrentTime, storeInfo } = useStoreInfo();
-  const [date, setDate] = useState(storeInfo.currentDate);
+  const { digitalCurrentTime, currentDate } = useStoreInfo();
+  const [date, setDate] = useState(currentDate);
 
   return (
     <header className="bg-white shadow-sm border-b select-none">

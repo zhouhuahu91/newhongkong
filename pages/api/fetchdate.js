@@ -11,7 +11,8 @@ const fetchDates = (req, res) => {
     const day = date.getDay();
     const currentDate = getCurrentDate(date);
     return res.status(200).json({
-      dates: { currentDate, day },
+      currentDate,
+      day,
     });
   } catch (e) {
     console.log(e);
