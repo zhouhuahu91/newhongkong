@@ -15,9 +15,9 @@ import AddTimeSlotModal from "@/components/dashboard/AddTimeSlotModal";
 import getCurrentDate from "@/functions/getCurrentDate";
 
 const DashboardHeader = () => {
-  const [date, setDate] = useState(getCurrentDate());
   const [showAll, setShowAll] = useState(false);
-  const { digitalCurrentTime } = useStoreInfo();
+  const { digitalCurrentTime, storeInfo } = useStoreInfo();
+  const [date, setDate] = useState(storeInfo.currentDate);
 
   return (
     <header className="bg-white shadow-sm border-b select-none">

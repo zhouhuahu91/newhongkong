@@ -4,8 +4,13 @@ import { useState, useEffect, useContext, createContext } from "react";
 import getCurrentDate from "@/functions/getCurrentDate";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 import getDigitalTime from "@/functions/getDigitalTime";
+import getURL from "@/functions/getURL";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
+// Firebase imports
+import { db } from "@/firebase/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+import axios from "axios";
 
 // First we create a context
 const storeInfoContext = createContext();
@@ -48,7 +53,10 @@ const useStoreProvider = () => {
   const [currentTimeInSeconds, setCurrentTimeInSeconds] = useState(
     getCurrentTimeInSeconds()
   );
+
   const [liveMessage, setLiveMessage] = useState("");
+  const URL = getURL();
+
   // These variables are just fixed and can't be changed by admin.
   // Users can order from 8 am while store is still closed.
   const preorderTime = 8 * 3600;
@@ -73,10 +81,10 @@ const useStoreProvider = () => {
   );
 
   // True if we are closed. // Uncomment this when going in production.
-  const closed = false;
-  // currentTimeInSeconds > storeInfo.closingTime ||
-  // currentTimeInSeconds < preorderTime ||
-  // !storeInfo.open;
+  const closed =
+    currentTimeInSeconds > storeInfo.closingTime ||
+    currentTimeInSeconds < preorderTime ||
+    !storeInfo.open;
 
   const digitalClosingTime = getDigitalTime(storeInfo.closingTime);
   const digitalOpeningTime = getDigitalTime(storeInfo.openingTime);
@@ -90,6 +98,24 @@ const useStoreProvider = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const ref = doc(db, "general/settings");
+    const unsubscribe = onSnapshot(ref, async (snapshot) => {
+      const {
+        data: { dates },
+      } = await axios.get(`${URL}/api/fetchdate`);
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        setStoreInfo({ ...data.openingHours[dates.day], ...dates });
+        setLiveMessage(data.liveMessage);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [currentTimeInSeconds]);
 
   // minimumOrderAmout and deliveryFee depends on the postalcode.
   useEffect(() => {
