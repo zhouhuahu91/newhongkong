@@ -41,7 +41,7 @@ const Layout = ({ children }) => {
           atHome ? "bg-main" : "bg-neutral-50"
         }`}
       >
-        <Banner />
+        {!atDashboard && !atHome && <Banner />}
         {!atDashboard && <Header />}
         <div className="flex-grow">{children}</div>
         {!atHome && <Footer />}

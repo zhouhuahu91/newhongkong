@@ -22,15 +22,9 @@ const Banner = () => {
   } = useStoreInfo();
   const t = useI18n();
 
-  const checkForMessage = () => {
-    if (liveMessage) {
-      return true;
-    }
-  };
-
   useEffect(() => {
     switch (true) {
-      case checkForMessage():
+      case liveMessage.length > 0:
         return setMessage(liveMessage);
       case openingSoon:
         return setMessage(t.store_open_soon(digitalOpeningTime));
