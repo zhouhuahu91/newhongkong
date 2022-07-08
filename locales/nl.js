@@ -97,19 +97,19 @@ export default {
 
   // Banner
   store_open_soon: (openingTime) => (
-    <span>
+    <span className="font-normal">
       Wij gaan om {openingTime} uur open, maar je kan je bestelling alvast
       online plaatsen.
     </span>
   ),
   store_closing_soon: (remainingTime) => (
-    <span>
+    <span className="font-normal">
       Wij sluiten met {remainingTime}{" "}
       {remainingTime === 1 ? "minuut" : "minuten"}.
     </span>
   ),
   store_closed: (openingTime, closingTime) => (
-    <span>
+    <span className="font-normal">
       Gesloten, wij zijn dinsdag t/m zondag geopend van {openingTime} tot{" "}
       {closingTime} uur. Gesloten op maandag met uitzondering van feestdagen.
     </span>

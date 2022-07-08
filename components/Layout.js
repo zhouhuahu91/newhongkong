@@ -2,6 +2,7 @@
 import Head from "next/head";
 // Components imports
 import Header from "@/components/header/Header";
+import Banner from "@/components/Banner";
 import Footer from "@/components/Footer";
 // Hook imports
 import usePath from "@/hooks/usePath";
@@ -40,6 +41,7 @@ const Layout = ({ children }) => {
           atHome ? "bg-main" : "bg-neutral-50"
         }`}
       >
+        <Banner />
         {!atDashboard && <Header />}
         <div className="flex-grow">{children}</div>
         {!atHome && <Footer />}

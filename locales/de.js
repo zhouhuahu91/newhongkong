@@ -99,19 +99,19 @@ export default {
 
   // Banner
   store_open_soon: (openingTime) => (
-    <span>
+    <span className="font-normal">
       Wir öffnen um {openingTime} Uhr, aber Sie können Ihre Bestellung bereits
       online aufgeben.
     </span>
   ),
   store_closing_soon: (remainingTime) => (
-    <span>
+    <span className="font-normal">
       Wir schließen in {remainingTime}{" "}
       {remainingTime === 1 ? "Minute" : "Minuten"}.
     </span>
   ),
   store_closed: (openingTime, closingTime) => (
-    <span>
+    <span className="font-normal">
       Geschlossen, wir sind von Dienstag bis Sonntag geöffnet von {openingTime}{" "}
       bis {closingTime} Uhr. Montags geschlossen außer an Feiertagen.
     </span>
