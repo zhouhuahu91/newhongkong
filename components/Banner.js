@@ -8,7 +8,7 @@ import IconButton from "@/components/IconButton";
 
 const Banner = () => {
   const [show, setShow] = useState(true);
-  const [message, setMessage] = useState("");
+  const [bannerMessage, setBannerMessage] = useState("");
 
   const {
     openingSoon,
@@ -25,17 +25,17 @@ const Banner = () => {
   useEffect(() => {
     switch (true) {
       case liveMessage.length > 0:
-        return setMessage(liveMessage);
+        return setBannerMessage(liveMessage);
       case openingSoon:
-        return setMessage(t.store_open_soon(digitalOpeningTime));
+        return setBannerMessage(t.store_open_soon(digitalOpeningTime));
       case closingSoon:
-        return setMessage(t.store_closing_soon(remainingMinutes));
+        return setBannerMessage(t.store_closing_soon(remainingMinutes));
       case closed:
-        return setMessage(
+        return setBannerMessage(
           t.store_closed(digitalOpeningTime, digitalClosingTime)
         );
       default:
-        return setMessage("");
+        return setBannerMessage("");
     }
   }, [
     digitalOpeningTime,
@@ -51,11 +51,11 @@ const Banner = () => {
 
   return (
     <>
-      {show && message && (
+      {show && bannerMessage && (
         <div className="bg-amber-50 py-2 px-4 flex items-center justify-between space-x-2">
           <div className="flex space-x-2 items-center">
             <span className="material-symbols-rounded text-main">info</span>
-            <span className="text-sm font-normal">{message}</span>
+            <span className="text-sm font-normal">{bannerMessage}</span>
           </div>
           <IconButton variant="close" onClick={() => setShow(false)} />
         </div>
