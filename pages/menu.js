@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
 import { useMenu } from "@/hooks/useMenu";
+import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Component imports
 import Card from "@/components/menu/Card";
 import DesktopCart from "@/components/cart/DesktopCart";
@@ -25,6 +26,8 @@ const Menu = () => {
   const [open, setOpen] = useState(false);
   // This return the products that the restaurant sells in an array of objects.
   const { filteredData, data } = useMenu();
+  // This returns the closed state of the restaurant.
+  const { closed } = useStoreInfo();
   // t is to translate the text.
   const t = useI18n();
   // This ref holds all the category divs. We need it for category header...
@@ -37,7 +40,11 @@ const Menu = () => {
 
   useEffect(() => {
     const localCartState = JSON.parse(localStorage.getItem("localCartState"));
-    if (localCartState?.delivery === "undecided" || !localCartState) {
+    if (
+      // No need to open when we are closed.
+      !closed &&
+      (localCartState?.delivery === "undecided" || !localCartState)
+    ) {
       setOpen(true);
     }
   }, []);
