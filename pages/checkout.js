@@ -41,9 +41,8 @@ const CheckOut = () => {
   );
   // Returns dispatch and cartState from cart provider.
   const {
-    dispatch,
     cartState,
-    cartState: { delivery, paymentMethod, cart },
+    cartState: { delivery, paymentMethod, cart, tip },
   } = useCart();
   // We store stripe client secret.
   const [clientSecret, setClientSecret] = useState(null);
@@ -65,6 +64,15 @@ const CheckOut = () => {
   const URL = getURL();
   // We need router to push the user to the succes page.
   const router = useRouter();
+  // This is the cart price without store fees
+  const subtotal = cartState.cart.reduce((x, y) => x + y.price, 0);
+  // Shortage to reach the required amount for delivery
+  const shortForDelivery =
+    storeFees.minimumOrderAmount - subtotal - tip > 0 && delivery === true;
+
+  useEffect(() => {
+    if (shortForDelivery) router.push("/menu");
+  }, [shortForDelivery]);
 
   const schema = yup.object().shape({
     // Postalcode only needs validation when delivery is selected.
@@ -215,7 +223,7 @@ const CheckOut = () => {
     }
 
     const {
-      data: { secret, id, date },
+      data: { secret, id },
     } = await axios.post(`${URL}/api/createorder`, data);
 
     // There are two ways to this function can go.
@@ -282,9 +290,13 @@ const CheckOut = () => {
                   setValue={setValue}
                 />
                 <Payment />
-                {paymentMethod !== "undecided" && cart.length > 0 && !closed && (
+                {paymentMethod !== "undecided" && (
                   <>
-                    <SubmitButton processing={processing} className="mt-12">
+                    <SubmitButton
+                      disabled={shortForDelivery || closed || cart.length === 0}
+                      processing={processing}
+                      className="mt-12"
+                    >
                       {paymentMethod === "online" ? t.to_pay : t.place_order}{" "}
                       {euro(calculateTotalCartPrice(cartState, storeFees))}
                     </SubmitButton>
