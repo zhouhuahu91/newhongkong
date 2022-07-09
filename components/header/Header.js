@@ -7,12 +7,16 @@ import AuthMenu from "@/components/header/AuthMenu";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import usePath from "@/hooks/usePath";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   // This hook provides translations for the different languages.
   const t = useI18n();
   // We need the pathname because of different styling for home page.
   const { atHome, atCheckout, atMenu } = usePath();
+  // Returns the current user that is logged in.
+  const { user } = useAuth();
+  console.log(user);
 
   return (
     <>
@@ -77,15 +81,17 @@ const Header = () => {
           </nav>
           <div className="flex items-center space-x-4">
             {/* Dashboard menu for admins. */}
-            <Link href="/dashboard">
-              <a
-                className={`material-symbols-rounded red-focus-ring ${
-                  atHome && "text-white "
-                }`}
-              >
-                dashboard
-              </a>
-            </Link>
+            {user?.admin && (
+              <Link href="/dashboard">
+                <a
+                  className={`material-symbols-rounded red-focus-ring ${
+                    atHome && "text-white "
+                  }`}
+                >
+                  dashboard
+                </a>
+              </Link>
+            )}
             {/* Options for language, available on all screen sizes. */}
             <I18nMenu />
             {/* Auth menu is only availeble on screens bigger than md. */}
