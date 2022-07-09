@@ -28,6 +28,12 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
   const { cartState } = useCart();
   // Returns information of the store
   const { storeFees, closed } = useStoreInfo();
+  // This is the cart price without store fees
+  const subtotal = cartState.cart.reduce((x, y) => x + y.price, 0);
+  // Shortage to reach the required amount for delivery
+  const shortForDelivery =
+    storeFees.minimumOrderAmount - subtotal - cartState.tip > 0 &&
+    cartState.delivery === true;
 
   return (
     <>
@@ -93,7 +99,9 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
               <Link href="/checkout">
                 <a
                   className={`${
-                    closed ? "bg-gray-300 pointer-events-none" : "bg-main"
+                    closed || shortForDelivery
+                      ? "bg-gray-300 pointer-events-none"
+                      : "bg-main"
                   } button text-white`}
                 >
                   {closed ? t.closed : t.to_checkout}

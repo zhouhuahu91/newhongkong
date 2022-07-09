@@ -23,9 +23,8 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
   const subtotal = cartState.cart.reduce((x, y) => x + y.price, 0);
   // Shortage to reach the required amount for delivery
   const shortForDelivery =
-    storeFees.minimumOrderAmount - subtotal - cartState.tip > 0;
-
-  console.log(shortForDelivery);
+    storeFees.minimumOrderAmount - subtotal - cartState.tip > 0 &&
+    cartState.delivery === true;
 
   return (
     <div className="hidden md:block sticky top-20 mt-20 mx-auto max-w-sm w-full z-40">
@@ -40,7 +39,7 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
             <Link href="/checkout">
               <a
                 className={`button w-full text-white ${
-                  empty || closed
+                  empty || closed || shortForDelivery
                     ? "bg-gray-300 pointer-events-none"
                     : "bg-main"
                 }`}
