@@ -16,7 +16,6 @@ const Header = () => {
   const { atHome, atCheckout, atMenu } = usePath();
   // Returns the current user that is logged in.
   const { user } = useAuth();
-  console.log(user);
 
   return (
     <>

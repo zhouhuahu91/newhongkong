@@ -18,7 +18,14 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
   // This is true when cart is empty
   const empty = cartState.cart.length === 0;
   // Returns true if store is closed
-  const { closed } = useStoreInfo();
+  const { closed, storeFees } = useStoreInfo();
+  // This is the cart price without store fees
+  const subtotal = cartState.cart.reduce((x, y) => x + y.price, 0);
+  // Shortage to reach the required amount for delivery
+  const shortForDelivery =
+    storeFees.minimumOrderAmount - subtotal - cartState.tip > 0;
+
+  console.log(shortForDelivery);
 
   return (
     <div className="hidden md:block sticky top-20 mt-20 mx-auto max-w-sm w-full z-40">
