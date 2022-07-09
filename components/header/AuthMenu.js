@@ -77,7 +77,7 @@ const AuthMenu = () => {
                 auth.signOutUser();
                 setAuthMenu(false);
               }}
-              className="px-4 py-1 hover:bg-gray-100 flex items-center red-focus-text"
+              className="px-4 py-1 hover:bg-gray-100 flex items-center red-focus-text whitespace-nowrap"
             >
               {t.sign_out}
               <span className="material-symbols-rounded ml-9 text-inherit">
