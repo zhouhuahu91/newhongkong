@@ -13,10 +13,13 @@ import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
 import AddTimeSlotModal from "@/components/dashboard/AddTimeSlotModal";
 // Function imports
 
-const DashboardHeader = () => {
-  const [showAll, setShowAll] = useState(false);
-  const { digitalCurrentTime, currentDate } = useStoreInfo();
-  const [date, setDate] = useState(currentDate);
+const DashboardHeader = ({
+  date,
+  setDate,
+  showCompleted,
+  setShowCompleted,
+}) => {
+  const { digitalCurrentTime } = useStoreInfo();
 
   return (
     <header className="bg-white shadow-sm border-b select-none">
@@ -38,8 +41,8 @@ const DashboardHeader = () => {
           <DatePicker date={date} setDate={setDate} />
           <Switch
             className="mr-3 ml-1"
-            toggle={showAll}
-            onClick={() => setShowAll((prev) => !prev)}
+            toggle={showCompleted}
+            onClick={() => setShowCompleted((prev) => !prev)}
           />
           <AddEmployeeRoll />
           <AddTimeSlotModal />
