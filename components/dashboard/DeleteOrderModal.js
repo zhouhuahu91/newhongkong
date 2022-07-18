@@ -15,7 +15,7 @@ const DeleteOrderModal = ({ open, setOpen, order }) => {
   const [secondsLeft, setSecondsLeft] = useState(1);
 
   // The amount of miliseconds to wait before we can delete the order. Currently it's set to 5 minutes
-  const deleteDelay = 20 * 60 * 1000;
+  const deleteDelay = 5 * 60 * 1000;
 
   const calcSecondsLeft = () => {
     return Math.floor((order.createdAt + deleteDelay - Date.now()) / 1000);
