@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Component imports
 import Header from "@/components/dashboard/DashboardHeader";
-import DashboardCard from "@/components/dashboard/DashboardCard";
+import OrderCard from "@/components/dashboard/OrderCard";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
@@ -97,7 +97,7 @@ const Dashboard = () => {
             </h1>
             <div className="grid gap-4">
               {newOrders.map((order) => (
-                <DashboardCard key={order.id} order={order} />
+                <OrderCard key={order.id} order={order} />
               ))}
             </div>
           </div>
@@ -107,7 +107,7 @@ const Dashboard = () => {
             </h1>
             <div className="grid gap-4">
               {printed.map((order) => (
-                <DashboardCard key={order.id} order={order} />
+                <OrderCard key={order.id} order={order} />
               ))}
             </div>
           </div>
@@ -117,7 +117,7 @@ const Dashboard = () => {
             </h1>
             <div className="grid gap-4">
               {pickup.map((order) => (
-                <DashboardCard key={order.id} order={order} />
+                <OrderCard key={order.id} order={order} />
               ))}
             </div>
           </div>
@@ -127,7 +127,7 @@ const Dashboard = () => {
             </h1>
             <div className="grid gap-4">
               {delivery.map((order) => (
-                <DashboardCard key={order.id} order={order} />
+                <OrderCard key={order.id} order={order} />
               ))}
             </div>
           </div>

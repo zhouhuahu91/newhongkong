@@ -12,7 +12,7 @@ import { useAuth } from "@/hooks/useAuth";
 // Function imports
 import euro from "@/functions/euro";
 
-const DashboardCard = ({ order }) => {
+const OrderCard = ({ order }) => {
   const [open, setOpen] = useState(false);
   const { user } = useAuth();
 
@@ -223,4 +223,4 @@ const DashboardCard = ({ order }) => {
   );
 };
 
-export default DashboardCard;
+export default OrderCard;
