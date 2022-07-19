@@ -52,7 +52,7 @@ const OrderCard = ({ order }) => {
 
   return (
     <>
-      <OrderModal open={open} setOpen={setOpen} />
+      <OrderModal open={open} setOpen={setOpen} order={order} />
       <DeleteOrderModal
         open={openDeleteOrderModal}
         setOpen={setOpenDeleteOrderModal}
