@@ -231,8 +231,8 @@ const CheckOut = () => {
     // 2. User pays online.
     if (paymentMethod === "in_person") {
       // If user pays in person we send mail and add time slot on the server.
-      setProcessing(false);
-      return router.push(`/succes?redirect_status=succeeded&id=${id}`);
+      router.push(`/succes?redirect_status=succeeded&id=${id}`);
+      return setProcessing(false);
     } else if (paymentMethod === "online") {
       setClientSecret(secret);
       setOrderIdForPayment(id);
