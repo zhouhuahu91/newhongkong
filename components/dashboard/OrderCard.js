@@ -86,7 +86,7 @@ const OrderCard = ({ order }) => {
                   e.stopPropagation();
                   setOpenDeleteOrderModal(true);
                 }}
-                className="material-symbols-rounded text-gray-100 hover:text-main"
+                className="material-symbols-rounded text-neutral-100 hover:text-main"
               >
                 delete
               </span>

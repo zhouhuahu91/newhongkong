@@ -89,9 +89,9 @@ const Dashboard = () => {
         showCompleted={showCompleted}
         setShowCompleted={setShowCompleted}
       />
-      <div className="p-4 select-none">
-        <div className="grid gap-4 grid-cols-12">
-          <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-4">
+      <div className="p-4 mt-8 select-none">
+        <div className="grid grid-cols-12">
+          <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <h1 className="text-2xl mb-4 font-semibold text-center border-b">
               NEW
             </h1>
@@ -101,7 +101,7 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-          <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-4">
+          <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <h1 className="text-2xl mb-4 font-semibold text-center border-b">
               KITCHEN
             </h1>
@@ -111,7 +111,7 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-          <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-4">
+          <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <h1 className="text-2xl mb-4 font-semibold text-center border-b">
               PICK UP
             </h1>
@@ -121,7 +121,7 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-          <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-4">
+          <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <h1 className="text-2xl mb-4 font-semibold text-center border-b">
               DELIVERY
             </h1>
