@@ -1,16 +1,69 @@
 // React imports
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 // Component imports
 import Modal from "@/components/Modal";
 import IconButton from "@/components/IconButton";
 // Function imports
 import euro from "@/functions/euro";
+import getDigitalTime from "@/functions/getDigitalTime";
+import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
+// Firebase imports
+import { db } from "@/firebase/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 // Styling variables.
 const itemIdStyling = "col-span-10 sm:col-span-5 space-x-3";
 const itemNameStyling = "hidden sm:block col-span-5";
+const checkboxStyling =
+  "form-checkbox p-2 rounded shadow border-gray-300 text-main focus:ring-red-200 focus:ring-offset-0 cursor-pointer";
 
 const OrderModal = ({ open, setOpen, order }) => {
+  const [remarks, setRemarks] = useState(order.remarks);
+  const [dateOfOrder, setDateOfOrder] = useState(order.date);
+
+  // listen for enter key
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && open) {
+      // if enter key pressed we set order to printed
+      // we get the ref
+      const ref = doc(db, `orders/${order.id}`);
+
+      if (order.printed && order.ready && order.paid) {
+        return updateDoc(ref, {
+          completed: true,
+        });
+      }
+
+      if (order.printed && order.ready) {
+        return updateDoc(ref, {
+          paid: true,
+        });
+      }
+
+      if (order.printed) {
+        return updateDoc(ref, {
+          ready: true,
+        });
+      }
+
+      updateDoc(ref, {
+        printed: true,
+      });
+      setOpen(false);
+    }
+    // if escape key is pressed and modal is open we close the modal
+    if (e.key === "Escape" && open) {
+      setOpen(false);
+    }
+  };
+  // listen for enter key with useEffect
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [order, open]);
+
   return (
     <Modal
       toggle={open}
@@ -105,6 +158,169 @@ const OrderModal = ({ open, setOpen, order }) => {
           <div className="col-span-12 font-semibold text-right text-lg mt-2">
             Total {euro(order.total)}
           </div>
+        </div>
+        <label htmlFor="orderRemarks" className="text-sm text-gray-500">
+          Remarks
+        </label>
+        <textarea
+          value={remarks}
+          id="orderRemarks"
+          onChange={(e) => setRemarks(e.target.value)}
+          className="appearance-none bg-gray-50 border w-full red-focus-ring py-2 px-3 rounded-md text-sm"
+        />
+        {order.remarks !== remarks && (
+          <div className="grid grid-cols-12 gap-4 mt-2">
+            <button
+              onClick={() => setRemarks(order.remarks)}
+              type="button"
+              className="col-span-3 col-start-6 button border"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                const ref = doc(db, `orders/${order.id}`);
+                updateDoc(ref, { remarks });
+              }}
+              type="button"
+              className="bg-main text-white button col-span-4"
+            >
+              Save
+            </button>
+          </div>
+        )}
+        <label htmlFor="dateOforderInput" className="text-gray-500 text-sm">
+          Date
+        </label>
+        <input
+          id="dateOfOrderInput"
+          className="appearance-none bg-gray-50 border w-full py-2 px-3 rounded-md text-sm red-focus-ring"
+          value={dateOfOrder}
+          onChange={(e) => {
+            setDateOfOrder(e.target.value);
+          }}
+        />
+        {order.date !== dateOfOrder && (
+          <div className="grid grid-cols-12 gap-4 mt-2">
+            <button
+              onClick={() => setDateOfOrder(order.date)}
+              type="button"
+              className="col-span-3 col-start-6 button border"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                const ref = doc(db, `orders/${order.id}`);
+                updateDoc(ref, { date: dateOfOrder });
+              }}
+              type="button"
+              className="bg-main text-white button col-span-4"
+            >
+              Save
+            </button>
+          </div>
+        )}
+        <div className="flex flex-col mt-2">
+          <span className="text-sm text-gray-500">Time ordered:</span>
+          <span className="text-sm">
+            {getDigitalTime(getCurrentTimeInSeconds(new Date(order.createdAt)))}
+          </span>
+        </div>
+        {order.delivery && (
+          <div className="flex flex-col mt-2">
+            <span className="text-sm text-gray-500">Address:</span>
+            <span className="text-sm">
+              {order.address.street} {order.address.houseNumber}
+              {order.addition}
+            </span>
+            <span className="text-sm">
+              {order.address.postalcode} {order.address.city}
+            </span>
+          </div>
+        )}
+        <div className="flex flex-col mt-2">
+          <span className="text-sm text-gray-500">Email:</span>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm">{order.email}</span>
+            {order.mailSent && (
+              <span className="material-symbols-rounded text-green-600">
+                mark_email_read
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="p-4 flex justify-evenly shadow">
+        <div className="flex items-center space-x-1">
+          <input
+            className={checkboxStyling}
+            type="checkbox"
+            id="printed"
+            checked={order.printed}
+            onChange={() => {
+              const ref = doc(db, `orders/${order.id}`);
+              updateDoc(ref, {
+                printed: !order.printed,
+              });
+            }}
+          />
+          <label className="cursor-pointer" htmlFor="printed">
+            printed
+          </label>
+        </div>
+        <div className="flex items-center space-x-1">
+          <input
+            className={checkboxStyling}
+            type="checkbox"
+            id="ready"
+            checked={order.ready}
+            onChange={() => {
+              const ref = doc(db, `orders/${order.id}`);
+              updateDoc(ref, {
+                ready: !order.ready,
+              });
+            }}
+          />
+          <label className="cursor-pointer" htmlFor="ready">
+            ready
+          </label>
+        </div>
+        {order.paymentMethod === "in_person" && (
+          <div className="flex items-center space-x-1">
+            <input
+              className={checkboxStyling}
+              type="checkbox"
+              id="paid"
+              checked={order.paid}
+              onChange={() => {
+                const ref = doc(db, `orders/${order.id}`);
+                updateDoc(ref, {
+                  paid: !order.paid,
+                });
+              }}
+            />
+            <label className="cursor-pointer" htmlFor="paid">
+              paid
+            </label>
+          </div>
+        )}
+        <div className="flex items-center space-x-1">
+          <input
+            className={checkboxStyling}
+            type="checkbox"
+            id="completed"
+            checked={order.completed}
+            onChange={() => {
+              const ref = doc(db, `orders/${order.id}`);
+              updateDoc(ref, {
+                completed: !order.completed,
+              });
+            }}
+          />
+          <label className="cursor-pointer" htmlFor="completed">
+            completed
+          </label>
         </div>
       </div>
     </Modal>
