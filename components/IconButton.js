@@ -1,4 +1,12 @@
-const IconButton = ({ onClick, variant, color, size, disabled, className }) => {
+const IconButton = ({
+  onClick,
+  variant,
+  color,
+  size,
+  disabled,
+  className,
+  filled,
+}) => {
   return (
     <button
       onClick={() => {
@@ -7,12 +15,14 @@ const IconButton = ({ onClick, variant, color, size, disabled, className }) => {
         }
       }}
       type="button"
-      className={`relative rounded-full ring-offset-[3px] select-none w-4 h-4 red-focus-ring focus:outline-none ${
+      className={`relative ring-offset-[4px] select-none w-4 h-4 red-focus-ring focus:outline-none ${
         className && className
-      }`}
+      } rounded-full`}
     >
       <span
-        className={`material-symbols-rounded ${
+        className={`${
+          filled ? "material-symbols-outlined" : "material-symbols-rounded"
+        } ${
           disabled
             ? "text-gray-300 cursor-default"
             : color === "main"

@@ -5,6 +5,7 @@ import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
 import { useMenu } from "@/hooks/useMenu";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
+import useFavorites from "@/hooks/useFavorites";
 // Component imports
 import Card from "@/components/menu/Card";
 import DesktopCart from "@/components/cart/DesktopCart";
@@ -26,6 +27,8 @@ const Menu = () => {
   const [open, setOpen] = useState(false);
   // This return the products that the restaurant sells in an array of objects.
   const { filteredData, data } = useMenu();
+  // This returns the favorite items from user.
+  const { favoriteMenuItems } = useFavorites();
   // This returns the closed state of the restaurant.
   const { closed } = useStoreInfo();
   // t is to translate the text.

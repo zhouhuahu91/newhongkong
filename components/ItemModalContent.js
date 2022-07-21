@@ -4,6 +4,8 @@ import useI18n from "@/hooks/useI18n";
 import IconButton from "@/components/IconButton";
 import ToolTip from "@/components/ToolTip";
 import ItemOptionsComponent from "@/components/ItemOptionsComponent";
+// Hook imports
+import useFavorites from "@/hooks/useFavorites";
 
 const ItemModalContent = ({
   item,
@@ -19,13 +21,28 @@ const ItemModalContent = ({
   qwt,
   setQwt,
 }) => {
-  // t is used for translations.
   const t = useI18n();
+  const { toggleFavorite, favorites } = useFavorites();
+
   return (
     <>
       {/* Container for the title */}
       <div className="p-4 flex justify-between items-center shadow border-b">
-        <h1 className="text-xl font-semibold">{item.name[t.locale]}</h1>
+        <div className="flex items-center">
+          <h1
+            tabIndex="0"
+            className="text-xl font-semibold mr-2 focus:outline-none"
+          >
+            {item.name[t.locale]}
+          </h1>
+          <IconButton
+            variant="favorite"
+            filled={favorites.includes(item.id)}
+            color={favorites.includes(item.id) && "main"}
+            onClick={() => toggleFavorite(item.id)}
+            className="rounded-sm"
+          />
+        </div>
         <IconButton variant="close" onClick={() => setOpen(false)} />
       </div>
       {/* Container for the information and options. */}
