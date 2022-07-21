@@ -23,7 +23,7 @@ const DashboardHeader = ({
 
   return (
     <header className="bg-white shadow-sm border-b select-none">
-      <div className="mx-auto max-w-screen-lg flex justify-between h-16 items-center px-4">
+      <div className="mx-auto max-w-screen-xl flex justify-between h-16 items-center px-4">
         <div className="hidden md:block">
           <Link href="/menu">
             <a
