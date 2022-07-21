@@ -18,6 +18,9 @@ import Spinner from "@/components/Spinner";
 // import uploadData from "../data/uploadData";
 
 const Menu = () => {
+  // We put the state for search input here because we need to know...
+  // ... if there is an input. If there is we remove favorites and popular.
+  const [searchInput, setSearchInput] = useState("");
   // This returns the cart state and dispatch functions.
   const { dispatch, cartState } = useCart();
   // This state holds the temporary state for delivery true || false.
@@ -64,7 +67,12 @@ const Menu = () => {
         delivery={delivery}
         setDelivery={setDelivery}
       />
-      <CategoryHeader data={data} categoryRef={categoryRef} />
+      <CategoryHeader
+        data={data}
+        categoryRef={categoryRef}
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+      />
       {/* // Menu page is mainly devided in three sections top side where the title */}
       {/* and the search bar is, */}
       {/* // the bottom left is where the menu cards are and the bottom right is where the cart is. */}
@@ -73,6 +81,25 @@ const Menu = () => {
         <div className="grid grid-cols-12 gap-4 mx-6 mt-3 mb-52">
           {/* This is the container where all the cards are.*/}
           <div className="col-span-12 md:col-span-6 lg:col-span-7 place-self-center mb-20 w-full">
+            {/* If there are not favorite items or the user is searching we remove favorites. */}
+            {!!favoriteMenuItems.length && !searchInput.length && (
+              <div className="">
+                <h2 className="font-semibold text-2xl capitalize mt-8 mb-4">
+                  {t.favorites}
+                </h2>
+                <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+                  {favoriteMenuItems.map((item) => {
+                    return (
+                      <Card
+                        item={item}
+                        key={item.id}
+                        setOpenDeliveryOrPickUp={setOpen}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            )}
             {filteredData.map((category, idx) => {
               return (
                 <div
@@ -80,7 +107,7 @@ const Menu = () => {
                   id={category.id}
                   key={category.id}
                 >
-                  <h2 className="font-semibold text-2xl uppercase mt-8 mb-4">
+                  <h2 className="font-semibold text-2xl capitalize mt-8 mb-4">
                     {category.category[t.locale]}
                   </h2>
                   <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">

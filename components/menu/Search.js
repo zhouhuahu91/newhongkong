@@ -9,9 +9,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 // Component imports
 import IconButton from "@/components/IconButton";
 
-const Search = () => {
-  // This state holds the input for search,
-  const [searchInput, setSearchInput] = useState("");
+const Search = ({ searchInput, setSearchInput }) => {
   // Holds the state of the search input.
   const [open, setOpen] = useState(false);
   // Holds state for focus on input to change styling for parent div.
