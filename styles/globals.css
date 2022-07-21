@@ -54,6 +54,9 @@ a {
 }
 
 /* ******** DATE PICKER STYLING ******** */
+.react-datepicker__month--selected,
+.react-datepicker__month--keyboard-selected,
+.react-datepicker__month-text--keyboard-selected,
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
   background-color: #e76f51 !important;
