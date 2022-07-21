@@ -100,7 +100,9 @@ const OrderModal = ({ open, setOpen, order }) => {
                 <span className="text-lg font-semibold">bez</span>
               </div>
               <div className={itemNameStyling}>delivery</div>
-              <div className="col-span-2 text-right">€ 2,50</div>
+              <div className="col-span-2 text-right">
+                {euro(order.storeFees.deliveryFee)}
+              </div>
             </>
           )}
           {order.paymentMethod === "online" && (
@@ -110,7 +112,9 @@ const OrderModal = ({ open, setOpen, order }) => {
                 <span>ideal</span>
               </div>
               <div className={itemNameStyling}>transactiekosten</div>
-              <div className="col-span-2 text-right">€ 0,30</div>{" "}
+              <div className="col-span-2 text-right">
+                {euro(order.storeFees.transactionFee)}
+              </div>{" "}
             </>
           )}
 
@@ -152,7 +156,9 @@ const OrderModal = ({ open, setOpen, order }) => {
                 <span className="text-lg font-semibold">720</span>
               </div>
               <div className={itemNameStyling}>bag</div>
-              <div className="col-span-2 text-right">€ 0,10</div>
+              <div className="col-span-2 text-right">
+                {euro(order.storeFees.plasticBagFee)}
+              </div>
             </>
           )}
           <div className="col-span-12 font-semibold text-right text-lg mt-2">
