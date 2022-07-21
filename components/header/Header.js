@@ -99,7 +99,7 @@ const Header = () => {
                     atHome && "text-white "
                   }`}
                 >
-                  insert_chart
+                  bar_chart
                 </a>
               </Link>
             )}
