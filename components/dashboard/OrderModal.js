@@ -71,7 +71,7 @@ const OrderModal = ({ open, setOpen, order }) => {
       className="max-w-xl w-full mx-2 bg-white rounded-lg overflow-hidden"
     >
       <div className="flex items-center justify-between p-4 shadow border-b">
-        <h2 className="text-lg font-normal">{order.name}</h2>
+        <h2 className="text-xl font-bold">{order.name}</h2>
         <IconButton
           variant="close"
           onClick={() => {
@@ -130,6 +130,9 @@ const OrderModal = ({ open, setOpen, order }) => {
                     <span>{cartItem.name["nl"]}</span>
                     <span className="text-xs text-gray-500">
                       {cartItem.description["nl"]}
+                    </span>
+                    <span className="text-xs font-medium text-main">
+                      {cartItem.remarks}
                     </span>
                   </div>
                 </div>
