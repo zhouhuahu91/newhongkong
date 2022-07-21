@@ -122,8 +122,13 @@ const MonthlyOverview = () => {
     return () => unsubscribe();
   }, [date]);
 
-  if (!user || (!user?.admin && !user?.accountant))
-    return router.push("/sign_in");
+  useEffect(() => {
+    if (!user || (!user?.admin && !user?.accountant)) {
+      router.push("/sign_in");
+    }
+  }, [user]);
+
+  if (!user || (!user?.admin && !user?.accountant)) return <Spinner />;
 
   return (
     <div className="max-w-screen-lg mx-auto">
