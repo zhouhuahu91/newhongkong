@@ -5,6 +5,7 @@ import getCurrentDate from "@/functions/getCurrentDate";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 import getDigitalTime from "@/functions/getDigitalTime";
 import getURL from "@/functions/getURL";
+import calculateDeliveryFees from "@/functions/calculateDeliveryFees";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 // Firebase imports
@@ -145,39 +146,13 @@ const useStoreProvider = () => {
   useEffect(() => {
     // If there is no address in the cart we don't do anything.
     if (!cartState.address.postalcode) return;
-    if (
-      // 2211 postalcode is the hardest
-      // We need to check every combination and see how far away it is. If it is pretty far away we add the extra cost...
-      // ... and a higher minimum
-      // 2211SW is vlak bij ruigerhoekerweg.
-      // 2211TW is zo wat in Noordwijk.
-      // 2211V... dat niet herenweg is ver weg.
-      /^(2204)[\s]?([a][bcnprsx]|[b-c][a-z])$|^(2211)[\s]?(a[degl]|bl|nx|v[cdeghjst]|w[dekjhg]|x[nptwxz]|z[bceh])$|^(2212)[\s]?a[abcegh]$/i.test(
-        cartState.address.postalcode
-      )
-    ) {
-      setStoreFees((prev) => ({
-        ...prev,
-        minimumOrderAmount: 2500,
-        deliveryFee: 350,
-      }));
-    } else if (
-      /^(2211)[\s]?(s[wz]|tw|v[klmnrp]|we|x[rs]|zg)$|^(2204)[\s]?([a][jkltvw])$/i.test(
-        cartState.address.postalcode
-      )
-    ) {
-      setStoreFees((prev) => ({
-        ...prev,
-        minimumOrderAmount: 3000,
-        deliveryFee: 350,
-      }));
-    } else {
-      setStoreFees((prev) => ({
-        ...prev,
-        minimumOrderAmount: 2000,
-        deliveryFee: 250,
-      }));
-    }
+    const deliveryFees = calculateDeliveryFees(cartState.address.postalcode);
+
+    setStoreFees((prev) => ({
+      ...prev,
+      minimumOrderAmount: deliveryFees.minimum,
+      deliveryFee: deliveryFees.fee,
+    }));
   }, [cartState.address]);
 
   return {
