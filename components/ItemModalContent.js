@@ -38,7 +38,7 @@ const ItemModalContent = ({
           <IconButton
             variant="favorite"
             filled={favorites.includes(item.id)}
-            color={favorites.includes(item.id) && "main"}
+            color="main"
             onClick={() => toggleFavorite(item.id)}
             className="rounded-sm"
           />
