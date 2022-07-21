@@ -14,6 +14,7 @@ export default {
   contact: "Contact",
   sign_out: "Uitloggen",
   signed_in_as: "Ingelogd als",
+  monthly_overview: "Maandelijkse Overzicht",
 
   // ******** HEADER ********
 

@@ -90,6 +90,18 @@ const BurgerMenu = () => {
                     {t.menu}
                   </a>
                 </Link>
+                {(auth.user?.accountat || auth.user?.admin) && (
+                  <Link href="/monthly_overview">
+                    <a
+                      onClick={() => {
+                        setBurgerMenu(false);
+                      }}
+                      className="py-2 pl-6 hover:bg-gray-100 block red-focus-text"
+                    >
+                      {t.monthly_overview}
+                    </a>
+                  </Link>
+                )}
                 <Link href="/catering">
                   <a
                     onClick={() => {

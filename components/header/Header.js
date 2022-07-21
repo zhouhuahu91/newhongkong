@@ -32,12 +32,12 @@ const Header = () => {
         }`}
       >
         {/* ******** MAIN CONTAINER ******** */}
-        <div className="max-w-screen-xl w-full flex items-center justify-between h-16 px-4">
+        <div className="relative max-w-screen-xl w-full flex items-center justify-between h-16 px-4">
           <BurgerMenu />
           {/* This is the main logo nHK */}
           <Link href="/">
             <a
-              className={`text-2xl font-bold red-focus-ring rounded-md px-1 ${
+              className={`absolute md:relative left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 text-2xl font-bold red-focus-ring rounded-md px-1 ${
                 atHome ? "text-white" : "text-main"
               }`}
             >
@@ -88,6 +88,18 @@ const Header = () => {
                   }`}
                 >
                   dashboard
+                </a>
+              </Link>
+            )}
+            {/* Graph of all orders per month. */}
+            {(user?.admin || user?.accountant) && (
+              <Link href="/monthly_overview">
+                <a
+                  className={`material-symbols-rounded red-focus-ring hidden md:block ${
+                    atHome && "text-white "
+                  }`}
+                >
+                  insert_chart
                 </a>
               </Link>
             )}

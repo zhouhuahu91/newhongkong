@@ -14,6 +14,7 @@ export default {
   contact: "Contact",
   sign_out: "Sign out",
   signed_in_as: "Signed in as",
+  monthly_overview: "Monthly Overview",
 
   // ******** HEADER ********
 
