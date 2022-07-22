@@ -2,9 +2,11 @@
 import { useState, useEffect } from "react";
 // Hook imports
 import { useStoreInfo } from "@/hooks/useStoreInfo";
+import { useAuth } from "@/hooks/useAuth";
 // Component imports
 import Header from "@/components/dashboard/DashboardHeader";
 import OrderCard from "@/components/dashboard/OrderCard";
+import Spinner from "@/components/Spinner";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
@@ -24,6 +26,7 @@ const Dashboard = () => {
   const [pickup, setPickup] = useState([]);
   // 4. Orders that are being delivered.
   const [delivery, setDelivery] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     const q = query(collection(db, "orders"), where("date", "==", date));
@@ -80,6 +83,15 @@ const Dashboard = () => {
 
     return () => unsubscribe();
   }, [date, showCompleted]);
+
+  useEffect(() => {
+    if (user !== null && !user?.admin) {
+      router.push("/sign_in");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  if (!user || (!user?.admin && !user?.employee)) return <Spinner />;
 
   return (
     <div>
