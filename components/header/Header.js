@@ -108,7 +108,7 @@ const Header = () => {
               <Link href="/delivery">
                 <a
                   className={`material-symbols-rounded rounded-full red-focus-ring ${
-                    user?.admin && "hidden md:block"
+                    user?.admin ? "hidden md:block" : ""
                   } ${atHome && "text-white "}`}
                 >
                   pedal_bike
