@@ -9,16 +9,19 @@ import { db } from "@/firebase/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 // Hook imports
 import { useAuth } from "@/hooks/useAuth";
+import usePath from "@/hooks/usePath";
 // Function imports
 import euro from "@/functions/euro";
 // Component imports
 import OrderModal from "@/components/dashboard/OrderModal";
+import DeliveryOrderModal from "@/components/dashboard/DeliveryOrderModal";
 import DeleteOrderModal from "@/components/dashboard/DeleteOrderModal";
 
 const OrderCard = ({ order }) => {
   const [open, setOpen] = useState(false);
   const [openDeleteOrderModal, setOpenDeleteOrderModal] = useState(false);
   const { user } = useAuth();
+  const { atDashboard } = usePath();
 
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&destination=${
     order.address.city
@@ -52,7 +55,11 @@ const OrderCard = ({ order }) => {
 
   return (
     <>
-      <OrderModal open={open} setOpen={setOpen} order={order} />
+      {atDashboard ? (
+        <OrderModal open={open} setOpen={setOpen} order={order} />
+      ) : (
+        <DeliveryOrderModal open={open} setOpen={setOpen} order={order} />
+      )}
       <DeleteOrderModal
         open={openDeleteOrderModal}
         setOpen={setOpenDeleteOrderModal}
@@ -80,7 +87,7 @@ const OrderCard = ({ order }) => {
           <div className="flex items-center space-x-3">
             <h3 className={`font-semibold text-2xl`}>{order.name}</h3>
             {/* We do not want to delete orders where the payment method is online. */}
-            {!(order.paymentMethod === "online" && order.paid) && (
+            {!(order.paymentMethod === "online" && order.paid) && user?.admin && (
               <span
                 onClick={(e) => {
                   e.stopPropagation();

@@ -35,7 +35,7 @@ const DeleteOrderModal = ({ open, setOpen, order }) => {
     <Modal
       toggle={open}
       close={() => setOpen(false)}
-      className="bg-white w-full max-w-md rounded-lg"
+      className="bg-white w-full max-w-md rounded-lg mx-2"
     >
       <div className="flex p-4 justify-between items-center border-b">
         <h1 className="font-semibold text-lg">Warning</h1>
