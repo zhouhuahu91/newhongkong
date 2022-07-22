@@ -108,8 +108,8 @@ const OrderModal = ({ open, setOpen, order }) => {
           {order.paymentMethod === "online" && (
             <>
               <div className={itemIdStyling}>
-                <span>1x</span>
-                <span>ideal</span>
+                <span className="text-lg font-semibold">1x</span>
+                <span className="text-lg font-semibold">ideal</span>
               </div>
               <div className={itemNameStyling}>transactiekosten</div>
               <div className="col-span-2 text-right">
