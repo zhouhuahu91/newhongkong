@@ -10,7 +10,7 @@ import usePath from "@/hooks/usePath";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useAuth } from "@/hooks/useAuth";
 // Icon imports
-import DashBoardIcon from "@/icons/DashBoardIcon";
+import DashboardIcon from "@/icons/DashboardIcon";
 
 const Header = () => {
   // This hook provides translations for the different languages.
@@ -87,7 +87,7 @@ const Header = () => {
             {user?.admin && (
               <Link href="/dashboard">
                 <a className={`red-focus-ring`}>
-                  <DashBoardIcon color={atHome && "#fff"} />
+                  <DashboardIcon color={atHome && "#fff"} />
                 </a>
               </Link>
             )}
