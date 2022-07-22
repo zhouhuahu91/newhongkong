@@ -50,7 +50,7 @@ const Delivery = () => {
 
   useEffect(() => {
     if (user !== null && !user?.admin && !user?.employee) {
-      router.push("/signin");
+      router.push("/sign_in");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);

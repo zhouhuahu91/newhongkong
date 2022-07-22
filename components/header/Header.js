@@ -95,11 +95,23 @@ const Header = () => {
             {(user?.admin || user?.accountant) && (
               <Link href="/monthly_overview">
                 <a
-                  className={`material-symbols-rounded red-focus-ring hidden md:block ${
-                    atHome && "text-white "
-                  }`}
+                  className={`material-symbols-rounded red-focus-ring ${
+                    user?.admin && "hidden md:block"
+                  } ${atHome && "text-white "}`}
                 >
                   bar_chart
+                </a>
+              </Link>
+            )}
+            {/* Link to delivery orders*/}
+            {(user?.admin || user?.employee) && (
+              <Link href="/delivery">
+                <a
+                  className={`material-symbols-rounded rounded-full red-focus-ring ${
+                    user?.admin && "hidden md:block"
+                  } ${atHome && "text-white "}`}
+                >
+                  pedal_bike
                 </a>
               </Link>
             )}
