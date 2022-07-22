@@ -85,11 +85,11 @@ const Header = () => {
             {user?.admin && (
               <Link href="/dashboard">
                 <a
-                  className={`material-symbols-rounded red-focus-ring ${
+                  className={`material-icons red-focus-ring ${
                     atHome && "text-white "
                   }`}
                 >
-                  e871
+                  dashboard
                 </a>
               </Link>
             )}
@@ -110,7 +110,7 @@ const Header = () => {
             {(user?.admin || user?.employee) && !(user?.admin && width < 768) && (
               <Link href="/delivery">
                 <a
-                  className={`material-symbols-rounded rounded-full red-focus-ring ${
+                  className={`material-icons rounded-full red-focus-ring ${
                     atHome && "text-white "
                   }`}
                 >
