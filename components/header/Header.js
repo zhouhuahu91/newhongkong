@@ -89,7 +89,7 @@ const Header = () => {
                     atHome && "text-white "
                   }`}
                 >
-                  dashboard
+                  e871
                 </a>
               </Link>
             )}

@@ -6,6 +6,8 @@ import Link from "next/link";
 // Hook imports
 import useWindowSize from "@/hooks/useWindowSize";
 import useI18n from "@/hooks/useI18n";
+// Icon imports
+import ForkAndSpoon from "@/icons/ForkAndSpoon";
 // Third party library imports
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -80,9 +82,7 @@ const Home = () => {
         <a
           className={`button border-md border-opacity-10 border-white px-6 py-1.5 absolute top-96 mt-40 md:mt-72 right-1/2 translate-x-1/2 bg-white bg-opacity-20 backdrop-blur-sm`}
         >
-          <span className="material-symbols-rounded text-white">
-            local_dining
-          </span>
+          <ForkAndSpoon color="#fff" />
           <span className="text-white uppercas font-medium uppercase text-sm ml-3">
             {t.order}
           </span>
