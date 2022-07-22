@@ -33,6 +33,36 @@ const useMenuProvider = () => {
   const [searchInput, setSearchInput] = useState("");
   const [favoritesID, setFavoritesID] = useState([]);
   const [favoriteMenuItems, setFavoriteMenuItems] = useState([]);
+  const [popularMenuItems, setPopularMenuItems] = useState([]);
+
+  useEffect(() => {
+    const tempPopularMenuItemsArray = [];
+    const popularID = [
+      "8",
+      "10",
+      "11",
+      "12",
+      "14",
+      "16",
+      "43",
+      "49",
+      "58",
+      "60",
+      "64",
+      "67",
+    ];
+    // We loop the state for every category.
+    data.forEach((category) => {
+      // Of every category we loop the items
+      category.items.forEach((item) => {
+        // If the item id is in the favorites array we push the item in the...
+        // temparory array.
+        if (popularID.includes(item.id)) tempPopularMenuItemsArray.push(item);
+      });
+    });
+
+    setPopularMenuItems(tempPopularMenuItemsArray);
+  }, [data]);
 
   const { locale } = useI18n();
   const { user } = useAuth();
@@ -193,6 +223,7 @@ const useMenuProvider = () => {
     favoritesID,
     favoriteMenuItems,
     toggleFavorite,
+    popularMenuItems,
   };
 };
 

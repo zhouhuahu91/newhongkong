@@ -25,7 +25,13 @@ const Menu = () => {
   // This state holds the open or closed modal for PickUpOrDeliveryModal.
   const [open, setOpen] = useState(false);
   // This return the products that the restaurant sells in an array of objects.
-  const { filteredData, data, searchInput, favoriteMenuItems } = useMenu();
+  const {
+    filteredData,
+    data,
+    searchInput,
+    favoriteMenuItems,
+    popularMenuItems,
+  } = useMenu();
   // This returns the closed state of the restaurant.
   const { closed } = useStoreInfo();
   // t is to translate the text.
@@ -73,11 +79,32 @@ const Menu = () => {
             {/* If there are not favorite items or the user is searching we remove favorites. */}
             {!!favoriteMenuItems.length && !searchInput.length && (
               <div className="">
-                <h2 className="font-semibold text-2xl capitalize mt-8 mb-4">
-                  {t.favorites}
+                <h2 className="font-semibold text-2xl capitalize mt-8 mb-4 flex items-center">
+                  {t.favorites}{" "}
+                  <span className="material-symbols-outlined text-main ml-2">
+                    favorite
+                  </span>
                 </h2>
                 <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
                   {favoriteMenuItems.map((item) => {
+                    return (
+                      <Card
+                        item={item}
+                        key={item.id}
+                        setOpenDeliveryOrPickUp={setOpen}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            {!searchInput.length && (
+              <div className="">
+                <h2 className="font-semibold text-2xl capitalize mt-8 mb-4">
+                  {t.popular}
+                </h2>
+                <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
+                  {popularMenuItems.map((item) => {
                     return (
                       <Card
                         item={item}
