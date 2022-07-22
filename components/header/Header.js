@@ -94,17 +94,18 @@ const Header = () => {
               </Link>
             )}
             {/* Graph of all orders per month. */}
-            {(user?.admin || user?.accountant) && (
-              <Link href="/monthly_overview">
-                <a
-                  className={`material-symbols-rounded red-focus-ring ${
-                    user?.admin && "hidden md:block"
-                  } ${atHome && "text-white "}`}
-                >
-                  bar_chart
-                </a>
-              </Link>
-            )}
+            {(user?.admin || user?.accountant) &&
+              !(user?.admin && width < 768) && (
+                <Link href="/monthly_overview">
+                  <a
+                    className={`material-symbols-rounded red-focus-ring ${
+                      user?.admin && "hidden md:block"
+                    } ${atHome && "text-white "}`}
+                  >
+                    bar_chart
+                  </a>
+                </Link>
+              )}
             {/* Link to delivery orders*/}
             {(user?.admin || user?.employee) && !(user?.admin && width < 768) && (
               <Link href="/delivery">
