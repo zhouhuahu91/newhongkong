@@ -9,6 +9,8 @@ import useI18n from "@/hooks/useI18n";
 import usePath from "@/hooks/usePath";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useAuth } from "@/hooks/useAuth";
+// Icon imports
+import DashBoardIcon from "@/icons/DashBoardIcon";
 
 const Header = () => {
   // This hook provides translations for the different languages.
@@ -84,12 +86,8 @@ const Header = () => {
             {/* Dashboard menu for admins. */}
             {user?.admin && (
               <Link href="/dashboard">
-                <a
-                  className={`material-icons red-focus-ring ${
-                    atHome && "text-white "
-                  }`}
-                >
-                  dashboard
+                <a className={`red-focus-ring`}>
+                  <DashBoardIcon color={atHome && "#fff"} />
                 </a>
               </Link>
             )}
