@@ -20,6 +20,9 @@ const useMenuProvider = () => {
   const [data, setData] = useState([]);
   // This is the data that we use in the components it filters when filterData is called.
   const [filteredData, setFilteredData] = useState([]);
+  // We need searchInput in different components.
+  // Thats why I moved it in the context.
+  const [searchInput, setSearchInput] = useState("");
 
   const { locale } = useI18n();
 
@@ -32,8 +35,8 @@ const useMenuProvider = () => {
   };
 
   // When function gets called we filter the data with matching the input
-  const filterData = (input) => {
-    const sanitizedInput = sanitize(input);
+  const filterData = () => {
+    const sanitizedInput = sanitize(searchInput);
     // This is the temporary array that we use to filter the data.
     const tempMenu = [];
 
@@ -67,6 +70,15 @@ const useMenuProvider = () => {
     setFilteredData(data);
   };
 
+  useEffect(() => {
+    // If there is a search input we filter the data. If there is not we reset the filter.
+    if (searchInput.length > 0) {
+      filterData();
+    } else {
+      resetFilter();
+    }
+  }, [searchInput]);
+
   // Subscribe to menus on firestore
   useEffect(() => {
     const q = query(collection(db, "menu"), orderBy("id", "asc"));
@@ -80,7 +92,14 @@ const useMenuProvider = () => {
     return () => unsubscribe();
   }, []);
 
-  return { data, filteredData, filterData, resetFilter };
+  return {
+    data,
+    filteredData,
+    filterData,
+    resetFilter,
+    searchInput,
+    setSearchInput,
+  };
 };
 
 // We create the provider that we can rap our components.

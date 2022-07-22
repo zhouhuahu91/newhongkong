@@ -9,13 +9,13 @@ import useWindowSize from "@/hooks/useWindowSize";
 // Component imports
 import IconButton from "@/components/IconButton";
 
-const Search = ({ searchInput, setSearchInput }) => {
+const Search = () => {
   // Holds the state of the search input.
   const [open, setOpen] = useState(false);
   // Holds state for focus on input to change styling for parent div.
   const [inputFocus, setInputFocus] = useState(false);
   // This returns functions to filter the data.
-  const { filterData, resetFilter } = useMenu();
+  const { searchInput, setSearchInput } = useMenu();
   // We need the input ref to focus it when we clear the input.
   const inputRef = useRef();
   useOnClickOutside(inputRef, () => {
@@ -25,15 +25,6 @@ const Search = ({ searchInput, setSearchInput }) => {
   });
   // This doesn't work it closes the search and clears input before we can open the item.
   const { width } = useWindowSize();
-
-  useEffect(() => {
-    // If there is a search input we filter the data. If there is not we reset the filter.
-    if (searchInput.length > 0) {
-      filterData(searchInput);
-    } else {
-      resetFilter();
-    }
-  }, [searchInput]);
 
   // If search is closed we clear input and reset the filter.
   useEffect(() => {

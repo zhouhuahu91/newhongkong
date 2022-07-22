@@ -18,9 +18,6 @@ import Spinner from "@/components/Spinner";
 // import uploadData from "../data/uploadData";
 
 const Menu = () => {
-  // We put the state for search input here because we need to know...
-  // ... if there is an input. If there is we remove favorites and popular.
-  const [searchInput, setSearchInput] = useState("");
   // This returns the cart state and dispatch functions.
   const { dispatch, cartState } = useCart();
   // This state holds the temporary state for delivery true || false.
@@ -29,7 +26,7 @@ const Menu = () => {
   // This state holds the open or closed modal for PickUpOrDeliveryModal.
   const [open, setOpen] = useState(false);
   // This return the products that the restaurant sells in an array of objects.
-  const { filteredData, data } = useMenu();
+  const { filteredData, data, searchInput } = useMenu();
   // This returns the favorite items from user.
   const { favoriteMenuItems } = useFavorites();
   // This returns the closed state of the restaurant.
@@ -67,12 +64,7 @@ const Menu = () => {
         delivery={delivery}
         setDelivery={setDelivery}
       />
-      <CategoryHeader
-        data={data}
-        categoryRef={categoryRef}
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
-      />
+      <CategoryHeader data={data} categoryRef={categoryRef} />
       {/* // Menu page is mainly devided in three sections top side where the title */}
       {/* and the search bar is, */}
       {/* // the bottom left is where the menu cards are and the bottom right is where the cart is. */}

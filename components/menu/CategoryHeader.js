@@ -8,7 +8,7 @@ import getElementDimensions from "@/functions/getElementDimensions";
 import IconButton from "@/components/IconButton";
 import Search from "@/components/menu/Search";
 
-const CategoryHeader = ({ data, categoryRef, searchInput, setSearchInput }) => {
+const CategoryHeader = ({ data, categoryRef }) => {
   // This state stores the id of the current category in view.
   const [visableCategory, setVisableCategory] = useState(null);
   // t is the translation object.
@@ -68,7 +68,7 @@ const CategoryHeader = ({ data, categoryRef, searchInput, setSearchInput }) => {
       <div className="mx-auto max-w-screen-xl flex items-center relative">
         {/* This button scrolls the container holding the category titles to the left. */}
         {/* It scrolls it only one client width at the time. */}
-        <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+        <Search />
         <div className="px-2 flex items-center">
           <IconButton
             onClick={() => {
