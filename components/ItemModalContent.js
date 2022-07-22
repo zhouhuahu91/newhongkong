@@ -5,7 +5,7 @@ import IconButton from "@/components/IconButton";
 import ToolTip from "@/components/ToolTip";
 import ItemOptionsComponent from "@/components/ItemOptionsComponent";
 // Hook imports
-import useFavorites from "@/hooks/useFavorites";
+import { useMenu } from "@/hooks/useMenu";
 
 const ItemModalContent = ({
   item,
@@ -22,7 +22,7 @@ const ItemModalContent = ({
   setQwt,
 }) => {
   const t = useI18n();
-  const { toggleFavorite, favorites } = useFavorites();
+  const { toggleFavorite, favoritesID } = useMenu();
 
   return (
     <>
@@ -37,7 +37,7 @@ const ItemModalContent = ({
           </h1>
           <IconButton
             variant="favorite"
-            filled={favorites.includes(item.id)}
+            filled={favoritesID.includes(item.id)}
             color="main"
             onClick={() => toggleFavorite(item.id)}
             className="rounded-sm"
