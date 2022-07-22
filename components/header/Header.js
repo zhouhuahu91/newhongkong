@@ -7,6 +7,7 @@ import AuthMenu from "@/components/header/AuthMenu";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import usePath from "@/hooks/usePath";
+import useWindowSize from "@/hooks/useWindowSize";
 import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
@@ -16,6 +17,7 @@ const Header = () => {
   const { atHome, atCheckout, atMenu } = usePath();
   // Returns the current user that is logged in.
   const { user } = useAuth();
+  const { width } = useWindowSize();
 
   return (
     <>
@@ -104,12 +106,12 @@ const Header = () => {
               </Link>
             )}
             {/* Link to delivery orders*/}
-            {(user?.admin || user?.employee) && (
+            {(user?.admin || user?.employee) && !(user?.admin && width < 768) && (
               <Link href="/delivery">
                 <a
                   className={`material-symbols-rounded rounded-full red-focus-ring ${
-                    user?.admin ? "hidden md:block" : ""
-                  } ${atHome && "text-white "}`}
+                    atHome && "text-white "
+                  }`}
                 >
                   pedal_bike
                 </a>
