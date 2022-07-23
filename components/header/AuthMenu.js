@@ -9,7 +9,8 @@ import useI18n from "@/hooks/useI18n";
 import usePath from "@/hooks/usePath";
 import { useAuth } from "@/hooks/useAuth";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
-// Icon imports
+// Component imports
+import LogoutIcon from "@/icons/LogoutIcon";
 import AccountIcon from "@/icons/AccountIcon";
 
 const AuthMenu = () => {
@@ -75,8 +76,8 @@ const AuthMenu = () => {
               className="px-4 py-1 hover:bg-gray-100 flex items-center red-focus-text whitespace-nowrap"
             >
               {t.sign_out}
-              <span className="material-symbols-rounded ml-9 text-inherit">
-                logout
+              <span className="ml-8">
+                <LogoutIcon />
               </span>
             </button>
           </motion.div>

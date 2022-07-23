@@ -7,6 +7,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import usePath from "@/hooks/usePath";
 import useI18n from "@/hooks/useI18n";
 import { useAuth } from "@/hooks/useAuth";
+// Component imports
+import MenuIcon from "@/icons/MenuIcon";
+import IconBtn from "@/components/IconBtn";
+import LogoutIcon from "@/icons/LogoutIcon";
+import LoginIcon from "@/icons/LoginIcon";
 
 // This component is used in the header Component and is passed in two props that are used to handle the menu state.
 const BurgerMenu = () => {
@@ -24,15 +29,12 @@ const BurgerMenu = () => {
     // AnimatePresence is used to render exit animation.
     <>
       {/* This is the utton that shows when screen is smaller than md. */}
-      <button
-        type="button"
+      <IconBtn
         onClick={() => setBurgerMenu((prev) => !prev)}
         className="flex items-center md:hidden red-focus-ring rounded-md"
       >
-        <span className={`material-symbols-rounded ${atHome && "text-white"}`}>
-          menu
-        </span>
-      </button>
+        <MenuIcon color={atHome && "#fff"} />
+      </IconBtn>
       <AnimatePresence>
         {burgerMenu && (
           // this is the main container and also the backdrop for the menu.
@@ -138,7 +140,10 @@ const BurgerMenu = () => {
                   {auth.user ? (
                     <>
                       <div className="py-2 pl-6 text-left w-full">
-                        {t.signed_in_as} <b>{auth.user.email}</b>
+                        {t.signed_in_as}
+                        <span className="block font-semibold">
+                          {auth.user.email}
+                        </span>
                       </div>
                       <button
                         type="button"
@@ -149,8 +154,8 @@ const BurgerMenu = () => {
                         className="py-2 pl-6 hover:bg-gray-100 flex items-center w-full red-focus-text"
                       >
                         {t.sign_out}
-                        <span className="material-symbols-rounded ml-9 text-inherit">
-                          logout
+                        <span className="ml-8">
+                          <LogoutIcon />
                         </span>
                       </button>
                     </>
@@ -164,8 +169,8 @@ const BurgerMenu = () => {
                       >
                         {t.sign_in}
 
-                        <span className="material-symbols-rounded ml-9 text-inherit">
-                          login
+                        <span className="ml-8">
+                          <LoginIcon />
                         </span>
                       </a>
                     </Link>
