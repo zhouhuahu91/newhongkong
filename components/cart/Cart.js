@@ -4,7 +4,9 @@ import { useRef, useEffect } from "react";
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
 // Component imports
-import IconButton from "@/components/IconButton";
+import IconBtn from "@/components/IconBtn";
+import MinusIcon from "@/icons/MinusIcon";
+import PlusIcon from "@/icons/PlusIcon";
 import Switch from "@/components/Switch";
 import ToolTip from "@/components/ToolTip";
 import CartItemComponent from "@/components/cart/CartItemComponent";
@@ -121,18 +123,12 @@ const Cart = () => {
         <div className="flex justify-between pt-4 mt-4">
           <span>{t.restaurant_tip}</span>
           <div className="flex items-center space-x-2">
-            <IconButton
-              size="small"
-              color="main"
-              variant="remove_circle_outline"
-              onClick={() => dispatch({ type: "DECREMENT_TIP" })}
-            />
-            <IconButton
-              size="small"
-              color="main"
-              variant="add_circle_outline"
-              onClick={() => dispatch({ type: "INCREMENT_TIP" })}
-            />
+            <IconBtn onClick={() => dispatch({ type: "DECREMENT_TIP" })}>
+              <MinusIcon width="18" height="18" color="main" />
+            </IconBtn>
+            <IconBtn onClick={() => dispatch({ type: "INCREMENT_TIP" })}>
+              <PlusIcon width="18" height="18" color="main" />
+            </IconBtn>
             <span>{euro(cartState.tip)}</span>
           </div>
         </div>

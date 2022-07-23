@@ -1,7 +1,10 @@
 // React imports
 import { useState } from "react";
 // Component imports
-import IconButton from "@/components/IconButton";
+import IconBtn from "@/components/IconBtn";
+import MinusIcon from "@/icons/MinusIcon";
+import PlusIcon from "@/icons/PlusIcon";
+import EditIcon from "@/icons/EditIcon";
 import EditCartItemModal from "@/components/cart/EditCartItemModal";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
@@ -47,29 +50,27 @@ const CartItemComponent = ({ cartItem }) => {
           style={{ maxWidth: "3.25rem" }}
           className="flex justify-between w-full items-center"
         >
-          <IconButton
-            variant="remove_circle_outline"
-            size="small"
-            color="main"
+          <IconBtn
             onClick={() =>
               dispatch({
                 type: "DECREMENT_ITEM",
                 payload: cartItem,
               })
             }
-          />
+          >
+            <MinusIcon color="main" width="18" height="18" />
+          </IconBtn>
           <span>{cartItem.qwt}</span>
-          <IconButton
-            variant="add_circle_outline"
-            size="small"
-            color="main"
+          <IconBtn
             onClick={() =>
               dispatch({
                 type: "INCREMENT_ITEM",
                 payload: cartItem,
               })
             }
-          />
+          >
+            <PlusIcon color="main" width="18" height="18" />
+          </IconBtn>
         </div>
         {/* ********** END INCREMENT & DECEREMENT ********** */}
         {/* ********** PRODUCT NAME & DESCRIPTION ********** */}
@@ -77,11 +78,9 @@ const CartItemComponent = ({ cartItem }) => {
           <div className="flex items-center">
             <span className="mr-2">{cartItem.name[t.locale]}</span>
             {item !== "item not found" && (
-              <IconButton
-                onClick={() => setOpen(true)}
-                variant="edit"
-                size="small"
-              />
+              <IconBtn onClick={() => setOpen(true)}>
+                <EditIcon width="18" height="18" />
+              </IconBtn>
             )}
           </div>
           <div className="leading-none">

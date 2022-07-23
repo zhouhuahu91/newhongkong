@@ -5,7 +5,8 @@ import Link from "next/link";
 // Component imports
 import Modal from "@/components/Modal";
 import Cart from "@/components/cart/Cart";
-import IconButton from "@/components/IconButton";
+import IconBtn from "@/components/IconBtn";
+import CloseIcon from "@/icons/CloseIcon";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -75,7 +76,9 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
       >
         <div className="flex items-center justify-between p-4">
           <h1 className="font-semibold text-2xl">{t.cart}</h1>
-          <IconButton variant="close" onClick={() => setOpen(false)} />
+          <IconBtn onClick={() => setOpen(false)}>
+            <CloseIcon />
+          </IconBtn>
         </div>
         <Cart />
         <div className="p-4 flex flex-col space-y-2">

@@ -1,5 +1,7 @@
 // React imports
 import { useState } from "react";
+// Component imports
+import VisibilityIcon from "@/icons/VisibilityIcon";
 
 // Custom input that accepts register from react hook forms.
 // This input component CAN NOT be used without react hook forms.
@@ -73,9 +75,9 @@ const Input = ({
         {(name === "password" || type === "password") && (
           <span
             onClick={() => setShow((prev) => !prev)}
-            className="material-symbols-rounded text-gray-500 absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
+            className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
           >
-            {show ? "visibility" : "visibility_off"}
+            <VisibilityIcon visible={show} color="#6b7280" />
           </span>
         )}
       </div>

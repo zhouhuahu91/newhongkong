@@ -1,7 +1,11 @@
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 // Component imports
-import IconButton from "@/components/IconButton";
+import IconBtn from "@/components/IconBtn";
+import FavoriteIcon from "@/icons/FavoriteIcon";
+import CloseIcon from "@/icons/CloseIcon";
+import MinusIcon from "@/icons/MinusIcon";
+import PlusIcon from "@/icons/PlusIcon";
 import ToolTip from "@/components/ToolTip";
 import ItemOptionsComponent from "@/components/ItemOptionsComponent";
 // Hook imports
@@ -35,15 +39,13 @@ const ItemModalContent = ({
           >
             {item.name[t.locale]}
           </h1>
-          <IconButton
-            variant="favorite"
-            filled={favoritesID.includes(item.id)}
-            color="main"
-            onClick={() => toggleFavorite(item.id)}
-            className="rounded-sm"
-          />
+          <IconBtn onClick={() => toggleFavorite(item.id)}>
+            <FavoriteIcon color="main" filled={favoritesID.includes(item.id)} />
+          </IconBtn>
         </div>
-        <IconButton variant="close" onClick={() => setOpen(false)} />
+        <IconBtn onClick={() => setOpen(false)}>
+          <CloseIcon />
+        </IconBtn>
       </div>
       {/* Container for the information and options. */}
       <div
@@ -117,17 +119,13 @@ const ItemModalContent = ({
           </div>
         </div>
         <div className="flex items-center justify-evenly relative h-8">
-          <IconButton
-            onClick={() => setQwt((qwt) => (qwt > 1 ? qwt - 1 : qwt))}
-            variant="remove_circle_outline"
-            color="main"
-          />
+          <IconBtn onClick={() => setQwt((qwt) => (qwt > 1 ? qwt - 1 : qwt))}>
+            <MinusIcon color="main" />
+          </IconBtn>
           <div className="text-2xl font-semibold absolute">{qwt}</div>
-          <IconButton
-            onClick={() => setQwt((qwt) => qwt + 1)}
-            variant="add_circle_outline"
-            color="main"
-          />
+          <IconBtn onClick={() => setQwt((qwt) => qwt + 1)}>
+            <PlusIcon color="main" />
+          </IconBtn>
         </div>
       </div>
     </>
