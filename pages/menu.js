@@ -6,6 +6,7 @@ import { useCart } from "@/hooks/useCart";
 import { useMenu } from "@/hooks/useMenu";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Component imports
+import FavoriteIcon from "@/icons/FavoriteIcon";
 import Card from "@/components/menu/Card";
 import DesktopCart from "@/components/cart/DesktopCart";
 import MobileCart from "@/components/cart/MobileCart";
@@ -81,8 +82,8 @@ const Menu = () => {
               <div className="">
                 <h2 className="font-semibold text-2xl capitalize mt-8 mb-4 flex items-center">
                   {t.favorites}{" "}
-                  <span className="material-symbols-outlined text-main ml-2">
-                    favorite
+                  <span className="ml-2">
+                    <FavoriteIcon color="main" filled={true} />
                   </span>
                 </h2>
                 <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">

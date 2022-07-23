@@ -130,18 +130,6 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
         <label htmlFor="time" className="text-red-400 text-sm">
           {errors.time?.message}
         </label>
-        {/* // Problem with this label is that you can't open a select dropdown with a label you can only put focus on it. */}
-        {/* <label
-          htmlFor="time"
-          className="absolute top-8 right-6 flex flex-col select-none"
-        >
-          <span className="material-symbols-rounded absolute text-base -top-0.5">
-            expand_less
-          </span>
-          <span className="material-symbols-rounded absolute text-base top-1">
-            expand_more
-          </span>
-        </label> */}
       </div>
     </>
   );

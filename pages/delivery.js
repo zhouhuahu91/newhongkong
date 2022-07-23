@@ -6,6 +6,7 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 // Component imports
 import OrderCard from "@/components/dashboard/OrderCard";
 import Spinner from "@/components/Spinner";
+import PedalBikeIcon from "@/icons/PedalBikeIcon";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useAuth } from "@/hooks/useAuth";
@@ -61,7 +62,7 @@ const Delivery = () => {
     <div className="max-w-sm mx-auto p-4 space-y-4">
       {orders.length === 0 && comingUp.length === 0 && (
         <div className="flex mt-20 flex-col items-center justify-center">
-          <span className="material-symbols-rounded">pedal_bike</span>
+          <PedalBikeIcon width="30" height="30" />
           <span className="text-xs">{t.no_orders}...</span>
         </div>
       )}

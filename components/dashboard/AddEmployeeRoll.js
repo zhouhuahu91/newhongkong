@@ -5,6 +5,7 @@ import Modal from "@/components/Modal";
 import Input from "@/components/Input";
 import IconBtn from "@/components/IconBtn";
 import CloseIcon from "@/icons/CloseIcon";
+import InfoIcon from "@/icons/InfoIcon";
 import ManageAccountsIcon from "@/icons/ManageAccountsIcon";
 import SubmitButton from "@/components/SubmitButton";
 // Form imports
@@ -99,8 +100,8 @@ const AddEmployeeRoll = () => {
             </select>
             {response && (
               <div className="text-xs p-2 border mt-2 bg-amber-50 flex items-center">
-                <span className="material-symbols-rounded text-main mr-1 icon-small">
-                  info
+                <span className="mr-1">
+                  <InfoIcon color="main" width="18" height="18" />
                 </span>
                 <span>{response}</span>
               </div>
