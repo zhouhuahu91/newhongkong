@@ -3,6 +3,8 @@ import { useState } from "react";
 // Third party imports
 import { useFloating } from "@floating-ui/react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+// Component imports
+import HelpIcon from "@/icons/HelpIcon";
 
 const ToolTip = ({ tip, disabled }) => {
   const [open, setOpen] = useState(false);
@@ -17,13 +19,14 @@ const ToolTip = ({ tip, disabled }) => {
     <>
       <span
         ref={reference}
+        onClick={() => setOpen((prev) => !prev)}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
         className={`material-symbols-rounded icon-small ${
           disabled && "text-gray-300"
         }`}
       >
-        help
+        <HelpIcon widht="18" height="18" />
       </span>
       <AnimatePresence>
         {open && (
