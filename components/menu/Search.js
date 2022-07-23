@@ -7,7 +7,11 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useMenu } from "@/hooks/useMenu";
 import useWindowSize from "@/hooks/useWindowSize";
 // Component imports
+import IconBtn from "@/components/IconBtn";
 import IconButton from "@/components/IconButton";
+import CloseIcon from "@/icons/CloseIcon";
+import SearchIcon from "@/icons/SearchIcon";
+import ChevronRightIcon from "@/icons/ChevronRightIcon";
 
 const Search = () => {
   // Holds the state of the search input.
@@ -75,7 +79,8 @@ const Search = () => {
               autoFocus
               className="w-full ml-14 h-full appearance-none focus:outline-none text-sm"
             />
-            <IconButton
+            <IconBtn
+              className="mx-4"
               // This clears the search input.
               onClick={() => {
                 // If search input is already clear we close the search.
@@ -87,22 +92,20 @@ const Search = () => {
                   inputRef.current.focus();
                 }
               }}
-              variant="close"
-              size="small"
-              className="mx-4"
-            />
+            >
+              <CloseIcon width="18" height="18" />
+            </IconBtn>
           </motion.div>
         )}
       </AnimatePresence>
-      <button
+      <IconBtn
         onClick={() => setOpen((prev) => !prev)}
-        type="button"
         className={`${
           open ? "shadow" : "border"
-        } relative red-focus-ring transition-shadow rounded-full aspect-square w-11 h-11 flex items-center justify-center px-2 z-10`}
+        } relative red-focus-ring transition-shadow rounded-full w-11 h-11 flex items-center justify-center px-2 z-10`}
       >
-        <span className="material-symbols-rounded">search</span>
-      </button>
+        <SearchIcon />
+      </IconBtn>
     </div>
   );
 };

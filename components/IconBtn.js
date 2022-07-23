@@ -3,7 +3,7 @@ const IconBtn = ({ children, className, onClick }) => {
     <button
       type="button"
       onClick={onClick}
-      className={`red-focus-ring rounded ${className && className}`}
+      className={`red-focus-ring ${className && className}`}
     >
       {children}
     </button>

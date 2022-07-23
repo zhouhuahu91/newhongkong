@@ -5,6 +5,9 @@ import useI18n from "@/hooks/useI18n";
 // Function imports
 import getElementDimensions from "@/functions/getElementDimensions";
 // Component imports
+import IconBtn from "@/components/IconBtn";
+import ChevronRightIcon from "@/icons/ChevronRightIcon";
+import ChevronLeftIcon from "@/icons/ChevronLeftIcon";
 import IconButton from "@/components/IconButton";
 import Search from "@/components/menu/Search";
 
@@ -69,22 +72,23 @@ const CategoryHeader = ({ data, categoryRef }) => {
         {/* This button scrolls the container holding the category titles to the left. */}
         {/* It scrolls it only one client width at the time. */}
         <Search />
-        <div className="px-2 flex items-center">
-          <IconButton
-            onClick={() => {
-              if (containerRef.current) {
-                containerRef.current.scrollTo({
-                  left:
-                    // We check where the current scroll position is and we subtract the width of the element.
-                    containerRef.current.scrollLeft -
-                    containerRef.current.clientWidth,
-                  behavior: "smooth",
-                });
-              }
-            }}
-            variant="chevron_left"
-          />
-        </div>
+        <IconBtn
+          onClick={() => {
+            if (containerRef.current) {
+              containerRef.current.scrollTo({
+                left:
+                  // We check where the current scroll position is and we subtract the width of the element.
+                  containerRef.current.scrollLeft -
+                  containerRef.current.clientWidth,
+                behavior: "smooth",
+              });
+            }
+          }}
+          variant="chevron_left"
+          className="rounded mx-2"
+        >
+          <ChevronLeftIcon />
+        </IconBtn>
         {/* ********* CONTAINER FOR ALL THE TITLES ********* */}
         <div
           ref={containerRef}
@@ -115,23 +119,22 @@ const CategoryHeader = ({ data, categoryRef }) => {
             </button>
           ))}
         </div>
-        <div className="px-2 flex items-center">
-          <IconButton
-            onClick={() => {
-              if (containerRef.current) {
-                containerRef.current.scrollTo({
-                  left:
-                    // We check where the current scroll position is and we add the scroll width of the element.
-                    containerRef.current.scrollLeft +
-                    containerRef.current.clientWidth,
-                  behavior: "smooth",
-                });
-              }
-            }}
-            variant="chevron_right"
-            className="px-2"
-          />
-        </div>
+        <IconBtn
+          onClick={() => {
+            if (containerRef.current) {
+              containerRef.current.scrollTo({
+                left:
+                  // We check where the current scroll position is and we add the scroll width of the element.
+                  containerRef.current.scrollLeft +
+                  containerRef.current.clientWidth,
+                behavior: "smooth",
+              });
+            }
+          }}
+          className="mx-2 rounded"
+        >
+          <ChevronRightIcon />
+        </IconBtn>
       </div>
     </div>
   );

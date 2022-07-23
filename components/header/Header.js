@@ -88,7 +88,7 @@ const Header = () => {
             {/* Dashboard menu for admins. */}
             {user?.admin && (
               <Link href="/dashboard">
-                <a className="red-focus-ring">
+                <a className="red-focus-ring rounded">
                   <DashboardIcon color={atHome && "#fff"} />
                 </a>
               </Link>
@@ -97,7 +97,7 @@ const Header = () => {
             {(user?.admin || user?.accountant) &&
               !(user?.admin && width < 768) && (
                 <Link href="/monthly_overview">
-                  <a className="red-focus-ring">
+                  <a className="red-focus-ring rounded">
                     <ChartIcon color={atHome && "#fff"} />
                   </a>
                 </Link>
@@ -105,7 +105,7 @@ const Header = () => {
             {/* Link to delivery orders*/}
             {(user?.admin || user?.employee) && !(user?.admin && width < 768) && (
               <Link href="/delivery">
-                <a className="red-focus-ring">
+                <a className="red-focus-ring rounded">
                   <PedalBikeIcon color={atHome && "#fff"} />
                 </a>
               </Link>
