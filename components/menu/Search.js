@@ -77,7 +77,7 @@ const Search = () => {
               className="w-full ml-14 h-full appearance-none focus:outline-none text-sm"
             />
             <IconBtn
-              className="mx-4 rounded"
+              className="mx-4"
               // This clears the search input.
               onClick={() => {
                 // If search input is already clear we close the search.
@@ -97,9 +97,10 @@ const Search = () => {
       </AnimatePresence>
       <IconBtn
         onClick={() => setOpen((prev) => !prev)}
+        roundedFull
         className={`${
           open ? "shadow" : "border"
-        } relative red-focus-ring transition-shadow rounded-full w-11 h-11 flex items-center justify-center px-2 z-10`}
+        } relative red-focus-ring transition-shadow w-11 h-11 flex items-center justify-center px-2 z-10`}
       >
         <SearchIcon />
       </IconBtn>

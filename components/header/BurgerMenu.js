@@ -31,7 +31,7 @@ const BurgerMenu = () => {
       {/* This is the utton that shows when screen is smaller than md. */}
       <IconBtn
         onClick={() => setBurgerMenu((prev) => !prev)}
-        className="flex items-center md:hidden red-focus-ring rounded-md"
+        className="flex items-center md:hidden red-focus-ring"
       >
         <MenuIcon color={atHome && "#fff"} />
       </IconBtn>

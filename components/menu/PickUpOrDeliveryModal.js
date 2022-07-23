@@ -3,7 +3,10 @@ import { useState, useEffect } from "react";
 // Component imports
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
-import IconButton from "@/components/IconButton";
+import IconBtn from "@/components/IconBtn";
+import CloseIcon from "@/icons/CloseIcon";
+import PedalBikeIcon from "@/icons/PedalBikeIcon";
+import StoreIcon from "@/icons/StoreIcon";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -189,7 +192,9 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
     >
       <div className="flex justify-between items-center p-4">
         <h2 className="text-lg font-normal">{t.pick_up_or_deliver}</h2>
-        <IconButton variant="close" onClick={() => setOpen(false)} />
+        <IconBtn onClick={() => setOpen(false)}>
+          <CloseIcon />
+        </IconBtn>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-neutral-50 p-4 border">
@@ -202,9 +207,7 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
                 delivery === false && "border-main selected text-main"
               }`}
             >
-              <span className="material-symbols-rounded text-inherit icon-small">
-                store
-              </span>
+              <StoreIcon width="18" height="18" />
               {t.pick_up}
             </button>
             {/* This button sets delivery to true which means the order will be delivered. */}
@@ -215,9 +218,7 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
                 delivery === true && "border-main selected text-main"
               }`}
             >
-              <span className="material-symbols-rounded text-inherit icon-small">
-                pedal_bike
-              </span>
+              <PedalBikeIcon width="18" height="18" />
               {t.delivery}
             </button>
           </div>
