@@ -84,7 +84,7 @@ const CategoryHeader = ({ data, categoryRef }) => {
             }
           }}
           variant="chevron_left"
-          className="rounded mx-2"
+          className="rounded mx-1"
         >
           <ChevronLeftIcon />
         </IconBtn>
@@ -130,7 +130,7 @@ const CategoryHeader = ({ data, categoryRef }) => {
               });
             }
           }}
-          className="mx-2 rounded"
+          className="mx-1 rounded"
         >
           <ChevronRightIcon />
         </IconBtn>
