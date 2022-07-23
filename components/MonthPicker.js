@@ -8,6 +8,8 @@ import useI18n from "@/hooks/useI18n";
 import "react-datepicker/dist/react-datepicker.css";
 // Animation imports
 import { motion, AnimatePresence } from "framer-motion";
+// Component imports
+import CalendarIcon from "@/icons/CalendarIcon";
 
 const MonthPicker = ({ setDate, date, className }) => {
   const [show, setShow] = useState(false);
@@ -46,11 +48,7 @@ const MonthPicker = ({ setDate, date, className }) => {
         <span className="capitalize font-medium">
           {t.months[date.getMonth()]}
         </span>
-        <span
-          className={`material-symbols-rounded cursor-pointer text-gray-700`}
-        >
-          today
-        </span>
+        <CalendarIcon />
       </button>
       <AnimatePresence>
         {show && (

@@ -2,8 +2,10 @@
 import { useState } from "react";
 // Component imports
 import Modal from "@/components/Modal";
-import IconButton from "@/components/IconButton";
 import Input from "@/components/Input";
+import IconBtn from "@/components/IconBtn";
+import CloseIcon from "@/icons/CloseIcon";
+import ManageAccountsIcon from "@/icons/ManageAccountsIcon";
 import SubmitButton from "@/components/SubmitButton";
 // Form imports
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -61,11 +63,9 @@ const AddEmployeeRoll = () => {
 
   return (
     <>
-      <IconButton
-        className="mx-2"
-        variant="manage_accounts"
-        onClick={() => setOpen(true)}
-      />
+      <IconBtn className="mx-2" onClick={() => setOpen(true)}>
+        <ManageAccountsIcon />
+      </IconBtn>
       <Modal
         toggle={open}
         close={() => setOpen(false)}
@@ -74,7 +74,9 @@ const AddEmployeeRoll = () => {
         <form className="bg-white w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex justify-between p-4 shadow border-b">
             <h1 className="text-xl font-semibold">Add Employee</h1>
-            <IconButton variant="close" onClick={() => setOpen(false)} />
+            <IconBtn onClick={() => setOpen(false)}>
+              <CloseIcon />
+            </IconBtn>
           </div>
           <div className="bg-neutral-50 p-4">
             <Input

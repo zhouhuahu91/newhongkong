@@ -1,7 +1,13 @@
 // React imports
 import { useState, useEffect } from "react";
 // Component imports
-import IconButton from "@/components/IconButton";
+import IconBtn from "@/components/IconBtn";
+import CloseIcon from "@/icons/CloseIcon";
+import CalendarIcon from "@/icons/CalendarIcon";
+import StoreIcon from "@/icons/StoreIcon";
+import ClockIcon from "@/icons/ClockIcon";
+import PedalBikeIcon from "@/icons/PedalBikeIcon";
+import SettingsIcon from "@/icons/SettingsIcon";
 import Modal from "@/components/Modal";
 import Switch from "@/components/Switch";
 // Firebase imports
@@ -58,11 +64,9 @@ const StoreSettings = () => {
 
   return (
     <>
-      <IconButton
-        className="mx-2"
-        variant="settings"
-        onClick={() => setOpen(true)}
-      />
+      <IconBtn className="mx-2" onClick={() => setOpen(true)}>
+        <SettingsIcon />
+      </IconBtn>
       <Modal
         toggle={open}
         close={() => {
@@ -73,33 +77,34 @@ const StoreSettings = () => {
       >
         <div className="flex items-center justify-between p-4 shadow border-b">
           <h2 className="text-lg font-normal">Store Settings</h2>
-          <IconButton
-            variant="close"
+          <IconBtn
             onClick={() => {
               fetchSettings();
               setOpen(false);
             }}
-          />
+          >
+            <CloseIcon />
+          </IconBtn>
         </div>
         <div className="p-3 bg-gray-50">
           <div className="flex">
-            <div className="text-center w-1/6 p-0.5">
-              <span className="material-symbols-rounded">today</span>
+            <div className="w-1/6 p-0.5 flex justify-center items-center">
+              <CalendarIcon />
             </div>
-            <div className="text-center w-1/6 p-0.5">
-              <span className="material-symbols-rounded">store</span>
+            <div className="w-1/6 p-0.5 flex justify-center items-center">
+              <StoreIcon />
             </div>
-            <div className="text-center w-1/6 p-0.5">
-              <span className="material-symbols-rounded">schedule</span>
+            <div className="w-1/6 p-0.5 flex justify-center items-center">
+              <ClockIcon />
             </div>
-            <div className="text-center w-1/6 p-0.5">
-              <span className="material-symbols-rounded">schedule</span>
+            <div className="w-1/6 p-0.5 flex justify-center items-center">
+              <ClockIcon />
             </div>
-            <div className="text-center w-1/6 p-0.5">
-              <span className="material-symbols-rounded">pedal_bike</span>
+            <div className="w-1/6 p-0.5 flex justify-center items-center">
+              <PedalBikeIcon />
             </div>
-            <div className="text-center w-1/6 p-0.5">
-              <span className="material-symbols-rounded">pedal_bike</span>
+            <div className="w-1/6 p-0.5 flex justify-center items-center">
+              <PedalBikeIcon />
             </div>
           </div>
           {showMondayFirst.map((day) => {

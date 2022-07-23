@@ -9,6 +9,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 // Animation imports
 import { motion, AnimatePresence } from "framer-motion";
+// Component imports
+import CalendarIcon from "@/icons/CalendarIcon";
 
 const DatePickerComponent = ({ setDate, className, date }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -27,13 +29,7 @@ const DatePickerComponent = ({ setDate, className, date }) => {
         className="flex items-center red-focus-ring px-1 rounded-md"
       >
         <span className={`mt-1 mr-2 font-medium`}>{date.slice(0, 5)}</span>
-        <span
-          className={`material-symbols-rounded cursor-pointer ${
-            getCurrentDate() !== date ? "text-main" : "text-gray-700"
-          }`}
-        >
-          today
-        </span>
+        <CalendarIcon color={getCurrentDate() !== date ? "main" : ""} />
       </button>
       <AnimatePresence>
         {show && (

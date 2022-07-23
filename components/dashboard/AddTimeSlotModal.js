@@ -2,7 +2,11 @@
 import { useState, useEffect } from "react";
 // Component imports
 import Modal from "@/components/Modal";
-import IconButton from "@/components/IconButton";
+import IconBtn from "@/components/IconBtn";
+import TimeSettingsIcon from "@/icons/TimeSettingsIcon";
+import PedalBikeIcon from "@/icons/PedalBikeIcon";
+import StoreIcon from "@/icons/StoreIcon";
+import CloseIcon from "@/icons/CloseIcon";
 // Hook imports
 import useTimePicker from "@/hooks/useTimePicker";
 import { useCart } from "@/hooks/useCart";
@@ -29,11 +33,9 @@ const AddTimeSlotModal = () => {
 
   return (
     <>
-      <IconButton
-        className="mx-2"
-        variant="manage_history"
-        onClick={() => setOpen(true)}
-      />
+      <IconBtn className="mx-2" onClick={() => setOpen(true)}>
+        <TimeSettingsIcon />
+      </IconBtn>
       <Modal
         className="max-w-sm w-full mx-2 bg-white rounded-lg overflow-hidden"
         toggle={open}
@@ -41,7 +43,9 @@ const AddTimeSlotModal = () => {
       >
         <div className="flex p-4 justify-between items-center border-b shadow">
           <h1 className="font-semibold text-lg">Delete Time Slots</h1>
-          <IconButton variant="close" onClick={() => setOpen(false)} />
+          <IconBtn onClick={() => setOpen(false)}>
+            <CloseIcon />
+          </IconBtn>
         </div>
         <div
           style={{ maxHeight: "calc(100vh - 265px)" }}
@@ -56,9 +60,11 @@ const AddTimeSlotModal = () => {
                 delivery === false && "border-main selected text-main"
               }`}
             >
-              <span className="material-symbols-rounded text-inherit icon-small">
-                store
-              </span>
+              <StoreIcon
+                width="18"
+                height="18"
+                color={delivery === false ? "main" : "#6b7280"}
+              />
               {t.pick_up}
             </button>
             {/* This button sets delivery to true which means the order will be delivered. */}
@@ -69,9 +75,11 @@ const AddTimeSlotModal = () => {
                 delivery === true && "border-main selected text-main"
               }`}
             >
-              <span className="material-symbols-rounded text-inherit icon-small">
-                pedal_bike
-              </span>
+              <PedalBikeIcon
+                width="18"
+                height="18"
+                color={delivery === true ? "main" : "#6b7280"}
+              />
               {t.delivery}
             </button>
           </div>

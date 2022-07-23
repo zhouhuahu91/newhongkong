@@ -1,3 +1,5 @@
+import LoadingIcon from "@/icons/LoadingIcon";
+
 const SubmitButton = ({ processing, children, className, disabled }) => {
   return (
     <>
@@ -14,8 +16,8 @@ const SubmitButton = ({ processing, children, className, disabled }) => {
       >
         {/* When the submit is processing we show a spinner and disable the button. */}
         {processing && (
-          <span className="material-symbols-rounded animate-spin text-white absolute right-4">
-            refresh
+          <span className="animate-spin absolute right-4">
+            <LoadingIcon color="#fff" />
           </span>
         )}
         {children}
