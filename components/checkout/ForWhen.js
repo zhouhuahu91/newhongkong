@@ -6,6 +6,9 @@ import Image from "next/image";
 import useI18n from "@/hooks/useI18n";
 import useTimePicker from "@/hooks/useTimePicker";
 import { useCart } from "@/hooks/useCart";
+// Component imports
+import StoreIcon from "@/icons/StoreIcon";
+import PedalBikeIcon from "@/icons/PedalBikeIcon";
 
 const ForWhen = ({ register, errors, watch, setValue }) => {
   const [slotsContainerRoom, setSlotsContainerRoom] = useState();
@@ -86,10 +89,11 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
                         : "text-gray-500"
                     }`}
                   >
-                    {slot.includes(":") && (
-                      <span className="material-symbols-rounded text-inherit icon-small">
-                        {delivery ? "pedal_bike" : "store"}
-                      </span>
+                    {slot.includes(":") && delivery && (
+                      <PedalBikeIcon color="#6b7280" width="18" height="18" />
+                    )}
+                    {slot.includes(":") && !delivery && (
+                      <StoreIcon color="#6b7280" width="18" height="18" />
                     )}
                     {slot}
                   </button>

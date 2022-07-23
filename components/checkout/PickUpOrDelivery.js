@@ -1,6 +1,9 @@
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import useI18n from "@/hooks/useI18n";
+// Component imports
+import PedalBikeIcon from "@/icons/PedalBikeIcon";
+import StoreIcon from "@/icons/StoreIcon";
 
 const PickUpOrDelivery = () => {
   const {
@@ -23,9 +26,11 @@ const PickUpOrDelivery = () => {
               : "text-gray-500"
           }`}
         >
-          <span className="material-symbols-rounded text-inherit icon-small">
-            store
-          </span>
+          <StoreIcon
+            width="18"
+            height="18"
+            color={delivery === false ? "main" : "#6b7280"}
+          />
           {t.pick_up}
         </button>
         {/* This button sets delivery to true which means the order will be delivered. */}
@@ -38,9 +43,11 @@ const PickUpOrDelivery = () => {
               : "text-gray-500"
           }`}
         >
-          <span className="material-symbols-rounded text-inherit icon-small">
-            pedal_bike
-          </span>
+          <PedalBikeIcon
+            width="18"
+            height="18"
+            color={delivery === true ? "main" : "#6b7280"}
+          />
           {t.delivery}
         </button>
       </div>

@@ -5,7 +5,7 @@ const PedalBikeIcon = ({ color, width, height }) => {
       height={height ? height : "24"}
       viewBox="0 0 24 24"
       width={width ? width : "24"}
-      fill={color ? color : "#374151"}
+      fill={color ? (color === "main" ? "#e76f51" : color) : "#374151"}
     >
       <g>
         <rect fill="none" height="24" width="24" />

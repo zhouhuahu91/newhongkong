@@ -4,6 +4,10 @@ import { useRef, useEffect, useState } from "react";
 import { useCart } from "@/hooks/useCart";
 import useI18n from "@/hooks/useI18n";
 import Image from "next/image";
+// Component imports
+import StoreIcon from "@/icons/StoreIcon";
+import CashIcon from "@/icons/CashIcon";
+import CreditCardIcon from "@/icons/CreditCardIcon";
 
 const Payment = () => {
   // Online payment button has too many icons when button width.
@@ -49,9 +53,19 @@ const Payment = () => {
           }`}
         >
           <div className="flex items-center space-x-1 text-inherit">
-            <span className="material-symbols-rounded text-inherit icon-small">
-              {delivery === true ? "payments" : "store"}
-            </span>
+            {delivery === true ? (
+              <CashIcon
+                width="18"
+                height="18"
+                color={paymentMethod === "in_person" ? "main" : "#6b7280"}
+              />
+            ) : (
+              <StoreIcon
+                width="18"
+                height="18"
+                color={paymentMethod === "in_person" ? "main" : "#6b7280"}
+              />
+            )}
           </div>
           {delivery === true ? t.cash : t.at_store}
         </button>
@@ -66,14 +80,12 @@ const Payment = () => {
             paymentMethod === "online" && "border-main selected text-main"
           }`}
         >
-          <div className="grid grid-flow-col gap-1">
-            <span
-              className={`material-symbols-rounded icon-small ${
-                paymentMethod === "online" ? "text-main" : "text-gray-500"
-              }`}
-            >
-              credit_card
-            </span>
+          <div className="grid grid-flow-col gap-1 text-gray-500">
+            <CreditCardIcon
+              width="18"
+              height="18"
+              color={paymentMethod === "online" ? "main" : "#6b7280"}
+            />
             <Image
               src="/paymentIcons/ideal.svg"
               alt="ideal icon"

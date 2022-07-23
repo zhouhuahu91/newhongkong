@@ -4,6 +4,9 @@ import { useRef, useEffect } from "react";
 import useI18n from "@/hooks/useI18n";
 // Component imports
 import ToolTip from "@/components/ToolTip";
+import IconBtn from "@/components/IconBtn";
+import MinusIcon from "@/icons/MinusIcon";
+import PlusIcon from "@/icons/PlusIcon";
 import IconButton from "@/components/IconButton";
 // Function imports
 import euro from "@/functions/euro";
@@ -103,10 +106,7 @@ const ItemOptionsComponent = ({
               {/* If total options is bigger than 1 and it is selected than we want to give the option to increase & decrease. */}
               {qwtOptions > 1 && selectedOptions.includes(option.id) && (
                 <div className="flex justify-between items-center space-x-2 ml-2">
-                  <IconButton
-                    variant="remove_circle_outline"
-                    color="main"
-                    size="small"
+                  <IconBtn
                     onClick={() => {
                       // First we reset the errors.
                       resetErrors();
@@ -122,14 +122,13 @@ const ItemOptionsComponent = ({
                         setSelectedOptions([...x]);
                       }
                     }}
-                  />
+                  >
+                    <MinusIcon color="main" width="18" height="18" />
+                  </IconBtn>
                   <div className="font-semibold">
                     {selectedOptions.filter((x) => x === option.id).length}
                   </div>
-                  <IconButton
-                    color="main"
-                    variant="add_circle_outline"
-                    size="small"
+                  <IconBtn
                     disabled={selectedOptions.length === qwtOptions}
                     onClick={() => {
                       // If the maximum is reached we exit this function.
@@ -139,7 +138,17 @@ const ItemOptionsComponent = ({
                       // If the maximum isn't reached we spread in the old array and add the new item.
                       setSelectedOptions((options) => [...options, option.id]);
                     }}
-                  />
+                  >
+                    <PlusIcon
+                      color={
+                        selectedOptions.length === qwtOptions
+                          ? "#cbd5e1"
+                          : "main"
+                      }
+                      width="18"
+                      height="18"
+                    />
+                  </IconBtn>
                 </div>
               )}
             </div>
