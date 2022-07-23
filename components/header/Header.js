@@ -11,6 +11,8 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { useAuth } from "@/hooks/useAuth";
 // Icon imports
 import DashboardIcon from "@/icons/DashboardIcon";
+import ChartIcon from "@/icons/ChartIcon";
+import PedalBikeIcon from "@/icons/PedalBikeIcon";
 
 const Header = () => {
   // This hook provides translations for the different languages.
@@ -86,7 +88,7 @@ const Header = () => {
             {/* Dashboard menu for admins. */}
             {user?.admin && (
               <Link href="/dashboard">
-                <a className={`red-focus-ring`}>
+                <a className="red-focus-ring">
                   <DashboardIcon color={atHome && "#fff"} />
                 </a>
               </Link>
@@ -95,24 +97,16 @@ const Header = () => {
             {(user?.admin || user?.accountant) &&
               !(user?.admin && width < 768) && (
                 <Link href="/monthly_overview">
-                  <a
-                    className={`material-symbols-rounded red-focus-ring ${
-                      user?.admin && "hidden md:block"
-                    } ${atHome && "text-white "}`}
-                  >
-                    bar_chart
+                  <a className="red-focus-ring">
+                    <ChartIcon color={atHome && "#fff"} />
                   </a>
                 </Link>
               )}
             {/* Link to delivery orders*/}
             {(user?.admin || user?.employee) && !(user?.admin && width < 768) && (
               <Link href="/delivery">
-                <a
-                  className={`material-icons rounded-full red-focus-ring ${
-                    atHome && "text-white "
-                  }`}
-                >
-                  pedal_bike
+                <a className="red-focus-ring">
+                  <PedalBikeIcon color={atHome && "#fff"} />
                 </a>
               </Link>
             )}
