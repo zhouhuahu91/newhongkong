@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 // Hook imports
 import usePath from "@/hooks/usePath";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
+// Icon imports
+import LanguageIcon from "@/icons/LanguageIcon";
 
 const I18nMenu = () => {
   // State for opening and closing the i18n menu
@@ -55,9 +57,7 @@ const I18nMenu = () => {
         type="button"
         onClick={() => setI18nMenu((prev) => !prev)}
       >
-        <span className={`${atHome && "text-white"} material-symbols-rounded`}>
-          language
-        </span>
+        <LanguageIcon color={atHome && "#fff"} />
       </button>
       {/* ******** LOCALE BUTTON ******** */}
       {/* ******** LOCALE MENU ******** */}

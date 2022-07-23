@@ -9,6 +9,8 @@ import useI18n from "@/hooks/useI18n";
 import usePath from "@/hooks/usePath";
 import { useAuth } from "@/hooks/useAuth";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
+// Icon imports
+import AccountIcon from "@/icons/AccountIcon";
 
 const AuthMenu = () => {
   // State for opening and closing the auth menu
@@ -34,14 +36,7 @@ const AuthMenu = () => {
           type="button"
           onClick={() => setAuthMenu((prev) => !prev)}
         >
-          <span
-            className={`${atHome && "text-white"} material-symbols-rounded`}
-          >
-            account_circle
-          </span>
-          {/* <span className={`${atHome && "text-white"} material-symbols-rounded`}>
-            expand_more
-          </span> */}
+          <AccountIcon color={atHome && "#fff"} />
         </button>
       ) : (
         <Link href="/sign_in">
