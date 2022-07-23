@@ -20,7 +20,7 @@ class MyDocument extends Document {
           />
           {/* Link for material icons. "material-symbols-rounded" */}
           {/* https://fonts.google.com/icons ---> for more icons. */}
-          <link
+          {/* <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,600,0,0&display=swap"
           />
@@ -31,7 +31,7 @@ class MyDocument extends Document {
           <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
-          />
+          /> */}
         </Head>
         <body>
           <Main />

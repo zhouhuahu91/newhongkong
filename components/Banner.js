@@ -4,7 +4,10 @@ import useI18n from "@/hooks/useI18n";
 // Hook imports
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Component imports
-import IconButton from "@/components/IconButton";
+import IconBtn from "@/components/IconBtn";
+// Icon imports
+import InfoIcon from "@/icons/InfoIcon";
+import CloseIcon from "@/icons/CloseIcon";
 
 const Banner = () => {
   const [show, setShow] = useState(true);
@@ -54,12 +57,12 @@ const Banner = () => {
       {show && bannerMessage && (
         <div className="bg-amber-50 py-2 px-4 flex items-center justify-between space-x-2">
           <div className="flex space-x-2 items-center">
-            <span className="material-symbols-rounded text-main select-none">
-              info
-            </span>
+            <InfoIcon color="main" />
             <span className="text-sm font-normal">{bannerMessage}</span>
           </div>
-          <IconButton variant="close" onClick={() => setShow(false)} />
+          <IconBtn onClick={() => setShow(false)}>
+            <CloseIcon />
+          </IconBtn>
         </div>
       )}
     </>
