@@ -8,7 +8,6 @@ import getElementDimensions from "@/functions/getElementDimensions";
 import IconBtn from "@/components/IconBtn";
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
 import ChevronLeftIcon from "@/icons/ChevronLeftIcon";
-import IconButton from "@/components/IconButton";
 import Search from "@/components/menu/Search";
 
 const CategoryHeader = ({ data, categoryRef }) => {

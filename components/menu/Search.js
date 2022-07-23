@@ -8,10 +8,8 @@ import { useMenu } from "@/hooks/useMenu";
 import useWindowSize from "@/hooks/useWindowSize";
 // Component imports
 import IconBtn from "@/components/IconBtn";
-import IconButton from "@/components/IconButton";
 import CloseIcon from "@/icons/CloseIcon";
 import SearchIcon from "@/icons/SearchIcon";
-import ChevronRightIcon from "@/icons/ChevronRightIcon";
 
 const Search = () => {
   // Holds the state of the search input.
@@ -52,7 +50,7 @@ const Search = () => {
   }, [setOpen, open]);
 
   return (
-    <div>
+    <div ref={inputRef}>
       <AnimatePresence>
         {open && (
           <motion.div
@@ -72,7 +70,6 @@ const Search = () => {
             }`}
           >
             <input
-              ref={inputRef}
               type="text"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
@@ -80,7 +77,7 @@ const Search = () => {
               className="w-full ml-14 h-full appearance-none focus:outline-none text-sm"
             />
             <IconBtn
-              className="mx-4"
+              className="mx-4 rounded"
               // This clears the search input.
               onClick={() => {
                 // If search input is already clear we close the search.
