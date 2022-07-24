@@ -255,7 +255,7 @@ const OrderModal = ({ open, setOpen, order }) => {
           <span className="text-sm text-gray-500">Email:</span>
           <div className="flex items-center space-x-2">
             <span className="text-sm">{order.email}</span>
-            {order.mailSent && <EmailReadIcon />}
+            {order.mailSent && <EmailReadIcon className="fill-green-700" />}
           </div>
         </div>
       </div>
