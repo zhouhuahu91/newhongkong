@@ -19,6 +19,7 @@ import DeleteOrderModal from "@/components/dashboard/DeleteOrderModal";
 import PrintIcon from "@/icons/PrintIcon";
 import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import DeleteIcon from "@/icons/DeleteIcon";
+import CreditCardIcon from "@/icons/CreditCardIcon";
 
 const OrderCard = ({ order }) => {
   const [open, setOpen] = useState(false);
@@ -201,7 +202,7 @@ const OrderCard = ({ order }) => {
               />
             ) : order.paymentMethod === "in_person" ? (
               // If it is paid we show a green credit card otherwise we show a red credit card.
-              <span
+              <button
                 onClick={(e) => {
                   if (order.paymentMethod === "online") return;
                   e.stopPropagation();
@@ -210,12 +211,12 @@ const OrderCard = ({ order }) => {
                     paid: !order.paid,
                   });
                 }}
-                className={`material-symbols-rounded ${
-                  order.paid ? "text-green-600" : "text-main"
-                }`}
               >
-                {order.paid ? "credit_score" : "credit_card_off"}
-              </span>
+                <CreditCardIcon
+                  off={!order.paid}
+                  className={`${order.paid ? "fill-green-700" : "fill-main"}`}
+                />
+              </button>
             ) : (
               <div className="flex items-center">
                 <Image
