@@ -1,10 +1,13 @@
 // Component imports
 import Modal from "@/components/Modal";
-import IconButton from "@/components/IconButton";
 // Function imports
 import euro from "@/functions/euro";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
+// Component imports
+import IconBtn from "@/components/IconBtn";
+import PhoneIcon from "@/icons/PhoneIcon";
+import CloseIcon from "../icons/CloseIcon";
 
 const DeliveryModal = ({ open, setOpen, order }) => {
   const t = useI18n();
@@ -17,7 +20,9 @@ const DeliveryModal = ({ open, setOpen, order }) => {
     >
       <div className="flex items-center justify-between p-4 shadow border-b">
         <h2 className="text-xl font-bold">{order.name}</h2>
-        <IconButton variant="close" onClick={() => setOpen(false)} />
+        <IconBtn onClick={() => setOpen(false)}>
+          <CloseIcon />
+        </IconBtn>
       </div>
       <div className="p-4 overflow-y-scroll bg-gray-50">
         {order.cart.map((item) => {
@@ -84,7 +89,7 @@ const DeliveryModal = ({ open, setOpen, order }) => {
           href={`tel:${order.tel}`}
           className="button bg-main flex items-center w-full justify-center space-x-1"
         >
-          <span className="material-symbols-outlined text-white">call</span>
+          <PhoneIcon className="fill-white" />
           <span className="text-white font-semibold">{order.tel}</span>
         </a>
       </div>

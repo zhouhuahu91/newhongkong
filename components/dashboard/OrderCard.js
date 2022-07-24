@@ -16,10 +16,14 @@ import euro from "@/functions/euro";
 import OrderModal from "@/components/dashboard/OrderModal";
 import DeliveryOrderModal from "@/components/dashboard/DeliveryOrderModal";
 import DeleteOrderModal from "@/components/dashboard/DeleteOrderModal";
+import IconBtn from "@/components/IconBtn";
 import PrintIcon from "@/icons/PrintIcon";
+import ReceiptIcon from "@/icons/ReceiptIcon";
 import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import DeleteIcon from "@/icons/DeleteIcon";
+import CloseIcon from "@/icons/CloseIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
+import UndoIcon from "@/icons/UndoIcon";
 
 const OrderCard = ({ order }) => {
   const [open, setOpen] = useState(false);
@@ -92,21 +96,19 @@ const OrderCard = ({ order }) => {
             <h3 className={`font-semibold text-2xl`}>{order.name}</h3>
             {/* We do not want to delete orders where the payment method is online. */}
             {!(order.paymentMethod === "online" && order.paid) && user?.admin && (
-              <button
-                type="button"
+              <IconBtn
                 onClick={(e) => {
                   e.stopPropagation();
                   setOpenDeleteOrderModal(true);
                 }}
               >
                 <DeleteIcon className="fill-gray-100 hover:fill-main" />
-              </button>
+              </IconBtn>
             )}
           </div>
           {/* If order is not printed we show the print icon */}
           {!order.printed && (
-            <button
-              type="button"
+            <IconBtn
               onClick={(e) => {
                 e.stopPropagation();
                 const ref = doc(db, `orders/${order.id}`);
@@ -116,12 +118,12 @@ const OrderCard = ({ order }) => {
               }}
             >
               <PrintIcon />
-            </button>
+            </IconBtn>
           )}
           {/* If order is rinted but not yet ready we show the shopping bag icon indicating... */}
           {/* the order is ready and packed. */}
           {order.printed && !order.ready && (
-            <span
+            <IconBtn
               onClick={(e) => {
                 e.stopPropagation();
                 const ref = doc(db, `orders/${order.id}`);
@@ -129,15 +131,14 @@ const OrderCard = ({ order }) => {
                   ready: true,
                 });
               }}
-              className={`material-symbols-rounded`}
             >
-              inventory
-            </span>
+              <ReceiptIcon />
+            </IconBtn>
           )}
           {/* If the order is ready and paid for but not yet completed we show... */}
           {/* the icon that indicates that it can be put on completed. */}
           {order.ready && order.paid && !order.completed && (
-            <span
+            <IconBtn
               onClick={(e) => {
                 e.stopPropagation();
                 const ref = doc(db, `orders/${order.id}`);
@@ -145,10 +146,9 @@ const OrderCard = ({ order }) => {
                   completed: true,
                 });
               }}
-              className={`material-symbols-rounded`}
             >
-              task_alt
-            </span>
+              <CloseIcon className="hover:fill-main" />
+            </IconBtn>
           )}
           {/* If the order is completed we show the icon that can remove the order from being completed. */}
           {order.completed && (
@@ -160,9 +160,8 @@ const OrderCard = ({ order }) => {
                   completed: false,
                 });
               }}
-              className={`material-symbols-rounded`}
             >
-              undo
+              <UndoIcon />
             </span>
           )}
         </div>
@@ -178,7 +177,7 @@ const OrderCard = ({ order }) => {
                   target="_blank"
                   rel="noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="flex"
+                  className="flex red-focus-ring rounded"
                 >
                   <PedalBikeIcon />
                 </a>
@@ -202,7 +201,7 @@ const OrderCard = ({ order }) => {
               />
             ) : order.paymentMethod === "in_person" ? (
               // If it is paid we show a green credit card otherwise we show a red credit card.
-              <button
+              <IconBtn
                 onClick={(e) => {
                   if (order.paymentMethod === "online") return;
                   e.stopPropagation();
@@ -216,7 +215,7 @@ const OrderCard = ({ order }) => {
                   off={!order.paid}
                   className={`${order.paid ? "fill-green-700" : "fill-main"}`}
                 />
-              </button>
+              </IconBtn>
             ) : (
               <div className="flex items-center">
                 <Image

@@ -2,7 +2,9 @@
 import { Fragment, useState, useEffect } from "react";
 // Component imports
 import Modal from "@/components/Modal";
-import IconButton from "@/components/IconButton";
+import IconBtn from "@/components/IconBtn";
+import EmailReadIcon from "@/icons/EmailReadIcon";
+import CloseIcon from "@/icons/CloseIcon";
 // Function imports
 import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
@@ -72,12 +74,13 @@ const OrderModal = ({ open, setOpen, order }) => {
     >
       <div className="flex items-center justify-between p-4 shadow border-b">
         <h2 className="text-xl font-bold">{order.name}</h2>
-        <IconButton
-          variant="close"
+        <IconBtn
           onClick={() => {
             setOpen(false);
           }}
-        />
+        >
+          <CloseIcon />
+        </IconBtn>
       </div>
       <div className="p-4 overflow-y-scroll bg-neutral-50">
         <div className="grid grid-cols-12 gap-1">
@@ -252,11 +255,7 @@ const OrderModal = ({ open, setOpen, order }) => {
           <span className="text-sm text-gray-500">Email:</span>
           <div className="flex items-center space-x-2">
             <span className="text-sm">{order.email}</span>
-            {order.mailSent && (
-              <span className="material-symbols-rounded text-green-600">
-                mark_email_read
-              </span>
-            )}
+            {order.mailSent && <EmailReadIcon />}
           </div>
         </div>
       </div>

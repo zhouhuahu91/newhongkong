@@ -3,7 +3,11 @@ const IconBtn = ({ children, className, onClick, roundedFull, disabled }) => {
     <button
       disabled={disabled}
       type="button"
-      onClick={onClick}
+      onClick={(e) => {
+        if (onClick) {
+          onClick(e);
+        }
+      }}
       className={`red-focus-ring ${roundedFull ? "rounded-full" : "rounded"}  ${
         className && className
       }`}

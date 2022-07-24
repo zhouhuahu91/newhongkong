@@ -7,7 +7,6 @@ import ToolTip from "@/components/ToolTip";
 import IconBtn from "@/components/IconBtn";
 import MinusIcon from "@/icons/MinusIcon";
 import PlusIcon from "@/icons/PlusIcon";
-import IconButton from "@/components/IconButton";
 // Function imports
 import euro from "@/functions/euro";
 

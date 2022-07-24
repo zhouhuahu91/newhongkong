@@ -5,8 +5,9 @@ import useI18n from "@/hooks/useI18n";
 // Component imports
 import Modal from "@/components/Modal";
 import SubmitButton from "@/components/SubmitButton";
-import IconButton from "@/components/IconButton";
 import Spinner from "@/components/Spinner";
+import IconBtn from "@/components/IconBtn";
+import CloseIcon from "@/icons/CloseIcon";
 // Stripe imports
 import {
   PaymentElement,
@@ -62,7 +63,9 @@ const StripePaymentModal = ({ toggle, cancel, total, id }) => {
       <form onSubmit={handleSubmit}>
         <div className="p-4 bg-white border flex justify-between items-center">
           <h1 className="text-xl font-semibold">{t.pay}</h1>
-          <IconButton variant="close" onClick={() => cancel()} />
+          <IconBtn onClick={() => cancel()}>
+            <CloseIcon />
+          </IconBtn>
         </div>
         <div className="p-4">
           {loading && (

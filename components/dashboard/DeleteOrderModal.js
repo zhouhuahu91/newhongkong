@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 // Component imports
 import Modal from "@/components/Modal";
-import IconButton from "@/components/IconButton";
+import IconBtn from "@/components/IconBtn";
+import CloseIcon from "@/icons/CloseIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, deleteDoc } from "firebase/firestore";
@@ -39,7 +40,9 @@ const DeleteOrderModal = ({ open, setOpen, order }) => {
     >
       <div className="flex p-4 justify-between items-center border-b">
         <h1 className="font-semibold text-lg">Warning</h1>
-        <IconButton variant="close" onClick={() => setOpen(false)} />
+        <IconBtn onClick={() => setOpen(false)}>
+          <CloseIcon />
+        </IconBtn>
       </div>
       <div className="p-4 bg-neutral-50">
         {secondsLeft > 0 ? (
