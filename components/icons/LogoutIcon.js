@@ -1,11 +1,11 @@
-const LogoutIcon = ({ color, width, height }) => {
+const LogoutIcon = ({ className, size }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      height={height ? height : "24"}
+      height={size ? size : "24"}
       viewBox="0 0 24 24"
-      width={width ? width : "24"}
-      fill={color ? (color === "main" ? "#e76f51" : color) : "#374151"}
+      className={className && className}
+      width={size ? size : "24"}
     >
       <g>
         <path d="M0,0h24v24H0V0z" fill="none" />

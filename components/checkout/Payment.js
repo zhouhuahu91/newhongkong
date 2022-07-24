@@ -62,9 +62,10 @@ const Payment = () => {
               />
             ) : (
               <StoreIcon
-                width="18"
-                height="18"
-                color={paymentMethod === "in_person" ? "main" : "#6b7280"}
+                size="18"
+                className={`${
+                  paymentMethod === "in_person" ? "fill-main" : "fill-gray-500"
+                }`}
               />
             )}
           </div>
@@ -83,9 +84,10 @@ const Payment = () => {
         >
           <div className="grid grid-flow-col gap-1 text-gray-500">
             <CreditCardIcon
-              width="18"
-              height="18"
-              color={paymentMethod === "online" ? "main" : "#6b7280"}
+              size="18"
+              className={`${
+                paymentMethod === "online" ? "fill-main" : "fill-gray-500"
+              }`}
             />
             <Image
               src="/paymentIcons/ideal.svg"

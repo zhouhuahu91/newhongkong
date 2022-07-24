@@ -23,7 +23,7 @@ const ToolTip = ({ tip, disabled }) => {
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
-        <HelpIcon widht="18" height="18" color={disabled && "#cbd5e1"} />
+        <HelpIcon size="18" className={`${disabled && "fill-gray-400"}`} />
       </span>
       <AnimatePresence>
         {open && (

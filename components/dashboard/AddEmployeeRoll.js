@@ -101,7 +101,7 @@ const AddEmployeeRoll = () => {
             {response && (
               <div className="text-xs p-2 border mt-2 bg-amber-50 flex items-center">
                 <span className="mr-1">
-                  <InfoIcon color="main" width="18" height="18" />
+                  <InfoIcon size="18" className="fill-main" />
                 </span>
                 <span>{response}</span>
               </div>

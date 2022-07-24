@@ -90,10 +90,10 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
                     }`}
                   >
                     {slot.includes(":") && delivery && (
-                      <PedalBikeIcon color="#6b7280" width="18" height="18" />
+                      <PedalBikeIcon size="18" className="fill-gray-500" />
                     )}
                     {slot.includes(":") && !delivery && (
-                      <StoreIcon color="#6b7280" width="18" height="18" />
+                      <StoreIcon size="18" className="fill-gray-500" />
                     )}
                     {slot}
                   </button>

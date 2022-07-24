@@ -33,7 +33,7 @@ const BurgerMenu = () => {
         onClick={() => setBurgerMenu((prev) => !prev)}
         className="flex items-center md:hidden red-focus-ring"
       >
-        <MenuIcon color={atHome && "#fff"} />
+        <MenuIcon className={`${atHome && "fill-white"}`} />
       </IconBtn>
       <AnimatePresence>
         {burgerMenu && (

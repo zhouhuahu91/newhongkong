@@ -123,7 +123,7 @@ const ItemOptionsComponent = ({
                       }
                     }}
                   >
-                    <MinusIcon color="main" width="18" height="18" />
+                    <MinusIcon size="18" className="fill-main" />
                   </IconBtn>
                   <div className="font-semibold">
                     {selectedOptions.filter((x) => x === option.id).length}
@@ -140,13 +140,12 @@ const ItemOptionsComponent = ({
                     }}
                   >
                     <PlusIcon
-                      color={
+                      className={`${
                         selectedOptions.length === qwtOptions
-                          ? "#cbd5e1"
-                          : "main"
-                      }
-                      width="18"
-                      height="18"
+                          ? "fill-gray-300"
+                          : "fill-main"
+                      }`}
+                      size="18"
                     />
                   </IconBtn>
                 </div>

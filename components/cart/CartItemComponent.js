@@ -58,7 +58,7 @@ const CartItemComponent = ({ cartItem }) => {
               })
             }
           >
-            <MinusIcon color="main" width="18" height="18" />
+            <MinusIcon className="fill-main" size="18" />
           </IconBtn>
           <span>{cartItem.qwt}</span>
           <IconBtn
@@ -69,7 +69,7 @@ const CartItemComponent = ({ cartItem }) => {
               })
             }
           >
-            <PlusIcon color="main" width="18" height="18" />
+            <PlusIcon className="fill-main" size="18" />
           </IconBtn>
         </div>
         {/* ********** END INCREMENT & DECEREMENT ********** */}
@@ -79,7 +79,7 @@ const CartItemComponent = ({ cartItem }) => {
             <span className="mr-2">{cartItem.name[t.locale]}</span>
             {item !== "item not found" && (
               <IconBtn onClick={() => setOpen(true)}>
-                <EditIcon width="18" height="18" />
+                <EditIcon size="18" />
               </IconBtn>
             )}
           </div>

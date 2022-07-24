@@ -124,10 +124,10 @@ const Cart = () => {
           <span>{t.restaurant_tip}</span>
           <div className="flex items-center space-x-2">
             <IconBtn onClick={() => dispatch({ type: "DECREMENT_TIP" })}>
-              <MinusIcon width="18" height="18" color="main" />
+              <MinusIcon size="18" className="fill-main" />
             </IconBtn>
             <IconBtn onClick={() => dispatch({ type: "INCREMENT_TIP" })}>
-              <PlusIcon width="18" height="18" color="main" />
+              <PlusIcon size="18" className="fill-main" />
             </IconBtn>
             <span>{euro(cartState.tip)}</span>
           </div>

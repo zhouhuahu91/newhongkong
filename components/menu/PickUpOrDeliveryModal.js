@@ -207,7 +207,12 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
                 delivery === false && "border-main selected text-main"
               }`}
             >
-              <StoreIcon width="18" height="18" />
+              <StoreIcon
+                size="18"
+                className={`${
+                  delivery === false ? "fill-main" : "fill-gray-500"
+                }`}
+              />
               {t.pick_up}
             </button>
             {/* This button sets delivery to true which means the order will be delivered. */}
@@ -218,7 +223,12 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
                 delivery === true && "border-main selected text-main"
               }`}
             >
-              <PedalBikeIcon width="18" height="18" />
+              <PedalBikeIcon
+                size="18"
+                className={`${
+                  delivery === true ? "fill-main" : "fill-gray-500"
+                }`}
+              />
               {t.delivery}
             </button>
           </div>

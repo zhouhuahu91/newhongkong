@@ -40,7 +40,10 @@ const ItemModalContent = ({
             {item.name[t.locale]}
           </h1>
           <IconBtn onClick={() => toggleFavorite(item.id)}>
-            <FavoriteIcon color="main" filled={favoritesID.includes(item.id)} />
+            <FavoriteIcon
+              className="fill-main"
+              filled={favoritesID.includes(item.id)}
+            />
           </IconBtn>
         </div>
         <IconBtn onClick={() => setOpen(false)}>
@@ -120,11 +123,11 @@ const ItemModalContent = ({
         </div>
         <div className="flex items-center justify-evenly relative h-8">
           <IconBtn onClick={() => setQwt((qwt) => (qwt > 1 ? qwt - 1 : qwt))}>
-            <MinusIcon color="main" />
+            <MinusIcon className="fill-main" />
           </IconBtn>
           <div className="text-2xl font-semibold absolute">{qwt}</div>
           <IconBtn onClick={() => setQwt((qwt) => qwt + 1)}>
-            <PlusIcon color="main" />
+            <PlusIcon className="fill-main" />
           </IconBtn>
         </div>
       </div>

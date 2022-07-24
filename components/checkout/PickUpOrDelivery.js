@@ -27,9 +27,8 @@ const PickUpOrDelivery = () => {
           }`}
         >
           <StoreIcon
-            width="18"
-            height="18"
-            color={delivery === false ? "main" : "#6b7280"}
+            size="18"
+            className={`${delivery === false ? "fill-main" : "fill-gray-500"}`}
           />
           {t.pick_up}
         </button>
@@ -44,9 +43,8 @@ const PickUpOrDelivery = () => {
           }`}
         >
           <PedalBikeIcon
-            width="18"
-            height="18"
-            color={delivery === true ? "main" : "#6b7280"}
+            size="18"
+            className={`${delivery === true ? "fill-main" : "fill-gray-500"}`}
           />
           {t.delivery}
         </button>

@@ -90,7 +90,7 @@ const Search = () => {
                 }
               }}
             >
-              <CloseIcon width="18" height="18" />
+              <CloseIcon size="18" />
             </IconBtn>
           </motion.div>
         )}

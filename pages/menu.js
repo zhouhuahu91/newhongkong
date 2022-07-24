@@ -83,7 +83,7 @@ const Menu = () => {
                 <h2 className="font-semibold text-2xl capitalize mt-8 mb-4 flex items-center">
                   {t.favorites}{" "}
                   <span className="ml-2">
-                    <FavoriteIcon color="main" filled={true} />
+                    <FavoriteIcon className="fill-main" filled={true} />
                   </span>
                 </h2>
                 <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">

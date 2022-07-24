@@ -57,7 +57,7 @@ const I18nMenu = () => {
         type="button"
         onClick={() => setI18nMenu((prev) => !prev)}
       >
-        <LanguageIcon color={atHome && "#fff"} />
+        <LanguageIcon className={`${atHome && "fill-white"}`} />
       </button>
       {/* ******** LOCALE BUTTON ******** */}
       {/* ******** LOCALE MENU ******** */}

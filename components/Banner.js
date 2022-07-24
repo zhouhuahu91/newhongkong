@@ -58,7 +58,7 @@ const Banner = () => {
         <div className="bg-amber-50 py-2 px-4 flex items-center justify-between space-x-2">
           <div className="flex space-x-2 items-center">
             <span className="w-6 h-6">
-              <InfoIcon color="main" />
+              <InfoIcon className="fill-main" />
             </span>
             <span className="text-sm font-normal">{bannerMessage}</span>
           </div>

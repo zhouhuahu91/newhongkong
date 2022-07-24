@@ -82,7 +82,7 @@ const Home = () => {
         <a
           className={`button border-md border-opacity-10 border-white px-6 py-1.5 absolute top-96 mt-40 md:mt-72 right-1/2 translate-x-1/2 bg-white bg-opacity-20 backdrop-blur-sm`}
         >
-          <ForkAndSpoonIcon color="#fff" />
+          <ForkAndSpoonIcon className="fill-white" />
           <span className="text-white uppercas font-medium uppercase text-sm ml-3">
             {t.order}
           </span>
