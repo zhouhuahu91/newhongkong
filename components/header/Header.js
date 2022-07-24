@@ -98,7 +98,7 @@ const Header = () => {
               !(user?.admin && width < 768) && (
                 <Link href="/monthly_overview">
                   <a className="red-focus-ring rounded">
-                    <ChartIcon color={atHome && "#fff"} />
+                    <ChartIcon className={`${atHome && "fill-white"}`} />
                   </a>
                 </Link>
               )}

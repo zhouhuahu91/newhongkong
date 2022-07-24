@@ -1,11 +1,11 @@
-const AccountIcon = ({ color, width, height }) => {
+const AccountIcon = ({ className, size }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      height={height ? height : "24"}
+      height={size ? size : "24"}
       viewBox="0 0 24 24"
-      width={width ? width : "24"}
-      fill={color ? color : "#374151"}
+      className={className && className}
+      width={size ? size : "24"}
     >
       <g>
         <rect fill="none" height="24" width="24" />

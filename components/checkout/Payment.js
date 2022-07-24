@@ -55,9 +55,10 @@ const Payment = () => {
           <div className="flex items-center space-x-1 text-inherit">
             {delivery === true ? (
               <CashIcon
-                width="18"
-                height="18"
-                color={paymentMethod === "in_person" ? "main" : "#6b7280"}
+                size="18"
+                className={`${
+                  paymentMethod === "in_person" ? "fill-main" : "fill-gray-500"
+                }`}
               />
             ) : (
               <StoreIcon

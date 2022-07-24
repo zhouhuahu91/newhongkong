@@ -16,6 +16,9 @@ import euro from "@/functions/euro";
 import OrderModal from "@/components/dashboard/OrderModal";
 import DeliveryOrderModal from "@/components/dashboard/DeliveryOrderModal";
 import DeleteOrderModal from "@/components/dashboard/DeleteOrderModal";
+import PrintIcon from "@/icons/PrintIcon";
+import PedalBikeIcon from "@/icons/PedalBikeIcon";
+import DeleteIcon from "@/icons/DeleteIcon";
 
 const OrderCard = ({ order }) => {
   const [open, setOpen] = useState(false);
@@ -88,20 +91,21 @@ const OrderCard = ({ order }) => {
             <h3 className={`font-semibold text-2xl`}>{order.name}</h3>
             {/* We do not want to delete orders where the payment method is online. */}
             {!(order.paymentMethod === "online" && order.paid) && user?.admin && (
-              <span
+              <button
+                type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   setOpenDeleteOrderModal(true);
                 }}
-                className="material-symbols-rounded text-neutral-100 hover:text-main"
               >
-                delete
-              </span>
+                <DeleteIcon className="fill-gray-100 hover:fill-main" />
+              </button>
             )}
           </div>
           {/* If order is not printed we show the print icon */}
           {!order.printed && (
-            <span
+            <button
+              type="button"
               onClick={(e) => {
                 e.stopPropagation();
                 const ref = doc(db, `orders/${order.id}`);
@@ -109,10 +113,9 @@ const OrderCard = ({ order }) => {
                   printed: true,
                 });
               }}
-              className="material-symbols-rounded"
             >
-              print
-            </span>
+              <PrintIcon />
+            </button>
           )}
           {/* If order is rinted but not yet ready we show the shopping bag icon indicating... */}
           {/* the order is ready and packed. */}
@@ -176,7 +179,7 @@ const OrderCard = ({ order }) => {
                   onClick={(e) => e.stopPropagation()}
                   className="flex"
                 >
-                  <span className="material-symbols-rounded">pedal_bike</span>
+                  <PedalBikeIcon />
                 </a>
               )}
             </div>
