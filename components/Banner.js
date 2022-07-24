@@ -57,7 +57,9 @@ const Banner = () => {
       {show && bannerMessage && (
         <div className="bg-amber-50 py-2 px-4 flex items-center justify-between space-x-2">
           <div className="flex space-x-2 items-center">
-            <InfoIcon color="main" />
+            <span className="w-6 h-6">
+              <InfoIcon color="main" />
+            </span>
             <span className="text-sm font-normal">{bannerMessage}</span>
           </div>
           <IconBtn onClick={() => setShow(false)}>
