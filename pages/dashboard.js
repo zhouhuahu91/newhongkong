@@ -1,5 +1,5 @@
 // React imports
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // Hook imports
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 import { useAuth } from "@/hooks/useAuth";
@@ -27,6 +27,19 @@ const Dashboard = () => {
   // 4. Orders that are being delivered.
   const [delivery, setDelivery] = useState([]);
   const { user } = useAuth();
+
+  const newOrdersCount = useRef(0);
+
+  useEffect(() => {
+    const audio = new Audio("/bell.mp3");
+    if (newOrdersCount.current > newOrders.length) {
+      return (newOrdersCount.current = newOrders.length);
+    }
+    if (newOrders.length > newOrdersCount.current) {
+      audio.play();
+      newOrdersCount.current = newOrders.length;
+    }
+  }, [newOrders]);
 
   useEffect(() => {
     const q = query(collection(db, "orders"), where("date", "==", date));
