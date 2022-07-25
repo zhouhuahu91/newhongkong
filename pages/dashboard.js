@@ -13,6 +13,7 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 
 const Dashboard = () => {
   const { currentDate } = useStoreInfo();
+  const [audio, setAudio] = useState(null);
   // Show orders that are completed or not.
   const [showCompleted, setShowCompleted] = useState(false);
   // Dashboard displays the orders made on this date.
@@ -26,20 +27,25 @@ const Dashboard = () => {
   const [pickup, setPickup] = useState([]);
   // 4. Orders that are being delivered.
   const [delivery, setDelivery] = useState([]);
+
+  // We need the orders count to know when we play a new order sound.
+  const [ordersCount, setOrdersCount] = useState(newOrders.length);
+
   const { user } = useAuth();
 
-  // const newOrdersCount = useRef(0);
+  useEffect(() => {
+    if (ordersCount > newOrders.length) {
+      return setOrdersCount(newOrders.length);
+    }
+    if (newOrders.length > ordersCount && audio) {
+      audio.play();
+      setOrdersCount(newOrders.length);
+    }
+  }, [newOrders]);
 
-  // useEffect(() => {
-  //   const audio = new Audio("/bell.mp3");
-  //   if (newOrdersCount.current > newOrders.length) {
-  //     return (newOrdersCount.current = newOrders.length);
-  //   }
-  //   if (newOrders.length > newOrdersCount.current) {
-  //     audio.play();
-  //     newOrdersCount.current = newOrders.length;
-  //   }
-  // }, [newOrders]);
+  useEffect(() => {
+    setAudio(new Audio("/bell.mp3"));
+  }, []);
 
   useEffect(() => {
     const q = query(collection(db, "orders"), where("date", "==", date));
