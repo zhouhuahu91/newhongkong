@@ -34,6 +34,13 @@ const createMailContent = (data) => {
             <td colspan="2" style="text-align: left;padding-left: 5px ;font-size: 12px; color: rgba(107, 114, 128, 1)">${item.description["nl"]}</tr>`
             : ``
         }
+        ${
+          item.remarks.length
+            ? `<tr>
+            <td></td>
+            <td colspan="2" style="text-align: left;padding-left: 5px ;font-size: 12px; color: rgba(107, 114, 128, 1)">${item.remarks}</tr>`
+            : ``
+        }
         `)
     );
 
