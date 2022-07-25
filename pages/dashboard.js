@@ -28,18 +28,18 @@ const Dashboard = () => {
   const [delivery, setDelivery] = useState([]);
   const { user } = useAuth();
 
-  const newOrdersCount = useRef(0);
+  // const newOrdersCount = useRef(0);
 
-  useEffect(() => {
-    const audio = new Audio("/bell.mp3");
-    if (newOrdersCount.current > newOrders.length) {
-      return (newOrdersCount.current = newOrders.length);
-    }
-    if (newOrders.length > newOrdersCount.current) {
-      audio.play();
-      newOrdersCount.current = newOrders.length;
-    }
-  }, [newOrders]);
+  // useEffect(() => {
+  //   const audio = new Audio("/bell.mp3");
+  //   if (newOrdersCount.current > newOrders.length) {
+  //     return (newOrdersCount.current = newOrders.length);
+  //   }
+  //   if (newOrders.length > newOrdersCount.current) {
+  //     audio.play();
+  //     newOrdersCount.current = newOrders.length;
+  //   }
+  // }, [newOrders]);
 
   useEffect(() => {
     const q = query(collection(db, "orders"), where("date", "==", date));
