@@ -77,7 +77,11 @@ const Input = ({
             onClick={() => setShow((prev) => !prev)}
             className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
           >
-            <VisibilityIcon visible={show} className="text-gray-500" />
+            <VisibilityIcon
+              visible={show}
+              className="fill-gray-500"
+              size="18"
+            />
           </span>
         )}
       </div>
