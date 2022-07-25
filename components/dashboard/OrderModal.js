@@ -234,6 +234,12 @@ const OrderModal = ({ open, setOpen, order }) => {
           </div>
         )}
         <div className="flex flex-col mt-2">
+          <span className="text-sm text-gray-500">
+            {order.delivery ? "Delivery Time" : "Pick Up Time"}
+          </span>
+          <span className="text-sm">{order.time}</span>
+        </div>
+        <div className="flex flex-col mt-2">
           <span className="text-sm text-gray-500">Time ordered:</span>
           <span className="text-sm">
             {getDigitalTime(getCurrentTimeInSeconds(new Date(order.createdAt)))}
