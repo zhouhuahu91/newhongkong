@@ -124,7 +124,7 @@ const createMailContent = (data) => {
             ? data.delivery === true
               ? "bij bezorging"
               : "bij afhalen"
-            : "online"
+            : "online betaald"
         }</span>
       </td>
     </tr>`;
