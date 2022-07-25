@@ -61,7 +61,7 @@ const createMailContent = (data) => {
     }
 
     // Online payment costs.
-    if (data.cash !== "in_person") {
+    if (data.paymentMethod !== "in_person") {
       content += `
       <tr>
         <td colspan="2" style="text-align: left; padding-top: 0.5rem">transactiekosten</td>
@@ -113,7 +113,7 @@ const createMailContent = (data) => {
     <tr>
       <td colspan="3" style="text-align: left; padding-top: 1rem;">betaalmethode:
         <span style="float: right">${
-          data.cash === "in_person"
+          data.paymentMethod === "in_person"
             ? data.delivery === true
               ? "bij bezorging"
               : "bij afhalen"
