@@ -67,6 +67,7 @@ export default {
   rather_deliver:
     "Möchten Sie lieber, dass Ihre Bestellung zu Ihnen geliefert wird?",
   pick_up_or_deliver: "Abholen oder Liefern?",
+  closed_for_delivery: "Geschlossen für Lieferung",
 
   // ******** MENU ********
 

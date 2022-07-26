@@ -11,6 +11,7 @@ import StoreIcon from "@/icons/StoreIcon";
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
 import { useAuth } from "@/hooks/useAuth";
+import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Form imports
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -35,6 +36,11 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
   const t = useI18n();
   // We need the user to prefill the address if they have one.
   const { user } = useAuth();
+  // We need store info to show customers that we are closed or just closed for delivery.
+  const {
+    closed,
+    storeInfo: { openForDelivery },
+  } = useStoreInfo();
 
   const schema = yup.object().shape({
     postalcode: delivery
@@ -124,6 +130,12 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
       return setOpen(false);
     }
   };
+  // If user already selected delivery but we close for delivery we need to switch it back to undecided.
+  useEffect(() => {
+    if (delivery === true && openForDelivery === false) {
+      setDelivery(false);
+    }
+  }, [openForDelivery]);
 
   // This useEffect fetches the address from an API if the postalcode and house number are valid.
   useEffect(() => {
@@ -196,15 +208,23 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
           <CloseIcon />
         </IconBtn>
       </div>
+
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="bg-neutral-50 p-4 border">
+        <div className="bg-neutral-50 p-4 border mb-4">
+          {!openForDelivery && (
+            <div className="bg-amber-50 rounded p-2 border text-xs mb-4">
+              {t.closed_for_delivery}
+            </div>
+          )}
           <div className="flex space-x-2">
             {/* This button sets delivery to false which means the customer will pcik up the order */}
             <button
               onClick={() => setDelivery(false)}
               type="button"
               className={`pick-up-deliver ${
-                delivery === false && "border-main selected text-main"
+                delivery === false
+                  ? "border-main selected text-main"
+                  : "text-gray-500"
               }`}
             >
               <StoreIcon
@@ -219,8 +239,12 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
             <button
               onClick={() => setDelivery(true)}
               type="button"
+              // We disable this button if we are closed for delivery.
+              disabled={!openForDelivery}
               className={`pick-up-deliver ${
-                delivery === true && "border-main selected text-main"
+                delivery === true
+                  ? "border-main selected text-main"
+                  : "text-gray-500"
               }`}
             >
               <PedalBikeIcon

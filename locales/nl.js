@@ -65,6 +65,8 @@ export default {
   rather_pick_up: "Wil je liever afhalen?",
   rather_deliver: "Wil je liever laten bezorgen?",
   pick_up_or_deliver: "Afhalen of bezorgen?",
+  closed_for_delivery:
+    "Wij zijn momenteel gesloten voor bezorgen. Afhalen is nog wel mogelijk.",
 
   // ******** MENU ********
 

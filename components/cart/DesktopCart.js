@@ -18,7 +18,11 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
   // This is true when cart is empty
   const empty = cartState.cart.length === 0;
   // Returns true if store is closed
-  const { closed, storeFees } = useStoreInfo();
+  const {
+    closed,
+    storeFees,
+    storeInfo: { openForDelivery },
+  } = useStoreInfo();
   // This is the cart price without store fees
   const subtotal = cartState.cart.reduce((x, y) => x + y.price, 0);
   // Shortage to reach the required amount for delivery
@@ -66,20 +70,23 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
           </div>
         )}
       </div>
-      {cartState.delivery !== "undecided" && atMenu && !empty && (
-        <div className="mx-auto max-w-sm w-full px-2">
-          <button
-            onClick={() => {
-              setDelivery(!cartState.delivery);
-              setOpen(true);
-            }}
-            type="button"
-            className="text-xs text-gray-500 text-right w-full red-focus-text"
-          >
-            {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
-          </button>
-        </div>
-      )}
+      {cartState.delivery !== "undecided" &&
+        atMenu &&
+        !empty &&
+        openForDelivery && (
+          <div className="mx-auto max-w-sm w-full px-2">
+            <button
+              onClick={() => {
+                setDelivery(!cartState.delivery);
+                setOpen(true);
+              }}
+              type="button"
+              className="text-xs text-gray-500 text-right w-full red-focus-text"
+            >
+              {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
+            </button>
+          </div>
+        )}
     </div>
   );
 };
