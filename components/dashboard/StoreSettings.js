@@ -44,7 +44,10 @@ const StoreSettings = () => {
     if (!message.replace(/\s/g, "").length) {
       return updateDoc(ref, { openingHours: settings, liveMessage: "" });
     }
-    updateDoc(ref, { openingHours: settings, liveMessage: message });
+    updateDoc(ref, {
+      openingHours: settings,
+      liveMessage: message,
+    });
   };
 
   useEffect(() => {
@@ -88,22 +91,25 @@ const StoreSettings = () => {
         </div>
         <div className="p-3 bg-gray-50">
           <div className="flex">
-            <div className="w-1/6 p-0.5 flex justify-center items-center">
+            <div className="w-full p-0.5 flex justify-center items-center">
               <CalendarIcon />
             </div>
-            <div className="w-1/6 p-0.5 flex justify-center items-center">
+            <div className="w-full p-0.5 flex justify-center items-center">
               <StoreIcon />
             </div>
-            <div className="w-1/6 p-0.5 flex justify-center items-center">
+            <div className="w-full p-0.5 flex justify-center items-center">
               <ClockIcon />
             </div>
-            <div className="w-1/6 p-0.5 flex justify-center items-center">
+            <div className="w-full p-0.5 flex justify-center items-center">
               <ClockIcon />
             </div>
-            <div className="w-1/6 p-0.5 flex justify-center items-center">
+            <div className="w-full p-0.5 flex justify-center items-center">
               <PedalBikeIcon />
             </div>
-            <div className="w-1/6 p-0.5 flex justify-center items-center">
+            <div className="w-full p-0.5 flex justify-center items-center">
+              <PedalBikeIcon />
+            </div>
+            <div className="w-full p-0.5 flex justify-center items-center">
               <PedalBikeIcon />
             </div>
           </div>
@@ -119,8 +125,8 @@ const StoreSettings = () => {
                     : "border-gray-50"
                 }`}
               >
-                <div className="w-1/6 p-0.5 text-center">{day.name}</div>
-                <div className="w-1/6 flex justify-center items-center">
+                <div className="w-full p-0.5 text-center">{day.name}</div>
+                <div className="w-full flex justify-center items-center">
                   <Switch
                     toggle={day.open}
                     onClick={() =>
@@ -134,7 +140,7 @@ const StoreSettings = () => {
                     }
                   />
                 </div>
-                <div className="w-1/6 p-0.5 text-center">
+                <div className="w-full p-0.5 text-center">
                   <select
                     value={day.openingTime}
                     onChange={(e) =>
@@ -167,7 +173,7 @@ const StoreSettings = () => {
                     })}
                   </select>
                 </div>
-                <div className="w-1/6 p-0.5 text-center">
+                <div className="w-full p-0.5 text-center">
                   <select
                     value={day.closingTime}
                     onChange={(e) =>
@@ -200,7 +206,21 @@ const StoreSettings = () => {
                     })}
                   </select>
                 </div>
-                <div className="w-1/6 p-0.5 text-center">
+                <div className="w-full flex justify-center items-center">
+                  <Switch
+                    toggle={day.openForDelivery}
+                    onClick={() =>
+                      setSettings((prev) =>
+                        prev.map((x) => {
+                          return x.name === day.name
+                            ? { ...x, openForDelivery: !x.openForDelivery }
+                            : x;
+                        })
+                      )
+                    }
+                  />
+                </div>
+                <div className="w-full p-0.5 text-center">
                   <select
                     value={day.startTimeDelivery}
                     onChange={(e) =>
@@ -226,7 +246,7 @@ const StoreSettings = () => {
                     })}
                   </select>
                 </div>
-                <div className="w-1/6 p-0.5 text-center">
+                <div className="w-full p-0.5 text-center">
                   <select
                     value={day.endTimeDelivery}
                     onChange={(e) =>
