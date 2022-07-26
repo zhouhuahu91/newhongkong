@@ -107,10 +107,10 @@ const StoreSettings = () => {
               <PedalBikeIcon />
             </div>
             <div className="w-full p-0.5 flex justify-center items-center">
-              <PedalBikeIcon />
+              <ClockIcon />
             </div>
             <div className="w-full p-0.5 flex justify-center items-center">
-              <PedalBikeIcon />
+              <ClockIcon />
             </div>
           </div>
           {showMondayFirst.map((day) => {
