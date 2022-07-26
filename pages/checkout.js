@@ -37,7 +37,7 @@ import { Elements } from "@stripe/react-stripe-js";
 const CheckOut = () => {
   // Store stripe Promise in state.
   const [stripePromise, setStripePromise] = useState(() =>
-    loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC_LIVE)
+    loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC_TEST)
   );
   // Returns dispatch and cartState from cart provider.
   const {
