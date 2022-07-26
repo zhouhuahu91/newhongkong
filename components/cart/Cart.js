@@ -102,7 +102,7 @@ const Cart = () => {
         {/* ******** DELIVERY WARNING ********* */}
         {/* We need to let the user know there is a minimum for delivery. */}
         {shortForDelivery > 0 &&
-          cartState.delivery &&
+          cartState.delivery === true &&
           cartState.address.postalcode &&
           cartState.address.houseNumber && (
             <div className="text-xs p-2 border mt-2 bg-amber-50">

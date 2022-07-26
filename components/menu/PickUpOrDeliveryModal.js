@@ -7,6 +7,7 @@ import IconBtn from "@/components/IconBtn";
 import CloseIcon from "@/icons/CloseIcon";
 import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import StoreIcon from "@/icons/StoreIcon";
+import InfoIcon from "@/icons/InfoIcon";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -38,7 +39,6 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
   const { user } = useAuth();
   // We need store info to show customers that we are closed or just closed for delivery.
   const {
-    closed,
     storeInfo: { openForDelivery },
   } = useStoreInfo();
 
@@ -212,7 +212,10 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="bg-neutral-50 p-4 border mb-4">
           {!openForDelivery && (
-            <div className="bg-amber-50 rounded p-2 border text-xs mb-4">
+            <div className="bg-amber-50 p-2 border text-sm mb-4 flex items-center">
+              <span className="w-6 mr-1">
+                <InfoIcon className="fill-main" />
+              </span>
               {t.closed_for_delivery}
             </div>
           )}
@@ -236,25 +239,27 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
               {t.pick_up}
             </button>
             {/* This button sets delivery to true which means the order will be delivered. */}
-            <button
-              onClick={() => setDelivery(true)}
-              type="button"
-              // We disable this button if we are closed for delivery.
-              disabled={!openForDelivery}
-              className={`pick-up-deliver ${
-                delivery === true
-                  ? "border-main selected text-main"
-                  : "text-gray-500"
-              }`}
-            >
-              <PedalBikeIcon
-                size="18"
-                className={`${
-                  delivery === true ? "fill-main" : "fill-gray-500"
+            {openForDelivery && (
+              <button
+                onClick={() => setDelivery(true)}
+                type="button"
+                // We disable this button if we are closed for delivery.
+                disabled={!openForDelivery}
+                className={`pick-up-deliver ${
+                  delivery === true
+                    ? "border-main selected text-main"
+                    : "text-gray-500"
                 }`}
-              />
-              {t.delivery}
-            </button>
+              >
+                <PedalBikeIcon
+                  size="18"
+                  className={`${
+                    delivery === true ? "fill-main" : "fill-gray-500"
+                  }`}
+                />
+                {t.delivery}
+              </button>
+            )}
           </div>
           {/* We show the adress for the store if users decides to pick it up. */}
           <AnimatePresence exitBeforeEnter>

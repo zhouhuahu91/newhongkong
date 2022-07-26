@@ -28,7 +28,11 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
   // Returns the cart state.
   const { cartState } = useCart();
   // Returns information of the store
-  const { storeFees, closed } = useStoreInfo();
+  const {
+    storeFees,
+    closed,
+    storeInfo: { openForDelivery },
+  } = useStoreInfo();
   // This is the cart price without store fees
   const subtotal = cartState.cart.reduce((x, y) => x + y.price, 0);
   // Shortage to reach the required amount for delivery
@@ -82,7 +86,7 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
         </div>
         <Cart />
         <div className="p-4 flex flex-col space-y-2">
-          {atMenu && cartState.delivery !== "undecided" && (
+          {atMenu && openForDelivery && cartState.delivery !== "undecided" && (
             <div className="w-full px-1">
               <button
                 onClick={() => {

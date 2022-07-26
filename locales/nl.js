@@ -227,7 +227,6 @@ export default {
   remarks: "Opmerkingen",
   remarks_placeholder: "babi pangang zonder saus",
   save_remarks: "Mijn opmerkingen opslaan.",
-  closed_for_delivery: "Gesloten voor bezorgen, u kunt nog wel afhalen.",
 
   //Payment
   payment_method: "Hoe wil je betalen?",

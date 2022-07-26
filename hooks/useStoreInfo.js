@@ -23,7 +23,7 @@ export const useStoreInfo = () => {
 
 // This Hook provides store data to all pages suchs as closing hours, phone number, etc.
 const useStoreProvider = () => {
-  const { cartState } = useCart();
+  const { cartState, dispatch } = useCart();
   // Information that we store in state we can let admins change.
   const [storeInfo, setStoreInfo] = useState({
     // True if store is open today. Defaults to true.
@@ -125,6 +125,13 @@ const useStoreProvider = () => {
 
     return () => clearInterval(fetchDatesInterval);
   }, []);
+
+  // If we are not closed but we are closed for delivery and currently delivery is selected we need to revert it to "undecided".
+  useEffect(() => {
+    if (!closed && !storeInfo.openForDelivery && cartState.delivery === true) {
+      dispatch({ type: "SET_DELIVERY", payload: "undecided" });
+    }
+  }, [closed, storeInfo.openForDelivery, cartState.delivery, dispatch]);
 
   // Fetches the store settings from server.
   // We need new store info every day.
