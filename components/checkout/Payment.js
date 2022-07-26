@@ -96,12 +96,6 @@ const Payment = () => {
               height={17}
             />
             <Image
-              src="/paymentIcons/klarna.svg"
-              alt="klarna icon"
-              width={17}
-              height={17}
-            />
-            <Image
               src="/paymentIcons/giropay.svg"
               alt="giropay icon"
               width={17}
