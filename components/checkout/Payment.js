@@ -96,18 +96,27 @@ const Payment = () => {
               height={17}
             />
             <Image
+              src="/paymentIcons/ApplePay.svg"
+              alt="apple pay icon"
+              width={26}
+              height={17}
+            />
+            <Image src="/google.svg" alt="google icon" width={12} height={12} />
+            <Image
               src="/paymentIcons/giropay.svg"
               alt="giropay icon"
               width={17}
               height={17}
             />
-            <Image
-              src="/paymentIcons/banconnect.svg"
-              alt="banconnect icon"
-              width={17}
-              height={17}
-            />
-            {buttonWidth > 150 && (
+            {buttonWidth > 158 && (
+              <Image
+                src="/paymentIcons/banconnect.svg"
+                alt="banconnect icon"
+                width={17}
+                height={17}
+              />
+            )}
+            {buttonWidth > 175 && (
               <Image
                 src="/paymentIcons/przelewy24.svg"
                 alt="przelewy24 icon"
