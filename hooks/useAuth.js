@@ -136,7 +136,6 @@ const useAuthProvider = () => {
           remarks: data.saveRemarks ? data.remarks : "",
         });
         // if (data.delivery === true) {
-        console.log(data);
         await updateDoc(ref, {
           "address.postalcode": data.address.postalcode,
           "address.street": data.address.street,
