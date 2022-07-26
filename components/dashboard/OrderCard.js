@@ -1,5 +1,5 @@
 // React imports
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // NextJS imports
 import Image from "next/image";
 // Animation imports
@@ -25,7 +25,7 @@ import CloseIcon from "@/icons/CloseIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
 import UndoIcon from "@/icons/UndoIcon";
 
-const OrderCard = ({ order }) => {
+const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   const [open, setOpen] = useState(false);
   const [openDeleteOrderModal, setOpenDeleteOrderModal] = useState(false);
   const { user } = useAuth();
@@ -36,30 +36,6 @@ const OrderCard = ({ order }) => {
   }+${order.address.street}+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
   }&travelmode=bicycling`;
-
-  // listen for enter key
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && open) {
-      // if enter key pressed we set order to printed
-      // we get the ref
-      const ref = doc(db, `orders/${order.id}`);
-      updateDoc(ref, {
-        printed: true,
-      });
-      setOpen(false);
-    }
-    // if escape key is pressed and modal is open we close the modal
-    if (e.key === "Escape" && open) {
-      setOpen(false);
-    }
-  };
-  // listen for enter key with useEffect
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [open]);
 
   return (
     <>
@@ -82,12 +58,19 @@ const OrderCard = ({ order }) => {
           opacity: 1,
           transition: { duration: 0.2, type: "spring", delay: 0.2 },
         }}
-        className={`border bg-white hover:shadow-lg rounded-xl p-4 col-span-12 sm:col-span-6 xl:col-span-4 space-y-1 ${
+        className={`border bg-white rounded-xl p-4 col-span-12 sm:col-span-6 xl:col-span-4 space-y-1 ${
+          order.id === lastSelectedOrder?.id
+            ? "selected border-main"
+            : "hover:shadow"
+        } ${
           !order.paymentMethod === "online" && !order.paid
             ? "cursor-wait"
             : "cursor-pointer"
         }`}
         onClick={() => {
+          if (atDashboard) {
+            setLastSelectedOrder(order);
+          }
           setOpen(true);
         }}
       >
@@ -99,6 +82,9 @@ const OrderCard = ({ order }) => {
               <IconBtn
                 onClick={(e) => {
                   e.stopPropagation();
+                  if (atDashboard) {
+                    setLastSelectedOrder(null);
+                  }
                   setOpenDeleteOrderModal(true);
                 }}
               >
@@ -111,6 +97,9 @@ const OrderCard = ({ order }) => {
             <IconBtn
               onClick={(e) => {
                 e.stopPropagation();
+                if (atDashboard) {
+                  setLastSelectedOrder(order);
+                }
                 const ref = doc(db, `orders/${order.id}`);
                 updateDoc(ref, {
                   printed: true,
@@ -126,6 +115,9 @@ const OrderCard = ({ order }) => {
             <IconBtn
               onClick={(e) => {
                 e.stopPropagation();
+                if (atDashboard) {
+                  setLastSelectedOrder(order);
+                }
                 const ref = doc(db, `orders/${order.id}`);
                 updateDoc(ref, {
                   ready: true,
@@ -141,6 +133,9 @@ const OrderCard = ({ order }) => {
             <IconBtn
               onClick={(e) => {
                 e.stopPropagation();
+                if (atDashboard) {
+                  setLastSelectedOrder(null);
+                }
                 const ref = doc(db, `orders/${order.id}`);
                 updateDoc(ref, {
                   completed: true,
@@ -155,6 +150,9 @@ const OrderCard = ({ order }) => {
             <span
               onClick={(e) => {
                 e.stopPropagation();
+                if (atDashboard) {
+                  setLastSelectedOrder(order);
+                }
                 const ref = doc(db, `orders/${order.id}`);
                 updateDoc(ref, {
                   completed: false,
@@ -203,8 +201,11 @@ const OrderCard = ({ order }) => {
               // If it is paid we show a green credit card otherwise we show a red credit card.
               <IconBtn
                 onClick={(e) => {
-                  if (order.paymentMethod === "online") return;
                   e.stopPropagation();
+                  if (atDashboard) {
+                    setLastSelectedOrder(order);
+                  }
+                  if (order.paymentMethod === "online") return;
                   const ref = doc(db, `orders/${order.id}`);
                   updateDoc(ref, {
                     paid: !order.paid,

@@ -9,7 +9,15 @@ import OrderCard from "@/components/dashboard/OrderCard";
 import Spinner from "@/components/Spinner";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  doc,
+  updateDoc,
+  getDoc,
+} from "firebase/firestore";
 
 const Dashboard = () => {
   const { currentDate } = useStoreInfo();
@@ -18,6 +26,8 @@ const Dashboard = () => {
   const [showCompleted, setShowCompleted] = useState(false);
   // Dashboard displays the orders made on this date.
   const [date, setDate] = useState(currentDate);
+  // This state holds the id of the last selected order.
+  const [lastSelectedOrder, setLastSelectedOrder] = useState(null);
   // Dashboard orders are filtered in 4 categories:
   // 1. New orders.
   const [newOrders, setNewOrders] = useState([]);
@@ -32,6 +42,47 @@ const Dashboard = () => {
   const [ordersCount, setOrdersCount] = useState(newOrders.length);
 
   const { user } = useAuth();
+
+  // listen for enter key
+  const handleKeyDown = async (e) => {
+    if (e.key === "Enter" && lastSelectedOrder) {
+      const ref = doc(db, `orders/${lastSelectedOrder.id}`);
+      const snapshot = await getDoc(ref);
+      const order = snapshot.data();
+      // if enter key pressed we set order to printed
+      // we get the ref
+
+      if (order.printed && order.ready && order.paid) {
+        updateDoc(ref, {
+          completed: true,
+        });
+        setLastSelectedOrder(null);
+      }
+
+      if (order.printed && order.ready) {
+        return updateDoc(ref, {
+          paid: true,
+        });
+      }
+
+      if (order.printed) {
+        return updateDoc(ref, {
+          ready: true,
+        });
+      }
+
+      updateDoc(ref, {
+        printed: true,
+      });
+    }
+  };
+  // listen for enter key with useEffect
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [lastSelectedOrder]);
 
   useEffect(() => {
     if (ordersCount > newOrders.length) {
@@ -128,7 +179,12 @@ const Dashboard = () => {
             </h1>
             <div className="grid gap-4">
               {newOrders.map((order) => (
-                <OrderCard key={order.id} order={order} />
+                <OrderCard
+                  key={order.id}
+                  order={order}
+                  lastSelectedOrder={lastSelectedOrder}
+                  setLastSelectedOrder={setLastSelectedOrder}
+                />
               ))}
             </div>
           </div>
@@ -138,7 +194,12 @@ const Dashboard = () => {
             </h1>
             <div className="grid gap-4">
               {printed.map((order) => (
-                <OrderCard key={order.id} order={order} />
+                <OrderCard
+                  key={order.id}
+                  order={order}
+                  lastSelectedOrder={lastSelectedOrder}
+                  setLastSelectedOrder={setLastSelectedOrder}
+                />
               ))}
             </div>
           </div>
@@ -148,7 +209,12 @@ const Dashboard = () => {
             </h1>
             <div className="grid gap-4">
               {pickup.map((order) => (
-                <OrderCard key={order.id} order={order} />
+                <OrderCard
+                  key={order.id}
+                  order={order}
+                  lastSelectedOrder={lastSelectedOrder}
+                  setLastSelectedOrder={setLastSelectedOrder}
+                />
               ))}
             </div>
           </div>
@@ -158,7 +224,12 @@ const Dashboard = () => {
             </h1>
             <div className="grid gap-4">
               {delivery.map((order) => (
-                <OrderCard key={order.id} order={order} />
+                <OrderCard
+                  key={order.id}
+                  order={order}
+                  lastSelectedOrder={lastSelectedOrder}
+                  setLastSelectedOrder={setLastSelectedOrder}
+                />
               ))}
             </div>
           </div>

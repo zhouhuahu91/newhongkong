@@ -23,49 +23,6 @@ const OrderModal = ({ open, setOpen, order }) => {
   const [remarks, setRemarks] = useState(order.remarks);
   const [dateOfOrder, setDateOfOrder] = useState(order.date);
 
-  // listen for enter key
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && open) {
-      // if enter key pressed we set order to printed
-      // we get the ref
-      const ref = doc(db, `orders/${order.id}`);
-
-      if (order.printed && order.ready && order.paid) {
-        return updateDoc(ref, {
-          completed: true,
-        });
-      }
-
-      if (order.printed && order.ready) {
-        return updateDoc(ref, {
-          paid: true,
-        });
-      }
-
-      if (order.printed) {
-        return updateDoc(ref, {
-          ready: true,
-        });
-      }
-
-      updateDoc(ref, {
-        printed: true,
-      });
-      setOpen(false);
-    }
-    // if escape key is pressed and modal is open we close the modal
-    if (e.key === "Escape" && open) {
-      setOpen(false);
-    }
-  };
-  // listen for enter key with useEffect
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [order, open]);
-
   return (
     <Modal
       toggle={open}
