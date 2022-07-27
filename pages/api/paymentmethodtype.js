@@ -52,6 +52,7 @@ const webhookHandler = async (req, res) => {
     // We check if the event.type is indeed a succeeded payment or not.
     if (event.type === "payment_intent.succeeded") {
       try {
+        const { id } = event.data.object.metadata;
         const paymentMethodDetails =
           event.data.object.charges.data[0].payment_method_details;
 
