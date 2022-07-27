@@ -76,15 +76,18 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
       >
         <div className="flex items-center space-x-3 justify-between">
           <div className="flex items-center space-x-3">
-            <h3 className={`font-semibold text-2xl`}>{order.name}</h3>
+            <h3
+              className={`font-semibold text-2xl ${
+                order.cancelled && "line-through"
+              }`}
+            >
+              {order.name}
+            </h3>
             {/* We do not want to delete orders where the payment method is online. */}
             {!(order.paymentMethod === "online" && order.paid) && user?.admin && (
               <IconBtn
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (atDashboard) {
-                    setLastSelectedOrder(null);
-                  }
                   setOpenDeleteOrderModal(true);
                 }}
               >

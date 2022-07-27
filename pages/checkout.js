@@ -339,13 +339,13 @@ const CheckOut = () => {
         >
           <StripePaymentModal
             cancel={async () => {
-              setStripePaymentModal(false);
-              setProcessing(false);
               if (paymentIntent?.id) {
                 await axios.post(`${URL}/api/cancelorder`, {
                   id: paymentIntent.id,
                 });
               }
+              setStripePaymentModal(false);
+              setProcessing(false);
               setPaymentIntent(null);
             }}
             total={calculateTotalCartPrice(cartState, storeFees)}

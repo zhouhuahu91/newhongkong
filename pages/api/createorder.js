@@ -10,9 +10,9 @@ import addTimeSlot from "@/functions/addTimeSlot";
 // This function creates the stripe secret.
 const createPaymentIntent = async (id, data) => {
   try {
-    const { cash, total } = data;
+    const { paymentMethod, total } = data;
     // If the user pays in cash we return null because we do not need the secret.
-    if (cash === "in_person") return null;
+    if (paymentMethod === "in_person") return null;
     // In the secret we have the amount and the id of the order to later confirm the payment.
     const paymentIntent = await stripe.paymentIntents.create({
       amount: total,
