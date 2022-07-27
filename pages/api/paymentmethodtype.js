@@ -52,9 +52,20 @@ const webhookHandler = async (req, res) => {
     // We check if the event.type is indeed a succeeded payment or not.
     if (event.type === "payment_intent.succeeded") {
       try {
+        let type = "null";
+
         const { id } = event.data.object.metadata;
         const paymentMethodDetails =
           event.data.object.charges.data[0].payment_method_details;
+
+        // We set type to the payment method type.
+        type = paymentMethodDetails.type;
+
+        // If type === "card" it means they payed with a credit card.
+        // We then check what type of credit card they used.
+        if (paymentMethodDetails.type === "card") {
+          type = paymentMethodDetails.card.brand;
+        }
 
         // Look up the order on firebase.
         const ref = db.doc(`orders/${id}`);
@@ -63,7 +74,7 @@ const webhookHandler = async (req, res) => {
         if (snapshot.exists) {
           // If it exists update payment to true.
           await ref.update({
-            paymentMethodType: paymentMethodDetails.type,
+            paymentMethodType: type,
           });
         }
 
