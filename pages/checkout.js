@@ -222,25 +222,30 @@ const CheckOut = () => {
       updateUser({ ...formData, address, delivery });
     }
 
-    const {
-      data: { intent, id },
-    } = await axios.post(`${URL}/api/createorder`, data);
+    try {
+      const {
+        data: { intent, id },
+      } = await axios.post(`${URL}/api/createorder`, data);
 
-    // There are two ways to this function can go.
-    // 1. User pays in person.
-    // 2. User pays online.
-    if (paymentMethod === "in_person") {
-      // If user pays in person we send mail and add time slot on the server.
-      router.push(`/succes?redirect_status=succeeded&id=${id}`);
-    } else if (paymentMethod === "online") {
-      setPaymentIntent(intent);
-      setOrderIdForPayment(id);
-      return setStripePaymentModal(true);
-      // If it is not cash we use the stripe secret generated in create order api...
-      // to open the payment modal.
-    } else {
-      // Just in case something went wrong.
-      // We turn off Processing
+      // There are two ways to this function can go.
+      // 1. User pays in person.
+      // 2. User pays online.
+      if (paymentMethod === "in_person") {
+        // If user pays in person we send mail and add time slot on the server.
+        router.push(`/succes?redirect_status=succeeded&id=${id}`);
+      } else if (paymentMethod === "online") {
+        setPaymentIntent(intent);
+        setOrderIdForPayment(id);
+        return setStripePaymentModal(true);
+        // If it is not cash we use the stripe secret generated in create order api...
+        // to open the payment modal.
+      } else {
+        // Just in case something went wrong.
+        // We turn off Processing
+        return setProcessing(false);
+      }
+    } catch (e) {
+      console.log(e);
       return setProcessing(false);
     }
   };
