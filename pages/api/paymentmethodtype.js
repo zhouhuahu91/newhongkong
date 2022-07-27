@@ -67,7 +67,7 @@ const webhookHandler = async (req, res) => {
           });
         }
 
-        res.json({ received: true });
+        res.json({ updated: true });
       } catch (e) {
         console.log(`Error message: ${e.message}`);
       }
