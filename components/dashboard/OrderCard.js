@@ -25,6 +25,7 @@ import CloseIcon from "@/icons/CloseIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
 import UndoIcon from "@/icons/UndoIcon";
 import WarningIcon from "@/icons/WarningIcon";
+import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
 
 const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   const [open, setOpen] = useState(false);
@@ -228,14 +229,11 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
                 />
               </IconBtn>
             )}
+            {/* If paymentMethod === "online" && paid we want to display the correct image... */}
+            {/* ...depending on the paymentMethodTpye the customer used. */}
             {order.paymentMethod === "online" && order.paid && (
               <div className="flex items-center">
-                <Image
-                  src="/paymentIcons/ideal.svg"
-                  alt="ideal icon"
-                  width={24}
-                  height={24}
-                />
+                <PaymentMethodType order={order} />
               </div>
             )}
           </div>
