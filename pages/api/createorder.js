@@ -39,7 +39,7 @@ const createorder = async (req, res) => {
     const date = getCurrentDate();
     const { id } = await db.collection("orders").add({
       paid: false,
-      cancelled: false,
+      canceled: false,
       printed: false,
       ready: false,
       mailSent: false,

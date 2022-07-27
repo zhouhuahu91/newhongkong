@@ -24,6 +24,7 @@ import DeleteIcon from "@/icons/DeleteIcon";
 import CloseIcon from "@/icons/CloseIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
 import UndoIcon from "@/icons/UndoIcon";
+import WarningIcon from "@/icons/WarningIcon";
 
 const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   const [open, setOpen] = useState(false);
@@ -78,7 +79,7 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
           <div className="flex items-center space-x-3">
             <h3
               className={`font-semibold text-2xl ${
-                order.cancelled && "line-through"
+                order.canceled && "line-through"
               }`}
             >
               {order.name}
@@ -196,11 +197,17 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
               {euro(order.total)}
             </span>
             {/* If user selectes Ideal and the order is not paid yet we show a spinner. */}
-            {order.paymentMethod === "online" && !order.paid ? (
-              <div
-                className={`rounded-full border-white border-t-main border-2 animate-spin w-5 h-5`}
-              />
-            ) : order.paymentMethod === "in_person" ? (
+            {order.paymentMethod === "online" &&
+              !order.paid &&
+              !order.canceled && (
+                <div
+                  className={`rounded-full border-white border-t-main border-2 animate-spin w-5 h-5`}
+                />
+              )}
+            {order.paymentMethod === "online" &&
+              !order.paid &&
+              order.canceled && <WarningIcon className="fill-main" />}
+            {order.paymentMethod === "in_person" && (
               // If it is paid we show a green credit card otherwise we show a red credit card.
               <IconBtn
                 onClick={(e) => {
@@ -220,7 +227,8 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
                   className={`${order.paid ? "fill-green-700" : "fill-main"}`}
                 />
               </IconBtn>
-            ) : (
+            )}
+            {order.paymentMethod === "online" && order.paid && (
               <div className="flex items-center">
                 <Image
                   src="/paymentIcons/ideal.svg"

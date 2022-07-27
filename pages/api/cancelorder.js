@@ -20,7 +20,7 @@ const cancelorder = async (req, res) => {
       const ref = db.doc(`orders/${orderId}`);
 
       ref.update({
-        cancelled: true,
+        canceled: true,
       });
     }
     // We return the payment intent.
