@@ -38,6 +38,24 @@ const PaymentMethodType = ({ order }) => {
         height={24}
       />
     );
+  } else if (order.paymentMethodType === "visa") {
+    return (
+      <Image
+        src="/paymentIcons/visa.svg"
+        alt="visa icon"
+        width={24}
+        height={24}
+      />
+    );
+  } else if (order.paymentMethodType === "mastercard") {
+    return (
+      <Image
+        src="/paymentIcons/mastercard.svg"
+        alt="mastercard icon"
+        width={24}
+        height={24}
+      />
+    );
   } else {
     return <div>unknown type</div>;
   }
