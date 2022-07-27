@@ -10,6 +10,10 @@ import useI18n from "@/hooks/useI18n";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
+// Axios import
+import axios from "axios";
+// Function imports
+import getURL from "@/functions/getURL";
 
 export async function getServerSideProps(context) {
   return {
@@ -21,6 +25,7 @@ const Succes = ({ query }) => {
   const [order, setOrder] = useState(null);
   const { dispatch } = useCart();
   const t = useI18n();
+  const URL = getURL();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +40,18 @@ const Succes = ({ query }) => {
           // And set the order to the snapshot data.
           const data = snapshot.data();
           return setOrder(data);
+        }
+      } else if (
+        query &&
+        query.redirect_status === "failed" &&
+        query.payment_intent
+      ) {
+        try {
+          const res = await axios.post(`${URL}/api/cancelorder`, {
+            id: query.payment_intent,
+          });
+        } catch (e) {
+          console.log(e);
         }
       }
       // If there is no query or the redirect_status failed we set the state to false.
@@ -70,7 +87,7 @@ const Succes = ({ query }) => {
           />
         </div>
       ) : (
-        <div className="rounded-xl max-w-sm w-full flex flex-col border mt-10 mx-4 overflow-hidden shadow bg-white">
+        <div className="rounded-xl max-w-md w-full flex flex-col mt-10 mx-4 overflow-hidden">
           <h1 className="font-semibold text-2xl p-4">Oeps..</h1>
           <p className="px-4 pb-4 text-sm">
             {t.something_went_wrong}{" "}
@@ -81,7 +98,7 @@ const Succes = ({ query }) => {
           </p>
           <div className="flex justify-evenly w-full p-4">
             <Link href="/menu">
-              <a className="button border w-5/12 mx-1"> {t.cancel}</a>
+              <a className="button border bg-white w-5/12 mx-1"> {t.cancel}</a>
             </Link>
             <Link href="/checkout">
               <a className="button bg-main text-white w-7/12 mx-1">
