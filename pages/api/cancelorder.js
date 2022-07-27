@@ -14,6 +14,7 @@ const cancelorder = async (req, res) => {
   try {
     const paymentIntent = await stripe.paymentIntents.retrieve(id);
     if (paymentIntent.status !== "canceled") {
+      await stripe.paymentIntents.cancel(id);
       // In the metadata of the payment intent we can find the id of our order.
       const orderId = paymentIntent.metadata.id;
       // We update the order in firestore.
