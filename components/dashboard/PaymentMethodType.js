@@ -1,5 +1,7 @@
 // NextJS imports
 import Image from "next/image";
+// Component imports
+import CreditCardIcon from "@/icons/CreditCardIcon";
 
 const PaymentMethodType = ({ order }) => {
   if (order.paymentMethodType === "ideal") {
@@ -57,7 +59,7 @@ const PaymentMethodType = ({ order }) => {
       />
     );
   } else {
-    return <div>unknown type</div>;
+    return <CreditCardIcon className="fill-green-700" />;
   }
 };
 

@@ -1,7 +1,5 @@
 // React imports
 import { useState } from "react";
-// NextJS imports
-import Image from "next/image";
 // Animation imports
 import { motion } from "framer-motion";
 // Firebase imports
