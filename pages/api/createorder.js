@@ -8,7 +8,7 @@ import addTimeSlot from "@/functions/addTimeSlot";
 // We activate stripe by passing in the stripe secret.
 
 // This function creates the stripe secret.
-const createSecret = async (id, data) => {
+const createPaymentIntent = async (id, data) => {
   try {
     const { cash, total } = data;
     // If the user pays in cash we return null because we do not need the secret.
@@ -22,7 +22,7 @@ const createSecret = async (id, data) => {
       },
       metadata: { id },
     });
-    return paymentIntent.client_secret;
+    return paymentIntent;
   } catch (e) {
     return { e };
   }
@@ -39,6 +39,7 @@ const createorder = async (req, res) => {
     const date = getCurrentDate();
     const { id } = await db.collection("orders").add({
       paid: false,
+      cancelled: false,
       printed: false,
       ready: false,
       mailSent: false,
@@ -49,7 +50,7 @@ const createorder = async (req, res) => {
       createdAt: Date.now(),
     });
 
-    let secret = null;
+    let paymentIntent = null;
 
     // The user has two options.
     // 1. The user pays online if he/she does we need to create an secret key.
@@ -61,7 +62,7 @@ const createorder = async (req, res) => {
       await addTimeSlot({ ...data, date });
     } else if (data.paymentMethod === "online") {
       // We create the secret and return it to the front-end where user get redirected to pay with stripe.
-      secret = await createSecret(id, data);
+      paymentIntent = await createPaymentIntent(id, data);
     } else {
       console.log(
         "Something went wrong with the payment method.",
@@ -73,7 +74,7 @@ const createorder = async (req, res) => {
     }
 
     // We return the secret to the front end.
-    return res.status(201).json({ secret, id, date });
+    return res.status(201).json({ intent: paymentIntent, id, date });
   } catch (e) {
     console.log(e);
     return res.status(500).json({ e });

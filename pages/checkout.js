@@ -44,8 +44,8 @@ const CheckOut = () => {
     cartState,
     cartState: { delivery, paymentMethod, cart, tip },
   } = useCart();
-  // We store stripe client secret.
-  const [clientSecret, setClientSecret] = useState(null);
+  // We store stripe payment Intent here.
+  const [paymentIntent, setPaymentIntent] = useState(null);
   // Store state for stripe payment modal.
   const [stripePaymentModal, setStripePaymentModal] = useState(false);
   // We need to store the id for the order if user pays online.
@@ -223,7 +223,7 @@ const CheckOut = () => {
     }
 
     const {
-      data: { secret, id },
+      data: { intent, id },
     } = await axios.post(`${URL}/api/createorder`, data);
 
     // There are two ways to this function can go.
@@ -233,7 +233,7 @@ const CheckOut = () => {
       // If user pays in person we send mail and add time slot on the server.
       router.push(`/succes?redirect_status=succeeded&id=${id}`);
     } else if (paymentMethod === "online") {
-      setClientSecret(secret);
+      setPaymentIntent(intent);
       setOrderIdForPayment(id);
       return setStripePaymentModal(true);
       // If it is not cash we use the stripe secret generated in create order api...
@@ -321,11 +321,11 @@ const CheckOut = () => {
           </div>
         </div>
       </div>
-      {clientSecret && (
+      {paymentIntent?.client_secret && (
         <Elements
           stripe={stripePromise}
           options={{
-            clientSecret,
+            clientSecret: paymentIntent.client_secret,
             appearance: {
               variables: {
                 colorPrimary: "#e76f51",
@@ -338,11 +338,15 @@ const CheckOut = () => {
           }}
         >
           <StripePaymentModal
-            toggle={stripePaymentModal}
-            cancel={() => {
+            cancel={async () => {
               setStripePaymentModal(false);
-              setClientSecret(null);
               setProcessing(false);
+              if (paymentIntent?.id) {
+                await axios.post(`${URL}/api/cancelorder`, {
+                  id: paymentIntent.id,
+                });
+              }
+              setPaymentIntent(null);
             }}
             total={calculateTotalCartPrice(cartState, storeFees)}
             id={orderIdForPayment}

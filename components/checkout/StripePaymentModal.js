@@ -18,7 +18,7 @@ import {
 import getURL from "@/functions/getURL";
 import euro from "@/functions/euro";
 
-const StripePaymentModal = ({ toggle, cancel, total, id }) => {
+const StripePaymentModal = ({ cancel, total, id }) => {
   const stripe = useStripe();
   const elements = useElements();
   // Store state for processing payment
@@ -41,6 +41,9 @@ const StripePaymentModal = ({ toggle, cancel, total, id }) => {
     setProcessing(true);
     // Confirm stripe payment
     const { error } = await stripe.confirmPayment({
+      billing_details: {
+        name: "Zhouhua Hu",
+      },
       elements,
       confirmParams: {
         return_url: `${URL}/succes?id=${id}`,
