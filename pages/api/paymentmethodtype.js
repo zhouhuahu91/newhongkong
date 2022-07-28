@@ -67,6 +67,12 @@ const webhookHandler = async (req, res) => {
           type = paymentMethodDetails.card.brand;
         }
 
+        if (paymentMethodDetails.type === "card") {
+          if (paymentMethodDetails.card.wallet) {
+            type = paymentMethodDetails.card.wallet.type;
+          }
+        }
+
         // Look up the order on firebase.
         const ref = db.doc(`orders/${id}`);
         const snapshot = await ref.get();
