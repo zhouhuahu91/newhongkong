@@ -71,11 +71,11 @@ const StripePaymentModal = ({ cancel, total, id }) => {
           </IconBtn>
         </div>
         <div className="p-4">
-          {loading && (
+          {/* {loading && (
             <div className="h-72 p-3">
               <Spinner />
             </div>
-          )}
+          )} */}
           <PaymentElement
             id="payment-element"
             onReady={() => setLoading(false)}
