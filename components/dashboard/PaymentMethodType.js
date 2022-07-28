@@ -1,7 +1,5 @@
 // NextJS imports
 import Image from "next/image";
-// Component imports
-import CreditCardIcon from "@/icons/CreditCardIcon";
 
 const PaymentMethodType = ({ order }) => {
   if (order.paymentMethodType === "ideal") {
@@ -58,8 +56,17 @@ const PaymentMethodType = ({ order }) => {
         height={24}
       />
     );
+  } else if (order.paymentMethodType === "apple_pay") {
+    return (
+      <Image
+        src="/paymentIcons/ApplePay.svg"
+        alt="apple pay icon"
+        width={24}
+        height={24}
+      />
+    );
   } else {
-    return <CreditCardIcon className="fill-green-700" />;
+    return <span>{order.paymentMethodType}</span>;
   }
 };
 

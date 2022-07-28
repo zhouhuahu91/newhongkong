@@ -67,6 +67,7 @@ const webhookHandler = async (req, res) => {
           type = paymentMethodDetails.card.brand;
         }
 
+        // If type is card we check if they used a wallet or not.
         if (paymentMethodDetails.type === "card") {
           if (paymentMethodDetails.card.wallet) {
             type = paymentMethodDetails.card.wallet.type;
