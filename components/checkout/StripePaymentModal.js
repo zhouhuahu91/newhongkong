@@ -5,7 +5,6 @@ import useI18n from "@/hooks/useI18n";
 // Component imports
 import Modal from "@/components/Modal";
 import SubmitButton from "@/components/SubmitButton";
-import Spinner from "@/components/Spinner";
 import IconBtn from "@/components/IconBtn";
 import CloseIcon from "@/icons/CloseIcon";
 // Stripe imports
@@ -23,8 +22,6 @@ const StripePaymentModal = ({ cancel, total, id }) => {
   const elements = useElements();
   // Store state for processing payment
   const [processing, setProcessing] = useState(false);
-  // Shows loader when payment element is not ready
-  const [loading, setLoading] = useState(true);
   // t is used to translate text.
   const t = useI18n();
   // GetUrl returns the URL depending on the environment.
@@ -71,15 +68,7 @@ const StripePaymentModal = ({ cancel, total, id }) => {
           </IconBtn>
         </div>
         <div className="p-4">
-          {/* {loading && (
-            <div className="h-72 p-3">
-              <Spinner />
-            </div>
-          )} */}
-          <PaymentElement
-            id="payment-element"
-            onReady={() => setLoading(false)}
-          />
+          <PaymentElement id="payment-element" />
         </div>
         <div className="grid grid-cols-12 gap-4 bg-white shadow p-4">
           <button
