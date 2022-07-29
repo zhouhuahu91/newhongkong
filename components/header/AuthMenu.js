@@ -37,7 +37,7 @@ const AuthMenu = () => {
           type="button"
           onClick={() => setAuthMenu((prev) => !prev)}
         >
-          <AccountIcon className={`fill-white`} />
+          <AccountIcon className={`${atHome && "fill-white"}`} />
         </button>
       ) : (
         <Link href="/sign_in">
