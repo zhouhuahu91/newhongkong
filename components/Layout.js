@@ -1,11 +1,16 @@
 // NextJs imports
 import Head from "next/head";
+import dynamic from "next/dynamic";
 // Components imports
 import Header from "@/components/header/Header";
 import Banner from "@/components/Banner";
 import Footer from "@/components/Footer";
 // Hook imports
 import usePath from "@/hooks/usePath";
+// Lazy imports
+const DynamicChat = dynamic(() => import("@/components/chat/Chat"), {
+  suspense: true,
+});
 
 // This component is used to render the layout of the website.
 // Here we can put components that are used on all pages e.a. the header, footer, etc.
@@ -45,6 +50,7 @@ const Layout = ({ children }) => {
         {!atDashboard && <Header />}
         <div className="flex-grow">{children}</div>
         {!atHome && <Footer />}
+        {!atDashboard && <DynamicChat />}
       </div>
     </>
   );
