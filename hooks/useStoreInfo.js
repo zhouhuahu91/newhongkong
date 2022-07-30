@@ -120,8 +120,8 @@ const useStoreProvider = () => {
 
     const fetchDatesInterval = setInterval(() => {
       fetchCurrentDate();
-      // We refetch the dates every 3 hours.
-    }, 10800000);
+      // We refetch the dates every minute.
+    }, 60000);
 
     return () => clearInterval(fetchDatesInterval);
   }, []);
@@ -149,7 +149,7 @@ const useStoreProvider = () => {
       unsubscribe();
     };
     // We refetch if the current date changes.
-  }, [currentDate]);
+  }, [currentDate, currentDay]);
 
   // minimumOrderAmout and deliveryFee depends on the postalcode.
   useEffect(() => {
