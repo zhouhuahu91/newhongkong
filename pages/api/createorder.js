@@ -1,4 +1,4 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY_TEST);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY_LIVE);
 import { db } from "@/firebase/admin";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";

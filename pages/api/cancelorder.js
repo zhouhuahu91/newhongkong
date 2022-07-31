@@ -3,7 +3,7 @@ import Stripe from "stripe";
 import { db } from "@/firebase/admin";
 
 // We activate stripe by passing in the stripe secret.
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY_TEST, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY_LIVE, {
   apiVersion: "2020-08-27",
 });
 
