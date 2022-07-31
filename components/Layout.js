@@ -50,7 +50,9 @@ const Layout = ({ children }) => {
         {!atDashboard && <Header />}
         <div className="flex-grow">{children}</div>
         {!atHome && <Footer />}
-        {!atDashboard && <DynamicChat />}
+        {!atDashboard && process.env.NODE_ENV === "development" && (
+          <DynamicChat />
+        )}
       </div>
     </>
   );
