@@ -23,6 +23,9 @@ const Layout = ({ children }) => {
       <Head>
         {/* Title of the website  */}
         <title>New Hong Kong</title>
+        <link rel="icon" href="/nHK.png" />
+        <link rel="apple-touch-icon" href="/nHK.png" />
+        <link rel="shortcut icon" href="/nHK.png" />
         {/* Meta for the viewport */}
         <meta
           name="viewport"
