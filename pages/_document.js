@@ -5,9 +5,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="icon" href="/nHK.png" />
-          <link rel="apple-touch-icon" href="/nHK.png" />
-          <link rel="shortcut icon" href="/nHK.png" />
           <link
             rel="preconnect"
             href="https://fonts.gstatic.com"
