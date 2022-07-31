@@ -6,6 +6,9 @@ import CloseIcon from "@/icons/CloseIcon";
 import SendIcon from "@/icons/SendIcon";
 import SupportIcon from "@/icons/SupportIcon";
 import IconBtn from "@/components/IconBtn";
+// Function imports
+import getDigitalTime from "@/functions/getDigitalTime";
+import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 // Hook imports
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
@@ -45,19 +48,16 @@ const Chat = () => {
 
   // useEffect to update chatID
   useEffect(() => {
-    // If there is an user and userID is !== chatID then update chatID
-    if (user && user.id !== chatID) {
-      return setChatID(user.id);
+    if (user) {
+      return setChatID(user.uid);
     }
     // If there is no user we check if there is an chatID stored in localStorage.
-    if (!user) {
-      const data = localStorage.getItem("chatID");
-      // If there is an id and id !== chatID then update chatID
-      if (data && data !== chatID) {
-        return setChatID(data.id);
-      }
+    const data = localStorage.getItem("chatID");
+    // If there is an id and id !== chatID then update chatID
+    if (data) {
+      return setChatID(data.id);
     }
-  }, [chatID, user]);
+  }, [user]);
 
   const submit = async () => {
     // If there is no input we return from function.
@@ -65,8 +65,81 @@ const Chat = () => {
     if (!chatInput || processing) return;
     // We first check if there is an chatID. If there is no chatID we need to create one.
     if (!chatID) {
+      // We create a new collection for the chat.
+      const newChatRef = collection(db, "chats");
+      const { id } = await addDoc(newChatRef, {
+        lastMessageTimeStamp: serverTimestamp(),
+        lastMessage: chatInput,
+        name: user ? user.name : "unknown",
+      });
+
+      // We add the new message to this collection.
+      addDoc(collection(db, `chats/${id}/messages`), {
+        message: chatInput,
+        messageTimeStamp: serverTimestamp(),
+        unread: true,
+        admin: true,
+      });
+      // We save the id to the chatID.
+      setChatID(id);
+      // We also save it to the locale storage.
+      localStorage.setItem("chatID", { id });
+    } else {
+      // If there is an ChatID it means the there is a user logged in or there is a chatID stored in localStorage.
+      // If chatID Already exists
+      const chatRef = doc(db, `chats/${chatID}`);
+      const snapshot = await getDoc(chatRef);
+      // If chat already exists
+      if (snapshot.exists()) {
+        updateDoc(chatRef, {
+          lastMessageTimeStamp: serverTimestamp(),
+          lastMessage: chatInput,
+          name: user ? user.name : "unknown",
+        });
+        // If there is no doc we create a new one.
+      } else {
+        setDoc(chatRef, {
+          lastMessageTimeStamp: serverTimestamp(),
+          lastMessage: chatInput,
+        });
+      }
+      // We add the message to the chat
+      const ref = collection(db, `chats/${chatID}/messages`);
+      addDoc(ref, {
+        message: chatInput,
+        messageTimeStamp: serverTimestamp(),
+        unread: true,
+        admin: true,
+      });
     }
+
+    // We reset the message to empty.
+    setChatInput("");
+    // // We set focus back on the input.
+    // focusInput.current.focus();
+    // And we turn off the processing.
+    setProcessing(false);
   };
+
+  // useEffect to update chatMessages
+  useEffect(() => {
+    let unsubscribe = null;
+    if (chatID) {
+      const q = query(
+        collection(db, `chats/${chatID}/messages`),
+        orderBy("messageTimeStamp", "asc")
+      );
+      unsubscribe = onSnapshot(q, (snapshot) => {
+        const data = snapshot.docs.map((doc) => doc.data());
+        const waitForTimeStamp = data.every((x) => x.messageTimeStamp);
+        if (waitForTimeStamp) setChatMessages(data);
+      });
+    }
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [chatID]);
 
   return (
     <div ref={chatRef}>
@@ -110,7 +183,40 @@ const Chat = () => {
             </div>
             {/* ********** HEADER OF CHAT ********** */}
             {/* ********** CHAT MESSAGES ********** */}
-            <div className="bg-neutral-50 flex-grow">messages</div>
+            <div className="flex-grow flex flex-col w-full overflow-y-scroll px-1 py-2 text-sm bg-gray-50">
+              {chatMessages.map((message) => {
+                const timeStamp = getDigitalTime(
+                  getCurrentTimeInSeconds(
+                    new Date(message.messageTimeStamp.seconds * 1000)
+                  )
+                );
+                if (message.admin) {
+                  return (
+                    <div
+                      key={timeStamp}
+                      className="mx-1 mb-2 border max-w-xs py-1 px-2 rounded-t-xl rounded-r-xl self-start flex space-x-2 bg-white relative shadow-sm"
+                    >
+                      <div className="pr-7">{message.message}</div>
+                      <div className="text-[10px] absolute right-1.5 bottom-0">
+                        {timeStamp}
+                      </div>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div
+                      key={timeStamp}
+                      className="mx-1 mb-2 border max-w-xs py-1 px-2 rounded-t-xl rounded-l-xl self-end flex bg-main relative shadow-sm"
+                    >
+                      <div className="text-white pr-7">{message.message}</div>
+                      <div className="text-[10px] absolute right-1 -bottom-0.5">
+                        {timeStamp}
+                      </div>
+                    </div>
+                  );
+                }
+              })}
+            </div>
             {/* ********** CHAT MESSAGES ********** */}
             {/* ********** CHAT INPUT ********** */}
             <div className="p-4 shadow flex items-center">
@@ -121,7 +227,11 @@ const Chat = () => {
                 type="text"
                 className="appearance-none my-0.5 px-3 border rounded-md w-full text-sm focus:outline-none bg-inherit red-focus-ring py-2 placeholder-gray-500"
               />
-              <IconBtn className="ml-4">
+              <IconBtn
+                disabled={!chatInput || processing}
+                className="ml-4"
+                onClick={() => submit()}
+              >
                 <SendIcon />
               </IconBtn>
             </div>
