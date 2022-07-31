@@ -9,8 +9,24 @@ import IconBtn from "@/components/IconBtn";
 // Hook imports
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
+import { useAuth } from "@/hooks/useAuth";
 // Motion imports
 import { motion, AnimatePresence } from "framer-motion";
+// Firebase imports
+import { db } from "@/firebase/firebase";
+import {
+  collection,
+  doc,
+  addDoc,
+  serverTimestamp,
+  query,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+  orderBy,
+  increment,
+  getDoc,
+} from "firebase/firestore";
 
 const Chat = () => {
   const [open, setOpen] = useState(false);
@@ -18,12 +34,39 @@ const Chat = () => {
   const [chatID, setChatID] = useState(null);
   const [chatInput, setChatInput] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  const [processing, setProcessing] = useState(false);
 
   // We need to know if store is closed to display online or offline
   const { closed } = useStoreInfo();
+  const { user } = useAuth();
   // We need ref to check when users clicks outside of the chat.
   const chatRef = useRef(null);
   useOnClickOutside(chatRef, () => setOpen(false));
+
+  // useEffect to update chatID
+  useEffect(() => {
+    // If there is an user and userID is !== chatID then update chatID
+    if (user && user.id !== chatID) {
+      return setChatID(user.id);
+    }
+    // If there is no user we check if there is an chatID stored in localStorage.
+    if (!user) {
+      const data = localStorage.getItem("chatID");
+      // If there is an id and id !== chatID then update chatID
+      if (data && data !== chatID) {
+        return setChatID(data.id);
+      }
+    }
+  }, [chatID, user]);
+
+  const submit = async () => {
+    // If there is no input we return from function.
+    // We also return if function is already processing.
+    if (!chatInput || processing) return;
+    // We first check if there is an chatID. If there is no chatID we need to create one.
+    if (!chatID) {
+    }
+  };
 
   return (
     <div ref={chatRef}>
