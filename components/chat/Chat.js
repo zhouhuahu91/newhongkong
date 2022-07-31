@@ -13,6 +13,7 @@ import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 import { useAuth } from "@/hooks/useAuth";
+import { useCart } from "@/hooks/useCart";
 // Motion imports
 import { motion, AnimatePresence } from "framer-motion";
 // Firebase imports
@@ -42,9 +43,29 @@ const Chat = () => {
   // We need to know if store is closed to display online or offline
   const { closed } = useStoreInfo();
   const { user } = useAuth();
+  const {
+    cartState: { cart },
+  } = useCart();
   // We need ref to check when users clicks outside of the chat.
   const chatRef = useRef(null);
   useOnClickOutside(chatRef, () => setOpen(false));
+  // We need the input ref to auto focus when the chat is open && after submit.
+  const inputRef = useRef(null);
+  // We need the ref for the last element in message so we can scroll there.
+  const lastMessageRef = useRef(null);
+
+  const scrollToBottom = () => {
+    // We use setTimeout so that this functions happens after the element mounts.
+    // A weird workout that works not sure how to do it in a another way.
+    setTimeout(() => {
+      lastMessageRef?.current?.scrollIntoView();
+    }, 0);
+  };
+
+  // We call the function everything the modal and messages updates.
+  useEffect(() => {
+    scrollToBottom();
+  }, [open, chatMessages]);
 
   // useEffect to update chatID
   useEffect(() => {
@@ -78,7 +99,7 @@ const Chat = () => {
         message: chatInput,
         messageTimeStamp: serverTimestamp(),
         unread: true,
-        admin: true,
+        admin: false,
       });
       // We save the id to the chatID.
       setChatID(id);
@@ -109,14 +130,14 @@ const Chat = () => {
         message: chatInput,
         messageTimeStamp: serverTimestamp(),
         unread: true,
-        admin: true,
+        admin: false,
       });
     }
 
     // We reset the message to empty.
     setChatInput("");
     // // We set focus back on the input.
-    // focusInput.current.focus();
+    inputRef.current.focus();
     // And we turn off the processing.
     setProcessing(false);
   };
@@ -150,7 +171,9 @@ const Chat = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             drag
-            className="fixed w-96 h-[576px] z-50 border bg-white right-5 bottom-20 flex flex-col rounded-lg shadow"
+            className={`fixed w-full h-full bottom-0 right-0 sm:w-96 sm:h-[576px] z-50 border bg-white sm:right-5 ${
+              cart.length > 0 ? "sm:bottom-36 md:bottom-20" : "sm:bottom-20"
+            } flex flex-col rounded-lg shadow`}
           >
             {/* ********* HEADER OF CHAT ********** */}
             <div className="border-b p-4 flex items-center justify-between">
@@ -184,7 +207,7 @@ const Chat = () => {
             {/* ********** HEADER OF CHAT ********** */}
             {/* ********** CHAT MESSAGES ********** */}
             <div className="flex-grow flex flex-col w-full overflow-y-scroll px-1 py-2 text-sm bg-gray-50">
-              {chatMessages.map((message) => {
+              {chatMessages.map((message, index) => {
                 const timeStamp = getDigitalTime(
                   getCurrentTimeInSeconds(
                     new Date(message.messageTimeStamp.seconds * 1000)
@@ -193,7 +216,7 @@ const Chat = () => {
                 if (message.admin) {
                   return (
                     <div
-                      key={timeStamp}
+                      key={index}
                       className="mx-1 mb-2 border max-w-xs py-1 px-2 rounded-t-xl rounded-r-xl self-start flex space-x-2 bg-white relative shadow-sm"
                     >
                       <div className="pr-7">{message.message}</div>
@@ -205,7 +228,7 @@ const Chat = () => {
                 } else {
                   return (
                     <div
-                      key={timeStamp}
+                      key={index}
                       className="mx-1 mb-2 border max-w-xs py-1 px-2 rounded-t-xl rounded-l-xl self-end flex bg-main relative shadow-sm"
                     >
                       <div className="text-white pr-7">{message.message}</div>
@@ -216,14 +239,21 @@ const Chat = () => {
                   );
                 }
               })}
+              <div ref={lastMessageRef} />
             </div>
             {/* ********** CHAT MESSAGES ********** */}
             {/* ********** CHAT INPUT ********** */}
             <div className="p-4 shadow flex items-center">
               <input
+                ref={inputRef}
                 onChange={(e) => setChatInput(e.target.value)}
                 value={chatInput}
                 autoFocus
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    submit();
+                  }
+                }}
                 type="text"
                 className="appearance-none my-0.5 px-3 border rounded-md w-full text-sm focus:outline-none bg-inherit red-focus-ring py-2 placeholder-gray-500"
               />
