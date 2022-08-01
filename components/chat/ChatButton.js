@@ -15,7 +15,7 @@ const ChatButton = ({ setOpen, unread }) => {
       onClick={() => setOpen((prev) => !prev)}
       className={`bg-main w-12 h-12 rounded-full fixed ${
         cart.length > 0 ? "bottom-20 md:bottom-4" : "bottom-4"
-      } right-4 flex items-center justify-center red-focus-ring shadow ${
+      } right-4 flex items-center justify-center red-focus-ring border shadow ${
         unread && "animate-bounce"
       }`}
     >
