@@ -62,10 +62,8 @@ const AuthMenu = () => {
             className="absolute top-9 rounded-md border text-sm right-0 shadow bg-white py-2 z-10"
           >
             <div className="px-4 py-1 text-left w-full">
-              {t.signed_in_as}{" "}
-              <span className="font-medium">
-                {auth.user.name ? auth.user.name : auth.user.email}
-              </span>
+              {t.signed_in_as}
+              <span className="block font-semibold">{auth.user.email}</span>
             </div>
             <button
               type="button"
