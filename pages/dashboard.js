@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import Header from "@/components/dashboard/DashboardHeader";
 import OrderCard from "@/components/dashboard/OrderCard";
 import Spinner from "@/components/Spinner";
+import DashboardChat from "@/components/dashboard/DashboardChat";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -235,6 +236,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <DashboardChat />
     </div>
   );
 };

@@ -28,6 +28,7 @@ import {
   onSnapshot,
   setDoc,
   updateDoc,
+  increment,
   orderBy,
   getDoc,
 } from "firebase/firestore";
@@ -92,14 +93,16 @@ const Chat = () => {
       const { id } = await addDoc(newChatRef, {
         lastMessageTimeStamp: serverTimestamp(),
         lastMessage: chatInput,
-        name: user ? user.name : "unknown",
+        name: user ? user.name : null,
+        email: user ? user.email : null,
+        unreadAdmin: 1,
+        unreadUser: 0,
       });
 
       // We add the new message to this collection.
       addDoc(collection(db, `chats/${id}/messages`), {
         message: chatInput,
         messageTimeStamp: serverTimestamp(),
-        unread: true,
         admin: false,
       });
       // We save the id to the chatID.
@@ -116,13 +119,18 @@ const Chat = () => {
         updateDoc(chatRef, {
           lastMessageTimeStamp: serverTimestamp(),
           lastMessage: chatInput,
-          name: user ? user.name : "unknown",
+          name: user ? user.name : null,
+          email: user ? user.email : null,
+          unreadAdmin: increment(1),
+          unreadUser: increment(0),
         });
         // If there is no doc we create a new one.
       } else {
         setDoc(chatRef, {
           lastMessageTimeStamp: serverTimestamp(),
           lastMessage: chatInput,
+          unreadAdmin: 1,
+          unreadUser: 0,
         });
       }
       // We add the message to the chat
@@ -130,7 +138,6 @@ const Chat = () => {
       addDoc(ref, {
         message: chatInput,
         messageTimeStamp: serverTimestamp(),
-        unread: true,
         admin: false,
       });
     }
