@@ -2,6 +2,7 @@
 import ChatIcon from "@/icons/ChatIcon";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
+import usePath from "@/hooks/usePath";
 
 const ChatButton = ({ setOpen, unread }) => {
   // We need to know if there is a cart or not if there is we need to put the icon a little bit higher because of the cart.
@@ -9,12 +10,14 @@ const ChatButton = ({ setOpen, unread }) => {
     cartState: { cart },
   } = useCart();
 
+  const { atMenu } = usePath();
+
   return (
     <button
       type="button"
       onClick={() => setOpen((prev) => !prev)}
       className={`bg-main w-12 h-12 rounded-full fixed ${
-        cart.length > 0 ? "bottom-20 md:bottom-4" : "bottom-4"
+        cart.length > 0 && atMenu ? "bottom-20 md:bottom-4" : "bottom-4"
       } right-4 flex items-center justify-center red-focus-ring border shadow ${
         unread && "animate-bounce"
       }`}

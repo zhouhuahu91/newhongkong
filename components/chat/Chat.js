@@ -14,6 +14,7 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
+import usePath from "@/hooks/usePath";
 // Motion imports
 import { motion, AnimatePresence } from "framer-motion";
 // Firebase imports
@@ -28,7 +29,6 @@ import {
   setDoc,
   updateDoc,
   orderBy,
-  increment,
   getDoc,
 } from "firebase/firestore";
 
@@ -43,6 +43,7 @@ const Chat = () => {
   // We need to know if store is closed to display online or offline
   const { closed } = useStoreInfo();
   const { user } = useAuth();
+  const { atMenu } = usePath();
   const {
     cartState: { cart },
   } = useCart();
@@ -172,7 +173,9 @@ const Chat = () => {
             exit={{ opacity: 0 }}
             drag
             className={`fixed w-full h-full bottom-0 right-0 sm:w-96 sm:h-[576px] z-50 border bg-white sm:right-5 ${
-              cart.length > 0 ? "sm:bottom-36 md:bottom-20" : "sm:bottom-20"
+              cart.length > 0 && atMenu
+                ? "sm:bottom-36 md:bottom-20"
+                : "sm:bottom-20"
             } flex flex-col rounded-lg shadow`}
           >
             {/* ********* HEADER OF CHAT ********** */}
@@ -206,7 +209,7 @@ const Chat = () => {
             </div>
             {/* ********** HEADER OF CHAT ********** */}
             {/* ********** CHAT MESSAGES ********** */}
-            <div className="flex-grow flex flex-col w-full overflow-y-scroll px-1 py-2 text-sm bg-gray-50">
+            <div className="flex-grow flex flex-col w-full overflow-y-scroll px-1 py-2 text-sm font-normal bg-gray-50">
               {chatMessages.map((message, index) => {
                 const timeStamp = getDigitalTime(
                   getCurrentTimeInSeconds(
