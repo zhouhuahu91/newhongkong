@@ -223,6 +223,12 @@ const OrderModal = ({ open, setOpen, order }) => {
             )}
           </div>
         </div>
+        <div className="flex flex-col mt-2">
+          <span className="text-sm text-gray-500">Phone Number:</span>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm">{order.tel}</span>
+          </div>
+        </div>
       </div>
       <div className="p-4 flex justify-evenly shadow">
         <div className="flex items-center space-x-1">
