@@ -7,6 +7,7 @@ import {
   collection,
   orderBy,
   onSnapshot,
+  doc,
   setDoc,
 } from "firebase/firestore";
 // Function imports
