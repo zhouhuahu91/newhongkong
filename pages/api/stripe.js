@@ -12,7 +12,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY_LIVE, {
   apiVersion: "2020-08-27",
 });
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SIG_SECRET_LIVE;
+const webhookSecret = process.env.NEW_WEBHOOK_SIG_SECRET_LIVE;
 
 // To check if the webhook is coming from stripe we need the raw body from the req.
 export const config = {
