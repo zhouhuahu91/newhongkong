@@ -49,8 +49,8 @@ const DashboardChat = () => {
         orderBy("messageTimeStamp", "asc")
       );
       unsubscribe = onSnapshot(q, (snapshot) => {
-        const data = snapshot.docs.map((doc) => doc.data());
-        const waitForTimeStamp = data.every((x) => x.messageTimeStamp);
+        const data = snapshot.docs.map((x) => x.data());
+        const waitForTimeStamp = data.every((y) => y.messageTimeStamp);
         if (waitForTimeStamp) setChatMessages(data);
       });
     }
