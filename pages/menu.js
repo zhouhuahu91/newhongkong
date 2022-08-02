@@ -1,10 +1,9 @@
 //React imports
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
 import { useMenu } from "@/hooks/useMenu";
-import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Component imports
 import FavoriteIcon from "@/icons/FavoriteIcon";
 import Card from "@/components/menu/Card";
@@ -33,8 +32,7 @@ const Menu = () => {
     favoriteMenuItems,
     popularMenuItems,
   } = useMenu();
-  // This returns the closed state of the restaurant.
-  const { closed } = useStoreInfo();
+
   // t is to translate the text.
   const t = useI18n();
   // This ref holds all the category divs. We need it for category header...
@@ -44,17 +42,6 @@ const Menu = () => {
   // useEffect(() => {
   //   uploadData();
   // }, []);
-
-  useEffect(() => {
-    const localCartState = JSON.parse(localStorage.getItem("localCartState"));
-    if (
-      // No need to open when we are closed.
-      !closed &&
-      (localCartState?.delivery === "undecided" || !localCartState)
-    ) {
-      setOpen(true);
-    }
-  }, []);
 
   if (!data.length) {
     return <Spinner />;

@@ -162,13 +162,12 @@ const CheckOut = () => {
       setValue("addition", cartState.address.addition);
     }
 
-    // If admin is placing the order we only fill in the email and default tel to 0.
-    if (user?.admin) {
-      setValue("tel", 0);
-      return setValue("email", user.email);
-    }
-
     if (user) {
+      // If admin is placing the order we only fill in the email and default tel to 0.
+      if (user.admin) {
+        setValue("tel", 0);
+        return setValue("email", user.email);
+      }
       // We check every just in case.
       if (user.name) setValue("name", user.name);
       if (user.email) setValue("email", user.email);

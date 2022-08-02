@@ -39,6 +39,7 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
   const { user } = useAuth();
   // We need store info to show customers that we are closed or just closed for delivery.
   const {
+    closed,
     storeInfo: { openForDelivery },
   } = useStoreInfo();
 
@@ -136,6 +137,23 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
       setDelivery(false);
     }
   }, [openForDelivery]);
+
+  // Opens the modal when nothing is selected.
+  useEffect(() => {
+    const localCartState = JSON.parse(localStorage.getItem("localCartState"));
+    if (
+      // No need to open when we are closed.
+      !closed &&
+      (localCartState?.delivery === "undecided" ||
+        !localCartState ||
+        // If user select delivery in checkout and the minimum is not matched the user gets redirect to menu page...
+        // Problem is that delivery is than set to true but there is no address input. Thats why we need to open this modal...
+        // ... so that the user is required to fill in address.
+        (localCartState.delivery === true && !localCartState.address.street))
+    ) {
+      setOpen(true);
+    }
+  }, []);
 
   // This useEffect fetches the address from an API if the postalcode and house number are valid.
   useEffect(() => {
