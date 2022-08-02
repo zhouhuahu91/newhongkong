@@ -14,6 +14,7 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
+import useWindowSize from "@/hooks/useWindowSize";
 import usePath from "@/hooks/usePath";
 // Motion imports
 import { motion, AnimatePresence } from "framer-motion";
@@ -50,6 +51,7 @@ const Chat = () => {
     currentTimeInSeconds > openingTime && currentTimeInSeconds < closingTime;
   const { user } = useAuth();
   const { atMenu } = usePath();
+  const { width } = useWindowSize();
   const {
     cartState: { cart },
   } = useCart();
@@ -210,7 +212,7 @@ const Chat = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            drag
+            drag={width > 640 ? true : false}
             className={`fixed w-full h-full bottom-0 right-0 sm:w-96 sm:h-[576px] z-50 border bg-white sm:right-5 ${
               cart.length > 0 && atMenu
                 ? "sm:bottom-36 md:bottom-20"
