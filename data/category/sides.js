@@ -204,7 +204,7 @@ export default {
       price: 250,
       options: [
         {
-          id: "S1",
+          id: "19S",
           name: {
             nl: "pindasaus",
             en: "peanut sauce",
@@ -213,7 +213,7 @@ export default {
           price: 0,
         },
         {
-          id: "S2",
+          id: "19Z",
           name: {
             nl: "zoetzure saus",
             en: "sweet & sour sauce",
@@ -222,7 +222,7 @@ export default {
           price: 0,
         },
         {
-          id: "S3",
+          id: "19O",
           name: {
             nl: "oestersaus",
             en: "oyster sauce",
@@ -231,7 +231,7 @@ export default {
           price: 0,
         },
         {
-          id: "S4",
+          id: "19B",
           name: {
             nl: "babi pangang saus",
             en: "babi pangang sauce",
@@ -240,7 +240,7 @@ export default {
           price: 0,
         },
         {
-          id: "S5",
+          id: "19K",
           name: {
             nl: "kerriesaus",
             en: "curry sauce",
@@ -249,7 +249,7 @@ export default {
           price: 0,
         },
         {
-          id: "S6",
+          id: "19F",
           name: {
             nl: "foe yong hai saus",
             en: "egg foo young sauce",
@@ -259,7 +259,7 @@ export default {
           price: 0,
         },
         {
-          id: "S7",
+          id: "19Z",
           name: {
             nl: "zwarte bonen saus",
             en: "black bean sauce",
