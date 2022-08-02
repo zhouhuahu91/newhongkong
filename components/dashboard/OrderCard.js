@@ -215,6 +215,9 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
                     setLastSelectedOrder(order);
                   }
                   if (order.paymentMethod === "online") return;
+                  // Removes focus from this element. We do this so that we can still enter complete...
+                  // If it is focused and we press enter it just toggle payed off.
+                  document.activeElement.blur();
                   const ref = doc(db, `orders/${order.id}`);
                   updateDoc(ref, {
                     paid: !order.paid,
