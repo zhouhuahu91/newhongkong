@@ -69,7 +69,7 @@ const DashboardChat = () => {
     const chatRef = doc(db, `chats/${chat.id}`);
     const snapshot = getDoc(chatRef);
     // If chat already exists
-    if (snapshot.exists) {
+    if (snapshot.exists()) {
       updateDoc(chatRef, {
         lastMessageTimeStamp: serverTimestamp(),
         lastMessage: chatInput,

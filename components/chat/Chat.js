@@ -122,7 +122,7 @@ const Chat = () => {
       const chatRef = doc(db, `chats/${chatID}`);
       const snapshot = await getDoc(chatRef);
       // If chat already exists
-      if (snapshot.exists) {
+      if (snapshot.exists()) {
         updateDoc(chatRef, {
           lastMessageTimeStamp: serverTimestamp(),
           lastMessage: chatInput,
@@ -189,7 +189,7 @@ const Chat = () => {
 
     const ref = doc(db, `chats/${chatID}`);
     const unsubscribe = onSnapshot(ref, (snapshot) => {
-      if (snapshot.exists) {
+      if (snapshot.exists()) {
         const data = snapshot.data();
         if (open) {
           resetUnreadCountForUsers();
