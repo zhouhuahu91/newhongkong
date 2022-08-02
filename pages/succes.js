@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 // NextJs imports
 import Link from "next/link";
+import { useRouter } from "next/router";
 // Component imports
 import Spinner from "@/components/Spinner";
 // Hook imports
@@ -15,17 +16,12 @@ import axios from "axios";
 // Function imports
 import getURL from "@/functions/getURL";
 
-export async function getServerSideProps(context) {
-  return {
-    props: { query: context.query }, // will be passed to the page component as props
-  };
-}
-
-const Succes = ({ query }) => {
+const Succes = () => {
   const [order, setOrder] = useState(null);
   const { dispatch } = useCart();
   const t = useI18n();
   const URL = getURL();
+  const { query } = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
