@@ -50,8 +50,10 @@ const Succes = () => {
           console.log(e);
         }
       }
-      // If there is no query or the redirect_status failed we set the state to false.
-      return setOrder(false);
+      // Only if there is a redirect status we want to show the error.
+      if (query.redirect_status) {
+        return setOrder(false);
+      }
     };
     fetchData();
   }, [query, dispatch]);

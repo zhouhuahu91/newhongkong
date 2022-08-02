@@ -38,9 +38,6 @@ const StripePaymentModal = ({ cancel, total, id }) => {
     setProcessing(true);
     // Confirm stripe payment
     const { error } = await stripe.confirmPayment({
-      billing_details: {
-        name: "Zhouhua Hu",
-      },
       elements,
       confirmParams: {
         return_url: `${URL}/succes?id=${id}`,
