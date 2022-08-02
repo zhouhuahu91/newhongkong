@@ -45,7 +45,7 @@ const webhookHandler = async (req, res) => {
       );
     } catch (e) {
       console.log(`Error message: ${e.message}`);
-      res.status(400).send(`Webhook Error: ${e.message}`);
+      res.status(400).send(`Webhook Error: ${e.message} ${webhookSecret}`);
       return;
     }
     // *******

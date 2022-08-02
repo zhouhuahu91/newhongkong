@@ -9,6 +9,7 @@ import {
   onSnapshot,
   doc,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
@@ -44,11 +45,16 @@ const DashboardChatPanel = ({
       // chat we wait untill every chat (data) has a lastUpdate timestamp.
       const waitForTimeStamp = data.every((x) => x.lastMessageTimeStamp);
       if (waitForTimeStamp) {
-        data.forEach((chat) => {
-          if (chat.id === currentChat?.id) {
-            setCurrentChat(chat);
-          }
-        });
+        // We update the current selected chat.
+        // data.forEach((chat) => {
+        //   if (chat.id === currentChat?.id) {
+        //     setCurrentChat(chat);
+        //   }
+        // });
+        // We check if there are unread messages.
+        const unreadMessages = data.some((x) => x.unreadAdmin > 0);
+        console.log(unreadMessages);
+
         setChats(data);
       }
     });
@@ -79,16 +85,14 @@ const DashboardChatPanel = ({
     }
   };
 
-  // Check for unread messages.
-  useEffect(() => {
-    // If modal is open and there is a chat selected we reset the unread messages for that chat
-    if (open && currentChat?.unreadAdmin > 0) {
-      const ref = doc(db, `chats/${currentChat?.id}`);
-      return setDoc(ref, { unreadUser: 0 }, { merge: true });
-    }
-
-    //
-  }, [chats]);
+  // // Check for unread messages.
+  // useEffect(() => {
+  //   // If modal is open and there is a chat selected we reset the unread messages for that chat
+  //   if (open && currentChat?.unreadAdmin > 0) {
+  //     const ref = doc(db, `chats/${currentChat?.id}`);
+  //     updateDoc(ref, { unreadAdmin: 0 });
+  //   }
+  // }, [chats, open, currentChat]);
 
   return (
     <>
