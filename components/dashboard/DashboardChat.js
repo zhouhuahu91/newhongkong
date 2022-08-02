@@ -6,6 +6,7 @@ import DashboardChatPanel from "@/components/dashboard/DashboardChatPanel";
 import IconBtn from "@/components/IconBtn";
 import AccountIcon from "@/icons/AccountIcon";
 import CloseIcon from "@/icons/CloseIcon";
+import SendIcon from "@/icons/SendIcon";
 // Animation impors
 import { motion, AnimatePresence } from "framer-motion";
 // Function imports
@@ -32,6 +33,12 @@ const DashboardChat = () => {
   const [unread, setUnread] = useState(false);
   const [chat, setChat] = useState(null);
   const [chatMessages, setChatMessages] = useState([]);
+  const [chatInput, setChatInput] = useState("");
+  const [processing, setProcessing] = useState(false);
+
+  const chatRef = useRef(null);
+  const lastMessageRef = useRef(null);
+  const inputRef = useRef(null);
 
   // useEffect to update chatMessages
   useEffect(() => {
@@ -53,8 +60,47 @@ const DashboardChat = () => {
     };
   }, [chat]);
 
-  const chatRef = useRef(null);
-  const lastMessageRef = useRef(null);
+  const submit = () => {
+    // If there is not chat input, or chat or processing, return.
+    if (!chatInput || !chat || processing) return;
+    // Set processing to true.
+    setProcessing(true);
+
+    const chatRef = doc(db, `chats/${chat.id}`);
+    const snapshot = getDoc(chatRef);
+    // If chat already exists
+    if (snapshot.exists) {
+      updateDoc(chatRef, {
+        lastMessageTimeStamp: serverTimestamp(),
+        lastMessage: chatInput,
+        unreadAdmin: increment(0),
+        unreadUser: increment(1),
+      });
+      // If there is no doc we create a new one.
+    } else {
+      setDoc(chatRef, {
+        lastMessageTimeStamp: serverTimestamp(),
+        lastMessage: chatInput,
+        unreadAdmin: 0,
+        unreadUser: 1,
+      });
+    }
+    // We add the message to the chat
+    const ref = collection(db, `chats/${chat.id}/messages`);
+    addDoc(ref, {
+      message: chatInput,
+      messageTimeStamp: serverTimestamp(),
+      admin: true,
+    });
+
+    // We reset the message to empty.
+    setChatInput("");
+    // // We set focus back on the input.
+    inputRef.current.focus();
+    // And we turn off the processing.
+    setProcessing(false);
+  };
+
   return (
     <div ref={chatRef}>
       <AnimatePresence>
@@ -67,7 +113,13 @@ const DashboardChat = () => {
             className={`fixed w-full h-full bottom-0 right-0 sm:w-[670px] sm:h-[576px] z-50 border bg-white sm:right-5 sm:bottom-20 flex rounded-lg shadow overflow-hidden`}
           >
             <div className="max-w-[256px] w-full border-r-2">
-              <DashboardChatPanel currentChat={chat} setCurrentChat={setChat} />
+              <DashboardChatPanel
+                currentChat={chat}
+                setCurrentChat={setChat}
+                unread={unread}
+                setUnread={setUnread}
+                open={open}
+              />
             </div>
             <div className="flex flex-col w-full">
               {/* ********* HEADER OF CHAT ********** */}
@@ -121,6 +173,30 @@ const DashboardChat = () => {
                 <div ref={lastMessageRef} />
               </div>
               {/* ********** CHAT MESSAGES ********** */}
+              {/* ********** CHAT INPUT ********** */}
+              <div className="p-4 shadow flex items-center">
+                <input
+                  ref={inputRef}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  value={chatInput}
+                  autoFocus
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      submit();
+                    }
+                  }}
+                  type="text"
+                  className="appearance-none my-0.5 px-3 border rounded-md w-full text-sm focus:outline-none bg-inherit red-focus-ring py-2 placeholder-gray-500"
+                />
+                <IconBtn
+                  disabled={!chatInput || processing || !chat}
+                  className="ml-4"
+                  onClick={() => submit()}
+                >
+                  <SendIcon />
+                </IconBtn>
+              </div>
+              {/* ********** CHAT INPUT ********** */}
             </div>
           </motion.div>
         )}

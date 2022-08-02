@@ -41,8 +41,13 @@ const Chat = () => {
   const [chatMessages, setChatMessages] = useState([]);
   const [processing, setProcessing] = useState(false);
 
-  // We need to know if store is closed to display online or offline
-  const { closed } = useStoreInfo();
+  // We need to know if store is online to display online or offline
+  const {
+    storeInfo: { openingTime, closingTime },
+    currentTimeInSeconds,
+  } = useStoreInfo();
+  const online =
+    currentTimeInSeconds > openingTime && currentTimeInSeconds < closingTime;
   const { user } = useAuth();
   const { atMenu } = usePath();
   const {
@@ -115,7 +120,7 @@ const Chat = () => {
       const chatRef = doc(db, `chats/${chatID}`);
       const snapshot = await getDoc(chatRef);
       // If chat already exists
-      if (snapshot.exists()) {
+      if (snapshot.exists) {
         updateDoc(chatRef, {
           lastMessageTimeStamp: serverTimestamp(),
           lastMessage: chatInput,
@@ -170,6 +175,33 @@ const Chat = () => {
     };
   }, [chatID]);
 
+  const resetUnreadCountForUsers = () => {
+    const ref = doc(db, `chats/${chatID}`);
+    setDoc(ref, { unreadUser: 0 }, { merge: true });
+  };
+
+  // Check for unread messages.
+  useEffect(() => {
+    if (!chatID) return;
+    if (open) resetUnreadCountForUsers();
+
+    const ref = doc(db, `chats/${chatID}`);
+    const unsubscribe = onSnapshot(ref, (snapshot) => {
+      if (snapshot.exists) {
+        const data = snapshot.data();
+        if (open) {
+          resetUnreadCountForUsers();
+          return setUnread(false);
+        }
+        if (data?.unreadUser > 0) {
+          setUnread(true);
+        }
+      }
+    });
+
+    return () => unsubscribe();
+  }, [chatID, open]);
+
   return (
     <div ref={chatRef}>
       <AnimatePresence>
@@ -193,17 +225,17 @@ const Chat = () => {
                   <span className="text-sm font-medium">New Hong Kong</span>
                   <div className="flex items-center">
                     <span className="text-xs">
-                      {closed ? "offline" : "online"}
+                      {online ? "online" : "offline"}
                     </span>
                     <span className="flex h-2.5 w-2.5 ml-1">
                       <span
-                        className={`animate-ping h-2.5 w-2.5 absolute inline-flex rounded-full opacity-75 ${
-                          !closed ? "bg-green-600" : "bg-red-600"
+                        className={`h-2.5 w-2.5 absolute inline-flex rounded-full opacity-75 ${
+                          online ? "bg-green-600 animate-ping" : "bg-main"
                         }`}
                       />
                       <span
                         className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
-                          !closed ? "bg-green-600" : "bg-red-500"
+                          online ? "bg-green-600" : "bg-main"
                         }`}
                       />
                     </span>

@@ -2,7 +2,13 @@
 import { useState, useEffect } from "react";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
+import {
+  query,
+  collection,
+  orderBy,
+  onSnapshot,
+  setDoc,
+} from "firebase/firestore";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 import getDigitalTime from "@/functions/getDigitalTime";
@@ -10,7 +16,13 @@ import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 
-const DashboardChatPanel = ({ currentChat, setCurrentChat }) => {
+const DashboardChatPanel = ({
+  currentChat,
+  setCurrentChat,
+  unread,
+  setUnread,
+  open,
+}) => {
   const [chats, setChats] = useState([]);
   const t = useI18n();
   // Gets all chats from the server.
@@ -65,6 +77,17 @@ const DashboardChatPanel = ({ currentChat, setCurrentChat }) => {
       return getCurrentDate(d);
     }
   };
+
+  // Check for unread messages.
+  useEffect(() => {
+    // If modal is open and there is a chat selected we reset the unread messages for that chat
+    if (open && currentChat?.unreadAdmin > 0) {
+      const ref = doc(db, `chats/${currentChat?.id}`);
+      return setDoc(ref, { unreadUser: 0 }, { merge: true });
+    }
+
+    //
+  }, [chats]);
 
   return (
     <>
