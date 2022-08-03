@@ -61,6 +61,14 @@ const DashboardChat = () => {
     };
   }, [selectedChat]);
 
+  // Set unread of the selectedChat to 0 if modal is open.
+  useEffect(() => {
+    if (open && selectedChat) {
+      const docRef = doc(db, `chats/${selectedChat.id}`);
+      updateDoc(docRef, { unreadAdmin: 0 });
+    }
+  }, [open, selectedChat, chatMessages]);
+
   // Gets all chats from the server.
   useEffect(() => {
     const q = query(
