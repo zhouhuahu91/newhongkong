@@ -106,8 +106,8 @@ const Chat = () => {
       const { id } = await addDoc(newChatRef, {
         lastMessageTimeStamp: serverTimestamp(),
         lastMessage: chatInput,
-        name: user ? user.name : guest ? guest.name : "",
-        email: user ? user.email : guest ? guest.email : "",
+        name: user ? user.name : guest?.name ? guest.name : "",
+        email: user ? user.email : guest?.email ? guest.email : "",
         unreadAdmin: 1,
         unreadUser: 0,
       });
@@ -132,8 +132,8 @@ const Chat = () => {
         updateDoc(chatRef, {
           lastMessageTimeStamp: serverTimestamp(),
           lastMessage: chatInput,
-          name: user ? user.name : guest ? guest.name : "",
-          email: user ? user.email : guest ? guest.email : "",
+          name: user ? user.name : guest?.name ? guest.name : "",
+          email: user ? user.email : guest?.email ? guest.email : "",
           unreadAdmin: increment(1),
           unreadUser: increment(0),
         });
