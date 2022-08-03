@@ -31,7 +31,8 @@ import {
 const DashboardChat = () => {
   const [open, setOpen] = useState(false);
   const [unread, setUnread] = useState(false);
-  const [chat, setChat] = useState(null);
+  const [selectedChat, setSelectedChat] = useState(null);
+  const [allChats, setAllChats] = useState([]);
   const [chatMessages, setChatMessages] = useState([]);
   const [chatInput, setChatInput] = useState("");
   const [processing, setProcessing] = useState(false);
@@ -43,9 +44,9 @@ const DashboardChat = () => {
   // useEffect to update chatMessages
   useEffect(() => {
     let unsubscribe = null;
-    if (chat) {
+    if (selectedChat) {
       const q = query(
-        collection(db, `chats/${chat.id}/messages`),
+        collection(db, `chats/${selectedChat.id}/messages`),
         orderBy("messageTimeStamp", "asc")
       );
       unsubscribe = onSnapshot(q, (snapshot) => {
@@ -58,15 +59,50 @@ const DashboardChat = () => {
     return () => {
       if (unsubscribe) unsubscribe();
     };
-  }, [chat]);
+  }, [selectedChat]);
+
+  // Gets all chats from the server.
+  useEffect(() => {
+    const q = query(
+      collection(db, "chats"),
+      orderBy("lastMessageTimeStamp", "desc")
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const data = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+        // makes the unread not jump when the current chat is the same and the document.
+        unreadAdmin: selectedChat?.id === doc.id ? 0 : doc.data().unreadAdmin,
+      }));
+      // When we send message with serverTimestamp it will be null first...
+      // with null we can't order the latest chat. Therefor before we update the...
+      // chat we wait untill every chat (data) has a lastUpdate timestamp.
+      const waitForTimeStamp = data.every((x) => x.lastMessageTimeStamp);
+      if (waitForTimeStamp) {
+        // We update the current selected chat.
+        data.forEach((x) => {
+          if (x.id === selectedChat?.id) {
+            setSelectedChat(x);
+          }
+        });
+        // We check if there are unread messages.
+        const unreadMessages = data.some((x) => x.unreadAdmin > 0);
+        setUnread(unreadMessages);
+
+        setAllChats(data);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const submit = () => {
     // If there is not chat input, or chat or processing, return.
-    if (!chatInput || !chat || processing) return;
+    if (!chatInput || !selectedChat || processing) return;
     // Set processing to true.
     setProcessing(true);
 
-    const chatRef = doc(db, `chats/${chat.id}`);
+    const chatRef = doc(db, `chats/${selectedChat.id}`);
     const snapshot = getDoc(chatRef);
     // If chat already exists
     if (snapshot.exists()) {
@@ -86,7 +122,7 @@ const DashboardChat = () => {
       });
     }
     // We add the message to the chat
-    const ref = collection(db, `chats/${chat.id}/messages`);
+    const ref = collection(db, `chats/${selectedChat.id}/messages`);
     addDoc(ref, {
       message: chatInput,
       messageTimeStamp: serverTimestamp(),
@@ -114,8 +150,10 @@ const DashboardChat = () => {
           >
             <div className="max-w-[256px] w-full border-r-2">
               <DashboardChatPanel
-                currentChat={chat}
-                setCurrentChat={setChat}
+                selectedChat={selectedChat}
+                setSelectedChat={setSelectedChat}
+                allChats={allChats}
+                setAllChats={setAllChats}
                 unread={unread}
                 setUnread={setUnread}
                 open={open}
@@ -127,8 +165,12 @@ const DashboardChat = () => {
                 <div className="font-semibold flex items-center">
                   <AccountIcon size="36" className="mr-2" />
                   <div className="flex flex-col justify-center">
-                    <span className="text-sm font-medium">{chat?.name}</span>
-                    <span className="text-sm font-medium">{chat?.email}</span>
+                    <span className="text-sm font-medium">
+                      {selectedChat?.name}
+                    </span>
+                    <span className="text-sm font-medium">
+                      {selectedChat?.email}
+                    </span>
                   </div>
                 </div>
                 <IconBtn onClick={() => setOpen(false)}>
@@ -189,7 +231,7 @@ const DashboardChat = () => {
                   className="appearance-none my-0.5 px-3 border rounded-md w-full text-sm focus:outline-none bg-inherit red-focus-ring py-2 placeholder-gray-500"
                 />
                 <IconBtn
-                  disabled={!chatInput || processing || !chat}
+                  disabled={!chatInput || processing || !selectedChat}
                   className="ml-4"
                   onClick={() => submit()}
                 >

@@ -1,16 +1,3 @@
-// React imports
-import { useState, useEffect } from "react";
-// Firebase imports
-import { db } from "@/firebase/firebase";
-import {
-  query,
-  collection,
-  orderBy,
-  onSnapshot,
-  doc,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 import getDigitalTime from "@/functions/getDigitalTime";
@@ -18,49 +5,8 @@ import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 
-const DashboardChatPanel = ({
-  currentChat,
-  setCurrentChat,
-  unread,
-  setUnread,
-  open,
-}) => {
-  const [chats, setChats] = useState([]);
+const DashboardChatPanel = ({ selectedChat, setSelectedChat, allChats }) => {
   const t = useI18n();
-  // Gets all chats from the server.
-  useEffect(() => {
-    const q = query(
-      collection(db, "chats"),
-      orderBy("lastMessageTimeStamp", "desc")
-    );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        // makes the unread not jump when the current chat is the same and the document.
-        unreadAdmin: currentChat?.id === doc.id ? 0 : doc.data().unreadAdmin,
-      }));
-      // When we send message with serverTimestamp it will be null first...
-      // with null we can't order the latest chat. Therefor before we update the...
-      // chat we wait untill every chat (data) has a lastUpdate timestamp.
-      const waitForTimeStamp = data.every((x) => x.lastMessageTimeStamp);
-      if (waitForTimeStamp) {
-        // We update the current selected chat.
-        // data.forEach((chat) => {
-        //   if (chat.id === currentChat?.id) {
-        //     setCurrentChat(chat);
-        //   }
-        // });
-        // We check if there are unread messages.
-        const unreadMessages = data.some((x) => x.unreadAdmin > 0);
-        console.log(unreadMessages);
-
-        setChats(data);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   // Return the correct day to display
   const getDisplayDate = (time) => {
@@ -85,26 +31,17 @@ const DashboardChatPanel = ({
     }
   };
 
-  // // Check for unread messages.
-  // useEffect(() => {
-  //   // If modal is open and there is a chat selected we reset the unread messages for that chat
-  //   if (open && currentChat?.unreadAdmin > 0) {
-  //     const ref = doc(db, `chats/${currentChat?.id}`);
-  //     updateDoc(ref, { unreadAdmin: 0 });
-  //   }
-  // }, [chats, open, currentChat]);
-
   return (
     <>
-      {chats.map((chat, idx) => {
+      {allChats.map((chat, idx) => {
         return (
           <div
             key={idx}
             className={`flex flex-col w-full p-4 border-b ${
-              chat.id === currentChat?.id ? "bg-gray-100" : ""
+              chat.id === selectedChat?.id ? "bg-gray-100" : ""
             }`}
             onClick={() => {
-              setCurrentChat(chat);
+              setSelectedChat(chat);
             }}
           >
             <div className="flex justify-between items-center">
