@@ -83,10 +83,10 @@ const Chat = () => {
       return setChatID(user.uid);
     }
     // If there is no user we check if there is an chatID stored in localStorage.
-    const data = localStorage.getItem("chatID");
+    const id = localStorage.getItem("localChatID");
     // If there is an id and id !== chatID then update chatID
-    if (data) {
-      return setChatID(data.id);
+    if (id) {
+      return setChatID(id);
     }
   }, [user]);
 
@@ -94,6 +94,11 @@ const Chat = () => {
     // If there is no input we return from function.
     // We also return if function is already processing.
     if (!chatInput || processing) return;
+
+    // If user didn't create an account but has ordered before we can also get there info from the guest object...
+    // ... in the local storage.
+    const guest = localStorage.getItem("guest");
+
     // We first check if there is an chatID. If there is no chatID we need to create one.
     if (!chatID) {
       // We create a new collection for the chat.
@@ -101,8 +106,8 @@ const Chat = () => {
       const { id } = await addDoc(newChatRef, {
         lastMessageTimeStamp: serverTimestamp(),
         lastMessage: chatInput,
-        name: user ? user.name : null,
-        email: user ? user.email : null,
+        name: user ? user.name : guest ? guest.name : "",
+        email: user ? user.email : guest ? guest.email : "",
         unreadAdmin: 1,
         unreadUser: 0,
       });
@@ -116,7 +121,7 @@ const Chat = () => {
       // We save the id to the chatID.
       setChatID(id);
       // We also save it to the locale storage.
-      localStorage.setItem("chatID", { id });
+      localStorage.setItem("localChatID", id);
     } else {
       // If there is an ChatID it means the there is a user logged in or there is a chatID stored in localStorage.
       // If chatID Already exists
@@ -127,8 +132,8 @@ const Chat = () => {
         updateDoc(chatRef, {
           lastMessageTimeStamp: serverTimestamp(),
           lastMessage: chatInput,
-          name: user ? user.name : null,
-          email: user ? user.email : null,
+          name: user ? user.name : guest ? guest.name : "",
+          email: user ? user.email : guest ? guest.email : "",
           unreadAdmin: increment(1),
           unreadUser: increment(0),
         });
