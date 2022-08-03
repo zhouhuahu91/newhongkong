@@ -177,7 +177,7 @@ const DashboardChat = () => {
             drag
             className={`fixed w-full h-full bottom-0 right-0 sm:w-[670px] sm:h-[576px] z-50 border bg-white sm:right-5 sm:bottom-20 flex rounded-lg shadow overflow-hidden`}
           >
-            <div className="max-w-[256px] w-full border-r-2">
+            <div className="max-w-[256px] w-full border-r-2 overflow-scroll">
               <DashboardChatPanel
                 selectedChat={selectedChat}
                 setSelectedChat={setSelectedChat}
