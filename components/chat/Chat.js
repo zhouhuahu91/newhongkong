@@ -97,7 +97,8 @@ const Chat = () => {
 
     // If user didn't create an account but has ordered before we can also get there info from the guest object...
     // ... in the local storage.
-    const guest = localStorage.getItem("guest");
+    const guest = JSON.parse(localStorage.getItem("guest"));
+    console.log(guest);
 
     // We first check if there is an chatID. If there is no chatID we need to create one.
     if (!chatID) {
