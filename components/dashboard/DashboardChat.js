@@ -104,6 +104,13 @@ const DashboardChat = () => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    inputRef.current.onFocus = () => {
+      window.scrollTo(0, 0);
+      document.body.scrollTop = 0;
+    };
+  });
+
   const submit = () => {
     // If there is not chat input, or chat or processing, return.
     if (!chatInput || !selectedChat || processing) return;
