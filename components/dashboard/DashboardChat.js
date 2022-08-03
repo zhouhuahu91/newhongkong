@@ -105,10 +105,12 @@ const DashboardChat = () => {
   }, []);
 
   useEffect(() => {
-    inputRef.current.onFocus = () => {
-      window.scrollTo(0, 0);
-      document.body.scrollTop = 0;
-    };
+    if (inputRef) {
+      inputRef.current.onFocus = () => {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+      };
+    }
   });
 
   const submit = () => {
