@@ -105,7 +105,7 @@ const DashboardChat = () => {
   }, []);
 
   useEffect(() => {
-    if (inputRef) {
+    if (inputRef.current) {
       inputRef.current.onFocus = () => {
         window.scrollTo(0, 0);
         document.body.scrollTop = 0;
