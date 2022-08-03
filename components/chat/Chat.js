@@ -49,6 +49,7 @@ const Chat = () => {
   } = useStoreInfo();
   const online =
     currentTimeInSeconds > openingTime && currentTimeInSeconds < closingTime;
+
   const { user } = useAuth();
   const { atMenu } = usePath();
   const { width } = useWindowSize();
@@ -178,23 +179,28 @@ const Chat = () => {
   }, [chatID]);
 
   const resetUnreadCountForUsers = () => {
-    const ref = doc(db, `chats/${chatID}`);
-    setDoc(ref, { unreadUser: 0 }, { merge: true });
+    const chatRef = doc(db, `chats/${chatID}`);
+    updateDoc(chatRef, { unreadUser: 0 });
   };
 
   // Check for unread messages.
   useEffect(() => {
+    // If there is no chatID selected we return.
     if (!chatID) return;
+    // If modal is open we always reset the unread count for the user.
     if (open) resetUnreadCountForUsers();
-
-    const ref = doc(db, `chats/${chatID}`);
-    const unsubscribe = onSnapshot(ref, (snapshot) => {
+    const chatRef = doc(db, `chats/${chatID}`);
+    const unsubscribe = onSnapshot(chatRef, (snapshot) => {
+      // If snapshot exists we check for the unread messages for the user.
       if (snapshot.exists()) {
         const data = snapshot.data();
+        // If if the chat is open we do not need to update it.
         if (open) {
+          // We reset the unread for the user.
           resetUnreadCountForUsers();
           return setUnread(false);
         }
+        // But if chat is closed and there are unread messages for the user we update it.
         if (data?.unreadUser > 0) {
           setUnread(true);
         }
@@ -214,6 +220,8 @@ const Chat = () => {
             exit={{ opacity: 0 }}
             drag={width > 640 ? true : false}
             className={`fixed w-full h-full bottom-0 right-0 sm:w-96 sm:h-[576px] z-50 border bg-white sm:right-5 ${
+              // If we are at menu and there are items in the cart we need to push up the chat because there is a cart button...
+              // ... on screens smaller than md.
               cart.length > 0 && atMenu
                 ? "sm:bottom-36 md:bottom-20"
                 : "sm:bottom-20"
@@ -313,7 +321,6 @@ const Chat = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
       <ChatButton unread={unread} setOpen={setOpen} />
     </div>
   );
