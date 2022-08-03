@@ -41,8 +41,22 @@ const DashboardChat = () => {
   const lastMessageRef = useRef(null);
   const inputRef = useRef(null);
 
-  // useEffect to update chatMessages
+  const scrollToBottom = () => {
+    // We use setTimeout so that this functions happens after the element mounts.
+    // A weird workout that works not sure how to do it in a another way.
+    setTimeout(() => {
+      lastMessageRef?.current?.scrollIntoView();
+    }, 0);
+  };
+
+  // We call the function everything the modal and messages updates.
   useEffect(() => {
+    scrollToBottom();
+  }, [open, chatMessages]);
+
+  // useEffect to update chatMessages.
+  useEffect(() => {
+    // We only need to update if there is a selected chat.
     let unsubscribe = null;
     if (selectedChat) {
       const q = query(
@@ -51,22 +65,29 @@ const DashboardChat = () => {
       );
       unsubscribe = onSnapshot(q, (snapshot) => {
         const data = snapshot.docs.map((x) => x.data());
+        // Time stamps created by firebase always have an delay.
+        // We await the time stamps before we update the chatMessages..
         const waitForTimeStamp = data.every((y) => y.messageTimeStamp);
         if (waitForTimeStamp) setChatMessages(data);
       });
     }
-
     return () => {
       if (unsubscribe) unsubscribe();
     };
   }, [selectedChat]);
 
-  // Set unread of the selectedChat to 0 if modal is open.
+  // Set unread of the selectedChat to false if chat is open.
   useEffect(() => {
+    // If chat is open we loook op the doc and reset the unreadAdmin to 0.
     if (open && selectedChat) {
       const docRef = doc(db, `chats/${selectedChat.id}`);
       updateDoc(docRef, { unreadAdmin: 0 });
     }
+    // We also rerun for when chatMessages is updated.
+    // If we do not do this unreadAdmin will turn true if the selected chat...
+    // is the chat that is receiving new messages.
+    // chatMessages contains the current chat so if that updates it means the current chat is receiving new...
+    // unread messages that can trigger this useEffect..
   }, [open, selectedChat, chatMessages]);
 
   // Gets all chats from the server.
@@ -79,8 +100,6 @@ const DashboardChat = () => {
       const data = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-        // makes the unread not jump when the current chat is the same and the document.
-        unreadAdmin: selectedChat?.id === doc.id ? 0 : doc.data().unreadAdmin,
       }));
       // When we send message with serverTimestamp it will be null first...
       // with null we can't order the latest chat. Therefor before we update the...
@@ -88,15 +107,17 @@ const DashboardChat = () => {
       const waitForTimeStamp = data.every((x) => x.lastMessageTimeStamp);
       if (waitForTimeStamp) {
         // We update the current selected chat.
+        // This updates the user chat with the newest information.
         data.forEach((x) => {
           if (x.id === selectedChat?.id) {
             setSelectedChat(x);
           }
         });
         // We check if there are unread messages.
+        // If there are we notify it.
         const unreadMessages = data.some((x) => x.unreadAdmin > 0);
         setUnread(unreadMessages);
-
+        // We set all the chats.
         setAllChats(data);
       }
     });
@@ -105,7 +126,6 @@ const DashboardChat = () => {
   }, []);
 
   const submit = async () => {
-    console.log("test");
     // If there is not chat input, or chat or processing, return.
     if (!chatInput || !selectedChat || processing) return;
     // Set processing to true.
