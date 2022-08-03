@@ -104,14 +104,15 @@ const DashboardChat = () => {
     return () => unsubscribe();
   }, []);
 
-  const submit = () => {
+  const submit = async () => {
+    console.log("test");
     // If there is not chat input, or chat or processing, return.
     if (!chatInput || !selectedChat || processing) return;
     // Set processing to true.
     setProcessing(true);
 
     const chatRef = doc(db, `chats/${selectedChat.id}`);
-    const snapshot = getDoc(chatRef);
+    const snapshot = await getDoc(chatRef);
     // If chat already exists
     if (snapshot.exists()) {
       updateDoc(chatRef, {
