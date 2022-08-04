@@ -103,8 +103,8 @@ const CategoryHeader = ({ data, categoryRef }) => {
                 // This scrolls the main menu in the y axis.
                 window.scrollTo({
                   behavior: "smooth",
-                  // We scroll to the top of the category + 100px for ajustment.
-                  top: categoryRef.current[idx].offsetTop + 100,
+                  // We scroll to the top of the category + 70px for ajustment.
+                  top: categoryRef.current[idx].offsetTop + 70,
                 });
               }}
               className={`whitespace-nowrap my-3 rounded-full px-2 text-sm py-1 transition-colors ease-in duration-200 ${
