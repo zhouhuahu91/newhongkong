@@ -27,6 +27,9 @@ import {
   orderBy,
   getDoc,
 } from "firebase/firestore";
+// Hook imports
+import useWindowSize from "@/hooks/useWindowSize";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 const DashboardChat = () => {
   const [open, setOpen] = useState(false);
@@ -40,6 +43,9 @@ const DashboardChat = () => {
   const chatRef = useRef(null);
   const lastMessageRef = useRef(null);
   const inputRef = useRef(null);
+  const { width } = useWindowSize();
+
+  useOnClickOutside(chatRef, () => setOpen(false));
 
   const scrollToBottom = () => {
     // We use setTimeout so that this functions happens after the element mounts.
@@ -48,6 +54,12 @@ const DashboardChat = () => {
       lastMessageRef?.current?.scrollIntoView();
     }, 0);
   };
+  // If Chat is open and there is not chat selected we auto select the first one in the list.
+  useEffect(() => {
+    if (open && !selectedChat && allChats.length > 0) {
+      setSelectedChat(allChats[0]);
+    }
+  }, [open, allChats, setSelectedChat]);
 
   // We call the function everything the modal and messages updates.
   useEffect(() => {
@@ -174,7 +186,7 @@ const DashboardChat = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            drag
+            drag={width > 640 ? true : false}
             className={`fixed w-full h-full bottom-0 right-0 sm:w-[670px] sm:h-[576px] z-50 border bg-white sm:right-5 sm:bottom-20 flex rounded-lg shadow overflow-hidden`}
           >
             <div className="max-w-[256px] w-full border-r-2 overflow-scroll">
@@ -194,12 +206,10 @@ const DashboardChat = () => {
                 <div className="font-semibold flex items-center">
                   <AccountIcon size="36" className="mr-2" />
                   <div className="flex flex-col justify-center">
-                    <span className="text-sm font-medium">
-                      {selectedChat?.name}
+                    <span className="font-medium">
+                      {selectedChat?.name || "unknown"}
                     </span>
-                    <span className="text-sm font-medium">
-                      {selectedChat?.email}
-                    </span>
+                    <span className="text-sm">{selectedChat?.email}</span>
                   </div>
                 </div>
                 <IconBtn onClick={() => setOpen(false)}>
