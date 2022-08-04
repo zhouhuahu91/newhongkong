@@ -1,5 +1,6 @@
 // React imports
 import { useState, useRef, useEffect } from "react";
+import Linkify from "react-linkify";
 // Component imports
 import ChatButton from "@/components/chat/ChatButton";
 import DashboardChatPanel from "@/components/dashboard/DashboardChatPanel";
@@ -218,41 +219,45 @@ const DashboardChat = () => {
               </div>
               {/* ********** HEADER OF CHAT ********** */}
               {/* ********** CHAT MESSAGES ********** */}
-              <div className="flex-grow flex flex-col w-full overflow-y-scroll px-1 py-2 text-sm font-normal bg-gray-50">
-                {chatMessages.map((message, index) => {
-                  const timeStamp = getDigitalTime(
-                    getCurrentTimeInSeconds(
-                      new Date(message.messageTimeStamp.seconds * 1000)
-                    )
-                  );
-                  if (!message.admin) {
-                    return (
-                      <div
-                        key={index}
-                        className="mx-1 mb-2 border max-w-xs py-1 px-2 rounded-t-xl rounded-r-xl self-start flex space-x-2 bg-white relative shadow-sm"
-                      >
-                        <div className="pr-7">{message.message}</div>
-                        <div className="text-[10px] absolute right-1.5 bottom-0">
-                          {timeStamp}
-                        </div>
-                      </div>
+              <Linkify>
+                <div className="flex-grow flex flex-col w-full overflow-y-scroll px-1 py-2 text-sm font-normal bg-gray-50">
+                  {chatMessages.map((message, index) => {
+                    const timeStamp = getDigitalTime(
+                      getCurrentTimeInSeconds(
+                        new Date(message.messageTimeStamp.seconds * 1000)
+                      )
                     );
-                  } else {
-                    return (
-                      <div
-                        key={index}
-                        className="mx-1 mb-2 border max-w-xs py-1 px-2 rounded-t-xl rounded-l-xl self-end flex bg-main relative shadow-sm"
-                      >
-                        <div className="text-white pr-7">{message.message}</div>
-                        <div className="text-[10px] absolute right-1 -bottom-0.5">
-                          {timeStamp}
+                    if (!message.admin) {
+                      return (
+                        <div
+                          key={index}
+                          className="mx-1 mb-2 border max-w-xs py-1 px-2 rounded-t-xl rounded-r-xl self-start flex space-x-2 bg-white relative shadow-sm"
+                        >
+                          <div className="pr-7">{message.message}</div>
+                          <div className="text-[10px] absolute right-1.5 bottom-0">
+                            {timeStamp}
+                          </div>
                         </div>
-                      </div>
-                    );
-                  }
-                })}
-                <div ref={lastMessageRef} />
-              </div>
+                      );
+                    } else {
+                      return (
+                        <div
+                          key={index}
+                          className="mx-1 mb-2 border max-w-xs py-1 px-2 rounded-t-xl rounded-l-xl self-end flex bg-main relative shadow-sm"
+                        >
+                          <div className="text-white pr-7">
+                            {message.message}
+                          </div>
+                          <div className="text-[10px] absolute right-1 -bottom-0.5">
+                            {timeStamp}
+                          </div>
+                        </div>
+                      );
+                    }
+                  })}
+                  <div ref={lastMessageRef} />
+                </div>
+              </Linkify>
               {/* ********** CHAT MESSAGES ********** */}
               {/* ********** CHAT INPUT ********** */}
               <div className="p-4 shadow flex items-center">
