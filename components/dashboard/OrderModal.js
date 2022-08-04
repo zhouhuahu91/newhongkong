@@ -57,7 +57,13 @@ const OrderModal = ({ open, setOpen, order }) => {
             <>
               <div className={itemIdStyling}>
                 <span className="text-lg font-semibold">1x</span>
-                <span className="text-lg font-semibold">bez</span>
+                <span className="text-lg font-semibold">
+                  {order.storeFees.deliveryFee === 250
+                    ? "883"
+                    : order.storeFees.deliveryFee === 300
+                    ? "884"
+                    : "885"}
+                </span>
               </div>
               <div className={itemNameStyling}>delivery</div>
               <div className="col-span-2 text-right">
@@ -69,7 +75,7 @@ const OrderModal = ({ open, setOpen, order }) => {
             <>
               <div className={itemIdStyling}>
                 <span className="text-lg font-semibold">1x</span>
-                <span className="text-lg font-semibold">ideal</span>
+                <span className="text-lg font-semibold">886</span>
               </div>
               <div className={itemNameStyling}>transactiekosten</div>
               <div className="col-span-2 text-right">
