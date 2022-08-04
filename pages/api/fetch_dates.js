@@ -1,3 +1,6 @@
+// THIS API IS ONLY CREATED SO THAT THE OLD VERSION OF THE WEBSITE STILL CAN FETCH DATES...
+// FOR PEOPLE THAT STILL HAVE OUR SITE OPEN AND NEVER REFRESHED.
+
 import Cors from "micro-cors";
 import getCurrentDate from "@/functions/getCurrentDate";
 
