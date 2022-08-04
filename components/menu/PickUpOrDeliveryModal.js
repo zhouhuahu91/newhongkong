@@ -144,6 +144,9 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
     if (
       // No need to open when we are closed.
       !closed &&
+      // When it is admin we auto set delivery to false...
+      // so we do not need to open the modal.
+      !user?.admin &&
       (localCartState?.delivery === "undecided" ||
         !localCartState ||
         // If user select delivery in checkout and the minimum is not matched the user gets redirect to menu page...
@@ -154,6 +157,14 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
       setOpen(true);
     }
   }, []);
+
+  // If user is admin we automatically set delivery to false.
+  useEffect(() => {
+    if (user?.admin && cartState.delivery === "undecided") {
+      dispatch({ type: "SET_DELIVERY", payload: false });
+      setDelivery(false);
+    }
+  }, [user, cartState, setDelivery, dispatch]);
 
   // This useEffect fetches the address from an API if the postalcode and house number are valid.
   useEffect(() => {
