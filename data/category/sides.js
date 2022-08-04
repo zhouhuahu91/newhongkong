@@ -259,7 +259,7 @@ export default {
           price: 0,
         },
         {
-          id: "19Z",
+          id: "19ZB",
           name: {
             nl: "zwarte bonen saus",
             en: "black bean sauce",

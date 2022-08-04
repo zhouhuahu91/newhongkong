@@ -1,5 +1,5 @@
 //React imports
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
