@@ -87,7 +87,7 @@ const Dashboard = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [lastSelectedOrder]);
+  }, [lastSelectedOrder, chatModal]);
 
   useEffect(() => {
     if (ordersCount > newOrders.length) {
