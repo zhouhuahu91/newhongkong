@@ -32,8 +32,7 @@ import {
 import useWindowSize from "@/hooks/useWindowSize";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 
-const DashboardChat = () => {
-  const [open, setOpen] = useState(false);
+const DashboardChat = ({ open, setOpen }) => {
   const [unread, setUnread] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
   const [allChats, setAllChats] = useState([]);

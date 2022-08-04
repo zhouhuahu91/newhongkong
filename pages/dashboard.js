@@ -39,6 +39,9 @@ const Dashboard = () => {
   // 4. Orders that are being delivered.
   const [delivery, setDelivery] = useState([]);
 
+  // We need the toggle for the chat modal here because when chat is open...
+  // ... we need to disable the enter click event.
+  const [chatModal, setChatModal] = useState(false);
   // We need the orders count to know when we play a new order sound.
   const [ordersCount, setOrdersCount] = useState(newOrders.length);
 
@@ -46,7 +49,8 @@ const Dashboard = () => {
 
   // listen for enter key
   const handleKeyDown = async (e) => {
-    if (e.key === "Enter" && lastSelectedOrder) {
+    // chatModal has it's own enter key listener.
+    if (e.key === "Enter" && lastSelectedOrder && !chatModal) {
       const ref = doc(db, `orders/${lastSelectedOrder.id}`);
       const snapshot = await getDoc(ref);
       const order = snapshot.data();
@@ -236,7 +240,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <DashboardChat />
+      <DashboardChat open={chatModal} setOpen={setChatModal} />
     </div>
   );
 };
