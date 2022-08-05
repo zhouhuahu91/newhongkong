@@ -109,11 +109,14 @@ const Dashboard = () => {
       const data = snapshot.docs.map((doc) => {
         return { ...doc.data(), id: doc.id };
       });
-      // We sort the data by time.
-      data.sort((a, b) => {
-        // If a.time or b.time includes ":" it means...
-        // the order isn't asap and we set x or y to 0.
-        // This way that order is always on top.
+
+      const deliveryOrders = data.filter((order) => order.delivery);
+      const pickupOrders = data.filter((order) => !order.delivery);
+
+      const sortedPickUpOrders = pickupOrders.sort((a, b) => {
+        return a.time.replace(":", "") - b.time.replace(":", "");
+      });
+      const sortedDeliveryOrders = deliveryOrders.sort((a, b) => {
         let x = a.time.includes(":")
           ? a.time.slice(0, 5).replace(":", "")
           : "0";
@@ -123,8 +126,9 @@ const Dashboard = () => {
         return x - y;
       });
 
-      const filtered = data.filter((order) =>
-        showCompleted ? order : order.completed === false
+      // Just to show completed or not completed orders.
+      const filtered = [...sortedPickUpOrders, ...sortedDeliveryOrders].filter(
+        (order) => (showCompleted ? order : order.completed === false)
       );
 
       // Sets newOrders to orders that haven't been printed and aren't ready yet.
