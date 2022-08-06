@@ -16,14 +16,10 @@ const useTimePicker = () => {
   const {
     currentTimeInSeconds,
     closed,
-    storeInfo: {
-      openingTime,
-      closingTime,
-      startTimeDelivery,
-      endTimeDelivery,
-      currentDate,
-    },
+    storeInfo: { openingTime, closingTime, startTimeDelivery, endTimeDelivery },
+    currentDate,
   } = useStoreInfo();
+
   // t is used to translate asap.
   const t = useI18n();
   // All the options are stored in this state.
