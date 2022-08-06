@@ -110,12 +110,18 @@ const Dashboard = () => {
         return { ...doc.data(), id: doc.id };
       });
 
+      // We seperate the orders in delivery and pick up.
       const deliveryOrders = data.filter((order) => order.delivery);
       const pickupOrders = data.filter((order) => !order.delivery);
 
+      // We sort the pick up orders by time. 16:00 => 1600.
       const sortedPickUpOrders = pickupOrders.sort((a, b) => {
         return a.time.replace(":", "") - b.time.replace(":", "");
       });
+      // Delivery orders we need to check if it is an asap order if it is we just return 0 this makes the...
+      // the order go on top. If not than the time will have a value e.a. 16:00 - 16:30.
+      // We just need the first time to sort the value. We slice the time to get 16:00 and then...
+      // replace : with nothing so we eventually get 1600.
       const sortedDeliveryOrders = deliveryOrders.sort((a, b) => {
         let x = a.time.includes(":")
           ? a.time.slice(0, 5).replace(":", "")
