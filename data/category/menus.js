@@ -623,7 +623,7 @@ export default {
             de: "guang zhou cha siu",
           },
           description: {
-            nl: "roergebaken tsa siu met groenten in licht pikante saus",
+            nl: "roergebakken tsa siu met groenten in licht pikante saus",
             en: "stir fried cha siu with vegetables in a mild spicy sauce",
             de: "gebratener Cha Siu mit Gemüse in leicht scharfer Soße",
           },
