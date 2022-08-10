@@ -34,11 +34,13 @@ import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 const DashboardChat = ({ open, setOpen }) => {
   const [unread, setUnread] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const [selectedChat, setSelectedChat] = useState(null);
   const [allChats, setAllChats] = useState([]);
   const [chatMessages, setChatMessages] = useState([]);
   const [chatInput, setChatInput] = useState("");
   const [processing, setProcessing] = useState(false);
+  const [audio, setAudio] = useState(null);
 
   const chatRef = useRef(null);
   const lastMessageRef = useRef(null);
@@ -54,6 +56,29 @@ const DashboardChat = ({ open, setOpen }) => {
       lastMessageRef?.current?.scrollIntoView();
     }, 0);
   };
+
+  // Count the amount of unread messages to play ringtone when new message is received.
+  useEffect(() => {
+    // We calculate how many unread messages there are.
+    const currentUnread = allChats.reduce(
+      (acc, chat) => (acc += chat.unreadAdmin),
+      0
+    );
+    // if current unreadCount is already higher or equal to the current count of unread messages, we set the unreadcount to the current unread count.
+    if (unreadCount >= currentUnread) {
+      setUnreadCount(currentUnread);
+      // If the currentUnread is more thant the one in state && we have an audio file && the chat is not open we play the audio.
+    } else if (currentUnread > unreadCount && audio && !open) {
+      audio.play();
+      setUnreadCount(currentUnread);
+    }
+  }, [allChats]);
+
+  // get audio file
+  useEffect(() => {
+    setAudio(new Audio("/msg_ringtone.mp3"));
+  }, []);
+
   // If Chat is open and there is not chat selected we auto select the first one in the list.
   useEffect(() => {
     if (open && !selectedChat && allChats.length > 0) {
