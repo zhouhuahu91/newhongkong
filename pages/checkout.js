@@ -72,7 +72,7 @@ const CheckOut = () => {
 
   useEffect(() => {
     if (shortForDelivery) router.push("/menu");
-  }, [shortForDelivery]);
+  }, [shortForDelivery, router]);
 
   const schema = yup.object().shape({
     // Postalcode only needs validation when delivery is selected.
@@ -196,7 +196,7 @@ const CheckOut = () => {
         setValue("remarks", guest.remarks);
       }
     }
-  }, [user, cartState.address]);
+  }, [user, cartState.address, isDirty, setValue]);
 
   const onSubmit = async (formData) => {
     // We disable the submit button by setting the processing state to true.

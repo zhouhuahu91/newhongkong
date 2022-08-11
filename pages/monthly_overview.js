@@ -126,7 +126,7 @@ const MonthlyOverview = () => {
     if (!user || (!user?.admin && !user?.accountant)) {
       router.push("/sign_in");
     }
-  }, [user]);
+  }, [user, router]);
 
   if (!user || (!user?.admin && !user?.accountant)) return <Spinner />;
 

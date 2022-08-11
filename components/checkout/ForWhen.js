@@ -117,7 +117,7 @@ const ForWhen = ({ register, errors, watch, setValue }) => {
             className="relative border bg-white red-focus-ring rounded-md overflow-hidden p-3"
           >
             <div className="absolute top-0 left-1/2 -translate-x-1/2">
-              <Image src="/moreHoriz.svg" width={10} height={10} />
+              <Image src="/moreHoriz.svg" width={10} height={10} alt="more" />
             </div>
             <select
               {...register("time")}

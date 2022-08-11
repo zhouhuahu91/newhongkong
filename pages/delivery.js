@@ -47,7 +47,7 @@ const Delivery = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [currentDate]);
 
   useEffect(() => {
     if (user !== null && !user?.admin && !user?.employee) {

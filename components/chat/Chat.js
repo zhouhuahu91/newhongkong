@@ -215,7 +215,7 @@ const Chat = () => {
     });
 
     return () => unsubscribe();
-  }, [chatID, open]);
+  }, [chatID, open, resetUnreadCountForUsers]);
 
   return (
     <div ref={chatRef}>

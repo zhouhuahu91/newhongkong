@@ -87,7 +87,7 @@ const Dashboard = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [lastSelectedOrder, chatModal]);
+  }, [lastSelectedOrder, chatModal, handleKeyDown]);
 
   useEffect(() => {
     if (ordersCount > newOrders.length) {
@@ -97,7 +97,7 @@ const Dashboard = () => {
       audio.play();
       setOrdersCount(newOrders.length);
     }
-  }, [newOrders]);
+  }, [newOrders, audio, ordersCount]);
 
   useEffect(() => {
     setAudio(new Audio("/bell.mp3"));

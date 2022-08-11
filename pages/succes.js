@@ -56,7 +56,7 @@ const Succes = () => {
       }
     };
     fetchData();
-  }, [query, dispatch]);
+  }, [query, dispatch, URL]);
 
   if (order === null) {
     return <Spinner />;

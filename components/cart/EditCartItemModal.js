@@ -36,7 +36,15 @@ const EditCartItemModal = ({ item, cartItem, open, setOpen }) => {
       setSelectedSides(cartItem.selectedSides);
       setRemarks(cartItem.remarks);
     }
-  }, [open]);
+  }, [
+    open,
+    cartItem,
+    setQwt,
+    setErrors,
+    setSelectedOptions,
+    setSelectedSides,
+    setRemarks,
+  ]);
 
   // We need the total cost of the item + options & sides to show the user the price.
   const calcTotalItemPriceWithOptionsAndSides = () => {
