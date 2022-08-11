@@ -185,13 +185,12 @@ const Chat = () => {
     };
   }, [chatID]);
 
-  const resetUnreadCountForUsers = () => {
-    const chatRef = doc(db, `chats/${chatID}`);
-    updateDoc(chatRef, { unreadUser: 0 });
-  };
-
   // Check for unread messages.
   useEffect(() => {
+    const resetUnreadCountForUsers = () => {
+      const chatRef = doc(db, `chats/${chatID}`);
+      updateDoc(chatRef, { unreadUser: 0 });
+    };
     // If there is no chatID selected we return.
     if (!chatID) return;
     // If modal is open we always reset the unread count for the user.
@@ -215,7 +214,7 @@ const Chat = () => {
     });
 
     return () => unsubscribe();
-  }, [chatID, open, resetUnreadCountForUsers]);
+  }, [chatID, open]);
 
   return (
     <div ref={chatRef}>

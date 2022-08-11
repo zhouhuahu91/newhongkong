@@ -2,24 +2,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/components/*": [
-        "components/*"
-      ],
-      "@/hooks/*": [
-        "hooks/*"
-      ],
-      "@/functions/*": [
-        "functions/*"
-      ],
-      "@/locales/*": [
-        "/locales/*"
-      ],
-      "@/firebase/*": [
-        "firebase/*"
-      ],
-      "@/icons/*": [
-        "components/icons/*"
-      ]
+      "@/components/*": ["components/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/functions/*": ["functions/*"],
+      "@/locales/*": ["/locales/*"],
+      "@/firebase/*": ["firebase/*"],
+      "@/icons/*": ["components/icons/*"]
       // "@/utils/*": ["utils/*"],
       // "@/dashboard/*": ["components/dashboard/*"],
       // "@/cart/*": ["components/cart/*"],
@@ -27,11 +15,7 @@
       // "@/chat/*": ["components/chat/*"]
     },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -45,12 +29,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

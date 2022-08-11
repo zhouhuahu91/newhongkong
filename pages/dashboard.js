@@ -47,47 +47,47 @@ const Dashboard = () => {
 
   const { user } = useAuth();
 
-  // listen for enter key
-  const handleKeyDown = async (e) => {
-    // chatModal has it's own enter key listener.
-    if (e.key === "Enter" && lastSelectedOrder && !chatModal) {
-      const ref = doc(db, `orders/${lastSelectedOrder.id}`);
-      const snapshot = await getDoc(ref);
-      const order = snapshot.data();
-      // if enter key pressed we set order to printed
-      // we get the ref
-
-      if (order.printed && order.ready && order.paid) {
-        updateDoc(ref, {
-          completed: true,
-        });
-        setLastSelectedOrder(null);
-      }
-
-      if (order.printed && order.ready) {
-        return updateDoc(ref, {
-          paid: true,
-        });
-      }
-
-      if (order.printed) {
-        return updateDoc(ref, {
-          ready: true,
-        });
-      }
-
-      updateDoc(ref, {
-        printed: true,
-      });
-    }
-  };
   // listen for enter key with useEffect
   useEffect(() => {
+    // listen for enter key
+    const handleKeyDown = async (e) => {
+      // chatModal has it's own enter key listener.
+      if (e.key === "Enter" && lastSelectedOrder && !chatModal) {
+        const ref = doc(db, `orders/${lastSelectedOrder.id}`);
+        const snapshot = await getDoc(ref);
+        const order = snapshot.data();
+        // if enter key pressed we set order to printed
+        // we get the ref
+
+        if (order.printed && order.ready && order.paid) {
+          updateDoc(ref, {
+            completed: true,
+          });
+          setLastSelectedOrder(null);
+        }
+
+        if (order.printed && order.ready) {
+          return updateDoc(ref, {
+            paid: true,
+          });
+        }
+
+        if (order.printed) {
+          return updateDoc(ref, {
+            ready: true,
+          });
+        }
+
+        updateDoc(ref, {
+          printed: true,
+        });
+      }
+    };
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [lastSelectedOrder, chatModal, handleKeyDown]);
+  }, [lastSelectedOrder, chatModal]);
 
   useEffect(() => {
     if (ordersCount > newOrders.length) {
