@@ -11,7 +11,7 @@ const calculateDeliveryFees = (postalcode) => {
     // 2211SW is vlak bij ruigerhoekerweg.
     // 2211TW is zo wat in Noordwijk.
     // 2211V... dat niet herenweg is ver weg.
-    /^(2204)[\s]?([a][bcnprsx]|[b-c][a-z])$|^(2211)[\s]?(a[degl]|bl|nx|v[cdeghjst]|w[dekjhg]|x[nptwxz]|z[bceh])$|^(2212)[\s]?a[abcegh]$/i.test(
+    /^(2204)[\s]?([a][bcnprsx]|[b-c][a-z])$|^(2211)[\s]?(a[degl]|bl|nx|v[deghjst]|w[dekjhg]|x[nptwxz]|z[bceh])$|^(2212)[\s]?a[abcegh]$/i.test(
       postalcode
     )
   ) {
