@@ -39,7 +39,10 @@ const OrderModal = ({ open, setOpen, order }) => {
           <CloseIcon />
         </IconBtn>
       </div>
-      <div className="p-4 overflow-y-scroll bg-neutral-50">
+      <div
+        style={{ maxHeight: "calc(100vh - 265px)" }}
+        className="p-4 overflow-y-scroll bg-neutral-50"
+      >
         <div className="grid grid-cols-12 gap-1">
           {!order.delivery && (
             <>
