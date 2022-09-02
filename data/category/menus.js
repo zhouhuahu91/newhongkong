@@ -19,6 +19,11 @@ const maandmenu = {
         en: "mini rolls",
         de: "Minifrühlingsrolle",
       },
+      description: {
+        nl: "4 stuks mini loempia's",
+        en: "4 pieces of mini rolls",
+        de: "4 Stück Mini-Frühlingsrollen",
+      },
     },
     {
       name: {
@@ -34,26 +39,26 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "foe yong hai",
-        en: "egg foo young",
-        de: "egg foo young",
+        nl: "tjap tjoy vegetarisch",
+        en: "tjap tjoy vegetarian",
+        de: "tjap tjoy vegetarisch",
       },
       description: {
-        nl: "omelet in zoete tomatensaus",
-        en: "omelet in a sweet tomato sauce",
-        de: "Omelett in einer süßen Tomatensoße",
+        nl: "roergebakken taugé, paprika, uien, champignons, bamboestrips en prei",
+        en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek",
+        de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch",
       },
     },
     {
       name: {
-        nl: "kip kerry",
-        en: "chicken curry",
-        de: "chicken curry",
+        nl: "saté ajam",
+        en: "chicken satay",
+        de: "Hähnchenspieß",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in kerrie saus",
-        en: "stir fried chicken with vegetables in curry sauce",
-        de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
+        nl: "3 stokjes kipsaté in satesaus",
+        en: "3 chicken satay in peanut sauce",
+        de: "3 Hähnchenspieß mit Erdnusssoße",
       },
     },
   ],
