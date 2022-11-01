@@ -39,26 +39,26 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "foe yong hai vegetarisch",
-        en: "egg foo young vegetarian",
-        de: "egg foo young vegetarisch",
+        nl: "tjap tjoy vegetarisch",
+        en: "tjap tjoy vegetarian",
+        de: "tjap tjoy vegetarisch",
       },
       description: {
-        nl: "omelet zondervlees in een zoete tomatensaus",
-        en: "omelet without meat in a sweet tomato sauce",
-        de: "Omelett ohne Fleisch in einer süßen Tomatensoße",
+        nl: "roergebakken taugé, paprika, uien, champignons, bamboestrips en prei",
+        en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek",
+        de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch",
       },
     },
     {
       name: {
-        nl: "kou lou kai",
-        en: "kou lou kai",
-        de: "kou lou kai",
+        nl: "kip kerry",
+        en: "chicken curry",
+        de: "chicken curry",
       },
       description: {
-        nl: "gepaneerde kipballetjes met zoetzure saus",
-        en: "deep fried chicken in dough with a sweet & sour sauce",
-        de: "Fritierte Hühnerfleisch in einem Teig mit süß sauerer Soße",
+        nl: "roergebakken kipfilet met groenten in kerrie saus",
+        en: "stir fried chicken with vegetables in curry sauce",
+        de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
       },
     },
   ],
