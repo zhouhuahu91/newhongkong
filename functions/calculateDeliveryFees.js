@@ -17,7 +17,7 @@ const calculateDeliveryFees = (postalcode) => {
   ) {
     return { minimum: 2500, fee: 300 };
   } else if (
-    /^(2211)[\s]?(s[wz]|tw|v[klmnrp]|we|x[rs]|zg)$|^(2204)[\s]?([a][jkltvw])$/i.test(
+    /^(2211)[\s]?(s[wz]|tw|v[klmnrp]|we|x[rs]|zg)$|^(2204)[\s]?([a][dejkltvw])$/i.test(
       postalcode
     )
   ) {
