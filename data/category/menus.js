@@ -1,5 +1,7 @@
 import sidesOptions from "data/options/sidesOptions";
 
+import { christmasA, christmasB } from "./christmas";
+
 const maandmenu = {
   id: "100",
   name: {
@@ -75,6 +77,8 @@ export default {
     de: "Menüs",
   },
   items: [
+    christmasA,
+    christmasB,
     {
       id: "96",
       name: {
