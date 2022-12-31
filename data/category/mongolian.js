@@ -19,7 +19,7 @@ export default {
         en: "stir fried beef tenderloin with vegetables in a sweet & sour sauce",
         de: "gebratenes Rinderfilet mit Gemüse in einer süß sauren Soße",
       },
-      price: 1880,
+      price: 1940,
       sides: sidesOptions,
     },
     {
@@ -34,7 +34,7 @@ export default {
         en: "stir fried pork chop with vegetables in a sweet and sour sauce",
         de: "gebratenes Schweinekotelett mit Gemüse in einer süß sauren Soße",
       },
-      price: 1760,
+      price: 1820,
       sides: sidesOptions,
     },
   ],
