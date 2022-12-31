@@ -19,7 +19,7 @@ export default {
         en: "roasted duck, sauce comes separate",
         de: "geröstete Ente, Soße separat serviert",
       },
-      price: 1670,
+      price: 1750,
       options: [
         {
           id: "S2",
@@ -72,7 +72,7 @@ export default {
         en: "stir fried beef with poku mushrooms and vegetables in a mild oyster sauce",
         de: "gebratenes Rindfleisch mit Poku-Pilze und Gemüse in einer milden Austernsoße",
       },
-      price: 1630,
+      price: 1680,
       sides: sidesOptions,
     },
     {
@@ -87,7 +87,7 @@ export default {
         en: "stir fried shrimp with poku mushrooms and vegetables in a mild oyster sauce",
         de: "gebratene Schrimps mit Poku-Pilze und Gemüse in einer milden Austernsoße",
       },
-      price: 1760,
+      price: 1780,
       sides: sidesOptions,
     },
     {
@@ -103,7 +103,7 @@ export default {
         de: "gebratene Garnelen mit Poku-Pilze und Gemüse in einer milden Austernsoße",
       },
 
-      price: 2060,
+      price: 2080,
       sides: sidesOptions,
     },
     {
@@ -118,7 +118,7 @@ export default {
         en: "stir fried gambas with vegetables in a mild spicy sauce",
         de: "gebratene Garnelen mit Gemüse in einer leicht scharfen Soße",
       },
-      price: 2060,
+      price: 2080,
       sides: sidesOptions,
     },
   ],
