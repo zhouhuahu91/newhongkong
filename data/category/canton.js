@@ -19,7 +19,7 @@ export default {
         en: "roasted pork, sweet and tender with mild spicy sauce",
         de: "geröstete Schweinefleisch, süß und zart in leicht schafer Soße",
       },
-      price: 1510,
+      price: 1590,
       sides: sidesOptions,
     },
     {
@@ -34,7 +34,7 @@ export default {
         en: "stir fried chicken with vegetables and cashew nuts",
         de: "gebratenes Hühnerfleisch mit Gemüse und Cashew Nüssen",
       },
-      price: 1470,
+      price: 1540,
       sides: sidesOptions,
     },
     {
@@ -65,7 +65,7 @@ export default {
         en: "stir fried chicken with vegetables in a black bean sauce",
         de: "gebratenes Hühnerfleisch mit Gemüse in einer Soße aus schwarze Bohnen",
       },
-      price: 1470,
+      price: 1540,
       sides: sidesOptions,
     },
     {
@@ -80,7 +80,7 @@ export default {
         en: "stir fried beef with vegetables in a black bean sauce",
         de: "gebratenes Rindfleisch mit Gemüse in schwarzer Bohnen Soße",
       },
-      price: 1630,
+      price: 1680,
       sides: sidesOptions,
     },
     {
@@ -95,7 +95,7 @@ export default {
         en: "stir fried shrimp with vegetables in a black bean sauce",
         de: "gebratene Schrimps mit Gemüse in schwarzer Bohnen Soße",
       },
-      price: 1760,
+      price: 1780,
       sides: sidesOptions,
     },
     {
@@ -110,7 +110,7 @@ export default {
         en: "stir fried gambas with vegetables in a black bean sauce",
         de: "gebratene Garnelen mit Gemüse in schwarzer Bohnen Soße",
       },
-      price: 2070,
+      price: 2080,
       sides: sidesOptions,
     },
   ],
