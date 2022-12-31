@@ -53,19 +53,18 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "pikante kip",
-        en: "spicy chicken",
-        de: "Hähnchen scharf",
+        nl: "tung koe ky",
+        en: "tung koe ky",
+        de: "tung koe ky",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in een licht pikante saus",
-        en: "stir fried chicken with vegetables in a mild spicy sauce",
-        de: "gebratener Hühnerfleisch mit Gemüse in leicht scharfer Soße",
+        nl: "roergebakken kipfilet met poku champignons en groenten in een lichte oestersaus",
+        en: "stir fried chicken with poku mushrooms and vegetables in a mild oyster sauce",
+        de: "gebratenes Hühnerfleisch mit Poku-Pilze und Gemüse in einer milden Austernsoße",
       },
     },
   ],
-  // price: 2150, new price is of 2022
-  price: 2370,
+  price: 2490,
   sides: sidesOptions,
   totalSides: 2,
 };
@@ -77,8 +76,6 @@ export default {
     de: "Menüs",
   },
   items: [
-    christmasA,
-    christmasB,
     {
       id: "96",
       name: {
@@ -91,7 +88,7 @@ export default {
         en: "for around one person",
         de: "für ca. eine Person",
       },
-      price: 1130,
+      price: 1190,
       options: [
         {
           id: "A",
@@ -203,7 +200,7 @@ export default {
             en: "deep fried bacon strips with mild spicy tomato sauce, sauce comes separate",
             de: "Fritierte Speckstreifen mit leicht scharfer Tomatensoße, Soße wird separat serviert",
           },
-          price: 150,
+          price: 200,
         },
       ],
       totalOptions: 2,
@@ -221,7 +218,7 @@ export default {
         en: "for around two people",
         de: "für ca. zwei Personen",
       },
-      price: 1850,
+      price: 1940,
       options: [
         {
           id: "A",
@@ -333,7 +330,7 @@ export default {
             en: "deep fried bacon strips with mild spicy tomato sauce, sauce comes separate",
             de: "Fritierte Speckstreifen mit leicht scharfer Tomatensoße, Soße wird separat serviert",
           },
-          price: 150,
+          price: 200,
         },
       ],
       totalOptions: 3,
@@ -351,7 +348,7 @@ export default {
         en: "for around two people",
         de: "für ca. zwei Personen",
       },
-      price: 1850,
+      price: 1940,
       optionIsMain: true,
       options: [
         {
@@ -440,7 +437,7 @@ export default {
         en: "for around 4 people",
         de: "für ca. 4 Personen",
       },
-      price: 3110,
+      price: 3260,
       options: [
         {
           id: "A",
@@ -741,7 +738,7 @@ export default {
           },
         },
       ],
-      price: 3660,
+      price: 3840,
       sides: sidesOptions,
       totalSides: 2,
     },
@@ -833,7 +830,7 @@ export default {
           },
         },
       ],
-      price: 3910,
+      price: 4110,
       sides: sidesOptions,
       totalSides: 2,
     },
@@ -906,7 +903,7 @@ export default {
           },
         },
       ],
-      price: 4980,
+      price: 5230,
       sides: sidesOptions,
       totalSides: 2,
     },
