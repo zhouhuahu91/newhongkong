@@ -38,8 +38,6 @@ const useMenuProvider = () => {
   useEffect(() => {
     const tempPopularMenuItemsArray = [];
     const popularID = [
-      "200",
-      "201",
       "8",
       "10",
       "11",
