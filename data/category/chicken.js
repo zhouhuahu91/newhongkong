@@ -19,7 +19,7 @@ export default {
         en: "stir fried chicken with vegetables in a mild spicy sauce",
         de: "gebratener Hühnerfleisch mit Gemüse in leicht scharfer Soße",
       },
-      price: 1270,
+      price: 1330,
       sides: sidesOptions,
     },
     {
@@ -34,7 +34,7 @@ export default {
         en: "stir fried chicken with vegetablaes in a sweet ginger sauce",
         de: "gebratener Hühnerfleisch mit Gemüse in einer süßen Ingwer Soße",
       },
-      price: 1270,
+      price: 1330,
       sides: sidesOptions,
     },
     {
@@ -49,7 +49,7 @@ export default {
         en: "stir fried chicken with vegetables in curry sauce",
         de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
       },
-      price: 1270,
+      price: 1330,
       sides: sidesOptions,
     },
     {
@@ -64,7 +64,7 @@ export default {
         en: "deep fried chicken in dough with a sweet & sour sauce",
         de: "Fritierte Hühnerfleisch in einem Teig mit süß sauerer Soße",
       },
-      price: 1270,
+      price: 1330,
       sides: sidesOptions,
     },
     {
@@ -79,7 +79,7 @@ export default {
         en: "deep fried breaded chicken stir fried with vegetables in a spicy soy sauce",
         de: "paniertes Hühnerfleisch gebraten mit Gemüse in einer scharfen Sojasoße",
       },
-      price: 1520,
+      price: 1590,
       sides: sidesOptions,
     },
     {
@@ -94,7 +94,7 @@ export default {
         en: "deep fried breaded chicken stir fried with vegetables in a sweet sauce",
         de: "paniertes Hühnerfleisch gebraten mit Gemüse in einer süßen Soße",
       },
-      price: 1520,
+      price: 1590,
       sides: sidesOptions,
     },
   ],
