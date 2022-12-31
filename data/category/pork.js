@@ -19,7 +19,7 @@ export default {
         en: "deep fried lean pork strips in a mild spicy sauce",
         de: "fritierte magerer Schweinefleisch in Streifen in leicht scharfer Soße",
       },
-      price: 1470,
+      price: 1540,
       sides: sidesOptions,
     },
     {
@@ -34,7 +34,7 @@ export default {
         en: "deep fried bacon strips with mild spicy tomato sauce, sauce comes separate",
         de: "Fritierte Speckstreifen mit leicht scharfer Tomatensoße, Soße wird separat serviert",
       },
-      price: 1580,
+      price: 1660,
       sides: sidesOptions,
     },
     {
@@ -49,7 +49,7 @@ export default {
         en: "deep fried pork strips in a sweet soy sauce",
         de: "Fritierte Schweinefleischstreifen mit einer süßen Sojasoße",
       },
-      price: 1500,
+      price: 1580,
       sides: sidesOptions,
     },
     {
@@ -64,7 +64,7 @@ export default {
         en: "deep fried pork in dough with a sweet & sour sauce",
         de: "fritiertes Schweinefleisch mit süß saurer Soße",
       },
-      price: 1270,
+      price: 1330,
       sides: sidesOptions,
     },
   ],
