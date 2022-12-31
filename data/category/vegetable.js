@@ -19,7 +19,7 @@ export default {
         en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek",
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch",
       },
-      price: 1120,
+      price: 1180,
       sides: sidesOptions,
     },
     {
@@ -34,7 +34,7 @@ export default {
         en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek with tofu",
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Tofu",
       },
-      price: 1210,
+      price: 1270,
       sides: sidesOptions,
     },
     {
@@ -49,7 +49,7 @@ export default {
         en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek with chicken",
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Hähnchen",
       },
-      price: 1230,
+      price: 1290,
       sides: sidesOptions,
     },
     {
@@ -64,7 +64,7 @@ export default {
         en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek with pork",
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Schweinefleisch",
       },
-      price: 1230,
+      price: 1290,
       sides: sidesOptions,
     },
     {
@@ -79,7 +79,7 @@ export default {
         en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek with beef",
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Rindfleisch",
       },
-      price: 1350,
+      price: 1420,
       sides: sidesOptions,
     },
     {
