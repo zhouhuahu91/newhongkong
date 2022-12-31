@@ -45,7 +45,7 @@ export default {
         en: "soup made of egg white with ham and spring onion",
         de: "Suppe aus Eiweiß mit Schinken und Frühlingszwiebeln",
       },
-      price: 400,
+      price: 420,
     },
     {
       id: "4",
@@ -73,7 +73,7 @@ export default {
         en: "soup made from soy sauce with poku mushrooms, chicken, shrimp and spring onion",
         de: "Suppe aus Sojasauce mit Poku-Pilzen, Hühnchen, Garnelen und Frühlingszwiebeln",
       },
-      price: 530,
+      price: 550,
     },
     {
       id: "6",
@@ -87,7 +87,7 @@ export default {
         en: "chicken broth with wonton filled with chicken, vegetables and spring onion",
         de: "Hühnerbrühe mit Wonton gefüllt mit Hühnchen, Gemüse und Frühlingszwiebeln",
       },
-      price: 530,
+      price: 550,
     },
     {
       id: "7",
@@ -101,7 +101,7 @@ export default {
         en: "spicy soup made from soy sauce with chicken, shrimp, tofu and spring onion",
         de: "würzige Suppe aus Sojasauce mit Hähnchen, Garnelen, Tofu und Frühlingszwiebeln",
       },
-      price: 540,
+      price: 580,
     },
   ],
 };
