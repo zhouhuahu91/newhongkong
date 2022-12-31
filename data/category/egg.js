@@ -19,7 +19,7 @@ export default {
         en: "omelet without meat in a sweet tomato sauce",
         de: "Omelett ohne Fleisch in einer süßen Tomatensoße",
       },
-      price: 1020,
+      price: 1180,
       sides: sidesOptions,
     },
     {
@@ -34,7 +34,7 @@ export default {
         en: "omelet with ham in a sweet tomato sauce",
         de: "Omelett mit Schicken in süßen Tomatensoße",
       },
-      price: 1070,
+      price: 1240,
       sides: sidesOptions,
     },
     {
@@ -49,7 +49,7 @@ export default {
         en: "omelet with chicken in a sweet tomato sauce",
         de: "Omelett mit Hähnchen in einer süßen Tomatensoße",
       },
-      price: 1120,
+      price: 1290,
       sides: sidesOptions,
     },
     {
@@ -64,7 +64,7 @@ export default {
         en: "omelet with pork in a sweet tomato sauce",
         de: "Omelett mit Schweinefleisch in einer süßen Tomatensoße",
       },
-      price: 1120,
+      price: 1290,
       sides: sidesOptions,
     },
     {
@@ -79,7 +79,7 @@ export default {
         en: "omelet with shrimp in a sweet tomato sauce",
         de: "Omelett mit Schrimps in einer süßen Tomatensoße",
       },
-      price: 1390,
+      price: 1530,
       sides: sidesOptions,
     },
     {
@@ -94,7 +94,7 @@ export default {
         en: "omelet with chicken, pork and shrimp in a sweet tomato sauce",
         de: "Omelett mit Hühnerfleisch, Schweinefleisch und Schrimps in einer süßen Tomatensoße",
       },
-      price: 1290,
+      price: 1420,
       sides: sidesOptions,
     },
   ],
