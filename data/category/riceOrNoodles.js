@@ -17,7 +17,7 @@ export default {
         en: "fried rice or noodles, stir fried with egg, pork, ham and leek",
         de: "gebratener Reis oder Nudeln mit eiern, Schweinefleisch, Schinken und Lauch",
       },
-      price: 630,
+      price: 660,
       options: [
         {
           id: "64N",
@@ -70,7 +70,7 @@ export default {
         en: "fried rice or noodles with a chicken satay and spicy beef",
         de: "gebratener Reis oder Nudeln mit Hühnerspieß und scharfer Rindfleisch",
       },
-      price: 1060,
+      price: 1120,
       options: [
         {
           id: "65N",
@@ -105,7 +105,7 @@ export default {
         en: "fried rice or noodles with a chicken satay and drumstick in a mild spicy sauce",
         de: "gebratener Reis oder Nudeln mit einem Hähnchenspieß sowie einen Hähnchenschenkel in einer leicht scharfen Soße",
       },
-      price: 1060,
+      price: 1120,
       options: [
         {
           id: "66N",
@@ -140,7 +140,7 @@ export default {
         en: "fried rice or noodles with 3 chicken satay",
         de: "gebratener Reis oder Nudeln mit 3 Hühnerspieße",
       },
-      price: 1130,
+      price: 1190,
       options: [
         {
           id: "67N",
@@ -176,7 +176,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Babi Panggang, kou lou kai, ein Hühnerspieß und scharfer Rindfleisch",
       },
 
-      price: 1600,
+      price: 1680,
       options: [
         {
           id: "68N",
@@ -211,7 +211,7 @@ export default {
         en: "fried rice or noodles with stir fried chicken and vegetables",
         de: "gebratener Reis oder Nudeln mit Hühnerfleisch und Gemüse",
       },
-      price: 1130,
+      price: 1190,
       options: [
         {
           id: "69N",
@@ -246,7 +246,7 @@ export default {
         en: "fried rice or noodles with stir fried pork and vegetables",
         de: "gebratener Reis oder Nudeln mit Schweinefleisch und Gemüse",
       },
-      price: 1130,
+      price: 1190,
       options: [
         {
           id: "70N",
@@ -281,7 +281,7 @@ export default {
         en: "fried rice or noodles with stir fried shrimp and vegetables",
         de: "gebratener Reis oder Nudeln mit Schrimps und Gemüse",
       },
-      price: 1490,
+      price: 1560,
       options: [
         {
           id: "71N",
@@ -316,7 +316,7 @@ export default {
         en: "fried rice or noodles with stir fried crab sticks and vegetables",
         de: "gebratener Reis oder Nudeln mit Krabben-Sticks und Gemüse",
       },
-      price: 1490,
+      price: 1560,
       options: [
         {
           id: "72N",
@@ -351,7 +351,7 @@ export default {
         en: "fried rice stir fried with chicken, pork and shrimp in curry",
         de: "gebratener Reis mit Hühnerfleisch, Schweinefleisch und Schrimps in Curry",
       },
-      price: 1430,
+      price: 1500,
     },
   ],
 };
