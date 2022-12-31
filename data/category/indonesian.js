@@ -19,7 +19,7 @@ export default {
         en: "comes with spicy beef and vegetables",
         de: "serviert mit scharfer Rindfleisch und Gemüse",
       },
-      price: 1060,
+      price: 1120,
       options: [
         {
           id: "82N",
@@ -54,7 +54,7 @@ export default {
         en: "comes with a chicken satay, chicken drumstick in a mild spicy sauce, spicy beef and vegetables",
         de: "serviert mit einem Hühnerspieß, Hähnchenschenkel in leicht scharfer Soße sowie scharfer Rindfleisch und Gemüse",
       },
-      price: 1430,
+      price: 1500,
       options: [
         {
           id: "83N",
@@ -89,7 +89,7 @@ export default {
         en: "Indonesian salad with beansprout, cucumber, carrot and a fried egg in peanut sauce",
         de: "Indonesischer Salat mit Sojasprossen, Gurken, Karotten und ein Spiegelei in Erdnusssoße",
       },
-      price: 1110,
+      price: 1180,
       sides: sidesOptions,
     },
     {
@@ -104,7 +104,7 @@ export default {
         en: "stewed beef in a spicy sauce",
         de: "geschmortes Rindfleisch in scharfer Soße",
       },
-      price: 1510,
+      price: 1580,
       sides: sidesOptions,
     },
     {
@@ -119,7 +119,7 @@ export default {
         en: "stir fried chicken with vegetables in a sweet soy sauce",
         de: "gebratenes Hühnerfleisch mit Gemüse in süßer Sojasoße",
       },
-      price: 1270,
+      price: 1330,
       sides: sidesOptions,
     },
     {
@@ -134,7 +134,7 @@ export default {
         en: "chicken strips in a mild spicy tomoato sauce",
         de: "Hühnerstreifen in leicht scharfer Tomatensoße",
       },
-      price: 1560,
+      price: 1640,
       sides: sidesOptions,
     },
   ],
