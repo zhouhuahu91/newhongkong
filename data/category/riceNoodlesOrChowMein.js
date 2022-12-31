@@ -17,7 +17,7 @@ export default {
         en: "comes with babi pangang, kou lou kai, a chicken satay and spicy beef",
         de: "serviert mit Babi Pangang, kou lou kai, ein Hühnerspieß und scharfer Rindfleisch",
       },
-      price: 1770,
+      price: 1860,
       options: [
         {
           id: "74M",
@@ -52,7 +52,7 @@ export default {
         en: "rice noodles or chow mein stir fried with chicken",
         de: "Reisnudeln oder chow mein mit Hühnerfleisch",
       },
-      price: 1230,
+      price: 1280,
       options: [
         {
           id: "75M",
@@ -87,7 +87,7 @@ export default {
         en: "rice noodles or chow mein stir fried with pork",
         de: "Reisnudeln oder chow mein mit Schweinefleisch",
       },
-      price: 1230,
+      price: 1280,
       options: [
         {
           id: "76M",
@@ -122,7 +122,7 @@ export default {
         en: "rice noodles or chow mein stir fried with beef",
         de: "Reisnudeln oder chow mein mit Rindfleisch",
       },
-      price: 1300,
+      price: 1360,
       options: [
         {
           id: "77M",
@@ -227,7 +227,7 @@ export default {
         en: "rice noodles stir fried with chicken, pork and shrimp in curry",
         de: "Reisnudeln mit Hühnerfleisch, Schweinefleisch und Schrimps in Curry",
       },
-      price: 1530,
+      price: 1590,
     },
     {
       id: "81",
@@ -241,7 +241,7 @@ export default {
         en: "chow mein stir fried with cha siu",
         de: "chow mein mit cha siu",
       },
-      price: 1300,
+      price: 1370,
     },
   ],
 };
