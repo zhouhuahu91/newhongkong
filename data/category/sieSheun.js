@@ -19,7 +19,7 @@ export default {
         en: "stir fried chicken with vegetables in a mild spicy Sie Sheun sauce",
         de: "gebratenes Hühnerfleisch mit Gemüse in leicht scharfer Sie Sheun Soße",
       },
-      price: 1470,
+      price: 1490,
       sides: sidesOptions,
     },
     {
@@ -34,7 +34,7 @@ export default {
         en: "stir fried pork with vegetables in a mild spicy Sie Sheun sauce",
         de: "gebratenes Schweinefleisch mit Gemüse in leicht scharfen Sie Sheun Soße",
       },
-      price: 1470,
+      price: 1490,
       sides: sidesOptions,
     },
     {
@@ -49,7 +49,7 @@ export default {
         en: "stir fried shrimp with vegetables in a mild spicy Sie Sheun sauce",
         de: "gebratene Schrimps mit Gemüse in leicht scharfen Sie Sheun Soße",
       },
-      price: 1760,
+      price: 1780,
       sides: sidesOptions,
     },
     {
@@ -64,7 +64,7 @@ export default {
         en: "stir fried chicken and pork with vegetables in spicy gon bao sauce",
         de: "gebratenes Hühner- und Schweinefleisch mit Gemüse in scharfer gon bao Soße",
       },
-      price: 1630,
+      price: 1650,
       sides: sidesOptions,
     },
     {
@@ -94,7 +94,7 @@ export default {
         en: "stir fried shrimp and vegetables in spicy gon bao sauce",
         de: "gebratene Schrimps mit Gemüse in scharfer gon bao Soße",
       },
-      price: 1860,
+      price: 1880,
       sides: sidesOptions,
     },
     {
@@ -109,7 +109,7 @@ export default {
         en: "stir fried shrimp, pork and tofu with vegetables in a mild spicy ma bor sauce",
         de: "gebratene Schrimps, Schweinefleisch und Tofu mit Gemüse in leicht scharfer ma bor Soße",
       },
-      price: 1840,
+      price: 1860,
       sides: sidesOptions,
     },
   ],
