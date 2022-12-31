@@ -17,7 +17,7 @@ export default {
         en: "6 vegetarian mini rolls",
         de: "6 vegetarische Minifrühlingsrollen",
       },
-      price: 400,
+      price: 420,
     },
     {
       id: "9",
@@ -31,7 +31,7 @@ export default {
         en: "2 small rolls filled with chow mein and cha siu",
         de: "2 kleine Frühlingsrollen gefüllt mit chow mein und Cha Siu",
       },
-      price: 410,
+      price: 430,
     },
     {
       id: "10",
@@ -45,7 +45,7 @@ export default {
         en: "large vegetable roll filled with beansprout and egg",
         de: "große Gemüsefrühlingsrolle gefüllt mit Sojasprossen und Ei",
       },
-      price: 450,
+      price: 490,
       options: [
         {
           id: "10V",
@@ -89,7 +89,7 @@ export default {
         en: "8 crunchy fried chicken wonton, comes with sweet & sour sauce",
         de: "8 knusprig fritierte Hähnchen Wantan, mit süß saurer Soße",
       },
-      price: 530,
+      price: 560,
     },
     {
       id: "12",
@@ -103,7 +103,7 @@ export default {
         en: "6 fried bananas, sweet",
         de: "6 fritierte Bananen, süß",
       },
-      price: 450,
+      price: 470,
     },
     {
       id: "13",
@@ -117,7 +117,7 @@ export default {
         en: "4 steamed chicken dumplings, comes with sweet & sour sauce",
         de: "4 gedämpfte Hähnchen Teigtaschen mit süß saurer Soße",
       },
-      price: 450,
+      price: 470,
     },
     {
       id: "14",
@@ -131,7 +131,7 @@ export default {
         en: "shrimp crackers",
         de: "Krabbenchips",
       },
-      price: 320,
+      price: 330,
     },
     {
       id: "15",
@@ -145,7 +145,7 @@ export default {
         en: "small spicy chips like crackers",
         de: "kleine scharfe Chips wie Crackers",
       },
-      price: 320,
+      price: 330,
     },
     {
       id: "16",
@@ -159,7 +159,7 @@ export default {
         en: "3 chicken satay in peanut sauce",
         de: "3 Hähnchenspieß mit Erdnusssoße",
       },
-      price: 570,
+      price: 600,
     },
     {
       id: "17",
@@ -173,7 +173,7 @@ export default {
         en: "small bag of fries",
         de: "kleine Portion Pommes",
       },
-      price: 290,
+      price: 300,
     },
     {
       id: "18",
@@ -201,7 +201,7 @@ export default {
         en: "± 250ml",
         de: "± 250ml",
       },
-      price: 250,
+      price: 260,
       options: [
         {
           id: "19S",
