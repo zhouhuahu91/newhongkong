@@ -16,6 +16,7 @@ const fetchAddressFromAPI = async (postalcode, houseNumber) => {
   if (sanitizedPostalcode.length === 6 && sanitizedHouseNumber > 0) {
     // If both critiria's meet we fetch data from the api.
     // It's a free api from the goverment, not sure if it will stay online forever.
+    // If this one doesn't work use https://postcode.tech/home
     const res = await fetch(
       `https://geodata.nationaalgeoregister.nl/locatieserver/free?rows=1&fq=postcode:${sanitizedPostalcode}&fq=huisnummer:${sanitizedHouseNumber}`
     );
