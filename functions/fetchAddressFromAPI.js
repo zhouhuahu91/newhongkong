@@ -1,3 +1,5 @@
+// import axios from "axios";
+
 const fetchAddressFromAPI = async (postalcode, houseNumber) => {
   let sanitizedPostalcode = postalcode || "";
   let sanitizedHouseNumber = houseNumber || "";
@@ -17,6 +19,38 @@ const fetchAddressFromAPI = async (postalcode, houseNumber) => {
     // If both critiria's meet we fetch data from the api.
     // It's a free api from the goverment, not sure if it will stay online forever.
     // If this one doesn't work use https://postcode.tech/home
+    // import axios
+    // set the bearer api
+
+    // try {
+    //   let config = {
+    //     headers: {
+    //       Authorization: `Bearer ${process.env.NEXT_PUBLIC_POSTALCODE_API}`,
+    //     },
+    //   };
+    //   const err = await axios.get(
+    //     `https://postcode.tech/api/v1/postcode?postcode=${sanitizedPostalcode}&number=${sanitizedHouseNumber}`,
+    //     config
+    //   );
+
+    //   if (err.data) {
+    //     return {
+    //       street: err.data.street,
+    //       houseNumber: sanitizedHouseNumber,
+    //       postalcode: sanitizedPostalcode,
+    //       city: err.data.city,
+    //     };
+    //   }
+    //   return {
+    //     error: "not found",
+    //   };
+    // } catch (e) {
+    //   console.log(e);
+    //   return {
+    //     error: "not found",
+    //   };
+    // }
+
     const res = await fetch(
       `https://geodata.nationaalgeoregister.nl/locatieserver/free?rows=1&fq=postcode:${sanitizedPostalcode}&fq=huisnummer:${sanitizedHouseNumber}`
     );
