@@ -53,14 +53,14 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "tung koe ky",
-        en: "tung koe ky",
-        de: "tung koe ky",
+        nl: "kou lou kai",
+        en: "kou lou kai",
+        de: "kou lou kai",
       },
       description: {
-        nl: "roergebakken kipfilet met poku champignons en groenten in een lichte oestersaus",
-        en: "stir fried chicken with poku mushrooms and vegetables in a mild oyster sauce",
-        de: "gebratenes Hühnerfleisch mit Poku-Pilze und Gemüse in einer milden Austernsoße",
+        nl: "gepaneerde kipballetjes met zoetzure saus",
+        en: "deep fried chicken in dough with a sweet & sour sauce",
+        de: "Fritierte Hühnerfleisch in einem Teig mit süß sauerer Soße",
       },
     },
   ],
