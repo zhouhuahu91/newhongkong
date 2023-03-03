@@ -53,14 +53,14 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "kou lou kai",
-        en: "kou lou kai",
-        de: "kou lou kai",
+        nl: "saté ajam",
+        en: "chicken satay",
+        de: "Hähnchenspieß",
       },
       description: {
-        nl: "gepaneerde kipballetjes met zoetzure saus",
-        en: "deep fried chicken in dough with a sweet & sour sauce",
-        de: "Fritierte Hühnerfleisch in einem Teig mit süß sauerer Soße",
+        nl: "3 stokjes kipsaté in satesaus",
+        en: "3 chicken satay in peanut sauce",
+        de: "3 Hähnchenspieß mit Erdnusssoße",
       },
     },
   ],
