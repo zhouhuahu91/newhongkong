@@ -53,14 +53,14 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "saté ajam",
-        en: "chicken satay",
-        de: "Hähnchenspieß",
+        nl: "kip kerry",
+        en: "chicken curry",
+        de: "chicken curry",
       },
       description: {
-        nl: "3 stokjes kipsaté in satesaus",
-        en: "3 chicken satay in peanut sauce",
-        de: "3 Hähnchenspieß mit Erdnusssoße",
+        nl: "roergebakken kipfilet met groenten in kerrie saus",
+        en: "stir fried chicken with vegetables in curry sauce",
+        de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
       },
     },
   ],
