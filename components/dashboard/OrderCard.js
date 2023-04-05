@@ -32,10 +32,10 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   const { atDashboard } = usePath();
 
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&destination=${
-    order.address.city
-  }+${order.address.street}+${order.address.houseNumber}${
+    order.address.street
+  }+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
-  }&travelmode=bicycling`;
+  }+${order.address.city}&travelmode=bicycling`;
 
   return (
     <>
@@ -84,16 +84,17 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
               {order.name}
             </h3>
             {/* We do not want to delete orders where the payment method is online. */}
-            {!(order.paymentMethod === "online" && order.paid) && user?.admin && (
-              <IconBtn
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpenDeleteOrderModal(true);
-                }}
-              >
-                <DeleteIcon className="fill-gray-100 hover:fill-main" />
-              </IconBtn>
-            )}
+            {!(order.paymentMethod === "online" && order.paid) &&
+              user?.admin && (
+                <IconBtn
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenDeleteOrderModal(true);
+                  }}
+                >
+                  <DeleteIcon className="fill-gray-100 hover:fill-main" />
+                </IconBtn>
+              )}
           </div>
           {/* If order is not printed we show the print icon */}
           {!order.printed && (
