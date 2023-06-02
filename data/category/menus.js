@@ -53,14 +53,14 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "ajam smoor",
-        en: "ajam smoor",
-        de: "ajam smoor",
+        nl: "pikante kip",
+        en: "spicy chicken",
+        de: "Hähnchen scharf",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in ketjapsaus",
-        en: "stir fried chicken with vegetables in a sweet soy sauce",
-        de: "gebratenes Hühnerfleisch mit Gemüse in süßer Sojasoße",
+        nl: "roergebakken kipfilet met groenten in een licht pikante saus",
+        en: "stir fried chicken with vegetables in a mild spicy sauce",
+        de: "gebratener Hühnerfleisch mit Gemüse in leicht scharfer Soße",
       },
     },
   ],
