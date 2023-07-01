@@ -31,6 +31,13 @@ const Cart = () => {
   // Shortage to reach the required amount for delivery
   const shortForDelivery =
     storeFees.minimumOrderAmount - subtotal - cartState.tip;
+  // We need to check how much plastic is being used.
+  // const totalQtyPlastic = cartState.cart.reduce((x, y) => {
+  //   console.log(y);
+  //   return x + y.qtyPlastic;
+  // }, 0);
+
+  console.log(totalQtyPlastic);
 
   useEffect(() => {
     // TODO: smooth scroll not working on ios.

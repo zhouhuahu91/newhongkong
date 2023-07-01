@@ -17,6 +17,7 @@ export default {
         en: "6 vegetarian mini rolls",
         de: "6 vegetarische Minifrühlingsrollen",
       },
+      qtyPlastic: 0,
       price: 420,
     },
     {
@@ -32,6 +33,7 @@ export default {
         de: "2 kleine Frühlingsrollen gefüllt mit chow mein und Cha Siu",
       },
       price: 430,
+      qtyPlastic: 0,
     },
     {
       id: "10",
@@ -46,6 +48,7 @@ export default {
         de: "große Gemüsefrühlingsrolle gefüllt mit Sojasprossen und Ei",
       },
       price: 490,
+      qtyPlastic: 0,
       options: [
         {
           id: "10V",
@@ -90,6 +93,7 @@ export default {
         de: "8 knusprig fritierte Hähnchen Wantan, mit süß saurer Soße",
       },
       price: 560,
+      qtyPlastic: 0,
     },
     {
       id: "12",
@@ -104,6 +108,7 @@ export default {
         de: "6 fritierte Bananen, süß",
       },
       price: 470,
+      qtyPlastic: 0,
     },
     {
       id: "13",
@@ -148,6 +153,7 @@ export default {
         de: "kleine scharfe Chips wie Crackers",
       },
       price: 330,
+      qtyPlastic: 0,
     },
     {
       id: "16",
@@ -177,6 +183,7 @@ export default {
         de: "kleine Portion Pommes",
       },
       price: 300,
+      qtyPlastic: 0,
     },
     {
       id: "18",
