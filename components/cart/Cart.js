@@ -37,7 +37,7 @@ const Cart = () => {
   //   return x + y.qtyPlastic;
   // }, 0);
 
-  console.log(totalQtyPlastic);
+  // console.log(totalQtyPlastic);
 
   useEffect(() => {
     // TODO: smooth scroll not working on ios.
