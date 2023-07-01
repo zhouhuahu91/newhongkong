@@ -78,6 +78,19 @@ const Cart = () => {
             </div>
           )}
         {/* ******** END DELIVERY FEE ********* */}
+        {/* ******** PLASTIC FEE ********* */}
+        {/* If the user selects for pick up they have to pay for the platic bag or... */}
+        {/* they have to bring their own. */}
+        {/* <div className="flex justify-between mt-1">
+          <div className="flex space-x-1 items-center">
+            <span>Toeslag plastic</span>
+            <ToolTip tip={t.bag_tooltip} />
+          </div>
+          <div className="flex items-center space-x-4">
+            {euro(storeFees.plasticFee)}
+          </div>
+        </div> */}
+        {/* ******** END PLASTIC FEE ********* */}
         {/* ******** BAG FEE ********* */}
         {/* If the user selects for pick up they have to pay for the platic bag or... */}
         {/* they have to bring their own. */}
@@ -101,7 +114,6 @@ const Cart = () => {
         {/* ******** END BAG FEE ********* */}
         {/* ******** DELIVERY WARNING ********* */}
         {/* We need to let the user know there is a minimum for delivery. */}
-
         {shortForDelivery > 0 && cartState.delivery === true && (
           <div className="text-xs p-2 border mt-2 bg-amber-50">
             {t.delivery_warning(

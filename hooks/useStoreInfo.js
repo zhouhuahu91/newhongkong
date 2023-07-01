@@ -48,6 +48,8 @@ const useStoreProvider = () => {
     minimumOrderAmount: 2000,
     // Plastic bag fee. Defaults to 10 cents.
     plasticBagFee: 10,
+    // Plastic fee for the boxes. Defaults to 20 cents.
+    plasticFee: 20,
   });
   const [currentDate, setCurrentDate] = useState(getCurrentDate());
   const [currentDay, setCurrentDay] = useState(new Date().getDay());
