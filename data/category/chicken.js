@@ -20,6 +20,7 @@ export default {
         de: "gebratener Hühnerfleisch mit Gemüse in leicht scharfer Soße",
       },
       price: 1330,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -35,6 +36,7 @@ export default {
         de: "gebratener Hühnerfleisch mit Gemüse in einer süßen Ingwer Soße",
       },
       price: 1330,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -50,6 +52,7 @@ export default {
         de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
       },
       price: 1330,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -65,6 +68,7 @@ export default {
         de: "Fritierte Hühnerfleisch in einem Teig mit süß sauerer Soße",
       },
       price: 1330,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -80,6 +84,7 @@ export default {
         de: "paniertes Hühnerfleisch gebraten mit Gemüse in einer scharfen Sojasoße",
       },
       price: 1590,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -95,6 +100,7 @@ export default {
         de: "paniertes Hühnerfleisch gebraten mit Gemüse in einer süßen Soße",
       },
       price: 1590,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
   ],

@@ -20,6 +20,7 @@ export default {
         de: "geröstete Ente, Soße separat serviert",
       },
       price: 1750,
+      qtyPlastic: 2,
       options: [
         {
           id: "S2",
@@ -73,6 +74,7 @@ export default {
         de: "gebratenes Rindfleisch mit Poku-Pilze und Gemüse in einer milden Austernsoße",
       },
       price: 1680,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -88,6 +90,7 @@ export default {
         de: "gebratene Schrimps mit Poku-Pilze und Gemüse in einer milden Austernsoße",
       },
       price: 1780,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -104,6 +107,7 @@ export default {
       },
 
       price: 2080,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -119,6 +123,7 @@ export default {
         de: "gebratene Garnelen mit Gemüse in einer leicht scharfen Soße",
       },
       price: 2080,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
   ],

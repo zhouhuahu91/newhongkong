@@ -20,6 +20,7 @@ export default {
         de: "Omelett ohne Fleisch in einer süßen Tomatensoße",
       },
       price: 1180,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -35,6 +36,7 @@ export default {
         de: "Omelett mit Schicken in süßen Tomatensoße",
       },
       price: 1240,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -50,6 +52,7 @@ export default {
         de: "Omelett mit Hähnchen in einer süßen Tomatensoße",
       },
       price: 1290,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -65,6 +68,7 @@ export default {
         de: "Omelett mit Schweinefleisch in einer süßen Tomatensoße",
       },
       price: 1290,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -80,6 +84,7 @@ export default {
         de: "Omelett mit Schrimps in einer süßen Tomatensoße",
       },
       price: 1530,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -95,6 +100,7 @@ export default {
         de: "Omelett mit Hühnerfleisch, Schweinefleisch und Schrimps in einer süßen Tomatensoße",
       },
       price: 1420,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
   ],

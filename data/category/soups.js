@@ -18,6 +18,7 @@ export default {
         de: "Hühnerbrühe mit Huhn, Eigelb und Frühlingszwiebeln",
       },
       price: 340,
+      qtyPlastic: 1,
     },
     {
       id: "2",
@@ -32,6 +33,7 @@ export default {
         de: "Tomatensuppe mit Huhn, Eigelb und Frühlingszwiebeln",
       },
       price: 340,
+      qtyPlastic: 1,
     },
     {
       id: "3",
@@ -46,6 +48,7 @@ export default {
         de: "Suppe aus Eiweiß mit Schinken und Frühlingszwiebeln",
       },
       price: 420,
+      qtyPlastic: 1,
     },
     {
       id: "4",
@@ -60,6 +63,7 @@ export default {
         de: "Hühnerbrühe mit Pilzen, Hühnchen, Eigelb und Frühlingszwiebeln",
       },
       price: 430,
+      qtyPlastic: 1,
     },
     {
       id: "5",
@@ -74,6 +78,7 @@ export default {
         de: "Suppe aus Sojasauce mit Poku-Pilzen, Hühnchen, Garnelen und Frühlingszwiebeln",
       },
       price: 550,
+      qtyPlastic: 1,
     },
     {
       id: "6",
@@ -88,6 +93,7 @@ export default {
         de: "Hühnerbrühe mit Wonton gefüllt mit Hühnchen, Gemüse und Frühlingszwiebeln",
       },
       price: 550,
+      qtyPlastic: 1,
     },
     {
       id: "7",
@@ -102,6 +108,7 @@ export default {
         de: "würzige Suppe aus Sojasauce mit Hähnchen, Garnelen, Tofu und Frühlingszwiebeln",
       },
       price: 580,
+      qtyPlastic: 1,
     },
   ],
 };

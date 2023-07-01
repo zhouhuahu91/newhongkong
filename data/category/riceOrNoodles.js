@@ -18,6 +18,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit eiern, Schweinefleisch, Schinken und Lauch",
       },
       price: 660,
+      qtyPlastic: 1,
       options: [
         {
           id: "64N",
@@ -71,6 +72,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Hühnerspieß und scharfer Rindfleisch",
       },
       price: 1120,
+      qtyPlastic: 2,
       options: [
         {
           id: "65N",
@@ -106,6 +108,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit einem Hähnchenspieß sowie einen Hähnchenschenkel in einer leicht scharfen Soße",
       },
       price: 1120,
+      qtyPlastic: 2,
       options: [
         {
           id: "66N",
@@ -141,6 +144,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit 3 Hühnerspieße",
       },
       price: 1190,
+      qtyPlastic: 2,
       options: [
         {
           id: "67N",
@@ -177,6 +181,7 @@ export default {
       },
 
       price: 1680,
+      qtyPlastic: 2,
       options: [
         {
           id: "68N",
@@ -212,6 +217,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Hühnerfleisch und Gemüse",
       },
       price: 1190,
+      qtyPlastic: 2,
       options: [
         {
           id: "69N",
@@ -247,6 +253,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Schweinefleisch und Gemüse",
       },
       price: 1190,
+      qtyPlastic: 2,
       options: [
         {
           id: "70N",
@@ -282,6 +289,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Schrimps und Gemüse",
       },
       price: 1560,
+      qtyPlastic: 2,
       options: [
         {
           id: "71N",
@@ -317,6 +325,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Krabben-Sticks und Gemüse",
       },
       price: 1560,
+      qtyPlastic: 2,
       options: [
         {
           id: "72N",
@@ -352,6 +361,7 @@ export default {
         de: "gebratener Reis mit Hühnerfleisch, Schweinefleisch und Schrimps in Curry",
       },
       price: 1500,
+      qtyPlastic: 1,
     },
   ],
 };

@@ -118,6 +118,7 @@ export default {
         de: "4 gedämpfte Hähnchen Teigtaschen mit süß saurer Soße",
       },
       price: 470,
+      qtyPlastic: 1,
     },
     {
       id: "14",
@@ -132,6 +133,7 @@ export default {
         de: "Krabbenchips",
       },
       price: 330,
+      qtyPlastic: 1,
     },
     {
       id: "15",
@@ -160,6 +162,7 @@ export default {
         de: "3 Hähnchenspieß mit Erdnusssoße",
       },
       price: 600,
+      qtyPlastic: 1,
     },
     {
       id: "17",
@@ -188,6 +191,7 @@ export default {
         de: "Portion weißer Reis",
       },
       price: 400,
+      qtyPlastic: 1,
     },
     {
       id: "19",
@@ -202,6 +206,7 @@ export default {
         de: "± 250ml",
       },
       price: 260,
+      qtyPlastic: 1,
       options: [
         {
           id: "19S",

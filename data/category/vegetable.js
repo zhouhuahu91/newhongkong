@@ -20,6 +20,7 @@ export default {
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch",
       },
       price: 1180,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -35,6 +36,7 @@ export default {
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Tofu",
       },
       price: 1270,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -50,6 +52,7 @@ export default {
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Hähnchen",
       },
       price: 1290,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -65,6 +68,7 @@ export default {
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Schweinefleisch",
       },
       price: 1290,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -80,6 +84,7 @@ export default {
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Rindfleisch",
       },
       price: 1420,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -95,6 +100,7 @@ export default {
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Schrimps",
       },
       price: 1530,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -109,8 +115,8 @@ export default {
         en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek with chicken, pork and shrimp",
         de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Hühnerfleisch, Schweinefleisch und Schrimps",
       },
-
       price: 1420,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
   ],

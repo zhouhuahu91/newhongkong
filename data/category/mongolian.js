@@ -20,6 +20,7 @@ export default {
         de: "gebratenes Rinderfilet mit Gemüse in einer süß sauren Soße",
       },
       price: 1940,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -35,6 +36,7 @@ export default {
         de: "gebratenes Schweinekotelett mit Gemüse in einer süß sauren Soße",
       },
       price: 1820,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
   ],

@@ -20,6 +20,7 @@ export default {
         de: "geröstete Schweinefleisch, süß und zart in leicht schafer Soße",
       },
       price: 1590,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -35,6 +36,7 @@ export default {
         de: "gebratenes Hühnerfleisch mit Gemüse und Cashew Nüssen",
       },
       price: 1540,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -49,8 +51,8 @@ export default {
         en: "stir fried beansprout, onion, mushrooms, bamboo shoots, chicken, shrimp and cha siu ",
         de: "Gebratene Sojasprossen, Zwiebeln, Champignons, Bambussprossen, Hühnerfleisch, Schrimps sowie Cha Siu",
       },
-
       price: 1580,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -66,6 +68,7 @@ export default {
         de: "gebratenes Hühnerfleisch mit Gemüse in einer Soße aus schwarze Bohnen",
       },
       price: 1540,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -81,6 +84,7 @@ export default {
         de: "gebratenes Rindfleisch mit Gemüse in schwarzer Bohnen Soße",
       },
       price: 1680,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -96,6 +100,7 @@ export default {
         de: "gebratene Schrimps mit Gemüse in schwarzer Bohnen Soße",
       },
       price: 1780,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -111,6 +116,7 @@ export default {
         de: "gebratene Garnelen mit Gemüse in schwarzer Bohnen Soße",
       },
       price: 2080,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
   ],

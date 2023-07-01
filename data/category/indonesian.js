@@ -20,6 +20,7 @@ export default {
         de: "serviert mit scharfer Rindfleisch und Gemüse",
       },
       price: 1120,
+      qtyPlastic: 2,
       options: [
         {
           id: "82N",
@@ -55,6 +56,7 @@ export default {
         de: "serviert mit einem Hühnerspieß, Hähnchenschenkel in leicht scharfer Soße sowie scharfer Rindfleisch und Gemüse",
       },
       price: 1500,
+      qtyPlastic: 3,
       options: [
         {
           id: "83N",
@@ -90,6 +92,7 @@ export default {
         de: "Indonesischer Salat mit Sojasprossen, Gurken, Karotten und ein Spiegelei in Erdnusssoße",
       },
       price: 1180,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -105,6 +108,7 @@ export default {
         de: "geschmortes Rindfleisch in scharfer Soße",
       },
       price: 1580,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -135,6 +139,7 @@ export default {
         de: "Hühnerstreifen in leicht scharfer Tomatensoße",
       },
       price: 1640,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
   ],

@@ -20,6 +20,7 @@ export default {
         de: "gebratenes Hühnerfleisch mit Gemüse in leicht scharfer Sie Sheun Soße",
       },
       price: 1490,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -35,6 +36,7 @@ export default {
         de: "gebratenes Schweinefleisch mit Gemüse in leicht scharfen Sie Sheun Soße",
       },
       price: 1490,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -50,6 +52,7 @@ export default {
         de: "gebratene Schrimps mit Gemüse in leicht scharfen Sie Sheun Soße",
       },
       price: 1780,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -65,6 +68,7 @@ export default {
         de: "gebratenes Hühner- und Schweinefleisch mit Gemüse in scharfer gon bao Soße",
       },
       price: 1650,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -80,6 +84,7 @@ export default {
         de: "gebratenes Schweinefleisch und Schrimps mit Gemüse in scharfer gon bao Soße",
       },
       price: 1840,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -95,6 +100,7 @@ export default {
         de: "gebratene Schrimps mit Gemüse in scharfer gon bao Soße",
       },
       price: 1880,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -110,6 +116,7 @@ export default {
         de: "gebratene Schrimps, Schweinefleisch und Tofu mit Gemüse in leicht scharfer ma bor Soße",
       },
       price: 1860,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
   ],

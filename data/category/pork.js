@@ -20,6 +20,7 @@ export default {
         de: "fritierte magerer Schweinefleisch in Streifen in leicht scharfer Soße",
       },
       price: 1540,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -35,6 +36,7 @@ export default {
         de: "Fritierte Speckstreifen mit leicht scharfer Tomatensoße, Soße wird separat serviert",
       },
       price: 1660,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -50,6 +52,7 @@ export default {
         de: "Fritierte Schweinefleischstreifen mit einer süßen Sojasoße",
       },
       price: 1580,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
     {
@@ -65,6 +68,7 @@ export default {
         de: "fritiertes Schweinefleisch mit süß saurer Soße",
       },
       price: 1330,
+      qtyPlastic: 2,
       sides: sidesOptions,
     },
   ],
