@@ -92,10 +92,7 @@ const Cart = () => {
               <ToolTip tip={t.plastic_tooltip} />
             </div>
             <div className="flex items-center space-x-4">
-              {/* We currently charge 10 cent for 1 pastic wrapping but for everything more than one we just charge 20 cents */}
-              {totalQtyPlastic > 1
-                ? euro(storeFees.plasticFee * 2)
-                : euro(storeFees.plasticFee)}
+              {euro(storeFees.packagingFee)}
             </div>
           </div>
         )}

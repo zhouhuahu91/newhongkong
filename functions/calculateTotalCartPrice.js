@@ -13,20 +13,8 @@ const calculateTotalCartPrice = (cartState, storeFees) => {
   ) {
     total += storeFees.transactionFee;
   }
-
-  // We need to add fee for plastic packaging. currently we charge 10 cent for 1 and 20 cents for > 1.
-  // We need to check how much plastic is being used.
-  const totalQtyPlastic = cartState.cart.reduce((x, y) => {
-    return x + y.qtyPlastic;
-  }, 0);
-  // If it is 1 we add the base of 10 cents.
-  if (totalQtyPlastic === 1) {
-    total += storeFees.plasticFee;
-  }
-  // if it is more than 1 we add max of 2 * base of 10 cents aka 20 cents.
-  if (totalQtyPlastic > 1) {
-    total += storeFees.plasticFee * 2;
-  }
+  // We need to add the fee for plastic packaging.
+  total += storeFees.packagingFee;
 
   // We add the fee if user requires a bag.
   // But delivery must be false because bag price is included in delivery fee.

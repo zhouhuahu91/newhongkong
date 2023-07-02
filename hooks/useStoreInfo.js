@@ -49,7 +49,7 @@ const useStoreProvider = () => {
     // Plastic bag fee. Defaults to 10 cents.
     plasticBagFee: 10,
     // Plastic fee for the boxes. Defaults to 10 cents per box max of 20cents.
-    plasticFee: 10,
+    packagingFee: 0,
   });
   const [currentDate, setCurrentDate] = useState(getCurrentDate());
   const [currentDay, setCurrentDay] = useState(new Date().getDay());
@@ -135,23 +135,23 @@ const useStoreProvider = () => {
     }
   }, [closed, storeInfo.openForDelivery, cartState.delivery, dispatch]);
 
-  // Fetches the store settings from server.
-  // We need new store info every day.
-  useEffect(() => {
-    const ref = doc(db, "general/settings");
-    const unsubscribe = onSnapshot(ref, async (snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.data();
-        setStoreInfo({ ...data.openingHours[currentDay] });
-        setLiveMessage(data.liveMessage);
-      }
-    });
+  // // Fetches the store settings from server.
+  // // We need new store info every day.
+  // useEffect(() => {
+  //   const ref = doc(db, "general/settings");
+  //   const unsubscribe = onSnapshot(ref, async (snapshot) => {
+  //     if (snapshot.exists()) {
+  //       const data = snapshot.data();
+  //       setStoreInfo({ ...data.openingHours[currentDay] });
+  //       setLiveMessage(data.liveMessage);
+  //     }
+  //   });
 
-    return () => {
-      unsubscribe();
-    };
-    // We refetch if the current date changes.
-  }, [currentDate, currentDay]);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  //   // We refetch if the current date changes.
+  // }, [currentDate, currentDay]);
 
   // minimumOrderAmout and deliveryFee depends on the postalcode.
   useEffect(() => {
@@ -165,6 +165,24 @@ const useStoreProvider = () => {
       deliveryFee: deliveryFees.fee,
     }));
   }, [cartState.address]);
+
+  // Plastic packaging fee depends on the amount of plastic used.
+  // Every time items in the cartState updates we need to recalculate the storeFees for packaging.
+  useEffect(() => {
+    // We need to check how much plastic is being used.
+    const totalQtyPlastic = cartState.cart.reduce((x, y) => {
+      return x + y.qtyPlastic;
+    }, 0);
+    // If total is 0 we charge 0 cents, if it is 1 we charge 10 cents if it is > 1 we charge 20 cents
+    if (totalQtyPlastic === 0)
+      return setStoreFees((prev) => ({ ...prev, packagingFee: 0 }));
+
+    if (totalQtyPlastic === 1)
+      return setStoreFees((prev) => ({ ...prev, packagingFee: 10 }));
+
+    if (totalQtyPlastic > 1)
+      return setStoreFees((prev) => ({ ...prev, packagingFee: 20 }));
+  }, [cartState.cart]);
 
   return {
     storeInfo,
