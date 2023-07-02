@@ -159,6 +159,7 @@ export default {
   plastic: "Plastikzuschlag",
   bag: "Plastiktüte",
   packaging: "Verpackung",
+  packaging_fee: "Verpackungszuschlag",
   bag_tooltip:
     "Das Gesetz schreibt uns vor eine Plastiktütegebühr einzufordern. Falls Sie Ihre eigene Tasche mitbringen sollten, wählen Sie bitte diese Auswahl ab.",
   plastic_tooltip:
