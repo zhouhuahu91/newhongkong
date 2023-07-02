@@ -41,14 +41,14 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "foe yong hai vegetarisch",
-        en: "egg foo young vegetarian",
-        de: "egg foo young vegetarisch",
+        nl: "tjap tjoy vegetarisch",
+        en: "tjap tjoy vegetarian",
+        de: "tjap tjoy vegetarisch",
       },
       description: {
-        nl: "omelet zondervlees in een zoete tomatensaus",
-        en: "omelet without meat in a sweet tomato sauce",
-        de: "Omelett ohne Fleisch in einer süßen Tomatensoße",
+        nl: "roergebakken taugé, paprika, uien, champignons, bamboestrips en prei",
+        en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek",
+        de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch",
       },
     },
     {
