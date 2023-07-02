@@ -156,10 +156,12 @@ export default {
   transaction_fee: "Transaktionsgebühr",
   restaurant_tip: "Trinkgeld",
   total: "Gesamt",
+  plastic: "Plastikzuschlag",
   bag: "Plastiktüte",
   bag_tooltip:
     "Das Gesetz schreibt uns vor eine Plastiktütegebühr einzufordern. Falls Sie Ihre eigene Tasche mitbringen sollten, wählen Sie bitte diese Auswahl ab.",
-
+  plastic_tooltip:
+    "Wir sind verpflichtet, für Verpackungsmaterial aus Plastik Gebühren zu erheben.",
   // Functions
   with: "mit",
   and: "und",

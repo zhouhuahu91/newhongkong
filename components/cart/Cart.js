@@ -88,8 +88,8 @@ const Cart = () => {
         {totalQtyPlastic > 0 && (
           <div className="flex justify-between mt-1">
             <div className="flex space-x-1 items-center">
-              <span>Toeslag plastic</span>
-              <ToolTip tip={t.bag_tooltip} />
+              <span>{t.plastic}</span>
+              <ToolTip tip={t.plastic_tooltip} />
             </div>
             <div className="flex items-center space-x-4">
               {/* We currently charge 10 cent for 1 pastic wrapping but for everything more than one we just charge 20 cents */}

@@ -153,9 +153,12 @@ export default {
   transaction_fee: "transaction fee",
   restaurant_tip: "tip",
   total: "total",
+  plastic: "plastic fee",
   bag: "plastic bag",
   bag_tooltip:
     "It is required by law to add a plastic bag fee. If you are planning to bring your own bag make sure to toggle this off.",
+  plastic_tooltip:
+    "It is required by law to add a fee for plastic packaging material.",
 
   // Functions
   with: "with",
