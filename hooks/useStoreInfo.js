@@ -33,11 +33,11 @@ const useStoreProvider = () => {
     // The time that the store opens. Defaults to "16:00".
     openingTime: 16 * 3600,
     // The time that the store closes. Defaults to "21:00".
-    closingTime: 24 * 3600,
+    closingTime: 21 * 3600,
     // The time we start to deliver. Defaults to "17:00".
     startTimeDelivery: 16 * 3600,
     // The time we stop to deliver. Defaults to "21:00".
-    endTimeDelivery: 24 * 3600,
+    endTimeDelivery: 21 * 3600,
   });
   const [storeFees, setStoreFees] = useState({
     // The transaction fee. Defaults to 30 cents
@@ -137,21 +137,21 @@ const useStoreProvider = () => {
 
   // // Fetches the store settings from server.
   // // We need new store info every day.
-  // useEffect(() => {
-  //   const ref = doc(db, "general/settings");
-  //   const unsubscribe = onSnapshot(ref, async (snapshot) => {
-  //     if (snapshot.exists()) {
-  //       const data = snapshot.data();
-  //       setStoreInfo({ ...data.openingHours[currentDay] });
-  //       setLiveMessage(data.liveMessage);
-  //     }
-  //   });
+  useEffect(() => {
+    const ref = doc(db, "general/settings");
+    const unsubscribe = onSnapshot(ref, async (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        setStoreInfo({ ...data.openingHours[currentDay] });
+        setLiveMessage(data.liveMessage);
+      }
+    });
 
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  //   // We refetch if the current date changes.
-  // }, [currentDate, currentDay]);
+    return () => {
+      unsubscribe();
+    };
+    // We refetch if the current date changes.
+  }, [currentDate, currentDay]);
 
   // minimumOrderAmout and deliveryFee depends on the postalcode.
   useEffect(() => {
