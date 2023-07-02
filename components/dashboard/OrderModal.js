@@ -121,6 +121,18 @@ const OrderModal = ({ open, setOpen, order }) => {
               <div className="col-span-2 text-right">{euro(order.tip)}</div>
             </>
           )}
+          {order.storeFees.packagingFee > 0 && (
+            <>
+              <div className={itemIdStyling}>
+                <span className="text-lg font-semibold">1x</span>
+                <span className="text-lg font-semibold">710</span>
+              </div>
+              <div className={itemNameStyling}>packaging</div>
+              <div className="col-span-2 text-right">
+                {euro(order.storeFees.packagingFee)}
+              </div>
+            </>
+          )}
           {order.bag && !order.delivery && (
             <>
               <div className={itemIdStyling}>
