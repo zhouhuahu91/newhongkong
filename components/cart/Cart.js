@@ -32,12 +32,9 @@ const Cart = () => {
   const shortForDelivery =
     storeFees.minimumOrderAmount - subtotal - cartState.tip;
   // We need to check how much plastic is being used.
-  // const totalQtyPlastic = cartState.cart.reduce((x, y) => {
-  //   console.log(y);
-  //   return x + y.qtyPlastic;
-  // }, 0);
-
-  // console.log(totalQtyPlastic);
+  const totalQtyPlastic = cartState.cart.reduce((x, y) => {
+    return x + y.qtyPlastic;
+  }, 0);
 
   useEffect(() => {
     // TODO: smooth scroll not working on ios.
@@ -88,15 +85,20 @@ const Cart = () => {
         {/* ******** PLASTIC FEE ********* */}
         {/* If the user selects for pick up they have to pay for the platic bag or... */}
         {/* they have to bring their own. */}
-        {/* <div className="flex justify-between mt-1">
-          <div className="flex space-x-1 items-center">
-            <span>Toeslag plastic</span>
-            <ToolTip tip={t.bag_tooltip} />
+        {totalQtyPlastic > 0 && (
+          <div className="flex justify-between mt-1">
+            <div className="flex space-x-1 items-center">
+              <span>Toeslag plastic</span>
+              <ToolTip tip={t.bag_tooltip} />
+            </div>
+            <div className="flex items-center space-x-4">
+              {/* We currently charge 10 cent for 1 pastic wrapping but for everything more than one we just charge 20 cents */}
+              {totalQtyPlastic > 1
+                ? euro(storeFees.plasticFee * 2)
+                : euro(storeFees.plasticFee)}
+            </div>
           </div>
-          <div className="flex items-center space-x-4">
-            {euro(storeFees.plasticFee)}
-          </div>
-        </div> */}
+        )}
         {/* ******** END PLASTIC FEE ********* */}
         {/* ******** BAG FEE ********* */}
         {/* If the user selects for pick up they have to pay for the platic bag or... */}
