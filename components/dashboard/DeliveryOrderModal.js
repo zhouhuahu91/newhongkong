@@ -66,7 +66,7 @@ const DeliveryModal = ({ open, setOpen, order }) => {
           {order.storeFees.packagingFee > 0 && (
             <>
               <div className="flex justify-between mt-2">
-                <span>{t.packaging}</span>
+                <span>{t.packaging_fee}</span>
                 <span>{euro(order.storeFees.packagingFee)}</span>
               </div>
             </>

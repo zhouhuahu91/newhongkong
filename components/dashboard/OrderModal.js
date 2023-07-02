@@ -127,7 +127,7 @@ const OrderModal = ({ open, setOpen, order }) => {
                 <span className="text-lg font-semibold">1x</span>
                 <span className="text-lg font-semibold">710</span>
               </div>
-              <div className={itemNameStyling}>packaging</div>
+              <div className={itemNameStyling}>packaging fee</div>
               <div className="col-span-2 text-right">
                 {euro(order.storeFees.packagingFee)}
               </div>
