@@ -154,6 +154,7 @@ export default {
   restaurant_tip: "Fooi",
   total: "Totaal",
   bag: "Tasje",
+  packaging: "Verpakking",
   plastic: "Toeslag plastic",
   bag_tooltip:
     "Wij zijn verplicht de plastic tasjes te verrekenen. Ben je van plan om je eigen tas mee te nemen? Zorg dan dat je dit uitschakelt.",
