@@ -159,7 +159,7 @@ export default {
   packaging_fee: "Verpakkingstoeslag",
   bag_tooltip:
     "Wij zijn verplicht de plastic tasjes te verrekenen. Ben je van plan om je eigen tas mee te nemen? Zorg dan dat je dit uitschakelt.",
-  plastic_tooltip:
+  packaging_fee_tooltip:
     "Voor plastic verpakkingsmateriaal zijn wij verplicht een vergoeding in rekening te brengen.",
 
   // Functions

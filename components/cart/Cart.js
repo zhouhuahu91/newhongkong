@@ -89,7 +89,7 @@ const Cart = () => {
           <div className="flex justify-between mt-1">
             <div className="flex space-x-1 items-center">
               <span>{t.packaging_fee}</span>
-              <ToolTip tip={t.plastic_tooltip} />
+              <ToolTip tip={t.packaging_fee_tooltip} />
             </div>
             <div className="flex items-center space-x-4">
               {euro(storeFees.packagingFee)}

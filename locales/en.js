@@ -159,7 +159,7 @@ export default {
   packaging_fee: "Packaging fee",
   bag_tooltip:
     "It is required by law to add a plastic bag fee. If you are planning to bring your own bag make sure to toggle this off.",
-  plastic_tooltip:
+  packaging_fee_tooltip:
     "It is required by law to add a fee for plastic packaging material.",
 
   // Functions
