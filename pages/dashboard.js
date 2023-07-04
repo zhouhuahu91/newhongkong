@@ -66,6 +66,9 @@ const Dashboard = () => {
           if (pickup.length > 0) {
             return setLastSelectedOrder(pickup[1]);
           }
+          if (printed.length > 0) {
+            return setLastSelectedOrder(printed[0]);
+          }
           setLastSelectedOrder(null);
         }
 
