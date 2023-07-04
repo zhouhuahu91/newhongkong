@@ -174,14 +174,21 @@ const useStoreProvider = () => {
       return x + y.qtyPlastic;
     }, 0);
     // If total is 0 we charge 0 cents, if it is 1 we charge 10 cents if it is > 1 we charge 20 cents
-    if (totalQtyPlastic === 0)
+    if (totalQtyPlastic === 0) {
+      // We do not need to set packaging fee to 0 if it is already 0.
+      if (storeFees.packagingFee === 0) return;
       return setStoreFees((prev) => ({ ...prev, packagingFee: 0 }));
-
-    if (totalQtyPlastic === 1)
+    }
+    if (totalQtyPlastic === 1) {
+      // We do not need to set packaging fee to 10 if it is already 10
+      if (storeFees.packagingFee === 10) return;
       return setStoreFees((prev) => ({ ...prev, packagingFee: 10 }));
-
-    if (totalQtyPlastic > 1)
+    }
+    if (totalQtyPlastic > 1) {
+      // We do not need to set packaging fee to 20 if it is already 20
+      if (storeFees.packagingFee === 20) return;
       return setStoreFees((prev) => ({ ...prev, packagingFee: 20 }));
+    }
   }, [cartState.cart]);
 
   return {
