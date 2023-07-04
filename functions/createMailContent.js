@@ -82,7 +82,7 @@ const createMailContent = (data) => {
     if (data.storeFees.packagingFee > 0) {
       content += `
       <tr>
-        <td colspan="2" style="text-align: left; padding-top: 0.5rem">verpackingstoeslag</td>
+        <td colspan="2" style="text-align: left; padding-top: 0.5rem">verpakkingstoeslag</td>
         <td colspan="1" style="text-align: right; padding-top: 0.5rem">${euro(
           data.storeFees.packagingFee
         )}</td>
