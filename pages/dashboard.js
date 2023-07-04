@@ -63,6 +63,9 @@ const Dashboard = () => {
           updateDoc(ref, {
             completed: true,
           });
+          if (pickup.length > 0) {
+            return setLastSelectedOrder(pickup[1]);
+          }
           setLastSelectedOrder(null);
         }
 
