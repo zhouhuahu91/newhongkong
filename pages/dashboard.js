@@ -253,7 +253,7 @@ const Dashboard = () => {
               <h1 className="mr-2">DELIVERY</h1>
               <ToolTip
                 tip={`total tips: ${euro(totalTips)} ${
-                  totalTips > 0 ? "😄" : "😞"
+                  totalTips > 0 ? "🥳" : "😭"
                 }`}
                 size="big"
               />
