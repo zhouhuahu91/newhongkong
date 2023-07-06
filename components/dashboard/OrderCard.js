@@ -23,6 +23,7 @@ import CloseIcon from "@/icons/CloseIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
 import UndoIcon from "@/icons/UndoIcon";
 import WarningIcon from "@/icons/WarningIcon";
+import NoBagIcon from "@/icons/NoBagIcon";
 import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
 
 const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
@@ -84,17 +85,16 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
               {order.name}
             </h3>
             {/* We do not want to delete orders where the payment method is online. */}
-            {!(order.paymentMethod === "online" && order.paid) &&
-              user?.admin && (
-                <IconBtn
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setOpenDeleteOrderModal(true);
-                  }}
-                >
-                  <DeleteIcon className="fill-gray-100 hover:fill-main" />
-                </IconBtn>
-              )}
+            {!(order.paymentMethod === "online" && order.paid) && user?.admin && (
+              <IconBtn
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenDeleteOrderModal(true);
+                }}
+              >
+                <DeleteIcon className="fill-gray-100 hover:fill-main" />
+              </IconBtn>
+            )}
           </div>
           {/* If order is not printed we show the print icon */}
           {!order.printed && (
@@ -183,6 +183,9 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
                 >
                   <PedalBikeIcon />
                 </a>
+              )}
+              {!order.delivery && !order.bag && (
+                <NoBagIcon className="fill-main mb-0.5" />
               )}
             </div>
             <span className="text-sm">
