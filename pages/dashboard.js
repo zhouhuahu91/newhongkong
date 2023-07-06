@@ -8,6 +8,7 @@ import Header from "@/components/dashboard/DashboardHeader";
 import OrderCard from "@/components/dashboard/OrderCard";
 import Spinner from "@/components/Spinner";
 import DashboardChat from "@/components/dashboard/DashboardChat";
+import ToolTip from "@/components/ToolTip";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -19,6 +20,8 @@ import {
   updateDoc,
   getDoc,
 } from "firebase/firestore";
+// Fucntion imports
+import euro from "@/functions/euro";
 
 const Dashboard = () => {
   const { currentDate } = useStoreInfo();
@@ -38,6 +41,8 @@ const Dashboard = () => {
   const [pickup, setPickup] = useState([]);
   // 4. Orders that are being delivered.
   const [delivery, setDelivery] = useState([]);
+
+  const [totalTips, setTotalTips] = useState(0);
 
   // We need the toggle for the chat modal here because when chat is open...
   // ... we need to disable the enter click event.
@@ -116,6 +121,13 @@ const Dashboard = () => {
       // We seperate the orders in delivery and pick up.
       const deliveryOrders = data.filter((order) => order.delivery);
       const pickupOrders = data.filter((order) => !order.delivery);
+
+      // We calculate all the tips for deliveryOrders.
+      const tempTotalTips = deliveryOrders.reduce((x, y) => x + y.tip, 0);
+      // If tempTotalTips is different than total tips we set totalTips to tempTotalTips.
+      if (tempTotalTips !== totalTips) {
+        setTotalTips(tempTotalTips);
+      }
 
       // We sort the pick up orders by time. 16:00 => 1600.
       const sortedPickUpOrders = pickupOrders.sort((a, b) => {
@@ -237,9 +249,10 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <h1 className="text-2xl mb-4 font-semibold text-center border-b">
-              DELIVERY
-            </h1>
+            <div className="text-2xl mb-4 font-semibold text-center border-b flex justify-center items-center">
+              <h1 className="mr-2">DELIVERY</h1>
+              <ToolTip tip={`total tips: ${euro(totalTips)}`} />
+            </div>
             <div className="grid gap-4">
               {delivery.map((order) => (
                 <OrderCard
