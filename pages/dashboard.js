@@ -251,7 +251,12 @@ const Dashboard = () => {
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <div className="text-2xl mb-4 font-semibold text-center border-b flex justify-center items-center">
               <h1 className="mr-2">DELIVERY</h1>
-              <ToolTip tip={`total tips: ${euro(totalTips)}`} />
+              <ToolTip
+                tip={`total tips: ${euro(totalTips)} ${
+                  totalTips > 0 ? "😄" : "😞"
+                }`}
+                size="big"
+              />
             </div>
             <div className="grid gap-4">
               {delivery.map((order) => (

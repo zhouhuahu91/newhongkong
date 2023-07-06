@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // Component imports
 import HelpIcon from "@/icons/HelpIcon";
 
-const ToolTip = ({ tip, disabled }) => {
+const ToolTip = ({ tip, disabled, size }) => {
   const [open, setOpen] = useState(false);
   // We need this third party library to make the tooltip show outside of the scroll area.
   // Position relative doesn't work when the tooltip is outside of the scroll area.
@@ -38,7 +38,9 @@ const ToolTip = ({ tip, disabled }) => {
               top: y ?? 0,
               left: x ?? 0,
             }}
-            className="border p-2 rounded-md bg-amber-50 text-sm w-52"
+            className={`border p-2 rounded-md bg-amber-50 text-sm w-52 ${
+              size === "big" && "text-lg"
+            }`}
           >
             {tip}
           </motion.div>
