@@ -337,7 +337,7 @@ export default {
           price: 0,
         },
         {
-          id: "B",
+          id: "72B",
           name: {
             nl: "bami goreng krab",
             en: "crab noodles",
