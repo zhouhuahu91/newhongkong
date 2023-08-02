@@ -41,26 +41,26 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "tjap tjoy vegetarisch",
-        en: "tjap tjoy vegetarian",
-        de: "tjap tjoy vegetarisch",
+        nl: "foe yong hai vegetarisch",
+        en: "egg foo young vegetarian",
+        de: "egg foo young vegetarisch",
       },
       description: {
-        nl: "roergebakken taugé, paprika, uien, champignons, bamboestrips en prei",
-        en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek",
-        de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch",
+        nl: "omelet zondervlees in een zoete tomatensaus",
+        en: "omelet without meat in a sweet tomato sauce",
+        de: "Omelett ohne Fleisch in einer süßen Tomatensoße",
       },
     },
     {
       name: {
-        nl: "saté ajam",
-        en: "chicken satay",
-        de: "Hähnchenspieß",
+        nl: "tippan kipfilet",
+        en: "tippan chicken",
+        de: "Tippan Hühnerfleisch",
       },
       description: {
-        nl: "3 stokjes kipsaté in satesaus",
-        en: "3 chicken satay in peanut sauce",
-        de: "3 Hähnchenspieß mit Erdnusssoße",
+        nl: "roergebakken kipfilet met groenten in oestersaus",
+        en: "stir fried chicken with vegetables in a oyster sauce",
+        de: "gebratenes Hühnerfleisch mit Gemüse in Austernsoße",
       },
     },
   ],
