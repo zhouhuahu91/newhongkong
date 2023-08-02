@@ -52,7 +52,7 @@ const fetchAddressFromAPI = async (postalcode, houseNumber) => {
     // }
 
     const res = await fetch(
-      `https://geodata.nationaalgeoregister.nl/locatieserver/free?rows=1&fq=postcode:${sanitizedPostalcode}&fq=huisnummer:${sanitizedHouseNumber}`
+      `https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?rows=1&fq=postcode:${sanitizedPostalcode}&fq=huisnummer:${sanitizedHouseNumber}`
     );
     const raw = await res.json();
     // If the raw data returns an error we return from the function.
