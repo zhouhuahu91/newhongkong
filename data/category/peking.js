@@ -118,7 +118,7 @@ export default {
         de: "sin jien ha long",
       },
       description: {
-        nl: "roergebakken gambas met groenten in een lichte pikante",
+        nl: "roergebakken gambas met groenten in een licht pikante saus",
         en: "stir fried gambas with vegetables in a mild spicy sauce",
         de: "gebratene Garnelen mit Gemüse in einer leicht scharfen Soße",
       },
