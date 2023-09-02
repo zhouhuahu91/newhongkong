@@ -53,14 +53,14 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "tippan kipfilet",
-        en: "tippan chicken",
-        de: "Tippan Hühnerfleisch",
+        nl: "kou lou kai",
+        en: "kou lou kai",
+        de: "kou lou kai",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in oestersaus",
-        en: "stir fried chicken with vegetables in a oyster sauce",
-        de: "gebratenes Hühnerfleisch mit Gemüse in Austernsoße",
+        nl: "gepaneerde kipballetjes met zoetzure saus",
+        en: "deep fried chicken in dough with a sweet & sour sauce",
+        de: "Fritierte Hühnerfleisch in einem Teig mit süß sauerer Soße",
       },
     },
   ],
