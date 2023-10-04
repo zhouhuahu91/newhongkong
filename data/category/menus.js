@@ -53,14 +53,14 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "kou lou kai",
-        en: "kou lou kai",
-        de: "kou lou kai",
+        nl: "pikante kip",
+        en: "spicy chicken",
+        de: "Hähnchen scharf",
       },
       description: {
-        nl: "gepaneerde kipballetjes met zoetzure saus",
-        en: "deep fried chicken in dough with a sweet & sour sauce",
-        de: "Fritierte Hühnerfleisch in einem Teig mit süß sauerer Soße",
+        nl: "roergebakken kipfilet met groenten in een licht pikante saus",
+        en: "stir fried chicken with vegetables in a mild spicy sauce",
+        de: "gebratener Hühnerfleisch mit Gemüse in leicht scharfer Soße",
       },
     },
   ],
