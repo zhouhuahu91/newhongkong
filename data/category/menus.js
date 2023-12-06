@@ -53,14 +53,14 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "pikante kip",
-        en: "spicy chicken",
-        de: "Hähnchen scharf",
+        nl: "kip kerry",
+        en: "chicken curry",
+        de: "chicken curry",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in een licht pikante saus",
-        en: "stir fried chicken with vegetables in a mild spicy sauce",
-        de: "gebratener Hühnerfleisch mit Gemüse in leicht scharfer Soße",
+        nl: "roergebakken kipfilet met groenten in kerrie saus",
+        en: "stir fried chicken with vegetables in curry sauce",
+        de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
       },
     },
   ],
