@@ -51,7 +51,7 @@ export const christmasA = {
     en: "for around 2 to 3 people",
     de: "für ca. 2 oder 3 Personen",
   },
-  price: 4990,
+  price: 5490,
   sides: sidesOptions,
   totalSides: 2,
   options: tippanSauce,
@@ -59,23 +59,23 @@ export const christmasA = {
   menuList: [
     {
       name: {
-        nl: "3 vegetarische mini loempias",
-        en: "3 vegetarian mini rolls",
-        de: "3 vegetarische Minifrühlingsrollen",
+        nl: "4 vegetarische mini loempias",
+        en: "4 vegetarian mini rolls",
+        de: "4 vegetarische Minifrühlingsrollen",
       },
     },
     {
       name: {
-        nl: "3 gebakken bananen",
-        en: "3 fried bananas",
-        de: "3 fritierte Bananen",
+        nl: "4 gebakken bananen",
+        en: "4 fried bananas",
+        de: "4 fritierte Bananen",
       },
     },
     {
       name: {
-        nl: "3 Cantonese pangsit goreng",
-        en: "3 fried wonton",
-        de: "3 Gebackene Wantan",
+        nl: "4 Cantonese pangsit goreng",
+        en: "4 fried wonton",
+        de: "4 Gebackene Wantan",
       },
       description: {
         nl: "krokant gebakken wantan gevuld met kip, met zoetzure saus",
@@ -116,14 +116,14 @@ export const christmasA = {
     },
     {
       name: {
-        nl: "tippan 3 sterren",
-        en: "tippan 3 stars",
-        de: "Tippan 3 Sterne",
+        nl: "tippan bief",
+        en: "tippan beef",
+        de: "Tippan Rindfleisch",
       },
       description: {
-        nl: "roergebakken kipfilet, varkensvlees en biefstukjes met groenten in oestersaus, pikante saus, kerrie saus of zwarte bonen saus",
-        en: "stir fried chicken, pork and beef with vegetables in a oyster, spicy, curry or black bean sauce",
-        de: "gebratenes Hühnerfleisch, Schweinefleisch und Rindfleisch mit Gemüse in Austernsoße, scharfer Soße, Curry oder schwarze Bohnen Soße",
+        nl: "roergebakken biefstukjes met groenten in oestersaus, pikante saus, kerrie saus of zwarte bonen saus",
+        en: "stir fried beef with vegetables in a oyster, spicy, curry or black bean sauce",
+        de: "gebratenes Rindfleisch mit Gemüse in Austernsoße, scharfer Soße, Curry oder schwarze Bohnen Soße",
       },
     },
     {
@@ -153,7 +153,7 @@ export const christmasB = {
     en: "for around 4 to 5 people",
     de: "für ca. 4 oder 5 Personen",
   },
-  price: 7990,
+  price: 8790,
   sides: sidesOptions,
   totalSides: 2,
   options: tippanSauce,
