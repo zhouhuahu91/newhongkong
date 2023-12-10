@@ -59,23 +59,23 @@ export const christmasA = {
   menuList: [
     {
       name: {
-        nl: "4 vegetarische mini loempias",
-        en: "4 vegetarian mini rolls",
-        de: "4 vegetarische Minifrühlingsrollen",
+        nl: "3 vegetarische mini loempias",
+        en: "3 vegetarian mini rolls",
+        de: "3 vegetarische Minifrühlingsrollen",
       },
     },
     {
       name: {
-        nl: "4 gebakken bananen",
-        en: "4 fried bananas",
-        de: "4 fritierte Bananen",
+        nl: "3 gebakken bananen",
+        en: "3 fried bananas",
+        de: "3 fritierte Bananen",
       },
     },
     {
       name: {
-        nl: "4 Cantonese pangsit goreng",
-        en: "4 fried wonton",
-        de: "4 Gebackene Wantan",
+        nl: "3 Cantonese pangsit goreng",
+        en: "3 fried wonton",
+        de: "3 Gebackene Wantan",
       },
       description: {
         nl: "krokant gebakken wantan gevuld met kip, met zoetzure saus",
