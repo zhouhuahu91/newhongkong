@@ -77,6 +77,8 @@ export default {
     de: "Menüs",
   },
   items: [
+    christmasA,
+    christmasB,
     {
       id: "96",
       name: {
