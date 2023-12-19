@@ -252,8 +252,10 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
         </div>
         {order.remarks && (
           <div className="mt-6 flex flex-col">
-            <span className="text-sm text-gray-500">Remarks:</span>
-            <span className="text-sm font-normal">{order.remarks}</span>
+            <span className="text-xs text-gray-500">Remarks:</span>
+            <span className="text-sm font-medium text-main">
+              {order.remarks}
+            </span>
           </div>
         )}
       </motion.div>
