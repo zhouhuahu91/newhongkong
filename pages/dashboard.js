@@ -133,17 +133,19 @@ const Dashboard = () => {
       const sortedPickUpOrders = pickupOrders.sort((a, b) => {
         return a.time.replace(":", "") - b.time.replace(":", "");
       });
-      // Delivery orders we need to check if it is an asap order if it is we just return 0 this makes the...
-      // the order go on top. If not than the time will have a value e.a. 16:00 - 16:30.
+      // Delivery orders we need to check if it is an asap order if it is we just return the createdAt
+      // This will return a really high number but we want these order to go on top so we devide it by even a bigger
+      // number.
       // We just need the first time to sort the value. We slice the time to get 16:00 and then...
       // replace : with nothing so we eventually get 1600.
+
       const sortedDeliveryOrders = deliveryOrders.sort((a, b) => {
         let x = a.time.includes(":")
           ? a.time.slice(0, 5).replace(":", "")
-          : "0";
+          : a.createdAt / 10000000000000;
         let y = b.time.includes(":")
           ? b.time.slice(0, 5).replace(":", "")
-          : "0";
+          : b.createdAt / 10000000000000;
         return x - y;
       });
 
