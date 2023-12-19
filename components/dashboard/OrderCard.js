@@ -10,6 +10,8 @@ import { useAuth } from "@/hooks/useAuth";
 import usePath from "@/hooks/usePath";
 // Function imports
 import euro from "@/functions/euro";
+import getDigitalTime from "@/functions/getDigitalTime";
+import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 // Component imports
 import OrderModal from "@/components/dashboard/OrderModal";
 import DeliveryOrderModal from "@/components/dashboard/DeliveryOrderModal";
@@ -85,16 +87,17 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
               {order.name}
             </h3>
             {/* We do not want to delete orders where the payment method is online. */}
-            {!(order.paymentMethod === "online" && order.paid) && user?.admin && (
-              <IconBtn
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpenDeleteOrderModal(true);
-                }}
-              >
-                <DeleteIcon className="fill-gray-100 hover:fill-main" />
-              </IconBtn>
-            )}
+            {!(order.paymentMethod === "online" && order.paid) &&
+              user?.admin && (
+                <IconBtn
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenDeleteOrderModal(true);
+                  }}
+                >
+                  <DeleteIcon className="fill-gray-100 hover:fill-main" />
+                </IconBtn>
+              )}
           </div>
           {/* If order is not printed we show the print icon */}
           {!order.printed && (
@@ -171,7 +174,11 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
           <div>
             <div className="flex items-center space-x-2">
               <span className="text-xl font-semibold">
-                {order.time.includes(":") ? order.time : "asap"}
+                {order.time.includes(":")
+                  ? order.time
+                  : `${getDigitalTime(
+                      getCurrentTimeInSeconds(new Date(order.createdAt))
+                    )} asap`}
               </span>
               {order.delivery && (
                 <a
