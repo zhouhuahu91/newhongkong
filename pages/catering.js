@@ -108,7 +108,7 @@ const Catering = () => {
           catering in de vorm van lopende buffetten. Deze lopende buffetten
           worden bij u <Emp>thuis of op de zaak bezorgd</Emp>, waarna de
           gerechten warm worden gehouden door middel van rechauds. De kosten
-          voor een standaard buffet bedragen <Emp>€ 12,90 per persoon</Emp> en
+          voor een standaard buffet bedragen <Emp>€ 13,90 per persoon</Emp> en
           is mogelijk <Emp>vanaf 20 personen</Emp>. Dit is inclusief borden,
           bestek en servetten.
         </p>
