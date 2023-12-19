@@ -24,7 +24,10 @@ const DeliveryModal = ({ open, setOpen, order }) => {
           <CloseIcon />
         </IconBtn>
       </div>
-      <div className="p-4 overflow-y-scroll bg-gray-50">
+      <div
+        style={{ maxHeight: "calc(100vh - 265px)" }}
+        className="p-4 overflow-y-scroll bg-gray-50"
+      >
         {order.cart.map((item) => {
           return (
             <div key={item.id} className="flex mt-2">
