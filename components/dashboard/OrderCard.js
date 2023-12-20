@@ -174,11 +174,18 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
           <div>
             <div className="flex items-center space-x-2">
               <span className="text-xl font-semibold">
-                {order.time.includes(":")
-                  ? order.time
-                  : `${getDigitalTime(
-                      getCurrentTimeInSeconds(new Date(order.createdAt))
-                    )} asap`}
+                {order.time.includes(":") ? (
+                  order.time
+                ) : (
+                  <>
+                    asap
+                    <span className="text-xs ml-2">
+                      {getDigitalTime(
+                        getCurrentTimeInSeconds(new Date(order.createdAt))
+                      )}
+                    </span>
+                  </>
+                )}
               </span>
               {order.delivery && (
                 <a
