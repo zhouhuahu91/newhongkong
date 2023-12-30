@@ -52,7 +52,7 @@ export default [
       en: "rice noodles",
       de: "Glasnudeln",
     },
-    price: 410,
+    price: 440,
   },
   {
     id: "B5",
@@ -61,7 +61,7 @@ export default [
       en: "chow mein",
       de: "chow mein",
     },
-    price: 410,
+    price: 440,
   },
   {
     id: "B6",
@@ -70,6 +70,6 @@ export default [
       en: "half fried rice and half noodles",
       de: "halb gebratener Reis und halb Nudeln",
     },
-    price: 210,
+    price: 220,
   },
 ];

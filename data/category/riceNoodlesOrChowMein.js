@@ -17,7 +17,7 @@ export default {
         en: "comes with babi pangang, kou lou kai, a chicken satay and spicy beef",
         de: "serviert mit Babi Pangang, kou lou kai, ein Hühnerspieß und scharfer Rindfleisch",
       },
-      price: 1860,
+      price: 2010,
       qtyPlastic: 3,
       options: [
         {
@@ -53,7 +53,7 @@ export default {
         en: "rice noodles or chow mein stir fried with chicken",
         de: "Reisnudeln oder chow mein mit Hühnerfleisch",
       },
-      price: 1280,
+      price: 1380,
       qtyPlastic: 1,
       options: [
         {
@@ -89,7 +89,7 @@ export default {
         en: "rice noodles or chow mein stir fried with pork",
         de: "Reisnudeln oder chow mein mit Schweinefleisch",
       },
-      price: 1280,
+      price: 1380,
       qtyPlastic: 1,
       options: [
         {
@@ -125,7 +125,7 @@ export default {
         en: "rice noodles or chow mein stir fried with beef",
         de: "Reisnudeln oder chow mein mit Rindfleisch",
       },
-      price: 1360,
+      price: 1470,
       qtyPlastic: 1,
       options: [
         {
@@ -161,7 +161,7 @@ export default {
         en: "rice noodles or chow mein stir fried with shrimp",
         de: "Reisnudeln oder chow mein mit Schrimps",
       },
-      price: 1540,
+      price: 1660,
       qtyPlastic: 1,
       options: [
         {
@@ -197,7 +197,7 @@ export default {
         en: "rice noodles or chow mein stir fried with crab stick",
         de: "Reisnudeln oder chow mein mit Krabben-Sticks",
       },
-      price: 1540,
+      price: 1660,
       qtyPlastic: 1,
       options: [
         {
@@ -233,7 +233,7 @@ export default {
         en: "rice noodles stir fried with chicken, pork and shrimp in curry",
         de: "Reisnudeln mit Hühnerfleisch, Schweinefleisch und Schrimps in Curry",
       },
-      price: 1590,
+      price: 1720,
       qtyPlastic: 1,
     },
     {
@@ -248,7 +248,7 @@ export default {
         en: "chow mein stir fried with cha siu",
         de: "chow mein mit cha siu",
       },
-      price: 1370,
+      price: 1480,
       qtyPlastic: 1,
     },
   ],

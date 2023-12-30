@@ -17,7 +17,7 @@ export default {
         en: "chicken broth with chicken, egg yolk and spring onion",
         de: "Hühnerbrühe mit Huhn, Eigelb und Frühlingszwiebeln",
       },
-      price: 340,
+      price: 390,
       qtyPlastic: 1,
     },
     {
@@ -32,7 +32,7 @@ export default {
         en: "tomato soup with chicken, egg yolk and spring onion",
         de: "Tomatensuppe mit Huhn, Eigelb und Frühlingszwiebeln",
       },
-      price: 340,
+      price: 390,
       qtyPlastic: 1,
     },
     {
@@ -47,7 +47,7 @@ export default {
         en: "soup made of egg white with ham and spring onion",
         de: "Suppe aus Eiweiß mit Schinken und Frühlingszwiebeln",
       },
-      price: 420,
+      price: 450,
       qtyPlastic: 1,
     },
     {
@@ -62,7 +62,7 @@ export default {
         en: "chicken broth with mushroom, chicken, egg yolk and spring onion",
         de: "Hühnerbrühe mit Pilzen, Hühnchen, Eigelb und Frühlingszwiebeln",
       },
-      price: 430,
+      price: 460,
       qtyPlastic: 1,
     },
     {
@@ -77,7 +77,7 @@ export default {
         en: "soup made from soy sauce with poku mushrooms, chicken, shrimp and spring onion",
         de: "Suppe aus Sojasauce mit Poku-Pilzen, Hühnchen, Garnelen und Frühlingszwiebeln",
       },
-      price: 550,
+      price: 590,
       qtyPlastic: 1,
     },
     {
@@ -92,7 +92,7 @@ export default {
         en: "chicken broth with wonton filled with chicken, vegetables and spring onion",
         de: "Hühnerbrühe mit Wonton gefüllt mit Hühnchen, Gemüse und Frühlingszwiebeln",
       },
-      price: 550,
+      price: 590,
       qtyPlastic: 1,
     },
     {
@@ -107,7 +107,7 @@ export default {
         en: "spicy soup made from soy sauce with chicken, shrimp, tofu and spring onion",
         de: "würzige Suppe aus Sojasauce mit Hähnchen, Garnelen, Tofu und Frühlingszwiebeln",
       },
-      price: 580,
+      price: 630,
       qtyPlastic: 1,
     },
   ],

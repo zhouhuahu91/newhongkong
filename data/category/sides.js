@@ -18,7 +18,7 @@ export default {
         de: "6 vegetarische Minifrühlingsrollen",
       },
       qtyPlastic: 1,
-      price: 420,
+      price: 430,
     },
     {
       id: "9",
@@ -32,7 +32,7 @@ export default {
         en: "2 small rolls filled with chow mein and cha siu",
         de: "2 kleine Frühlingsrollen gefüllt mit chow mein und Cha Siu",
       },
-      price: 430,
+      price: 460,
       qtyPlastic: 1,
     },
     {
@@ -47,7 +47,7 @@ export default {
         en: "large vegetable roll filled with beansprout and egg",
         de: "große Gemüsefrühlingsrolle gefüllt mit Sojasprossen und Ei",
       },
-      price: 490,
+      price: 520,
       qtyPlastic: 0,
       options: [
         {
@@ -92,7 +92,7 @@ export default {
         en: "8 crunchy fried chicken wonton, comes with sweet & sour sauce",
         de: "8 knusprig fritierte Hähnchen Wantan, mit süß saurer Soße",
       },
-      price: 560,
+      price: 600,
       qtyPlastic: 1,
     },
     {
@@ -107,7 +107,7 @@ export default {
         en: "6 fried bananas, sweet",
         de: "6 fritierte Bananen, süß",
       },
-      price: 470,
+      price: 510,
       qtyPlastic: 0,
     },
     {
@@ -122,7 +122,7 @@ export default {
         en: "4 steamed chicken dumplings, comes with sweet & sour sauce",
         de: "4 gedämpfte Hähnchen Teigtaschen mit süß saurer Soße",
       },
-      price: 470,
+      price: 490,
       qtyPlastic: 1,
     },
     {
@@ -167,7 +167,7 @@ export default {
         en: "3 chicken satay in peanut sauce",
         de: "3 Hähnchenspieß mit Erdnusssoße",
       },
-      price: 600,
+      price: 630,
       qtyPlastic: 1,
     },
     {
@@ -182,7 +182,7 @@ export default {
         en: "small bag of fries",
         de: "kleine Portion Pommes",
       },
-      price: 300,
+      price: 320,
       qtyPlastic: 0,
     },
     {
@@ -197,7 +197,7 @@ export default {
         en: "box of white rice",
         de: "Portion weißer Reis",
       },
-      price: 400,
+      price: 430,
       qtyPlastic: 1,
     },
     {
@@ -212,7 +212,7 @@ export default {
         en: "± 250ml",
         de: "± 250ml",
       },
-      price: 260,
+      price: 280,
       qtyPlastic: 1,
       options: [
         {
