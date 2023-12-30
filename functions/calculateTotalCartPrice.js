@@ -13,8 +13,6 @@ const calculateTotalCartPrice = (cartState, storeFees) => {
   ) {
     total += storeFees.transactionFee;
   }
-  // We need to add the fee for plastic packaging.
-  total += storeFees.packagingFee;
 
   // We add the fee if user requires a bag.
   // But delivery must be false because bag price is included in delivery fee.

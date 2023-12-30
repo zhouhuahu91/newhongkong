@@ -48,8 +48,6 @@ const useStoreProvider = () => {
     minimumOrderAmount: 2000,
     // Plastic bag fee. Defaults to 10 cents.
     plasticBagFee: 10,
-    // Plastic fee for the boxes. Defaults to 10 cents per box max of 20cents.
-    packagingFee: 0,
   });
   const [currentDate, setCurrentDate] = useState(getCurrentDate());
   const [currentDay, setCurrentDay] = useState(new Date().getDay());
@@ -165,31 +163,6 @@ const useStoreProvider = () => {
       deliveryFee: deliveryFees.fee,
     }));
   }, [cartState.address]);
-
-  // Plastic packaging fee depends on the amount of plastic used.
-  // Every time items in the cartState updates we need to recalculate the storeFees for packaging.
-  useEffect(() => {
-    // We need to check how much plastic is being used.
-    const totalQtyPlastic = cartState.cart.reduce((x, y) => {
-      return x + y.qtyPlastic;
-    }, 0);
-    // If total is 0 we charge 0 cents, if it is 1 we charge 10 cents if it is > 1 we charge 20 cents
-    if (totalQtyPlastic === 0) {
-      // We do not need to set packaging fee to 0 if it is already 0.
-      if (storeFees.packagingFee === 0) return;
-      return setStoreFees((prev) => ({ ...prev, packagingFee: 0 }));
-    }
-    if (totalQtyPlastic === 1) {
-      // We do not need to set packaging fee to 10 if it is already 10
-      if (storeFees.packagingFee === 10) return;
-      return setStoreFees((prev) => ({ ...prev, packagingFee: 10 }));
-    }
-    if (totalQtyPlastic > 1) {
-      // We do not need to set packaging fee to 20 if it is already 20
-      if (storeFees.packagingFee === 20) return;
-      return setStoreFees((prev) => ({ ...prev, packagingFee: 20 }));
-    }
-  }, [cartState.cart]);
 
   return {
     storeInfo,

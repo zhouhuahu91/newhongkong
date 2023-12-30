@@ -31,10 +31,6 @@ const Cart = () => {
   // Shortage to reach the required amount for delivery
   const shortForDelivery =
     storeFees.minimumOrderAmount - subtotal - cartState.tip;
-  // We need to check how much plastic is being used.
-  const totalQtyPlastic = cartState.cart.reduce((x, y) => {
-    return x + y.qtyPlastic;
-  }, 0);
 
   useEffect(() => {
     // TODO: smooth scroll not working on ios.
@@ -82,21 +78,6 @@ const Cart = () => {
             </div>
           )}
         {/* ******** END DELIVERY FEE ********* */}
-        {/* ******** PLASTIC FEE ********* */}
-        {/* If the user selects for pick up they have to pay for the platic bag or... */}
-        {/* they have to bring their own. */}
-        {totalQtyPlastic > 0 && (
-          <div className="flex justify-between mt-1">
-            <div className="flex space-x-1 items-center">
-              <span>{t.packaging_fee}</span>
-              <ToolTip tip={t.packaging_fee_tooltip} />
-            </div>
-            <div className="flex items-center space-x-4">
-              {euro(storeFees.packagingFee)}
-            </div>
-          </div>
-        )}
-        {/* ******** END PLASTIC FEE ********* */}
         {/* ******** BAG FEE ********* */}
         {/* If the user selects for pick up they have to pay for the platic bag or... */}
         {/* they have to bring their own. */}

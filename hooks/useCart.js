@@ -179,16 +179,13 @@ const prepareItemToAddToCart = (selectedOptions, selectedSides, item, qwt) => {
   // We need the total price for the item.
   const price = (item.price + addedPrice) * qwt;
 
-  // We need the qtyPlastic of the total, if the item does not have qty plastic specified we use 0.
-  const qtyPlastic = item.qtyPlastic ? item.qtyPlastic * qwt : 0;
-
   // The name of the item is different if optionIsMain is true.
   const name = item.optionIsMain ? options[0].name : item.name;
 
   // We need a description for the options and sides they have selected.
   const description = createItemDescription(item, options, sides);
 
-  return { name, description, price, qtyPlastic };
+  return { name, description, price };
 };
 
 const addItem = (cart, payload) => {
@@ -211,9 +208,6 @@ const addItem = (cart, payload) => {
             price: (cartItem.price / cartItem.qwt) * (cartItem.qwt + qwt),
             // If the item has remarks we replace the old remarks with the new ones.
             remarks: remarks ? remarks : cartItem.remarks,
-            // If the item is found that means it already has a qty plastic so we need the base for that and multitply ith with the new qwt
-            qtyPlastic:
-              (cartItem.qtyPlastic / cartItem.qwt) * (cartItem.qwt + qwt),
           }
         : cartItem;
     });
@@ -263,9 +257,6 @@ const saveItem = (cart, payload) => {
             price: (currentCartItem.price / currentCartItem.qwt) * qwt,
             // We replace the remarks.
             remarks,
-            // We need the base qtyPlastic before we multiply it with the new amount.
-            qtyPlastic:
-              (currentCartItem.qtyPlastic / currentCartItem.qwt) * qwt,
           }
         : currentCartItem;
     });
@@ -288,10 +279,6 @@ const saveItem = (cart, payload) => {
                   (currentCartItem.qwt + qwt),
                 // We replace the remarks.
                 remarks,
-                // If first calculate the base qty of plastic used and than we multiply it with the old and new qty.
-                qtyPlastic:
-                  (currentCartItem.qtyPlastic / currentCartItem.qwt) *
-                  (currentCartItem.qwt + qwt),
               }
             : currentCartItem;
         })
@@ -337,8 +324,6 @@ const incrementItem = (cart, payload) => {
           // We calculate the new price by getting the price of 1 and then...
           // multipling it with the new qwt + 1.
           price: (cartItem.price / cartItem.qwt) * (cartItem.qwt + 1),
-          // Same as price we need the base qtyPlastic and multiply it with the old qty + 1.
-          qtyPlastic: (cartItem.qtyPlastic / cartItem.qwt) * (cartItem.qwt + 1),
         }
       : cartItem;
   });
@@ -358,9 +343,6 @@ const decrementItem = (cart, payload) => {
             // We calculate the new price by getting the price of 1 and then...
             // multipling it with the new qwt - 1.
             price: (cartItem.price / cartItem.qwt) * (cartItem.qwt - 1),
-            // Same as price we need the base qtyPlastic and multiply it with the old qty - 1.
-            qtyPlastic:
-              (cartItem.qtyPlastic / cartItem.qwt) * (cartItem.qwt - 1),
           }
         : cartItem;
     });
