@@ -26,6 +26,7 @@ export const useMenu = () => {
 const useMenuProvider = () => {
   // This is the raw data that we get back from firebase.
   const [data, setData] = useState([]);
+  console.log(data);
   // This is the data that we use in the components it filters when filterData is called.
   const [filteredData, setFilteredData] = useState([]);
   // We need searchInput in different components.
@@ -209,6 +210,7 @@ const useMenuProvider = () => {
       }));
       setData(menus);
       setFilteredData(menus);
+      console.log(menus);
     });
     return () => unsubscribe();
   }, []);
