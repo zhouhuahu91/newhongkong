@@ -53,14 +53,14 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "kip kerry",
-        en: "chicken curry",
-        de: "chicken curry",
+        nl: "tau sie ky",
+        en: "tau sie ky",
+        de: "tau sie ky",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in kerrie saus",
-        en: "stir fried chicken with vegetables in curry sauce",
-        de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
+        nl: "roergebakken kipfilet met groenten in zwarte bonensaus",
+        en: "stir fried chicken with vegetables in a black bean sauce",
+        de: "gebratenes Hühnerfleisch mit Gemüse in einer Soße aus schwarze Bohnen",
       },
     },
   ],
