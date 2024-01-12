@@ -31,9 +31,8 @@ const Contact = () => {
             <span className="text-sm block">2211EE Noordwijkerhout</span>
           </div>
           <iframe
-            src={`https://www.google.com/maps/embed/v1/MAP_MODE?key=${process.env.NEXT_PUBLIC_GOOGLEMAPS_API}&havenstraat+13+Noordwijkerhout`}
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2441.97711764866!2d4.492445416000293!3d52.26196056307211!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5c1c5907b92e3%3A0xc413e142a993cc45!2sHavenstraat%2013%2C%202211%20EE%20Noordwijkerhout!5e0!3m2!1snl!2snl!4v1622457839667!5m2!1snl!2snl"
             className="border-0 w-full h-[480px] px-4 sm:px-0 z-10 relative"
-            referrerPolicy="no-referrer-when-downgrade"
             loading="lazy"
             title="google maps"
           />
