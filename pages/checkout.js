@@ -87,7 +87,7 @@ const CheckOut = () => {
           // We check if the postalcode is in our area. Only 2211, 2212 and limited 2204.
           // Note that 2204 is with limited options not all letter combos are allowed.
           .matches(
-            /^(2211|2212)[\s]?[a-z]{2}$|^(2204)[\s]?([a][bcdejklnprstwx]|[b-c][a-z])$/i,
+            /^(2211|2212)[\s]?[a-z]{2}[\s]?$|^(2204)[\s]?([a][bcdejklnprstwx]|[b-c][a-z])[\s]?$/i,
             t.no_delivery_here
           )
       : yup.string(),
