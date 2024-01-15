@@ -51,6 +51,9 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
           order.address.addition ? `+${order.address.addition}` : ""
         }+${order.address.city}+Nederland`
       );
+      if (data.msg) {
+        return console.log(data.msg);
+      }
       setPosition(data);
     };
     getPosition();

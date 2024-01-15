@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 // Component imports
 import Spinner from "@/components/Spinner";
+// Google Maps imports
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import useI18n from "@/hooks/useI18n";
@@ -15,9 +17,11 @@ import { doc, getDoc } from "firebase/firestore";
 import axios from "axios";
 // Function imports
 import getURL from "@/functions/getURL";
+import fetchLatLngFromApi from "@/functions/fetchLatLngFromApi";
 
 const Succes = () => {
   const [order, setOrder] = useState(null);
+  const [position, setPosition] = useState({ lat: 52.26196, lng: 4.49463 });
   const { dispatch } = useCart();
   const t = useI18n();
   const URL = getURL();
@@ -58,6 +62,24 @@ const Succes = () => {
     fetchData();
   }, [query, dispatch, URL]);
 
+  useEffect(() => {
+    const getPosition = async () => {
+      const data = await fetchLatLngFromApi(
+        `${order.address.street}+${order.address.houseNumber}${
+          order.address.addition ? `+${order.address.addition}` : ""
+        }+${order.address.city}+Nederland`
+      );
+      if (data.msg) {
+        return console.log(data.msg);
+      }
+      setPosition(data);
+    };
+
+    if (order !== null && order.delivery) {
+      getPosition();
+    }
+  }, [order]);
+
   if (order === null) {
     return <Spinner />;
   }
@@ -77,12 +99,13 @@ const Succes = () => {
             <p className="my-4 text-sm">{t.mail_sent(order.email)}</p>
           </div>
           {/* TODO: maybe return a map of direction to the user if it is delivery. */}
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2441.97711764866!2d4.492445416000293!3d52.26196056307211!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5c1c5907b92e3%3A0xc413e142a993cc45!2sHavenstraat%2013%2C%202211%20EE%20Noordwijkerhout!5e0!3m2!1snl!2snl!4v1622457839667!5m2!1snl!2snl"
-            className="border-0 w-full h-[480px] px-4 sm:px-0"
-            loading="lazy"
-            title="google maps"
-          />
+          <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLEMAPS_API}>
+            <div className="w-auto h-[480px] overflow-hidden roundedb-xl">
+              <Map zoom={14} center={position}>
+                <Marker position={position} />
+              </Map>
+            </div>
+          </APIProvider>
         </div>
       ) : (
         <div className="rounded-xl max-w-md w-full flex flex-col mt-10 mx-4 overflow-hidden">
