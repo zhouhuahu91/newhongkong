@@ -307,12 +307,14 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
                 mapTypeControl={false}
                 mapId="939f6f3f30a43f1a"
               >
-                <Marker position={storePosition} />
+                <AdvancedMarker position={storePosition}>
+                  <Pin background="#e76f51" />
+                </AdvancedMarker>
                 <AdvancedMarker position={position}>
                   <Pin
                     background="lightblue"
-                    borderColor="blue"
                     glyphColor="blue"
+                    borderColor="blue"
                   />
                 </AdvancedMarker>
               </Map>
