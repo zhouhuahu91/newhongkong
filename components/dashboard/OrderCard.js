@@ -133,7 +133,7 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
           <div className="flex items-center space-x-3 justify-between">
             <div className="flex items-center space-x-3">
               <h3
-                className={`font-semibold text-2xl ${
+                className={`font-semibold text-2xl capitalize ${
                   order.canceled && "line-through"
                 }`}
               >
@@ -334,7 +334,6 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
                   lat: (storePosition.lat + position.lat) / 2,
                   lng: (storePosition.lng + position.lng) / 2,
                 }}
-                streetViewControl={true}
                 mapId="939f6f3f30a43f1a"
               >
                 <AdvancedMarker position={storePosition}>
