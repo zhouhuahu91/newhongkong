@@ -70,20 +70,22 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   }, []);
 
   useEffect(() => {
+    // temporary solution untill i figure out how to use bounds.
     const calculateZoom = () => {
       const distance = haversine(storePosition, position);
-
       if (distance < 0.3) return setZoom(16);
-      if (distance < 0.35) return setZoom(15.5);
-      if (distance < 0.45) return setZoom(15.25);
-      if (distance < 0.55) return setZoom(15);
-      if (distance < 0.65) return setZoom(14.75);
-      if (distance < 0.75) return setZoom(14.5);
-      if (distance < 0.85) return setZoom(14.25);
-      if (distance < 0.95) return setZoom(14);
-      if (distance < 1) return setZoom(13.75);
-      if (distance < 1.1) return setZoom(13.5);
-      if (distance > 1.1) return setZoom(13.25);
+      if (distance < 0.38) return setZoom(15.5);
+      if (distance < 0.4) return setZoom(15.25);
+      if (distance < 0.45) return setZoom(15);
+      if (distance < 0.55) return setZoom(14.75);
+      if (distance < 0.65) return setZoom(14.5);
+      if (distance < 0.78) return setZoom(14.25);
+      if (distance < 0.85) return setZoom(14);
+      if (distance < 0.95) return setZoom(13.75);
+      if (distance < 1) return setZoom(13.5);
+      if (distance < 1.5) return setZoom(13.25);
+      if (distance < 2.5) return setZoom(13);
+      if (distance >= 2.5) return setZoom(12);
     };
     if (order?.delivery) {
       calculateZoom();
@@ -324,15 +326,15 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
               className="w-auto h-60 overflow-hidden roundedb-xl selected-none"
             >
               <Map
+                gestureHandling={"greedy"}
+                disableDefaultUI={true}
                 zoom={zoom}
                 // gets the center of store and delivery location
                 center={{
                   lat: (storePosition.lat + position.lat) / 2,
                   lng: (storePosition.lng + position.lng) / 2,
                 }}
-                zoomControl={false}
-                fullscreenControl={false}
-                mapTypeControl={false}
+                streetViewControl={true}
                 mapId="939f6f3f30a43f1a"
               >
                 <AdvancedMarker position={storePosition}>
