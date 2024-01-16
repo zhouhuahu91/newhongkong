@@ -12,7 +12,6 @@ import usePath from "@/hooks/usePath";
 import {
   APIProvider,
   Map,
-  Marker,
   AdvancedMarker,
   Pin,
 } from "@vis.gl/react-google-maps";
@@ -21,6 +20,7 @@ import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 import fetchLatLngFromApi from "@/functions/fetchLatLngFromApi";
+import haversine from "@/functions/haversine";
 // Component imports
 import OrderModal from "@/components/dashboard/OrderModal";
 import DeliveryOrderModal from "@/components/dashboard/DeliveryOrderModal";
@@ -40,6 +40,7 @@ import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
 const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   const [open, setOpen] = useState(false);
   const [openDeleteOrderModal, setOpenDeleteOrderModal] = useState(false);
+  const [zoom, setZoom] = useState(14);
   const [position, setPosition] = useState({ lat: 52.26196, lng: 4.49463 });
   const { user } = useAuth();
   const { atDashboard } = usePath();
@@ -63,8 +64,31 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
       }
       setPosition(data);
     };
-    getPosition();
+    if (order?.delivery) {
+      getPosition();
+    }
   }, []);
+
+  useEffect(() => {
+    const calculateZoom = () => {
+      const distance = haversine(storePosition, position);
+
+      if (distance < 0.3) return setZoom(16);
+      if (distance < 0.35) return setZoom(15.5);
+      if (distance < 0.45) return setZoom(15.25);
+      if (distance < 0.55) return setZoom(15);
+      if (distance < 0.65) return setZoom(14.75);
+      if (distance < 0.75) return setZoom(14.5);
+      if (distance < 0.85) return setZoom(14.25);
+      if (distance < 0.95) return setZoom(14);
+      if (distance < 1) return setZoom(13.75);
+      if (distance < 1.1) return setZoom(13.5);
+      if (distance > 1.1) return setZoom(13.25);
+    };
+    if (order?.delivery) {
+      calculateZoom();
+    }
+  }, [position, storePosition]);
 
   return (
     <>
@@ -300,7 +324,7 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
               className="w-auto h-60 overflow-hidden roundedb-xl selected-none"
             >
               <Map
-                zoom={14}
+                zoom={zoom}
                 // gets the center of store and delivery location
                 center={{
                   lat: (storePosition.lat + position.lat) / 2,
