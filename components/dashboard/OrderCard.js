@@ -9,7 +9,13 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useAuth } from "@/hooks/useAuth";
 import usePath from "@/hooks/usePath";
 // Google Maps imports
-import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
+import {
+  APIProvider,
+  Map,
+  Marker,
+  AdvancedMarker,
+  Pin,
+} from "@vis.gl/react-google-maps";
 // Function imports
 import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
@@ -37,6 +43,7 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   const [position, setPosition] = useState({ lat: 52.26196, lng: 4.49463 });
   const { user } = useAuth();
   const { atDashboard } = usePath();
+  const storePosition = { lat: 52.26196, lng: 4.49463 };
 
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&destination=${
     order.address.street
@@ -292,8 +299,22 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
               onClick={(e) => e.stopPropagation()}
               className="w-auto h-96 overflow-hidden roundedb-xl"
             >
-              <Map zoom={14} center={position}>
-                <Marker position={position} />
+              <Map
+                zoom={14}
+                center={position}
+                zoomControl={false}
+                fullscreenControl={false}
+                mapTypeControl={false}
+                mapId="939f6f3f30a43f1a"
+              >
+                <Marker position={storePosition} />
+                <AdvancedMarker position={position}>
+                  <Pin
+                    background="lightblue"
+                    borderColor="blue"
+                    glyphColor="blue"
+                  />
+                </AdvancedMarker>
               </Map>
             </div>
           </APIProvider>
