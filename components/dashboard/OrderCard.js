@@ -288,7 +288,10 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
         </div>
         {order.delivery && (
           <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLEMAPS_API}>
-            <div className="w-auto h-96 overflow-hidden roundedb-xl">
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="w-auto h-96 overflow-hidden roundedb-xl"
+            >
               <Map zoom={14} center={position}>
                 <Marker position={position} />
               </Map>

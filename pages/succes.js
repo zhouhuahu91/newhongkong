@@ -101,7 +101,7 @@ const Succes = () => {
           {/* TODO: maybe return a map of direction to the user if it is delivery. */}
           <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLEMAPS_API}>
             <div className="w-auto h-[480px] overflow-hidden roundedb-xl">
-              <Map zoom={14} center={position}>
+              <Map zoom={18} center={position}>
                 <Marker position={position} />
               </Map>
             </div>
