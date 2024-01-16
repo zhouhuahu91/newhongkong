@@ -301,7 +301,11 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
             >
               <Map
                 zoom={14}
-                center={position}
+                // gets the center of store and delivery location
+                center={{
+                  lat: (storePosition.lat + position.lat) / 2,
+                  lng: (storePosition.lng + position.lng) / 2,
+                }}
                 zoomControl={false}
                 fullscreenControl={false}
                 mapTypeControl={false}
@@ -312,9 +316,9 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
                 </AdvancedMarker>
                 <AdvancedMarker position={position}>
                   <Pin
-                    background="lightblue"
-                    glyphColor="blue"
-                    borderColor="blue"
+                    background="lightgreen"
+                    glyphColor="green"
+                    borderColor="black"
                   />
                 </AdvancedMarker>
               </Map>
