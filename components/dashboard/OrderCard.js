@@ -70,8 +70,8 @@ const OrderCard = ({
           transition: { duration: 0.2, type: "spring", delay: 0.2 },
         }}
         // We want the order to bounce if the order is at New and we haven't intereacted with it
-        className={`border bg-white ${
-          !openedBefore && atNew && "md:animate-bounce"
+        className={`border ${
+          !openedBefore && atNew ? "bg-red-100" : "bg-white"
         } rounded-xl col-span-12 sm:col-span-6 xl:col-span-4 space-y-1 overflow-hidden ${
           order.id === lastSelectedOrder?.id
             ? "selected border-main"
@@ -101,7 +101,8 @@ const OrderCard = ({
               </h3>
               {/* We do not want to delete orders where the payment method is online. */}
               {!(order.paymentMethod === "online" && order.paid) &&
-                user?.admin && (
+                user?.admin &&
+                openedBefore && (
                   <IconBtn
                     onClick={(e) => {
                       e.stopPropagation();
