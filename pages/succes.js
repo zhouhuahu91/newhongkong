@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 // Component imports
 import Spinner from "@/components/Spinner";
 // Google Maps imports
-import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import useI18n from "@/hooks/useI18n";
