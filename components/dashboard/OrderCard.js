@@ -9,18 +9,12 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useAuth } from "@/hooks/useAuth";
 import usePath from "@/hooks/usePath";
 // Google Maps imports
-import {
-  APIProvider,
-  Map,
-  AdvancedMarker,
-  Pin,
-} from "@vis.gl/react-google-maps";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
 // Function imports
 import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
-import fetchLatLngFromApi from "@/functions/fetchLatLngFromApi";
-import haversine from "@/functions/haversine";
+
 // Component imports
 import OrderModal from "@/components/dashboard/OrderModal";
 import DeliveryOrderModal from "@/components/dashboard/DeliveryOrderModal";
@@ -36,57 +30,19 @@ import UndoIcon from "@/icons/UndoIcon";
 import WarningIcon from "@/icons/WarningIcon";
 import NoBagIcon from "@/icons/NoBagIcon";
 import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
-
-// temporary solution untill i figure out how to use bounds.
-const calculateZoom = (distance) => {
-  if (distance < 0.3) return 16;
-  if (distance < 0.38) return 15.5;
-  if (distance < 0.4) return 15.25;
-  if (distance < 0.45) return 15;
-  if (distance < 0.55) return 14.75;
-  if (distance < 0.65) return 14.5;
-  if (distance < 0.78) return 14.25;
-  if (distance < 0.85) return 14;
-  if (distance < 0.95) return 13.75;
-  if (distance < 1) return 13.5;
-  if (distance < 1.5) return 13.25;
-  if (distance < 2.5) return 13;
-  if (distance >= 2.5) return 12;
-  return 14;
-};
+import Directions from "@/components/GoogleDirections";
 
 const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   const [open, setOpen] = useState(false);
   const [openDeleteOrderModal, setOpenDeleteOrderModal] = useState(false);
-  const [position, setPosition] = useState({ lat: 52.26196, lng: 4.49463 });
   const { user } = useAuth();
   const { atDashboard } = usePath();
-  const storePosition = { lat: 52.26196, lng: 4.49463 };
-  const distance = haversine(storePosition, position);
-  const zoom = calculateZoom(distance);
 
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&destination=${
     order.address.street
   }+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
   }+${order.address.city}&travelmode=bicycling`;
-
-  useEffect(() => {
-    const getPosition = async () => {
-      const data = await fetchLatLngFromApi(
-        `${order.address.street}+${order.address.houseNumber}${
-          order.address.addition ? `+${order.address.addition}` : ""
-        }+${order.address.city}+Nederland`
-      );
-      if (data.msg) {
-        return console.log(data.msg);
-      }
-      setPosition(data);
-    };
-    if (order?.delivery) {
-      getPosition();
-    }
-  }, []);
 
   return (
     <>
@@ -322,26 +278,11 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
               className="w-auto h-60 overflow-hidden roundedb-xl selected-none"
             >
               <Map
-                gestureHandling={"greedy"}
+                // gestureHandling={"greedy"}
                 disableDefaultUI={true}
-                zoom={zoom}
-                // gets the center of store and delivery location
-                center={{
-                  lat: (storePosition.lat + position.lat) / 2,
-                  lng: (storePosition.lng + position.lng) / 2,
-                }}
                 mapId="939f6f3f30a43f1a"
               >
-                <AdvancedMarker position={storePosition}>
-                  <Pin background="#e76f51" />
-                </AdvancedMarker>
-                <AdvancedMarker position={position}>
-                  <Pin
-                    background="lightgreen"
-                    glyphColor="green"
-                    borderColor="black"
-                  />
-                </AdvancedMarker>
+                <Directions order={order} />
               </Map>
             </div>
           </APIProvider>
