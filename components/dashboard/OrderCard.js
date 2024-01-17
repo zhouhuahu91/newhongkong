@@ -287,7 +287,11 @@ const OrderCard = ({
             <iframe
               className="w-full h-full"
               referrerPolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps/embed/v1/directions?key=${process.env.NEXT_PUBLIC_GOOGLEMAPS_API}&origin=${origin}&destination=${destination}&mode=bicycling&zoom=13`}
+              src={`https://www.google.com/maps/embed/v1/directions?key=${
+                process.env.NEXT_PUBLIC_GOOGLEMAPS_API
+              }&origin=${origin}&destination=${destination}&mode=bicycling&zoom=${
+                atDashboard ? 13 : 14
+              }`}
               loading="lazy"
               title="google maps"
             />
