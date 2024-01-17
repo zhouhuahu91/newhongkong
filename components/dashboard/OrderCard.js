@@ -8,8 +8,7 @@ import { doc, updateDoc } from "firebase/firestore";
 // Hook imports
 import { useAuth } from "@/hooks/useAuth";
 import usePath from "@/hooks/usePath";
-// Google Maps imports
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
+
 // Function imports
 import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
@@ -30,7 +29,6 @@ import UndoIcon from "@/icons/UndoIcon";
 import WarningIcon from "@/icons/WarningIcon";
 import NoBagIcon from "@/icons/NoBagIcon";
 import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
-import Directions from "@/components/GoogleDirections";
 
 const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   const [open, setOpen] = useState(false);
@@ -38,11 +36,11 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   const { user } = useAuth();
   const { atDashboard } = usePath();
 
-  const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&destination=${
-    order.address.street
-  }+${order.address.houseNumber}${
+  const destination = `${order.address.street}+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
-  }+${order.address.city}&travelmode=bicycling`;
+  }+${order.address.city}`;
+  const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
+  const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
   return (
     <>
@@ -272,20 +270,18 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
           )}
         </div>
         {order.delivery && (
-          <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLEMAPS_API}>
-            <div
-              onClick={(e) => e.stopPropagation()}
-              className="w-auto h-60 overflow-hidden roundedb-xl selected-none"
-            >
-              <Map
-                // gestureHandling={"greedy"}
-                disableDefaultUI={true}
-                mapId="939f6f3f30a43f1a"
-              >
-                <Directions order={order} />
-              </Map>
-            </div>
-          </APIProvider>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={`w-full ${atDashboard ? "h-48" : "h-[480px]"}`}
+          >
+            <iframe
+              className="w-full h-full"
+              referrerPolicy="no-referrer-when-downgrade"
+              src={`https://www.google.com/maps/embed/v1/directions?key=${process.env.NEXT_PUBLIC_GOOGLEMAPS_API}&origin=${origin}&destination=${destination}&mode=bicycling&zoom=13`}
+              loading="lazy"
+              title="google maps"
+            />
+          </div>
         )}
       </motion.div>
     </>
