@@ -37,14 +37,33 @@ import WarningIcon from "@/icons/WarningIcon";
 import NoBagIcon from "@/icons/NoBagIcon";
 import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
 
+// temporary solution untill i figure out how to use bounds.
+const calculateZoom = (distance) => {
+  if (distance < 0.3) return 16;
+  if (distance < 0.38) return 15.5;
+  if (distance < 0.4) return 15.25;
+  if (distance < 0.45) return 15;
+  if (distance < 0.55) return 14.75;
+  if (distance < 0.65) return 14.5;
+  if (distance < 0.78) return 14.25;
+  if (distance < 0.85) return 14;
+  if (distance < 0.95) return 13.75;
+  if (distance < 1) return 13.5;
+  if (distance < 1.5) return 13.25;
+  if (distance < 2.5) return 13;
+  if (distance >= 2.5) return 12;
+  return 14;
+};
+
 const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
   const [open, setOpen] = useState(false);
   const [openDeleteOrderModal, setOpenDeleteOrderModal] = useState(false);
-  const [zoom, setZoom] = useState(14);
   const [position, setPosition] = useState({ lat: 52.26196, lng: 4.49463 });
   const { user } = useAuth();
   const { atDashboard } = usePath();
   const storePosition = { lat: 52.26196, lng: 4.49463 };
+  const distance = haversine(storePosition, position);
+  const zoom = calculateZoom(distance);
 
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&destination=${
     order.address.street
@@ -68,29 +87,6 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
       getPosition();
     }
   }, []);
-
-  useEffect(() => {
-    // temporary solution untill i figure out how to use bounds.
-    const calculateZoom = () => {
-      const distance = haversine(storePosition, position);
-      if (distance < 0.3) return setZoom(16);
-      if (distance < 0.38) return setZoom(15.5);
-      if (distance < 0.4) return setZoom(15.25);
-      if (distance < 0.45) return setZoom(15);
-      if (distance < 0.55) return setZoom(14.75);
-      if (distance < 0.65) return setZoom(14.5);
-      if (distance < 0.78) return setZoom(14.25);
-      if (distance < 0.85) return setZoom(14);
-      if (distance < 0.95) return setZoom(13.75);
-      if (distance < 1) return setZoom(13.5);
-      if (distance < 1.5) return setZoom(13.25);
-      if (distance < 2.5) return setZoom(13);
-      if (distance >= 2.5) return setZoom(12);
-    };
-    if (order?.delivery) {
-      calculateZoom();
-    }
-  }, [position, storePosition]);
 
   return (
     <>
