@@ -20,7 +20,7 @@ import getURL from "@/functions/getURL";
 // import fetchLatLngFromApi from "@/functions/fetchLatLngFromApi";
 
 // Component imports
-import Directions from "../components/GoogleDirections";
+import Directions from "@/components/GoogleDirections";
 
 const Succes = () => {
   const [order, setOrder] = useState(null);
