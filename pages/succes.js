@@ -5,8 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 // Component imports
 import Spinner from "@/components/Spinner";
-// Google Maps imports
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import useI18n from "@/hooks/useI18n";
@@ -17,18 +15,15 @@ import { doc, getDoc } from "firebase/firestore";
 import axios from "axios";
 // Function imports
 import getURL from "@/functions/getURL";
-// import fetchLatLngFromApi from "@/functions/fetchLatLngFromApi";
-
-// Component imports
-import Directions from "@/components/GoogleDirections";
 
 const Succes = () => {
   const [order, setOrder] = useState(null);
-  // const [position, setPosition] = useState({ lat: 52.26196, lng: 4.49463 });
   const { dispatch } = useCart();
   const t = useI18n();
   const URL = getURL();
   const { query } = useRouter();
+
+  const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -65,25 +60,6 @@ const Succes = () => {
     fetchData();
   }, [query, dispatch, URL]);
 
-  // i dont need the position of the order
-  // useEffect(() => {
-  //   const getPosition = async () => {
-  //     const data = await fetchLatLngFromApi(
-  //       `${order.address.street}+${order.address.houseNumber}${
-  //         order.address.addition ? `+${order.address.addition}` : ""
-  //       }+${order.address.city}+Nederland`
-  //     );
-  //     if (data.msg) {
-  //       return console.log(data.msg);
-  //     }
-  //     setPosition(data);
-  //   };
-
-  //   if (order !== null && order.delivery) {
-  //     getPosition();
-  //   }
-  // }, [order]);
-
   if (order === null) {
     return <Spinner />;
   }
@@ -102,18 +78,29 @@ const Succes = () => {
             </p>
             <p className="my-4 text-sm">{t.mail_sent(order.email)}</p>
           </div>
-          {/* TODO: maybe return a map of direction to the user if it is delivery. */}
-          <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLEMAPS_API}>
-            <div className="w-auto h-[480px] overflow-hidden roundedb-xl">
-              <Map
-                gestureHandling={"greedy"}
-                disableDefaultUI={true}
-                mapId="939f6f3f30a43f1a"
-              >
-                <Directions order={order} />
-              </Map>
-            </div>
-          </APIProvider>
+
+          {order.delivery ? (
+            <iframe
+              className="border-0 w-full h-[480px] px-4 sm:px-0"
+              referrerPolicy="no-referrer-when-downgrade"
+              src={`https://www.google.com/maps/embed/v1/directions?key=${
+                process.env.NEXT_PUBLIC_GOOGLEMAPS_API
+              }&origin=${origin}&destination=${`${order.address.street}+${
+                order.address.houseNumber
+              }${order.address.addition ? `+${order.address.addition}` : ""}+${
+                order.address.city
+              }`}&mode=bicycling&zoom=14`}
+              loading="lazy"
+              title="google maps"
+            />
+          ) : (
+            <iframe
+              src={`https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLEMAPS_API}&q=${origin}`}
+              className="border-0 w-full h-[480px] px-4 sm:px-0"
+              loading="lazy"
+              title="google maps"
+            />
+          )}
         </div>
       ) : (
         <div className="rounded-xl max-w-md w-full flex flex-col mt-10 mx-4 overflow-hidden">
