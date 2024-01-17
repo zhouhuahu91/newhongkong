@@ -30,8 +30,14 @@ import WarningIcon from "@/icons/WarningIcon";
 import NoBagIcon from "@/icons/NoBagIcon";
 import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
 
-const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
+const OrderCard = ({
+  order,
+  setLastSelectedOrder,
+  lastSelectedOrder,
+  atNew,
+}) => {
   const [open, setOpen] = useState(false);
+  const [openedBefore, setOpenedBefore] = useState(false);
   const [openDeleteOrderModal, setOpenDeleteOrderModal] = useState(false);
   const { user } = useAuth();
   const { atDashboard } = usePath();
@@ -63,7 +69,10 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
           opacity: 1,
           transition: { duration: 0.2, type: "spring", delay: 0.2 },
         }}
-        className={`border bg-white rounded-xl col-span-12 sm:col-span-6 xl:col-span-4 space-y-1 overflow-hidden ${
+        // We want the order to bounce if the order is at New and we haven't intereacted with it
+        className={`border bg-white ${
+          !openedBefore && atNew && "md:animate-bounce"
+        } rounded-xl col-span-12 sm:col-span-6 xl:col-span-4 space-y-1 overflow-hidden ${
           order.id === lastSelectedOrder?.id
             ? "selected border-main"
             : "hover:shadow"
@@ -76,6 +85,7 @@ const OrderCard = ({ order, setLastSelectedOrder, lastSelectedOrder }) => {
           if (atDashboard) {
             setLastSelectedOrder(order);
           }
+          if (!openedBefore) setOpenedBefore(true);
           setOpen(true);
         }}
       >

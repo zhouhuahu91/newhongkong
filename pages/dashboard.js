@@ -214,6 +214,7 @@ const Dashboard = () => {
                 <OrderCard
                   key={order.id}
                   order={order}
+                  atNew={true}
                   lastSelectedOrder={lastSelectedOrder}
                   setLastSelectedOrder={setLastSelectedOrder}
                 />
