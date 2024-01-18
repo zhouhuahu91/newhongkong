@@ -218,19 +218,21 @@ const OrderCard = ({
                   <NoBagIcon className="fill-main mb-0.5" />
                 )}
               </div>
-              <span
-                className="text-sm flex items-center"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowMap((prev) => !prev);
-                }}
-              >
-                {order.delivery &&
-                  `${order.address.street} ${order.address.houseNumber}${
-                    order.address.addition ? `-${order.address.addition}` : ""
-                  }`}{" "}
-                <MapIcon size="16" className="mb-0.5 ml-1" />
-              </span>
+              {order.delivery && (
+                <span
+                  className="text-sm flex items-center"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowMap((prev) => !prev);
+                  }}
+                >
+                  {order.address.street} {order.address.houseNumber}
+                  {order.address.addition
+                    ? `-${order.address.addition}`
+                    : ""}{" "}
+                  <MapIcon size="16" className="mb-0.5 ml-1" />
+                </span>
+              )}
             </div>
             <div className="flex items-center">
               <span className="text-xl font-semibold mr-3">
@@ -282,8 +284,7 @@ const OrderCard = ({
           </div>
           {order.remarks && (
             <div className="flex flex-col">
-              <span className="text-xs text-gray-500">Remarks:</span>
-              <span className="text-sm font-medium text-main">
+              <span className="text-sm font-medium text-main uppercase">
                 {order.remarks}
               </span>
             </div>
