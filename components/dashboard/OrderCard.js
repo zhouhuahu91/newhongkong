@@ -28,6 +28,7 @@ import CreditCardIcon from "@/icons/CreditCardIcon";
 import UndoIcon from "@/icons/UndoIcon";
 import WarningIcon from "@/icons/WarningIcon";
 import NoBagIcon from "@/icons/NoBagIcon";
+import MapIcon from "@/icons/MapIcon";
 import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
 
 const OrderCard = ({
@@ -41,6 +42,7 @@ const OrderCard = ({
   const [openDeleteOrderModal, setOpenDeleteOrderModal] = useState(false);
   const { user } = useAuth();
   const { atDashboard } = usePath();
+  const [showMap, setShowMap] = useState(!atDashboard);
 
   const destination = `${order.address.street}+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
@@ -62,7 +64,7 @@ const OrderCard = ({
       />
       <motion.div
         whileHover={{ scale: 1.03 }}
-        layout
+        layout="position"
         initial={{ x: -100, opacity: 0 }}
         animate={{
           x: 0,
@@ -216,11 +218,18 @@ const OrderCard = ({
                   <NoBagIcon className="fill-main mb-0.5" />
                 )}
               </div>
-              <span className="text-sm">
+              <span
+                className="text-sm flex items-center"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowMap((prev) => !prev);
+                }}
+              >
                 {order.delivery &&
                   `${order.address.street} ${order.address.houseNumber}${
                     order.address.addition ? `-${order.address.addition}` : ""
-                  }`}
+                  }`}{" "}
+                <MapIcon size="16" className="mb-0.5 ml-1" />
               </span>
             </div>
             <div className="flex items-center">
@@ -281,22 +290,21 @@ const OrderCard = ({
           )}
         </div>
         {order.delivery && (
-          <div
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: showMap ? 380 : 0 }}
+            transition={{ ease: "easeInOut", duration: 0.4 }}
             onClick={(e) => e.stopPropagation()}
-            className={`w-full ${atDashboard ? "h-48" : "h-[480px]"}`}
+            className="w-full"
           >
             <iframe
               className="w-full h-full"
               referrerPolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps/embed/v1/directions?key=${
-                process.env.NEXT_PUBLIC_GOOGLEMAPS_API
-              }&origin=${origin}&destination=${destination}&mode=bicycling&zoom=${
-                atDashboard ? 13 : 14
-              }`}
+              src={`https://www.google.com/maps/embed/v1/directions?key=${process.env.NEXT_PUBLIC_GOOGLEMAPS_API}&origin=${origin}&destination=${destination}&mode=bicycling&zoom=14`}
               loading="lazy"
               title="google maps"
             />
-          </div>
+          </motion.div>
         )}
       </motion.div>
     </>
