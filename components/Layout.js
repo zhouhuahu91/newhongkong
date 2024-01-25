@@ -17,7 +17,7 @@ const DynamicChat = dynamic(() => import("@/components/chat/Chat"), {
 // We also can put the NextJs Head that are used on all pages here e.a. the title, description, etc.
 const Layout = ({ children }) => {
   // Styling and components "render" depending on the page we are on.
-  const { atHome, atDashboard, atKitchen } = usePath();
+  const { atHome, atDashboard } = usePath();
   return (
     <>
       <Head>
@@ -49,11 +49,11 @@ const Layout = ({ children }) => {
           atHome ? "bg-main" : "bg-neutral-50"
         }`}
       >
-        {!atDashboard && !atHome && !atKitchen && <Banner />}
-        {!atDashboard && !atKitchen && <Header />}
+        {!atDashboard && !atHome && <Banner />}
+        {!atDashboard && <Header />}
         <div className="flex-grow">{children}</div>
-        {!atHome && !atKitchen && <Footer />}
-        {!atDashboard && !atKitchen && <DynamicChat />}
+        {!atHome && <Footer />}
+        {!atDashboard && <DynamicChat />}
       </div>
     </>
   );

@@ -9,7 +9,6 @@ const usePath = () => {
   const atCatering = pathname === "/catering";
   const atDashboard = pathname === "/dashboard";
   const atCheckout = pathname === "/checkout";
-  const atKitchen = pathname === "/kitchen";
 
   return {
     atHome,
@@ -18,7 +17,6 @@ const usePath = () => {
     atCatering,
     atDashboard,
     atCheckout,
-    atKitchen,
   };
 };
 
