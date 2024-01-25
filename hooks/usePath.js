@@ -9,8 +9,17 @@ const usePath = () => {
   const atCatering = pathname === "/catering";
   const atDashboard = pathname === "/dashboard";
   const atCheckout = pathname === "/checkout";
+  const atKitchen = pathname === "/kitchen";
 
-  return { atHome, atMenu, atContact, atCatering, atDashboard, atCheckout };
+  return {
+    atHome,
+    atMenu,
+    atContact,
+    atCatering,
+    atDashboard,
+    atCheckout,
+    atKitchen,
+  };
 };
 
 export default usePath;
