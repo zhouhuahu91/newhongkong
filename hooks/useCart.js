@@ -166,7 +166,6 @@ const prepareItemToAddToCart = (selectedOptions, selectedSides, item, qwt) => {
   const sides = selectedSides.map((selectedSide) =>
     item.sides.find((side) => side.id === selectedSide)
   );
-
   // We need the total price for the options and sides.
   let addedPrice = 0;
   if (options.length > 0) {
@@ -185,7 +184,13 @@ const prepareItemToAddToCart = (selectedOptions, selectedSides, item, qwt) => {
   // We need a description for the options and sides they have selected.
   const description = createItemDescription(item, options, sides);
 
-  return { name, description, price };
+  return {
+    name,
+    description,
+    price,
+    selectedOptionsForPrinter: options,
+    selectedSidesForPrinter: sides,
+  };
 };
 
 const addItem = (cart, payload) => {
@@ -224,6 +229,7 @@ const addItem = (cart, payload) => {
       id,
       qwt,
       ...preparedItem,
+      optionIsMain: item.optionIsMain,
       selectedOptions,
       selectedSides,
       remarks,
