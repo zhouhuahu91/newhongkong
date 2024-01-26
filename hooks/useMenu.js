@@ -210,7 +210,7 @@ const useMenuProvider = () => {
         ...doc.data(),
       }));
       const filteredMenu = menus.filter((x) => x.id !== "config");
-      const config = menus.filter((x) => x.id === "config");
+      const [config] = menus.filter((x) => x.id === "config");
       if (config.version !== version) {
         setData(filteredMenu);
         setFilteredData(filteredMenu);
