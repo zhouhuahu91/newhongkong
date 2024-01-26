@@ -6,6 +6,7 @@ export default {
     en: "Sie Sheun specialties",
     de: "Sie Sheun Spezialitäten",
   },
+  id: 6,
   items: [
     {
       id: "34",

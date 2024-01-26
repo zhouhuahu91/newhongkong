@@ -4,6 +4,7 @@ export default {
     en: "rice noodles or chow mein dishes",
     de: "Reisnudeln oder Chow Mein Gerichte",
   },
+  id: 11,
   items: [
     {
       id: "74",

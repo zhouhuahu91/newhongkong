@@ -44,6 +44,7 @@ export default {
     en: "tippan dishes",
     de: "Tippan Gerichte",
   },
+  id: 14,
   items: [
     {
       id: "88",

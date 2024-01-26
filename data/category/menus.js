@@ -9,6 +9,7 @@ const maandmenu = {
     en: "menu of the month",
     de: "Menü des Monats",
   },
+  id: 0,
   description: {
     nl: "voor ongeveer 3 personen",
     en: "for around 3 people",

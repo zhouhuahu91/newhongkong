@@ -6,6 +6,7 @@ export default {
     en: "egg foo young",
     de: "Eiergerichte",
   },
+  id: 7,
   items: [
     {
       id: "41",

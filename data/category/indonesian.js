@@ -6,6 +6,7 @@ export default {
     en: "Indonesian dishes",
     de: "Indonesische Gerichte",
   },
+  id: 13,
   items: [
     {
       id: "82",

@@ -6,6 +6,7 @@ export default {
     en: "Canton specialties",
     de: "Kantonesischer Spezialitäten",
   },
+  id: 3,
   items: [
     {
       id: "20",

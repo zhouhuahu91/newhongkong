@@ -4,6 +4,7 @@ export default {
     en: "sides",
     de: "Beilagen",
   },
+  id: 1,
   items: [
     {
       id: "8",

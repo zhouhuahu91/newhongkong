@@ -6,6 +6,7 @@ export default {
     en: "Mongolian specialties",
     de: "Mongolische Spezialitäten",
   },
+  id: 5,
   items: [
     {
       id: "32",

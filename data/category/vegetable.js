@@ -6,6 +6,7 @@ export default {
     en: "vegetable dishes",
     de: "Gemüse Gerichte",
   },
+  id: 8,
   items: [
     {
       id: "47",

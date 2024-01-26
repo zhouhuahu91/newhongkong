@@ -4,6 +4,7 @@ export default {
     en: "soups",
     de: "Suppen",
   },
+  id: 0,
   items: [
     {
       id: "1",

@@ -6,6 +6,7 @@ export default {
     en: "chicken dishes",
     de: "Hühnerfleisch Gerichte",
   },
+  id: 9,
   items: [
     {
       id: "54",

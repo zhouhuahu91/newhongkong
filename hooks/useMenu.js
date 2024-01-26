@@ -13,6 +13,8 @@ import {
 //Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useAuth } from "@/hooks/useAuth";
+//data for menu
+import { data as menuData, version as menuVersion } from "@/data/data";
 
 // First we create the context
 const menuContext = createContext();
@@ -24,7 +26,7 @@ export const useMenu = () => {
 
 // This hook provides the menu for the store. As in the products that they sell.
 const useMenuProvider = () => {
-  // This is the raw data that we get back from firebase.
+  // We start with menuData we have from the files
   const [data, setData] = useState([]);
   // This is the data that we use in the components it filters when filterData is called.
   const [filteredData, setFilteredData] = useState([]);
@@ -208,7 +210,8 @@ const useMenuProvider = () => {
         ...doc.data(),
       }));
       const filteredMenu = menus.filter((x) => x.id !== "version");
-      console.log(filteredMenu);
+      const config = menus.filter((x) => x.id === "version");
+      console.log(config.version);
       setData(filteredMenu);
       setFilteredData(filteredMenu);
     });

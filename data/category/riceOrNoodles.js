@@ -4,6 +4,7 @@ export default {
     en: "fried rice or noodle dishes",
     de: "gebratener Reis und Nudel Gerichte",
   },
+  id: 12,
   items: [
     {
       id: "64",

@@ -6,6 +6,7 @@ export default {
     en: "Peking specialties",
     de: "Peking Spezialitäten",
   },
+  id: 4,
   items: [
     {
       id: "27",
