@@ -14,7 +14,7 @@ import {
 import useI18n from "@/hooks/useI18n";
 import { useAuth } from "@/hooks/useAuth";
 //data for menu
-import { data as menuData, version as menuVersion } from "@/data/data";
+import { data as menuData, version } from "@/data/data";
 
 // First we create the context
 const menuContext = createContext();
@@ -27,7 +27,7 @@ export const useMenu = () => {
 // This hook provides the menu for the store. As in the products that they sell.
 const useMenuProvider = () => {
   // We start with menuData we have from the files
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(menuData);
   // This is the data that we use in the components it filters when filterData is called.
   const [filteredData, setFilteredData] = useState([]);
   // We need searchInput in different components.
@@ -209,11 +209,12 @@ const useMenuProvider = () => {
       const menus = snapshot.docs.map((doc) => ({
         ...doc.data(),
       }));
-      const filteredMenu = menus.filter((x) => x.id !== "version");
-      const config = menus.filter((x) => x.id === "version");
-      console.log(config.version);
-      setData(filteredMenu);
-      setFilteredData(filteredMenu);
+      const filteredMenu = menus.filter((x) => x.id !== "config");
+      const config = menus.filter((x) => x.id === "config");
+      if (config.version !== version) {
+        setData(filteredMenu);
+        setFilteredData(filteredMenu);
+      }
     });
     return () => unsubscribe();
   }, []);

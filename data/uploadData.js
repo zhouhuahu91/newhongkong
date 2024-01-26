@@ -3,15 +3,14 @@ import { doc, setDoc } from "firebase/firestore";
 import { data, version } from "./data";
 
 const uploadData = async () => {
-  setDoc(doc(db, "menu", "version"), {
+  setDoc(doc(db, "menu", "config"), {
     version: version,
-    id: "version",
+    id: "config",
   });
   // upload the whole menu
   data.forEach((category, index) => {
     setDoc(doc(db, "menu", category.category["en"]), {
       ...category,
-      id: index,
     });
   });
 };
