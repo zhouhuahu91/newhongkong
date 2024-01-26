@@ -207,8 +207,10 @@ const useMenuProvider = () => {
       const menus = snapshot.docs.map((doc) => ({
         ...doc.data(),
       }));
-      setData(menus);
-      setFilteredData(menus);
+      const filteredMenu = menus.filter((x) => x.id !== "version");
+      console.log(filteredMenu);
+      setData(filteredMenu);
+      setFilteredData(filteredMenu);
     });
     return () => unsubscribe();
   }, []);

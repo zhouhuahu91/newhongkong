@@ -15,7 +15,9 @@ import riceNoodlesOrChowMein from "./category/riceNoodlesOrChowMein";
 import indonesian from "./category/indonesian";
 import tippan from "./category/tippan";
 
-export default [
+export const version = "0.0.1";
+
+export const data = [
   menus,
   soups,
   sides,
