@@ -85,7 +85,7 @@ export default {
         nl: "gebonden soep gemaakt van donkere sojasaus met poku, kipstukjes, garnalen en lente-uitjes",
         en: "soup made from soy sauce with poku mushrooms, chicken, shrimp and spring onion",
         de: "Suppe aus Sojasauce mit Poku-Pilzen, Hühnchen, Garnelen und Frühlingszwiebeln",
-        zh: "波库汤",
+        zh: "冬菇汤",
       },
       price: 590,
       qtyPlastic: 1,
