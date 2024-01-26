@@ -2,7 +2,6 @@
 import { useState } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
-import { useCart } from "@/hooks/useCart";
 // Function imports
 import euro from "@/functions/euro";
 // Component imports
@@ -14,17 +13,17 @@ const Card = ({ item, setOpenDeliveryOrPickUp }) => {
   // t is to translate the text.
   const t = useI18n();
   // Returns the state of the cart and cart methods with dispatch.
-  const { dispatch, cartState } = useCart();
 
   return (
     <>
-      <AddItemToCartModal item={item} open={open} setOpen={setOpen} />
+      <AddItemToCartModal
+        setOpenDeliveryOrPickUp={setOpenDeliveryOrPickUp}
+        item={item}
+        open={open}
+        setOpen={setOpen}
+      />
       <button
         onClick={() => {
-          // If the user hasn't selected delivery or pick up, we open the modal for them to pick one.
-          if (cartState.delivery === "undecided") {
-            return setOpenDeliveryOrPickUp(true);
-          }
           setOpen((prev) => !prev);
         }}
         className="p-3 text-left flex flex-col rounded-lg bg-white hover:shadow hover:scale-[1.04] red-focus-ring transition-all ease-in border cursor-pointer"

@@ -9,11 +9,11 @@ import ItemModalContent from "../ItemModalContent";
 // Function imports
 import euro from "@/functions/euro";
 
-const NewItemModal = ({ item, open, setOpen }) => {
+const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
   // t is used to translate the text.
   const t = useI18n();
   // This hook is to acces cart dispatch
-  const { dispatch } = useCart();
+  const { dispatch, cartState } = useCart();
   // qwt stands for quantity of the item.
   const [qwt, setQwt] = useState(1);
   // We define all the states we need.
@@ -138,7 +138,14 @@ const NewItemModal = ({ item, open, setOpen }) => {
           {t.cancel}
         </button>
         <button
-          onClick={() => addItemToCart()}
+          onClick={() => {
+            // If the user hasn't selected delivery or pick up, we open the modal for them to pick one.
+            if (cartState.delivery === "undecided") {
+              setOpen(false);
+              return setOpenDeliveryOrPickUp(true);
+            }
+            addItemToCart();
+          }}
           type="button"
           className="bg-main text-white button col-span-7"
         >
