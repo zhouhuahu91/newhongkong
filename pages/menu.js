@@ -14,7 +14,7 @@ import PickUpOrDeliveryModal from "@/components/menu/PickUpOrDeliveryModal";
 import Spinner from "@/components/Spinner";
 
 // Upload new menu to firestore if needed.
-import uploadData from "../data/uploadData";
+// import uploadData from "../data/uploadData";
 
 const Menu = () => {
   // This returns the cart state and dispatch functions.
@@ -39,9 +39,9 @@ const Menu = () => {
   // ...where we can scroll to a category on click.
   const categoryRef = useRef([]);
 
-  useEffect(() => {
-    uploadData();
-  }, []);
+  // useEffect(() => {
+  //   uploadData();
+  // }, []);
 
   if (!data.length) {
     return <Spinner />;

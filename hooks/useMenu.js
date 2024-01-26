@@ -29,7 +29,7 @@ const useMenuProvider = () => {
   // We start with menuData we have from the files
   const [data, setData] = useState(menuData);
   // This is the data that we use in the components it filters when filterData is called.
-  const [filteredData, setFilteredData] = useState([]);
+  const [filteredData, setFilteredData] = useState(menuData);
   // We need searchInput in different components.
   // Thats why I moved it in the context.
   const [searchInput, setSearchInput] = useState("");
