@@ -259,7 +259,7 @@ export default {
             nl: "zoetzure saus",
             en: "sweet & sour sauce",
             de: "süß saurer Soße",
-            zh: "口老酱",
+            zh: "古老酱",
           },
           price: 0,
         },
