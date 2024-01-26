@@ -15,7 +15,8 @@ import riceNoodlesOrChowMein from "./category/riceNoodlesOrChowMein";
 import indonesian from "./category/indonesian";
 import tippan from "./category/tippan";
 
-export const version = "0.0.1";
+// version 0.0.2 added chinese.
+export const version = "0.0.2";
 
 export const data = [
   menus,
