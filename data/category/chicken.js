@@ -5,6 +5,7 @@ export default {
     nl: "kipgerechten",
     en: "chicken dishes",
     de: "Hühnerfleisch Gerichte",
+    zh: "",
   },
   id: 9,
   items: [

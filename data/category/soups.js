@@ -3,6 +3,7 @@ export default {
     nl: "soepen",
     en: "soups",
     de: "Suppen",
+    zh: "",
   },
   id: 1,
   items: [

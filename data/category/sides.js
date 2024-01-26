@@ -3,6 +3,7 @@ export default {
     nl: "bijgerechten",
     en: "sides",
     de: "Beilagen",
+    zh: "",
   },
   id: 2,
   items: [

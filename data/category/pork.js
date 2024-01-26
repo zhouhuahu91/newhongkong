@@ -5,6 +5,7 @@ export default {
     nl: "vleesgerechten",
     en: "pork dishes",
     de: "Schweinefleisch Gerichte",
+    zh: "",
   },
   id: 10,
   items: [

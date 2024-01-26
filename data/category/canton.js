@@ -5,6 +5,7 @@ export default {
     nl: "speciliteiten uit Canton",
     en: "Canton specialties",
     de: "Kantonesischer Spezialitäten",
+    zh: "",
   },
   id: 3,
   items: [

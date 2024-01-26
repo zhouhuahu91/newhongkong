@@ -5,6 +5,7 @@ export default {
     nl: "eiergerechten",
     en: "egg foo young",
     de: "Eiergerichte",
+    zh: "",
   },
   id: 7,
   items: [

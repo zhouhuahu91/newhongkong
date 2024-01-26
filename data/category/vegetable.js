@@ -5,6 +5,7 @@ export default {
     nl: "groentegerechten",
     en: "vegetable dishes",
     de: "Gemüse Gerichte",
+    zh: "",
   },
   id: 8,
   items: [

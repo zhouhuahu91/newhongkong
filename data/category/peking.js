@@ -5,6 +5,7 @@ export default {
     nl: "specialiteiten uit Peking",
     en: "Peking specialties",
     de: "Peking Spezialitäten",
+    zh: "",
   },
   id: 4,
   items: [

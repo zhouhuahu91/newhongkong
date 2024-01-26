@@ -5,6 +5,7 @@ export default {
     nl: "specialteiten uit Sie Sheun",
     en: "Sie Sheun specialties",
     de: "Sie Sheun Spezialitäten",
+    zh: "",
   },
   id: 6,
   items: [
