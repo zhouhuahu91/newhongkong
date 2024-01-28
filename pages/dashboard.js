@@ -64,31 +64,20 @@ const Dashboard = () => {
         // if enter key pressed we set order to printed
         // we get the ref
 
+        // If order is printed ready and paid for we can put it on complete.
         if (order.printed && order.ready && order.paid) {
           await updateDoc(ref, {
             completed: true,
           });
-          if (printed.length > 0) {
-            return setLastSelectedOrder(printed[0]);
-          }
           setLastSelectedOrder(null);
         }
 
-        if (order.printed && order.ready) {
-          return updateDoc(ref, {
-            paid: true,
-          });
-        }
-
+        // If order is printed we can put it to ready.
         if (order.printed) {
           return updateDoc(ref, {
             ready: true,
           });
         }
-
-        updateDoc(ref, {
-          printed: true,
-        });
       }
     };
     document.addEventListener("keydown", handleKeyDown);
