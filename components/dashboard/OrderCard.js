@@ -290,7 +290,7 @@ const OrderCard = ({
               {order.paymentMethod === "in_person" && (
                 <div className="flex items-center">
                   {/* ***** CASH BUTTON ****** */}
-                  {/* We only show cash if type is cash */}
+                  {/* We only show both if not paid or === null, we show this one if its paid and === card */}
                   {(!order.paid ||
                     order.paymentMethodType === "cash" ||
                     order.paymentMethodType === null) && (
@@ -325,39 +325,45 @@ const OrderCard = ({
 
                   {/* ***** END CASH BUTTON ***** */}
                   {/* We show this devider if order is not paid */}
-                  {!order.paid && <span>&nbsp;|&nbsp;</span>}
+                  {/* If the order is for delivery and the input comes not from dashboard the only option is cash */}
+                  {/* customer can't pay with card when delivered at home */}
+                  {/* but they can pay with card if they ordered it beforehand at the store. */}
+                  {/* This means we don't need to show this devider if we are not at the dashboard */}
+                  {!order.paid && atDashboard && <span>&nbsp;|&nbsp;</span>}
                   {/* ***** CARD ICON ***** */}
-                  {/* We only show both if the paymentMethodType === null or === card */}
+                  {/* This also means we don't need to show this payment method if we are not at the dashboard */}
+                  {/* We only show both if not paid or === null, we show this one if its paid and === card */}
                   {(!order.paid ||
                     order.paymentMethodType === "card" ||
-                    order.paymentMethodType === null) && (
-                    <IconBtn
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (atDashboard) {
-                          setLastSelectedOrder(order);
-                        }
-                        if (order.paymentMethod === "online") return;
-                        // Removes focus from this element. We do this so that we can still enter complete...
-                        // If it is focused and we press enter it just toggle payed off.
-                        document.activeElement.blur();
-                        const ref = doc(db, `orders/${order.id}`);
-                        updateDoc(ref, {
-                          // if the order is already paid and you press this icon we should
-                          // set payment method back to null
-                          paymentMethodType: order.paid ? null : "card",
-                          paid: !order.paid,
-                        });
-                      }}
-                    >
-                      <CreditCardIcon
-                        off={!order.paid}
-                        className={`${
-                          order.paid ? "fill-green-700" : "fill-main"
-                        }`}
-                      />
-                    </IconBtn>
-                  )}
+                    order.paymentMethodType === null) &&
+                    atDashboard && (
+                      <IconBtn
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (atDashboard) {
+                            setLastSelectedOrder(order);
+                          }
+                          if (order.paymentMethod === "online") return;
+                          // Removes focus from this element. We do this so that we can still enter complete...
+                          // If it is focused and we press enter it just toggle payed off.
+                          document.activeElement.blur();
+                          const ref = doc(db, `orders/${order.id}`);
+                          updateDoc(ref, {
+                            // if the order is already paid and you press this icon we should
+                            // set payment method back to null
+                            paymentMethodType: order.paid ? null : "card",
+                            paid: !order.paid,
+                          });
+                        }}
+                      >
+                        <CreditCardIcon
+                          off={!order.paid}
+                          className={`${
+                            order.paid ? "fill-green-700" : "fill-main"
+                          }`}
+                        />
+                      </IconBtn>
+                    )}
 
                   {/* ***** END CARD ICON ***** */}
                 </div>
