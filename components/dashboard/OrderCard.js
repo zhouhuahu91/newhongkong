@@ -424,13 +424,15 @@ const OrderCard = ({
             onClick={(e) => e.stopPropagation()}
             className="w-full"
           >
-            <iframe
-              className="w-full h-full"
-              referrerPolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps/embed/v1/directions?key=${process.env.NEXT_PUBLIC_GOOGLEMAPS_API}&origin=${origin}&destination=${destination}&mode=bicycling&zoom=14`}
-              loading="lazy"
-              title="google maps"
-            />
+            {showMap && (
+              <iframe
+                className="w-full h-full"
+                referrerPolicy="no-referrer-when-downgrade"
+                src={`https://www.google.com/maps/embed/v1/directions?key=${process.env.NEXT_PUBLIC_GOOGLEMAPS_API}&origin=${origin}&destination=${destination}&mode=bicycling&zoom=14`}
+                loading="lazy"
+                title="google maps"
+              />
+            )}
           </motion.div>
         )}
       </motion.div>
