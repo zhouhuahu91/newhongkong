@@ -32,7 +32,7 @@ import NoBagIcon from "@/icons/NoBagIcon";
 import MapIcon from "@/icons/MapIcon";
 import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
 
-// import axios from "axios";
+import axios from "axios";
 
 const OrderCard = ({
   order,
@@ -46,6 +46,7 @@ const OrderCard = ({
   const { user } = useAuth();
   const { atDashboard } = usePath();
   const [showMap, setShowMap] = useState(!atDashboard);
+  const [printing, setPrinting] = useState(false);
 
   const destination = `${order.address.street}+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
@@ -53,7 +54,29 @@ const OrderCard = ({
   const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
-  console.log(order.paymentMethodType);
+  // This functions calls the api to print order.
+  const printOrder = async (order) => {
+    try {
+      setPrinting(true);
+      const res = await axios.post(
+        `http://192.168.2.4:8000/print?key=${process.env.NEXT_PUBLIC_PRINTER_API}`,
+        order
+      );
+      if (res.data === "order printed" && order.printed === false) {
+        const ref = doc(db, `orders/${order.id}`);
+        await updateDoc(ref, {
+          printed: true,
+        });
+      } else {
+        setPrinting(false);
+        console.log(res.data);
+      }
+    } catch (e) {
+      setPrinting(false);
+      console.log(e.message);
+    }
+  };
+
   return (
     <>
       {/* We use the modal card for the /delivery page and /dashboard page.*/}
@@ -135,27 +158,26 @@ const OrderCard = ({
             {/* ***** SHOWS PRINT, RECEIPT, CLOSE AND UNDO ICON ***** */}
 
             {/* If order is not printed we show the print icon */}
-            {!order.printed && (
+            {!order.printed && !printing && (
               <IconBtn
+                // disable button if order is printing.
+                disabled={printing}
                 onClick={async (e) => {
                   e.stopPropagation();
                   if (atDashboard) {
                     setLastSelectedOrder(order);
                   }
-
-                  // const res = await axios.post(
-                  //   `http://192.168.2.4:8000/print?key=${process.env.NEXT_PUBLIC_PRINTER_API}`,
-                  //   order
-                  // );
-                  // console.log(res.data);
-                  const ref = doc(db, `orders/${order.id}`);
-                  updateDoc(ref, {
-                    printed: true,
-                  });
+                  printOrder(order);
                 }}
               >
                 <PrintIcon />
               </IconBtn>
+            )}
+            {/* If order is printing we show a spinner. */}
+            {printing && (
+              <div
+                className={`rounded-full border-white border-t-main border-2 animate-spin w-5 h-5`}
+              />
             )}
             {/* If order is rinted but not yet ready we show the shopping bag icon indicating... */}
             {/* the order is ready and packed. */}
@@ -380,12 +402,19 @@ const OrderCard = ({
             </div>
           </div>
           {order.remarks && (
-            <div className="flex flex-col">
-              <span className="text-sm font-medium text-main uppercase">
-                {order.remarks}
-              </span>
+            <div className="text-sm font-medium text-main uppercase mt-1">
+              {order.remarks}
             </div>
           )}
+          {order.cart.map((item) => {
+            if (item.remarks) {
+              return (
+                <div className="text-sm font-medium text-main uppercase mt-1">
+                  {item.name.nl}: {item.remarks}
+                </div>
+              );
+            }
+          })}
         </div>
         {order.delivery && (
           <motion.div
