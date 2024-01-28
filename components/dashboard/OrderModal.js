@@ -290,42 +290,6 @@ const OrderModal = ({ open, setOpen, order }) => {
             ready
           </label>
         </div>
-        {order.paymentMethod === "in_person" && (
-          <div className="flex items-center space-x-1">
-            <input
-              className={checkboxStyling}
-              type="checkbox"
-              id="paid"
-              checked={order.paid}
-              onChange={() => {
-                const ref = doc(db, `orders/${order.id}`);
-                updateDoc(ref, {
-                  paid: !order.paid,
-                });
-              }}
-            />
-            <label className="cursor-pointer" htmlFor="paid">
-              paid
-            </label>
-          </div>
-        )}
-        <div className="flex items-center space-x-1">
-          <input
-            className={checkboxStyling}
-            type="checkbox"
-            id="completed"
-            checked={order.completed}
-            onChange={() => {
-              const ref = doc(db, `orders/${order.id}`);
-              updateDoc(ref, {
-                completed: !order.completed,
-              });
-            }}
-          />
-          <label className="cursor-pointer" htmlFor="completed">
-            completed
-          </label>
-        </div>
       </div>
     </Modal>
   );
