@@ -31,6 +31,8 @@ import NoBagIcon from "@/icons/NoBagIcon";
 import MapIcon from "@/icons/MapIcon";
 import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
 
+// import axios from "axios";
+
 const OrderCard = ({
   order,
   setLastSelectedOrder,
@@ -118,11 +120,17 @@ const OrderCard = ({
             {/* If order is not printed we show the print icon */}
             {!order.printed && (
               <IconBtn
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.stopPropagation();
                   if (atDashboard) {
                     setLastSelectedOrder(order);
                   }
+
+                  // const res = await axios.post(
+                  //   `http://192.168.2.4:8000/print?key=${process.env.NEXT_PUBLIC_PRINTER_API}`,
+                  //   order
+                  // );
+                  // console.log(res.data);
                   const ref = doc(db, `orders/${order.id}`);
                   updateDoc(ref, {
                     printed: true,
