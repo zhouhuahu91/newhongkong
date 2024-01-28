@@ -25,6 +25,7 @@ import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import DeleteIcon from "@/icons/DeleteIcon";
 import CloseIcon from "@/icons/CloseIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
+import CashIcon from "@/icons/CashIcon";
 import UndoIcon from "@/icons/UndoIcon";
 import WarningIcon from "@/icons/WarningIcon";
 import NoBagIcon from "@/icons/NoBagIcon";
@@ -52,19 +53,26 @@ const OrderCard = ({
   const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
+  console.log(order.paymentMethodType);
   return (
     <>
+      {/* We use the modal card for the /delivery page and /dashboard page.*/}
+      {/* Depending on where we are we open the correct modal. */}
       {atDashboard ? (
         <OrderModal open={open} setOpen={setOpen} order={order} />
       ) : (
         <DeliveryOrderModal open={open} setOpen={setOpen} order={order} />
       )}
+      {/* This is the modal that popup when you try to delete an order.*/}
       <DeleteOrderModal
         open={openDeleteOrderModal}
         setOpen={setOpenDeleteOrderModal}
         order={order}
       />
+
+      {/* This is the main component. */}
       <motion.div
+        // This is for the animation of the div.
         whileHover={{ scale: 1.03 }}
         layout="position"
         initial={{ x: -100, opacity: 0 }}
@@ -75,12 +83,14 @@ const OrderCard = ({
         }}
         // We want the order to bounce if the order is at New and we haven't intereacted with it
         className={`border ${
+          // If the order is at the section new and it hasn't but openened before we show the card in red.
           !openedBefore && atNew ? "bg-red-100" : "bg-white"
         } rounded-xl col-span-12 sm:col-span-6 xl:col-span-4 space-y-1 overflow-hidden ${
           order.id === lastSelectedOrder?.id
             ? "selected border-main"
             : "hover:shadow"
         } ${
+          // If the paymentMethod is online and not paid yet it means user is in paying process.
           !order.paymentMethod === "online" && !order.paid
             ? "cursor-wait"
             : "cursor-pointer"
@@ -95,6 +105,8 @@ const OrderCard = ({
       >
         <div className="p-4">
           <div className="flex items-center space-x-3 justify-between">
+            {/* ***** THIS PART SHOWS THE NAME AND DELETE ICON ***** */}
+
             <div className="flex items-center space-x-3">
               <h3
                 className={`font-semibold text-2xl capitalize ${
@@ -117,6 +129,11 @@ const OrderCard = ({
                   </IconBtn>
                 )}
             </div>
+
+            {/* ***** END PART NAME AND DELETE ICON ****** */}
+
+            {/* ***** SHOWS PRINT, RECEIPT, CLOSE AND UNDO ICON ***** */}
+
             {/* If order is not printed we show the print icon */}
             {!order.printed && (
               <IconBtn
@@ -194,6 +211,9 @@ const OrderCard = ({
               </span>
             )}
           </div>
+
+          {/* ***** END OF PRINT, RECEIPT, CLOSE AND UNDO ICON ***** */}
+
           <div className="flex justify-between items-center">
             <div>
               <div className="flex items-center space-x-2">
@@ -246,7 +266,8 @@ const OrderCard = ({
               <span className="text-xl font-semibold mr-3">
                 {euro(order.total)}
               </span>
-              {/* If user selectes Ideal and the order is not paid yet we show a spinner. */}
+
+              {/* ***** SHOWS A SPINNER IF ORDER ONLINE AND NOT PAID ***** */}
               {order.paymentMethod === "online" &&
                 !order.paid &&
                 !order.canceled && (
@@ -254,33 +275,95 @@ const OrderCard = ({
                     className={`rounded-full border-white border-t-main border-2 animate-spin w-5 h-5`}
                   />
                 )}
+              {/* ***** SHOWS A SPINNER IF ORDER ONLINE AND NOT PAID ***** */}
+
+              {/* ***** SHOWS A WARNING ICON IF ORDER IS CANCELED ****** */}
               {order.paymentMethod === "online" &&
                 !order.paid &&
                 order.canceled && <WarningIcon className="fill-main" />}
+              {/* ***** SHOWS A WARNING ICON IF ORDER IS CANCELED ****** */}
+
+              {/* ***** IF PAYMEND METHOD IS in_person ****** */}
+              {/* If method is in person we want to show 2 icons. one if customer pays with cash the other if.... */}
+              {/* they pay with card. */}
+              {/* We only show both if the paymentMethodType === null or === cash */}
               {order.paymentMethod === "in_person" && (
-                // If it is paid we show a green credit card otherwise we show a red credit card.
-                <IconBtn
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    if (atDashboard) {
-                      setLastSelectedOrder(order);
-                    }
-                    if (order.paymentMethod === "online") return;
-                    // Removes focus from this element. We do this so that we can still enter complete...
-                    // If it is focused and we press enter it just toggle payed off.
-                    document.activeElement.blur();
-                    const ref = doc(db, `orders/${order.id}`);
-                    updateDoc(ref, {
-                      paid: !order.paid,
-                    });
-                  }}
-                >
-                  <CreditCardIcon
-                    off={!order.paid}
-                    className={`${order.paid ? "fill-green-700" : "fill-main"}`}
-                  />
-                </IconBtn>
+                <div className="flex items-center">
+                  {/* ***** CASH BUTTON ****** */}
+                  {/* We only show cash if type is cash */}
+                  {(!order.paid ||
+                    order.paymentMethodType === "cash" ||
+                    order.paymentMethodType === null) && (
+                    <IconBtn
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (atDashboard) {
+                          setLastSelectedOrder(order);
+                        }
+
+                        if (order.paymentMethod === "online") return;
+                        // Removes focus from this element. We do this so that we can still enter complete...
+                        // If it is focused and we press enter it just toggle payed off.
+                        document.activeElement.blur();
+                        const ref = doc(db, `orders/${order.id}`);
+                        updateDoc(ref, {
+                          // if the order is already paid and you press this icon we should
+                          // set payment method back to null
+                          paymentMethodType: order.paid ? null : "cash",
+                          paid: !order.paid,
+                        });
+                      }}
+                    >
+                      <CashIcon
+                        off={!order.paid}
+                        className={`${
+                          order.paid ? "fill-green-700" : "fill-main"
+                        }`}
+                      />
+                    </IconBtn>
+                  )}
+
+                  {/* ***** END CASH BUTTON ***** */}
+                  {/* We show this devider if order is not paid */}
+                  {!order.paid && <span>&nbsp;|&nbsp;</span>}
+                  {/* ***** CARD ICON ***** */}
+                  {/* We only show both if the paymentMethodType === null or === card */}
+                  {(!order.paid ||
+                    order.paymentMethodType === "card" ||
+                    order.paymentMethodType === null) && (
+                    <IconBtn
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (atDashboard) {
+                          setLastSelectedOrder(order);
+                        }
+                        if (order.paymentMethod === "online") return;
+                        // Removes focus from this element. We do this so that we can still enter complete...
+                        // If it is focused and we press enter it just toggle payed off.
+                        document.activeElement.blur();
+                        const ref = doc(db, `orders/${order.id}`);
+                        updateDoc(ref, {
+                          // if the order is already paid and you press this icon we should
+                          // set payment method back to null
+                          paymentMethodType: order.paid ? null : "card",
+                          paid: !order.paid,
+                        });
+                      }}
+                    >
+                      <CreditCardIcon
+                        off={!order.paid}
+                        className={`${
+                          order.paid ? "fill-green-700" : "fill-main"
+                        }`}
+                      />
+                    </IconBtn>
+                  )}
+
+                  {/* ***** END CARD ICON ***** */}
+                </div>
               )}
+              {/* ***** IF PAYMEND METHOD IS in_person ****** */}
+
               {/* If paymentMethod === "online" && paid we want to display the correct image... */}
               {/* ...depending on the paymentMethodTpye the customer used. */}
               {order.paymentMethod === "online" && order.paid && (
