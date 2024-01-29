@@ -57,9 +57,9 @@ const OrderCard = ({
   // This functions calls the api to print order.
   const printOrder = async (order) => {
     try {
-      setPrinting(true);
+      // setPrinting(true);
       const res = await axios.post(
-        `http://192.168.2.4:8000/print?key=${process.env.NEXT_PUBLIC_PRINTER_API}`,
+        `https://192.168.2.4:8000/print?key=${process.env.NEXT_PUBLIC_PRINTER_API}`,
         order
       );
       if (res.data === "order printed" && order.printed === false) {
@@ -76,6 +76,16 @@ const OrderCard = ({
       console.log(e.message);
     }
   };
+
+  // This function is for autoprinting the order if conditions are met.
+  ((order) => {
+    // We don't run this function if
+    if (order.printed) return; // If order is already.
+    if (printing) return; // If printer is busy.
+    if (order.delivery === true) return; // If it's a delivery order.
+    if (order.paymentMethod === "online" && order.paid === false) return; // If customer wants to pay online and the order is not paid.
+    console.log("test");
+  })(order);
 
   return (
     <>
