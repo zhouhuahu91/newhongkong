@@ -32,8 +32,6 @@ import NoBagIcon from "@/icons/NoBagIcon";
 import MapIcon from "@/icons/MapIcon";
 import PaymentMethodType from "@/components/dashboard/PaymentMethodType";
 
-import axios from "axios";
-
 const OrderCard = ({
   order,
   setLastSelectedOrder,
@@ -46,46 +44,12 @@ const OrderCard = ({
   const { user } = useAuth();
   const { atDashboard } = usePath();
   const [showMap, setShowMap] = useState(!atDashboard);
-  const [printing, setPrinting] = useState(false);
 
   const destination = `${order.address.street}+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
   }+${order.address.city}`;
   const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
-
-  // This functions calls the api to print order.
-  const printOrder = async (order) => {
-    try {
-      // setPrinting(true);
-      const res = await axios.post(
-        `https://192.168.2.4:8000/print?key=${process.env.NEXT_PUBLIC_PRINTER_API}`,
-        order
-      );
-      if (res.data === "order printed" && order.printed === false) {
-        const ref = doc(db, `orders/${order.id}`);
-        await updateDoc(ref, {
-          printed: true,
-        });
-      } else {
-        setPrinting(false);
-        console.log(res.data);
-      }
-    } catch (e) {
-      setPrinting(false);
-      console.log(e.message);
-    }
-  };
-
-  // This function is for autoprinting the order if conditions are met.
-  ((order) => {
-    // We don't run this function if
-    if (order.printed) return; // If order is already.
-    if (printing) return; // If printer is busy.
-    if (order.delivery === true) return; // If it's a delivery order.
-    if (order.paymentMethod === "online" && order.paid === false) return; // If customer wants to pay online and the order is not paid.
-    console.log("test");
-  })(order);
 
   return (
     <>
@@ -168,23 +132,26 @@ const OrderCard = ({
             {/* ***** SHOWS PRINT, RECEIPT, CLOSE AND UNDO ICON ***** */}
 
             {/* If order is not printed we show the print icon */}
-            {!order.printed && !printing && (
+            {!order.printed && !order.isPrinting && (
               <IconBtn
                 // disable button if order is printing.
-                disabled={printing}
+                disabled={order.isPrinting}
                 onClick={async (e) => {
                   e.stopPropagation();
                   if (atDashboard) {
                     setLastSelectedOrder(order);
                   }
-                  printOrder(order);
+                  const ref = doc(db, `orders/${order.id}`);
+                  await updateDoc(ref, {
+                    isPrinting: true,
+                  });
                 }}
               >
                 <PrintIcon />
               </IconBtn>
             )}
             {/* If order is printing we show a spinner. */}
-            {printing && (
+            {order.isPrinting && (
               <div
                 className={`rounded-full border-white border-t-main border-2 animate-spin w-5 h-5`}
               />
