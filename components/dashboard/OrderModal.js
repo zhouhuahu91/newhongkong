@@ -1,5 +1,6 @@
 // React imports
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
+import useI18n from "@/hooks/useI18n";
 // Component imports
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
@@ -12,6 +13,10 @@ import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, updateDoc } from "firebase/firestore";
+// Form imports
+import { useForm, useFormState } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 // Styling variables.
 const itemIdStyling = "col-span-10 sm:col-span-5 space-x-3";
@@ -22,6 +27,48 @@ const checkboxStyling =
 const OrderModal = ({ open, setOpen, order }) => {
   const [remarks, setRemarks] = useState(order.remarks);
   const [dateOfOrder, setDateOfOrder] = useState(order.date);
+  const t = useI18n();
+
+  const schema = yup.object().shape({
+    comments: yup.string().max(500, t.remarks_max),
+    date: yup
+      .string()
+      .required(t.required)
+      .matches(
+        /^([0-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-\d{4}$/,
+        "Date is not valid"
+      ),
+    time: yup
+      .string()
+      .required(t.required)
+      .matches(/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/, "Time is not valid"),
+    tel: yup
+      .string()
+      .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, t.tel_not_valid),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setError,
+    setValue,
+    clearErrors,
+    control,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      comments: "test",
+      date: order.date,
+      time: order.time,
+      tel: order.tel,
+    },
+    resolver: yupResolver(schema),
+  });
+
+  const { isDirty } = useFormState({ control });
 
   return (
     <Modal
