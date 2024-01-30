@@ -4,7 +4,13 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  collection,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 // Hook imports
 import { useAuth } from "@/hooks/useAuth";
 import usePath from "@/hooks/usePath";
@@ -51,6 +57,28 @@ const OrderCard = ({
   const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
+  const sendOrderToPrinter = async (order) => {
+    // Check if order is already at the printer or not
+    const printerRef = collection(db, "printer");
+    const printerDocs = await getDocs(printerRef);
+    // Printer is an array of all printer jobs id's.
+    const printer = printerDocs.docs.map((doc) => doc.id);
+    // If printer already has this order inside it means it is printing it already.
+    if (printer.includes(order.id)) return;
+
+    // If not we can add this order to the printer.
+    // type let's the printer know what type of receipt we want
+    await setDoc(doc(db, "printer", order.id), {
+      type: "order",
+      printContent: order,
+    });
+    // We also set the order to isPrinting.
+    const orderRef = doc(db, `orders/${order.id}`);
+    await updateDoc(orderRef, {
+      isPrinting: true,
+    });
+  };
+
   // There are a lot of reasons not to auto print an order.
   const autoPrintOrder = async (order) => {
     if (order.printed) return; // We don't need to print if order already printed.
@@ -66,11 +94,9 @@ const OrderCard = ({
     if (itemsHasRemarks) return; // We also do not print if one of the items in the order has remarks.
 
     // If it passes all these test we can safely send the order to be printed
-    const ref = doc(db, `orders/${order.id}`);
-    await updateDoc(ref, {
-      isPrinting: true,
-    });
+    sendOrderToPrinter(order);
   };
+
   autoPrintOrder(order);
 
   return (
@@ -163,10 +189,7 @@ const OrderCard = ({
                   if (atDashboard) {
                     setLastSelectedOrder(order);
                   }
-                  const ref = doc(db, `orders/${order.id}`);
-                  await updateDoc(ref, {
-                    isPrinting: true,
-                  });
+                  sendOrderToPrinter(order);
                 }}
               >
                 <PrintIcon />
