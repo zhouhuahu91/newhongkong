@@ -48,10 +48,29 @@ const OrderCard = ({
   const destination = `${order.address.street}+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
   }+${order.address.city}`;
-  const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
-  const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
+  const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&destination=${destination}&travelmode=bicycling`;
 
-  const printOrder = async () => {};
+  // There are a lot of reasons not to auto print an order.
+  const autoPrintOrder = async (order) => {
+    if (order.printed) return; // We don't need to print if order already printed.
+    if (order.isPrinting) return; // If order is already in process of being printed.
+    if (order.delivery) return; // We don't want it to be printed if order is for delivery.
+    if (order.paymentMethod === "online" && !order.paid) return; // We dont want it printed if user is in process of paying.
+    if (order.remarks.trim()) return; // If there are remarks we want to read those before printing.
+
+    // We also need to check if one of the items in the cart has remarks
+    const itemsHasRemarks = order.cart.some(
+      (item) => item.remarks && item.remarks.trim() !== ""
+    );
+    if (itemsHasRemarks) return; // We also do not print if one of the items in the order has remarks.
+
+    // If it passes all these test we can safely send the order to be printed
+    const ref = doc(db, `orders/${order.id}`);
+    await updateDoc(ref, {
+      isPrinting: true,
+    });
+  };
+  autoPrintOrder(order);
 
   return (
     <>
@@ -388,7 +407,10 @@ const OrderCard = ({
           {order.cart.map((item) => {
             if (item.remarks) {
               return (
-                <div className="text-sm font-medium text-main uppercase mt-1">
+                <div
+                  key={item.id}
+                  className="text-sm font-medium text-main uppercase mt-1"
+                >
                   {item.name.nl}: {item.remarks}
                 </div>
               );
