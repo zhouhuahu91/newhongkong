@@ -58,14 +58,19 @@ const OrderCard = ({
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
   const sendOrderToPrinter = async (order) => {
+    // Ref for the order
+    const orderRef = doc(db, `orders/${order.id}`);
     // Check if order is already at the printer or not
     const printerRef = collection(db, "printer");
     const printerDocs = await getDocs(printerRef);
     // Printer is an array of all printer jobs id's.
     const printer = printerDocs.docs.map((doc) => doc.id);
     // If printer already has this order inside it means it is printing it already.
-    if (printer.includes(order.id)) return;
-
+    if (printer.includes(order.id)) {
+      return await updateDoc(orderRef, {
+        isPrinting: true,
+      });
+    }
     // If not we can add this order to the printer.
     // type let's the printer know what type of receipt we want
     await setDoc(doc(db, "printer", order.id), {
@@ -73,7 +78,6 @@ const OrderCard = ({
       printContent: order,
     });
     // We also set the order to isPrinting.
-    const orderRef = doc(db, `orders/${order.id}`);
     await updateDoc(orderRef, {
       isPrinting: true,
     });
