@@ -16,7 +16,8 @@ import indonesian from "./category/indonesian";
 import tippan from "./category/tippan";
 
 // version 0.0.2 added chinese.
-export const version = "0.0.2";
+// version 0.0.3 changed kroepoek to dutch printer.
+export const version = "0.0.3";
 
 export const data = [
   menus,

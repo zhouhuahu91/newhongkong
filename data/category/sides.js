@@ -148,7 +148,7 @@ export default {
         nl: "kroepoek udang",
         en: "prawn crackers",
         de: "Krabbenchips",
-        zh: "虾饼",
+        zh: "Kroepoek",
       },
       description: {
         nl: "kroepoek gemaakt van garnalen",
@@ -165,7 +165,7 @@ export default {
         nl: "kroepoek casava",
         en: "spicy crackers",
         de: "spciy crackers",
-        zh: "辣虾饼",
+        zh: "Casava",
       },
       description: {
         nl: "kleine stukjes pittige kroepoek",
