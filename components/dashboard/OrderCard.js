@@ -51,6 +51,8 @@ const OrderCard = ({
   const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
+  const printOrder = async () => {};
+
   return (
     <>
       {/* We use the modal card for the /delivery page and /dashboard page.*/}
@@ -151,7 +153,7 @@ const OrderCard = ({
               </IconBtn>
             )}
             {/* If order is printing we show a spinner. */}
-            {order.isPrinting && (
+            {order.isPrinting && !order.printed && (
               <div
                 className={`rounded-full border-white border-t-main border-2 animate-spin w-5 h-5`}
               />
