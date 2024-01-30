@@ -48,7 +48,8 @@ const OrderCard = ({
   const destination = `${order.address.street}+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
   }+${order.address.city}`;
-  const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&destination=${destination}&travelmode=bicycling`;
+  const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
+  const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
   // There are a lot of reasons not to auto print an order.
   const autoPrintOrder = async (order) => {
