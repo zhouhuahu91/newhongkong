@@ -1,5 +1,5 @@
 // React imports
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // Animation imports
 import { motion } from "framer-motion";
 // Firebase imports
@@ -87,9 +87,7 @@ const OrderCard = ({
     sendOrderToPrinter(order);
   };
 
-  useEffect(() => {
-    autoPrintOrder(order);
-  }, [printerBusy]);
+  autoPrintOrder(order);
 
   return (
     <>
