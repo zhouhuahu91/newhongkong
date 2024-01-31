@@ -43,6 +43,7 @@ const OrderCard = ({
   setLastSelectedOrder,
   lastSelectedOrder,
   atNew,
+  printJobs,
 }) => {
   const [open, setOpen] = useState(false);
   const [openedBefore, setOpenedBefore] = useState(false);
@@ -57,19 +58,13 @@ const OrderCard = ({
   const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
+  // Check if this order is at the printer
+  const isPrinting = printJobs.map((job) => job.id).includes(order.id);
+
   const sendOrderToPrinter = async (order) => {
-    // Ref for the order
-    const orderRef = doc(db, `orders/${order.id}`);
-    // Check if order is already at the printer or not
-    const printerRef = collection(db, "printer");
-    const printerDocs = await getDocs(printerRef);
-    // Printer is an array of all printer jobs id's.
-    const printer = printerDocs.docs.map((doc) => doc.id);
     // If printer already has this order inside it means it is printing it already.
-    if (printer.includes(order.id)) {
-      return await updateDoc(orderRef, {
-        isPrinting: true,
-      });
+    if (isPrinting) {
+      return;
     }
     // If not we can add this order to the printer.
     // type let's the printer know what type of receipt we want
@@ -77,16 +72,12 @@ const OrderCard = ({
       type: "order",
       printContent: order,
     });
-    // We also set the order to isPrinting.
-    await updateDoc(orderRef, {
-      isPrinting: true,
-    });
   };
 
   // There are a lot of reasons not to auto print an order.
   const autoPrintOrder = async (order) => {
     if (order.printed) return; // We don't need to print if order already printed.
-    if (order.isPrinting) return; // If order is already in process of being printed.
+    if (isPrinting) return; // If order is already in process of being printed.
     if (order.delivery) return; // We don't want it to be printed if order is for delivery.
     if (order.paymentMethod === "online" && !order.paid) return; // We dont want it printed if user is in process of paying.
     if (order.remarks.trim()) return; // If there are remarks we want to read those before printing.
@@ -184,10 +175,10 @@ const OrderCard = ({
             {/* ***** SHOWS PRINT, RECEIPT, CLOSE AND UNDO ICON ***** */}
 
             {/* If order is not printed we show the print icon */}
-            {!order.printed && !order.isPrinting && (
+            {!order.printed && !isPrinting && (
               <IconBtn
                 // disable button if order is printing.
-                disabled={order.isPrinting}
+                disabled={isPrinting}
                 onClick={async (e) => {
                   e.stopPropagation();
                   if (atDashboard) {
@@ -200,7 +191,7 @@ const OrderCard = ({
               </IconBtn>
             )}
             {/* If order is printing we show a spinner. */}
-            {order.isPrinting && !order.printed && (
+            {isPrinting && !order.printed && (
               <div
                 className={`rounded-full border-white border-t-main border-2 animate-spin w-5 h-5`}
               />

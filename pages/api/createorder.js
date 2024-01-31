@@ -42,7 +42,6 @@ const createorder = async (req, res) => {
       paymentMethodType: null,
       canceled: false,
       printed: false,
-      isPrinting: false,
       ready: false,
       mailSent: false,
       completed: false,

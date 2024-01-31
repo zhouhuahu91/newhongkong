@@ -313,7 +313,6 @@ const OrderModal = ({ open, setOpen, order }) => {
               const ref = doc(db, `orders/${order.id}`);
               updateDoc(ref, {
                 printed: !order.printed,
-                isPrinting: false,
               });
             }}
           />

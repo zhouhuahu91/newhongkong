@@ -1,5 +1,5 @@
 // React imports
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 // Hook imports
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 import { useAuth } from "@/hooks/useAuth";
@@ -9,6 +9,9 @@ import OrderCard from "@/components/dashboard/OrderCard";
 import Spinner from "@/components/Spinner";
 import DashboardChat from "@/components/dashboard/DashboardChat";
 import ToolTip from "@/components/ToolTip";
+import PrintIcon from "@/icons/PrintIcon";
+import IconBtn from "@/components/IconBtn";
+import PrinterModal from "@/components/dashboard/PrinterModal";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -49,6 +52,9 @@ const Dashboard = () => {
   const [chatModal, setChatModal] = useState(false);
   // We need the orders count to know when we play a new order sound.
   const [ordersCount, setOrdersCount] = useState(newOrders.length);
+  // PrinterModal
+  const [printerModal, setPrinterModal] = useState(false);
+  const [printJobs, setPrintJobs] = useState([]);
 
   const { user } = useAuth();
 
@@ -98,6 +104,19 @@ const Dashboard = () => {
 
   useEffect(() => {
     setAudio(new Audio("/bell.mp3"));
+  }, []);
+
+  // Gets all the id's of printer jobs
+  useEffect(() => {
+    const printerRef = collection(db, "printer");
+    const unsubscribe = onSnapshot(printerRef, (snapshot) => {
+      const data = snapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      });
+      setPrintJobs(data);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -186,6 +205,11 @@ const Dashboard = () => {
 
   return (
     <div>
+      <PrinterModal
+        printerModal={printerModal}
+        setPrinterModal={setPrinterModal}
+        printJobs={printJobs}
+      />
       <Header
         date={date}
         setDate={setDate}
@@ -195,15 +219,19 @@ const Dashboard = () => {
       <div className="p-4 mt-8 select-none">
         <div className="grid grid-cols-12">
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <h1 className="text-2xl mb-4 font-semibold text-center border-b">
-              NEW
-            </h1>
+            <div className="mb-4 border-b flex justify-center items-center">
+              <h1 className="text-2xl font-semibold text-center mr-4">NEW</h1>
+              <IconBtn onClick={() => setPrinterModal((prev) => !prev)}>
+                <PrintIcon />
+              </IconBtn>
+            </div>
             <div className="grid gap-4">
               {newOrders.map((order) => (
                 <OrderCard
                   key={order.id}
                   order={order}
                   atNew={true}
+                  printJobs={printJobs}
                   lastSelectedOrder={lastSelectedOrder}
                   setLastSelectedOrder={setLastSelectedOrder}
                 />
