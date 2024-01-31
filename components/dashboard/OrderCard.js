@@ -44,6 +44,7 @@ const OrderCard = ({
   lastSelectedOrder,
   atNew,
   isPrinting,
+  printerBusy,
 }) => {
   const [open, setOpen] = useState(false);
   const [openedBefore, setOpenedBefore] = useState(false);
@@ -62,9 +63,9 @@ const OrderCard = ({
 
   const sendOrderToPrinter = async (order) => {
     // If printer already has this order inside it means it is printing it already.
-    if (isPrinting) {
-      return;
-    }
+    if (isPrinting) return;
+    // If printer is printing different order.
+    if (printerBusy) return;
     // If not we can add this order to the printer.
     // type let's the printer know what type of receipt we want
     await setDoc(doc(db, "printer", order.id), {
@@ -77,6 +78,7 @@ const OrderCard = ({
   const autoPrintOrder = async (order) => {
     if (order.printed) return; // We don't need to print if order already printed.
     if (isPrinting) return; // If order is already in process of being printed.
+    if (printerBusy) return; // Printer is already in printing different order.
     if (order.delivery) return; // We don't want it to be printed if order is for delivery.
     if (order.paymentMethod === "online" && !order.paid) return; // We dont want it printed if user is in process of paying.
     if (order.remarks.trim()) return; // If there are remarks we want to read those before printing.

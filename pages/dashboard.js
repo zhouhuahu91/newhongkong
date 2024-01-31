@@ -232,6 +232,7 @@ const Dashboard = () => {
                   key={order.id}
                   order={order}
                   atNew={true}
+                  printerBusy={printJobs.length > 0}
                   isPrinting={printJobs.map((job) => job.id).includes(order.id)}
                   lastSelectedOrder={lastSelectedOrder}
                   setLastSelectedOrder={setLastSelectedOrder}
@@ -248,6 +249,7 @@ const Dashboard = () => {
                 <OrderCard
                   key={order.id}
                   order={order}
+                  printerBusy={printJobs.length > 0}
                   isPrinting={printJobs.map((job) => job.id).includes(order.id)}
                   lastSelectedOrder={lastSelectedOrder}
                   setLastSelectedOrder={setLastSelectedOrder}
@@ -264,6 +266,7 @@ const Dashboard = () => {
                 <OrderCard
                   key={order.id}
                   order={order}
+                  printerBusy={printJobs.length > 0}
                   isPrinting={printJobs.map((job) => job.id).includes(order.id)}
                   lastSelectedOrder={lastSelectedOrder}
                   setLastSelectedOrder={setLastSelectedOrder}
@@ -286,6 +289,7 @@ const Dashboard = () => {
                 <OrderCard
                   key={order.id}
                   order={order}
+                  printerBusy={printJobs.length > 0}
                   isPrinting={printJobs.map((job) => job.id).includes(order.id)}
                   lastSelectedOrder={lastSelectedOrder}
                   setLastSelectedOrder={setLastSelectedOrder}
