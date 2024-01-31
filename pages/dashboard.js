@@ -223,7 +223,9 @@ const Dashboard = () => {
             <div className="mb-4 border-b flex justify-center items-center">
               <h1 className="text-2xl font-semibold text-center mr-4">NEW</h1>
               <IconBtn onClick={() => setPrinterModal((prev) => !prev)}>
-                <PrintIcon />
+                <PrintIcon
+                  className={printJobs.length > 0 && "animate-bounce"}
+                />
               </IconBtn>
             </div>
             <div className="grid gap-4">
