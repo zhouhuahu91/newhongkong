@@ -39,7 +39,7 @@ const ToolTip = ({ tip, disabled, size }) => {
               left: x ?? 0,
             }}
             className={`border p-2 rounded-md bg-amber-50 text-sm w-52 ${
-              size === "big" && "text-lg"
+              size === "big" && " text-xl"
             }`}
           >
             {tip}

@@ -11,7 +11,6 @@ import DashboardChat from "@/components/dashboard/DashboardChat";
 import ToolTip from "@/components/ToolTip";
 import PrintIcon from "@/icons/PrintIcon";
 import IconBtn from "@/components/IconBtn";
-import PrinterModal from "@/components/dashboard/PrinterModal";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -22,6 +21,7 @@ import {
   doc,
   updateDoc,
   getDoc,
+  deleteDoc,
 } from "firebase/firestore";
 // Fucntion imports
 import euro from "@/functions/euro";
@@ -52,8 +52,8 @@ const Dashboard = () => {
   const [chatModal, setChatModal] = useState(false);
   // We need the orders count to know when we play a new order sound.
   const [ordersCount, setOrdersCount] = useState(newOrders.length);
-  // PrinterModal
-  const [printerModal, setPrinterModal] = useState(false);
+  // The job currently in the printer.
+  // Should never be more than one.
   const [printJobs, setPrintJobs] = useState([]);
 
   const { user } = useAuth();
@@ -206,11 +206,6 @@ const Dashboard = () => {
 
   return (
     <div>
-      <PrinterModal
-        printerModal={printerModal}
-        setPrinterModal={setPrinterModal}
-        printJobs={printJobs}
-      />
       <Header
         date={date}
         setDate={setDate}
@@ -222,9 +217,18 @@ const Dashboard = () => {
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <div className="mb-4 border-b flex justify-center items-center">
               <h1 className="text-2xl font-semibold text-center mr-4">NEW</h1>
-              <IconBtn onClick={() => setPrinterModal((prev) => !prev)}>
+              <IconBtn
+                // disable the button if there are no print jobs.
+                disabled={printJobs.length < 1}
+                onClick={() =>
+                  printJobs.forEach(async (job) => {
+                    const ref = doc(db, `printer/${job.id}`);
+                    await deleteDoc(ref);
+                  })
+                }
+              >
                 <PrintIcon
-                  className={printJobs.length > 0 && "animate-bounce"}
+                  className={printJobs.length > 0 ? "animate-bounce" : ""}
                 />
               </IconBtn>
             </div>
