@@ -43,7 +43,7 @@ const OrderCard = ({
   setLastSelectedOrder,
   lastSelectedOrder,
   atNew,
-  printJobs,
+  isPrinting,
 }) => {
   const [open, setOpen] = useState(false);
   const [openedBefore, setOpenedBefore] = useState(false);
@@ -59,7 +59,6 @@ const OrderCard = ({
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
   // Check if this order is at the printer
-  const isPrinting = printJobs.map((job) => job.id).includes(order.id);
 
   const sendOrderToPrinter = async (order) => {
     // If printer already has this order inside it means it is printing it already.
