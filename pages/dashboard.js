@@ -113,6 +113,7 @@ const Dashboard = () => {
       const data = snapshot.docs.map((doc) => {
         return { id: doc.id, ...doc.data() };
       });
+
       setPrintJobs(data);
     });
 
@@ -247,6 +248,7 @@ const Dashboard = () => {
                 <OrderCard
                   key={order.id}
                   order={order}
+                  printJobs={printJobs}
                   lastSelectedOrder={lastSelectedOrder}
                   setLastSelectedOrder={setLastSelectedOrder}
                 />
@@ -262,6 +264,7 @@ const Dashboard = () => {
                 <OrderCard
                   key={order.id}
                   order={order}
+                  printJobs={printJobs}
                   lastSelectedOrder={lastSelectedOrder}
                   setLastSelectedOrder={setLastSelectedOrder}
                 />
@@ -283,6 +286,7 @@ const Dashboard = () => {
                 <OrderCard
                   key={order.id}
                   order={order}
+                  printJobs={printJobs}
                   lastSelectedOrder={lastSelectedOrder}
                   setLastSelectedOrder={setLastSelectedOrder}
                 />
