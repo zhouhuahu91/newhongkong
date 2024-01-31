@@ -17,7 +17,8 @@ import tippan from "./category/tippan";
 
 // version 0.0.2 added chinese.
 // version 0.0.3 changed kroepoek to dutch printer.
-export const version = "0.0.3";
+// version 0.0.4 type in sam fook babi ketjap
+export const version = "0.0.4";
 
 export const data = [
   menus,

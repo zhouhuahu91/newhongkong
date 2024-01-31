@@ -656,7 +656,7 @@ export default {
             nl: "babi ketjap",
             en: "babi soy",
             de: "babi soy",
-            zh: "急鸡",
+            zh: "急肉",
           },
           description: {
             nl: "geroosterde varkensvlees reepjes in ketjapsaus",
