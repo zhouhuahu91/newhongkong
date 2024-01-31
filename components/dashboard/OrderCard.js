@@ -1,16 +1,10 @@
 // React imports
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // Animation imports
 import { motion } from "framer-motion";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import {
-  doc,
-  updateDoc,
-  collection,
-  getDocs,
-  setDoc,
-} from "firebase/firestore";
+import { doc, updateDoc, setDoc } from "firebase/firestore";
 // Hook imports
 import { useAuth } from "@/hooks/useAuth";
 import usePath from "@/hooks/usePath";
@@ -93,7 +87,9 @@ const OrderCard = ({
     sendOrderToPrinter(order);
   };
 
-  autoPrintOrder(order);
+  useEffect(() => {
+    autoPrintOrder(order);
+  }, [printerBusy]);
 
   return (
     <>
