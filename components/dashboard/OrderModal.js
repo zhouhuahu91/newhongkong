@@ -158,12 +158,12 @@ const OrderModal = ({ open, setOpen, order }) => {
                     <span className="text-xs text-gray-500">
                       {cartItem.description["nl"]}
                     </span>
-                    <ChangeItemRemarks item={cartItem} order={order} />
                   </div>
                 </div>
                 <div className="col-span-2 text-right">
                   {euro(cartItem.price)}
                 </div>
+                <ChangeItemRemarks item={cartItem} order={order} />
               </Fragment>
             );
           })}
