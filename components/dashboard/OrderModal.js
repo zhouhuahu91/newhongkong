@@ -39,10 +39,7 @@ const OrderModal = ({ open, setOpen, order }) => {
         /^([0-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-\d{4}$/,
         "Date is not valid"
       ),
-    time: yup
-      .string()
-      .required(t.required)
-      .matches(/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/, "Time is not valid"),
+    time: yup.string().required(t.required),
     tel: yup
       .string()
       .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/, t.tel_not_valid),
