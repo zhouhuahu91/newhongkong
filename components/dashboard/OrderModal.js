@@ -8,6 +8,7 @@ import EmailReadIcon from "@/icons/EmailReadIcon";
 import CloseIcon from "@/icons/CloseIcon";
 import Input from "@/components/Input";
 import SubmitButton from "@/components/SubmitButton";
+import ChangeItemRemarks from "@/components/dashboard/ChangeItemRemarks";
 // Function imports
 import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
@@ -157,9 +158,7 @@ const OrderModal = ({ open, setOpen, order }) => {
                     <span className="text-xs text-gray-500">
                       {cartItem.description["nl"]}
                     </span>
-                    <span className="text-xs font-medium text-main">
-                      {cartItem.remarks}
-                    </span>
+                    <ChangeItemRemarks item={cartItem} order={order} />
                   </div>
                 </div>
                 <div className="col-span-2 text-right">
