@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 // Hook imports
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/router";
 // Component imports
 import Header from "@/components/dashboard/DashboardHeader";
 import OrderCard from "@/components/dashboard/OrderCard";
@@ -27,6 +28,7 @@ import {
 import euro from "@/functions/euro";
 
 const Dashboard = () => {
+  const router = useRouter();
   const { currentDate } = useStoreInfo();
   const [audio, setAudio] = useState(null);
   // Show orders that are completed or not.
@@ -196,13 +198,11 @@ const Dashboard = () => {
   }, [date, showCompleted]);
 
   useEffect(() => {
-    if (user !== null && !user?.admin) {
+    if (user === null || !user?.admin) {
       router.push("/sign_in");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  if (!user || (!user?.admin && !user?.employee)) return <Spinner />;
+  }, [user, router]);
 
   return (
     <div>

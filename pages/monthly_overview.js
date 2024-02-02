@@ -57,23 +57,23 @@ const MonthlyOverview = () => {
       datesInArray.forEach((date) =>
         documentsByDate.push(documents.filter((item) => item.date === date))
       );
+
       // For every date we accumulate the totals.
       const dailySummary = documentsByDate.map((day) => {
         // This returns total of the day.
         const total = day.reduce((x, y) => x + y.total, 0);
         // This returns total of ideal payments of the day.
-        const ideal = day.reduce(
-          (x, y) => (y.paymentMethod === "in_person" ? x : x + y.total),
+        const online = day.reduce(
+          (x, y) => (y.paymentMethod === "online" ? x + y.total : x),
           0
         );
         // This returns total of cahs payments of the day.
         const cash = day.reduce(
-          (x, y) => (y.paymentMethod === "in_person" ? x + y.total : x),
+          (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
           0
         );
-        // This returns the cost of ideal payments of the day.
-        const transactionCost = day.reduce(
-          (x, y) => (y.paymentMethod === "in_person" ? x : x + 29),
+        const card = day.reduce(
+          (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
           0
         );
         // This returns qwt of deliveries of the day.
@@ -82,9 +82,9 @@ const MonthlyOverview = () => {
         const pickup = day.reduce((x, y) => (y.delivery ? x : x + 1), 0);
         return {
           total,
-          ideal,
+          online,
           cash,
-          transactionCost,
+          card,
           delivery,
           pickup,
           qwt: day.length,
@@ -94,16 +94,16 @@ const MonthlyOverview = () => {
       // Besides the daily summary we need a monthly summary.
       const monthlySummary = {};
       monthlySummary.total = documents.reduce((x, y) => x + y.total, 0);
-      monthlySummary.ideal = documents.reduce(
-        (x, y) => (y.paymentMethod === "in_person" ? x : x + y.total),
+      monthlySummary.online = documents.reduce(
+        (x, y) => (y.paymentMethod === "online" ? x + y.total : x),
         0
       );
       monthlySummary.cash = documents.reduce(
-        (x, y) => (y.paymentMethod === "in_person" ? x + y.total : x),
+        (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
         0
       );
-      monthlySummary.transactionCost = documents.reduce(
-        (x, y) => (y.paymentMethod === "in_person" ? x : x + 29),
+      monthlySummary.card = documents.reduce(
+        (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
         0
       );
       monthlySummary.delivery = documents.reduce(
@@ -145,10 +145,9 @@ const MonthlyOverview = () => {
             <th className={thStyling}>Afhaal</th>
             <th className={thStyling}>Bezorgen</th>
             <th className={thStyling}>Online</th>
-            <th className={thStyling}>Transactiekosten</th>
-            <th className={thStyling}>Online Netto</th>
-            <th className={thStyling}>Cash/pin</th>
-            <th className={thStyling}>Totaal</th>
+            <th className={thStyling}>Pin</th>
+            <th className={thStyling}>Cash</th>
+            <th className={thStyling}>Omzet</th>
           </tr>
         </thead>
         <tbody>
@@ -159,11 +158,8 @@ const MonthlyOverview = () => {
                 <td className={tdStyling}>{day.qwt}</td>
                 <td className={tdStyling}>{day.pickup}</td>
                 <td className={tdStyling}>{day.delivery}</td>
-                <td className={tdStyling}>{euro(day.ideal)}</td>
-                <td className={tdStyling}>{euro(day.transactionCost)}</td>
-                <td className={tdStyling}>
-                  {euro(day.ideal - day.transactionCost)}
-                </td>
+                <td className={tdStyling}>{euro(day.online)}</td>
+                <td className={tdStyling}>{euro(day.card)}</td>
                 <td className={tdStyling}>{euro(day.cash)}</td>
                 <td className={tdStyling}>{euro(day.total)}</td>
               </tr>
@@ -176,11 +172,8 @@ const MonthlyOverview = () => {
             <th className={thStyling}>{monthlyData.qwt}</th>
             <th className={thStyling}>{monthlyData.pickup}</th>
             <th className={thStyling}>{monthlyData.delivery}</th>
-            <th className={thStyling}>{euro(monthlyData.ideal)}</th>
-            <th className={thStyling}>{euro(monthlyData.transactionCost)}</th>
-            <th className={thStyling}>
-              {euro(monthlyData.ideal - monthlyData.transactionCost)}
-            </th>
+            <th className={thStyling}>{euro(monthlyData.online)}</th>
+            <th className={thStyling}>{euro(monthlyData.card)}</th>
             <th className={thStyling}>{euro(monthlyData.cash)}</th>
             <th className={thStyling}>{euro(monthlyData.total)}</th>
           </tr>
