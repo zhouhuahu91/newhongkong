@@ -133,7 +133,9 @@ const MonthlyOverview = () => {
   return (
     <div className="max-w-screen-lg mx-auto">
       <h1 className="font-bold text-2xl text-center mt-8 mb-4">
-        {t.monthly_overview}
+        {/* {t.monthly_overview} */}
+        PAS OP! PINNEN & CASH NIET COMPLEET, NIET ALLE BESTELLINGEN STAAN
+        ONLINE.
       </h1>
       <table className="table-auto w-full text-left border shadow rounded-xl overflow-hidden min-h-[210px]">
         <thead className="border-b bg-white">
@@ -145,7 +147,7 @@ const MonthlyOverview = () => {
             <th className={thStyling}>Afhaal</th>
             <th className={thStyling}>Bezorgen</th>
             <th className={thStyling}>Online</th>
-            <th className={thStyling}>Pin</th>
+            <th className={thStyling}>Pinnen</th>
             <th className={thStyling}>Cash</th>
             <th className={thStyling}>Omzet</th>
           </tr>
