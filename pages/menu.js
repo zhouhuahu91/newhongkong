@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
 import { useMenu } from "@/hooks/useMenu";
+import { useAuth } from "@/hooks/useAuth";
+
 // Component imports
 import FavoriteIcon from "@/icons/FavoriteIcon";
 import Card from "@/components/menu/Card";
@@ -12,6 +14,7 @@ import MobileCart from "@/components/cart/MobileCart";
 import CategoryHeader from "@/components/menu/CategoryHeader";
 import PickUpOrDeliveryModal from "@/components/menu/PickUpOrDeliveryModal";
 import Spinner from "@/components/Spinner";
+import AdminCart from "../components/cart/AdminCart";
 
 // Upload new menu to firestore if needed.
 // import uploadData from "../data/uploadData";
@@ -32,7 +35,7 @@ const Menu = () => {
     favoriteMenuItems,
     popularMenuItems,
   } = useMenu();
-
+  const { user } = useAuth();
   // t is to translate the text.
   const t = useI18n();
   // This ref holds all the category divs. We need it for category header...
@@ -132,7 +135,11 @@ const Menu = () => {
           {/* This is the container where the desktopcart is. */}
           <div className="col-span-6 lg:col-span-5">
             {/* This span is needed so that the desktop starts on the same height as the menu without title. */}
-            <DesktopCart setOpen={setOpen} setDelivery={setDelivery} />
+            {user && user?.admin ? (
+              <AdminCart />
+            ) : (
+              <DesktopCart setOpen={setOpen} setDelivery={setDelivery} />
+            )}
           </div>
         </div>
         <MobileCart
