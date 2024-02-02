@@ -233,11 +233,12 @@ const Dashboard = () => {
               </IconBtn>
             </div>
             <div className="grid gap-4">
-              {newOrders.map((order) => (
+              {newOrders.map((order, idx) => (
                 <OrderCard
                   key={order.id}
                   order={order}
                   atNew={true}
+                  idx={idx}
                   printerBusy={printJobs.length > 0}
                   isPrinting={printJobs.map((job) => job.id).includes(order.id)}
                   lastSelectedOrder={lastSelectedOrder}
