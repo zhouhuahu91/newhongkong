@@ -9,12 +9,23 @@ import CreditCardIcon from "@/icons/CreditCardIcon";
 import { useCart } from "@/hooks/useCart";
 
 const AdminCheckoutModal = ({ open, setOpen }) => {
-  const { cartState } = useCart();
+  const { cartState, dispatch } = useCart();
   const [name, setName] = useState("");
   const [remarks, setRemarks] = useState("");
   const [paymentMethodType, setPaymentMethodType] = useState(
     cartState.paymentMethod
   );
+
+  // When AdminCart starts up we need to set a few settings to default.
+  // AdminCart is used for orders placed in the store.
+  // delivery is always === false
+  if (cartState.delivery !== false && open) {
+    dispatch({ type: "SET_DELIVERY", payload: false });
+  }
+  // paymentMethod === "in_person"
+  if (cartState.paymentMethod !== "in_person" && open) {
+    dispatch({ type: "SET_PAYMENT_METHOD", payload: "in_person" });
+  }
 
   const onSubmit = () => {
     console.log(cartState);

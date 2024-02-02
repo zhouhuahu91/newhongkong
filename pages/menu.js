@@ -135,13 +135,13 @@ const Menu = () => {
           {/* This is the container where the desktopcart is. */}
           <div className="col-span-6 lg:col-span-5">
             {/* This span is needed so that the desktop starts on the same height as the menu without title. */}
-            <DesktopCart setOpen={setOpen} setDelivery={setDelivery} />
+            {/* <DesktopCart setOpen={setOpen} setDelivery={setDelivery} /> */}
 
-            {/* {user && user?.admin ? (
+            {user && user?.admin ? (
               <AdminCart />
             ) : (
               <DesktopCart setOpen={setOpen} setDelivery={setDelivery} />
-            )} */}
+            )}
           </div>
         </div>
         <MobileCart
