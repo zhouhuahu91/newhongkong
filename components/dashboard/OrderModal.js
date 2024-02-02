@@ -198,6 +198,7 @@ const OrderModal = ({ open, setOpen, order }) => {
         <DatePicker
           className="appearance-none focus:outline-none red-focus-ring border w-full my-0.5 py-2 px-3 text-sm rounded-md"
           dateFormat="dd-MM-yyyy"
+          calendarStartDay={1}
           selected={convertDate(order.date)}
           onChange={(date) => {
             const newDate = getCurrentDate(date);

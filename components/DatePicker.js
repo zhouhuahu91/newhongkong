@@ -44,6 +44,7 @@ const DatePickerComponent = ({ setDate, className, date }) => {
           >
             <DatePicker
               selected={selectedDate}
+              calendarStartDay={1}
               onChange={(d) => {
                 setShow(false);
                 setSelectedDate(d);
