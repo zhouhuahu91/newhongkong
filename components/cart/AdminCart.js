@@ -3,10 +3,15 @@ import { useRouter } from "next/router";
 // Component imports
 import Cart from "@/components/cart/Cart";
 import AdminCheckoutModal from "@/components/checkout/AdminCheckoutModal";
+// Hook imports
+import { useCart } from "@/hooks/useCart";
 
 const AdminCart = ({}) => {
   const [checkOutModal, setCheckOutModal] = useState(false);
   const router = useRouter();
+  const { cartState } = useCart();
+
+  const cartIsEmpty = cartState.cart.length === 0;
 
   return (
     <>
@@ -19,16 +24,22 @@ const AdminCart = ({}) => {
         >
           <div className="flex p-4 gap-2">
             <button
+              disabled={cartIsEmpty}
               onClick={() => setCheckOutModal(true)}
-              className="button w-1/3 text-white bg-main"
+              className={`button w-1/3 text-white ${
+                cartIsEmpty ? "bg-gray-300" : "bg-main"
+              }`}
             >
               Afrekenen
             </button>
             <button
+              disabled={cartIsEmpty}
               onClick={() => router.push("/checkout")}
-              className="button w-2/3 text-main border"
+              className={`button w-2/3 border ${
+                cartIsEmpty ? "bg-gray-300 text-white" : ""
+              }`}
             >
-              Naar reserveren
+              Naar bestellen
             </button>
           </div>
           <Cart />

@@ -8,20 +8,25 @@ import CreditCardIcon from "@/icons/CreditCardIcon";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
-
 // Function imports
 import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
 import euro from "@/functions/euro";
+import getCurrentDate from "@/functions/getCurrentDate";
+import getCurrentTime from "@/functions/getDigitalTime";
+import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
+// Firebase imports
+import { db } from "@/firebase/firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 const AdminCheckoutModal = ({ open, setOpen }) => {
   const { cartState, dispatch } = useCart();
   const { storeFees } = useStoreInfo();
 
+  const [processing, setProcessing] = useState(false);
   const [name, setName] = useState("");
   const [remarks, setRemarks] = useState("");
-  const [paymentMethodType, setPaymentMethodType] = useState(
-    cartState.paymentMethod
-  );
+  const [paymentMethodType, setPaymentMethodType] = useState(null);
+  const [errors, setErrors] = useState({});
 
   // When AdminCart starts up we need to set a few settings to default.
   // AdminCart is used for orders placed in the store.
@@ -34,23 +39,58 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
     dispatch({ type: "SET_PAYMENT_METHOD", payload: "in_person" });
   }
 
-  const onSubmit = () => {
+  const onSubmit = async (paid) => {
+    // If name is not filled in we return with error.
+    if (name.length === 0) {
+      return setErrors((prev) => ({ ...prev, name: "Is verplicht" }));
+    } else {
+      setErrors((prev) => ({ ...prev, name: "" }));
+    }
+
+    setProcessing(true);
     const order = {
       ...cartState,
       name,
       remarks,
-      time: "",
+      paid,
+      paymentMethodType,
+      paymentMethod: "in_person",
+      time: getCurrentTime(getCurrentTimeInSeconds()),
       total: calculateTotalCartPrice(cartState, storeFees),
-      // all this information is useless but we add it just in case we break the app.
+      canceled: false,
+      printed: false,
+      ready: false,
+      mailSent: false,
+      completed: false,
+      delivery: false,
+      date: getCurrentDate(),
+      createdAt: Date.now(),
+      storeFees,
+      // all this information below is useless but we add it just in case we break the app.
+      saveRemarks: false,
       tel: "0252372902",
       email: "info@newhongkong.nl",
       postalcode: "2211EE",
       houseNumber: "13",
       addition: "",
+      address: {},
       user: "guest",
     };
-    console.log(cartState);
-    console.log("submitted");
+    try {
+      await addDoc(collection(db, "orders"), order);
+      // If it is a succes we reset every state
+      setName("");
+      setRemarks("");
+      setPaymentMethodType("");
+      setProcessing(false);
+      setErrors({});
+      // We clear the cart and close the modal
+      dispatch({ type: "RESET_CART" });
+      setOpen(false);
+    } catch (e) {
+      // If error we log the message.
+      console.log(e.message);
+    }
   };
 
   return (
@@ -77,6 +117,9 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
             placeholder="Verplicht"
             className="appearance-none my-0.5 border rounded-md w-full text-sm focus:outline-none red-focus-ring py-2 px-3"
           />
+          <label htmlFor="name" className="text-red-400 text-sm">
+            {errors.name}
+          </label>
         </div>
         <div>
           <label htmlFor="remarks" className="text-sm text-gray-500">
@@ -133,16 +176,35 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
               Pinnen
             </button>
           </div>
+          <label htmlFor="name" className="text-red-400 text-sm">
+            {errors.paymentMethodType}
+          </label>
         </div>
       </div>
-      <div className="bg-white p-3 border-t">
+      <div className="flex bg-white p-4 border-t gap-2">
         <button
-          onClick={() => onSubmit()}
+          disabled={processing}
+          onClick={() => {
+            if (paymentMethodType === null) {
+              return setErrors((prev) => ({
+                ...prev,
+                paymentMethodType: "verplicht",
+              }));
+            }
+            onSubmit(true);
+          }}
           type="button"
-          className="button w-full bg-main text-white"
+          className="button bg-main text-white w-2/3"
         >
-          Betalen en bestelling plaatsen{" "}
-          {euro(calculateTotalCartPrice(cartState, storeFees))}
+          Direct betalen {euro(calculateTotalCartPrice(cartState, storeFees))}
+        </button>
+        <button
+          disabled={processing}
+          onClick={() => onSubmit(false)}
+          type="button"
+          className="button border w-1/3"
+        >
+          Niet Betaald
         </button>
       </div>
     </Modal>
