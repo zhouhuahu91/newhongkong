@@ -34,6 +34,7 @@ const ChangeItemRemarks = ({ item, order }) => {
           id="itemRemarks"
           value={remarks}
           type="text"
+          rows="1"
         />
       </div>
     </>

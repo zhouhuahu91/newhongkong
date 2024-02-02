@@ -40,7 +40,6 @@ const OrderModal = ({ open, setOpen, order }) => {
     <Modal
       toggle={open}
       close={() => {
-        reset();
         setOpen(false);
       }}
       className="max-w-xl w-full mx-2 bg-white rounded-lg overflow-hidden"
@@ -50,7 +49,6 @@ const OrderModal = ({ open, setOpen, order }) => {
         <h2 className="text-xl font-bold">{order.name}</h2>
         <IconBtn
           onClick={() => {
-            reset();
             setOpen(false);
           }}
         >
