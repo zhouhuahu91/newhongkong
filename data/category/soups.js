@@ -47,6 +47,7 @@ export default {
         nl: "haaienvinnensoep",
         en: "egg drop soup",
         de: "Eiertropfensuppe",
+        zh: "次汤",
       },
       description: {
         nl: "gebonden soep gemaakt van eiwit met ham en lente-uitjes",
