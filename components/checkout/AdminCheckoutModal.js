@@ -7,9 +7,16 @@ import CashIcon from "@/icons/CashIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
+import { useStoreInfo } from "@/hooks/useStoreInfo";
+
+// Function imports
+import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
+import euro from "@/functions/euro";
 
 const AdminCheckoutModal = ({ open, setOpen }) => {
   const { cartState, dispatch } = useCart();
+  const { storeFees } = useStoreInfo();
+
   const [name, setName] = useState("");
   const [remarks, setRemarks] = useState("");
   const [paymentMethodType, setPaymentMethodType] = useState(
@@ -28,6 +35,20 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
   }
 
   const onSubmit = () => {
+    const order = {
+      ...cartState,
+      name,
+      remarks,
+      time: "",
+      total: calculateTotalCartPrice(cartState, storeFees),
+      // all this information is useless but we add it just in case we break the app.
+      tel: "0252372902",
+      email: "info@newhongkong.nl",
+      postalcode: "2211EE",
+      houseNumber: "13",
+      addition: "",
+      user: "guest",
+    };
     console.log(cartState);
     console.log("submitted");
   };
@@ -120,7 +141,8 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
           type="button"
           className="button w-full bg-main text-white"
         >
-          Bestelling plaatsen
+          Betalen en bestelling plaatsen{" "}
+          {euro(calculateTotalCartPrice(cartState, storeFees))}
         </button>
       </div>
     </Modal>
