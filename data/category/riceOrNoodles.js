@@ -88,7 +88,7 @@ export default {
       qtyPlastic: 1,
       options: [
         {
-          id: "640N",
+          id: "6400N",
           name: {
             nl: "kleine nasi goreng",
             en: "small fried rice",
@@ -98,7 +98,7 @@ export default {
           price: 0,
         },
         {
-          id: "640B",
+          id: "6400B",
           name: {
             nl: "kleine bami goreng",
             en: "small noodles",
@@ -108,7 +108,7 @@ export default {
           price: 0,
         },
         {
-          id: "V640N",
+          id: "V6400N",
           name: {
             nl: "kleine vegetarische nasi goreng",
             en: "small vegetarian fried rice",
@@ -118,7 +118,7 @@ export default {
           price: 0,
         },
         {
-          id: "V640B",
+          id: "V6400B",
           name: {
             nl: "kleine vegetarische bami goreng",
             en: "small vegetarian noodles",
