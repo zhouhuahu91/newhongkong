@@ -69,6 +69,67 @@ export default {
       btw: btw.laag,
     },
     {
+      id: "H64",
+      name: {
+        nl: "kleine nasi of bami goreng",
+        en: "small fried rice or noodles",
+        de: "kleine gebratener Reis oder Nudeln",
+        zh: "饭面",
+      },
+      description: {
+        nl: "kleine nasi of bami goreng, roergebakken met ei, varkensvlees, ham en prei",
+        en: "small fried rice or noodles, stir fried with egg, pork, ham and leek",
+        de: "kleine gebratener Reis oder Nudeln mit eiern, Schweinefleisch, Schinken und Lauch",
+        zh: "",
+      },
+      price: 530,
+      qtyPlastic: 1,
+      options: [
+        {
+          id: "H64N",
+          name: {
+            nl: "kleine nasi goreng",
+            en: "small fried rice",
+            de: "kleine gebratener Reis",
+            zh: "1/2饭",
+          },
+          price: 0,
+        },
+        {
+          id: "H64B",
+          name: {
+            nl: "kleine bami goreng",
+            en: "small noodles",
+            de: "kleine Nudeln",
+            zh: "1/2面",
+          },
+          price: 0,
+        },
+        {
+          id: "HV64N",
+          name: {
+            nl: "kleine vegetarische nasi goreng",
+            en: "small vegetarian fried rice",
+            de: "kleine gebratener Reis, vegetarisch",
+            zh: "1/2素饭",
+          },
+          price: 0,
+        },
+        {
+          id: "HV64B",
+          name: {
+            nl: "kleine vegetarische bami goreng",
+            en: "small vegetarian noodles",
+            de: "kleine Nudeln, vegetarisch",
+            zh: "1/2素面",
+          },
+          price: 0,
+        },
+      ],
+      optionIsMain: true,
+      btw: btw.laag,
+    },
+    {
       id: "65",
       name: {
         nl: "nasi of bami goreng extra",
