@@ -1,5 +1,5 @@
 //React imports
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -18,7 +18,7 @@ import AdminCart from "@/components/cart/AdminCart";
 import SpecialDishModal from "@/components/menu/SpecialDishModal";
 
 // Upload new menu to firestore if needed.
-import uploadData from "../data/uploadData";
+// import uploadData from "../data/uploadData";
 
 const Menu = () => {
   // This returns the cart state and dispatch functions.
@@ -53,7 +53,6 @@ const Menu = () => {
     return <Spinner />;
   }
 
-  console.log(cartState);
   return (
     <>
       <PickUpOrDeliveryModal
