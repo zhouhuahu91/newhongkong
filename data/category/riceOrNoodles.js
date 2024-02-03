@@ -1,3 +1,5 @@
+import btw from "../options/btw";
+
 export default {
   category: {
     nl: "nasi of bami gerechten",
@@ -69,7 +71,7 @@ export default {
       btw: btw.laag,
     },
     {
-      id: "H64",
+      id: "640",
       name: {
         nl: "kleine nasi of bami goreng",
         en: "small fried rice or noodles",
@@ -86,7 +88,7 @@ export default {
       qtyPlastic: 1,
       options: [
         {
-          id: "H64N",
+          id: "640N",
           name: {
             nl: "kleine nasi goreng",
             en: "small fried rice",
@@ -96,7 +98,7 @@ export default {
           price: 0,
         },
         {
-          id: "H64B",
+          id: "640B",
           name: {
             nl: "kleine bami goreng",
             en: "small noodles",
@@ -106,7 +108,7 @@ export default {
           price: 0,
         },
         {
-          id: "HV64N",
+          id: "V640N",
           name: {
             nl: "kleine vegetarische nasi goreng",
             en: "small vegetarian fried rice",
@@ -116,7 +118,7 @@ export default {
           price: 0,
         },
         {
-          id: "HV64B",
+          id: "V640B",
           name: {
             nl: "kleine vegetarische bami goreng",
             en: "small vegetarian noodles",

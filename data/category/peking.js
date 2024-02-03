@@ -1,5 +1,5 @@
 import sidesOptions from "../options/sidesOptions";
-
+import btw from "../options/btw";
 export default {
   category: {
     nl: "specialiteiten uit Peking",

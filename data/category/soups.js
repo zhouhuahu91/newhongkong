@@ -1,3 +1,5 @@
+import btw from "../options/btw";
+
 export default {
   category: {
     nl: "soepen",
