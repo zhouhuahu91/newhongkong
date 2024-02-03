@@ -15,6 +15,7 @@ import riceNoodlesOrChowMein from "./category/riceNoodlesOrChowMein";
 import indonesian from "./category/indonesian";
 import tippan from "./category/tippan";
 import beverages from "./category/beverages";
+import smallDishes from "./category/smallDishes";
 
 // version 0.0.2 added chinese.
 // version 0.0.3 changed kroepoek to dutch printer.
@@ -41,4 +42,5 @@ export const data = [
   indonesian,
   tippan,
   beverages,
+  smallDishes,
 ];
