@@ -61,7 +61,7 @@ export const christmasA = {
   sides: sidesOptions,
   totalSides: 2,
   options: tippanSauce,
-
+  btw: btw.laag,
   menuList: [
     {
       name: {
@@ -178,7 +178,7 @@ export const christmasB = {
   sides: sidesOptions,
   totalSides: 2,
   options: tippanSauce,
-
+  btw: btw.laag,
   menuList: [
     {
       name: {

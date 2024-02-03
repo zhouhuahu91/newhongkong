@@ -26,6 +26,7 @@ export default {
       price: 1440,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "55",
@@ -44,6 +45,7 @@ export default {
       price: 1440,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "56",
@@ -62,6 +64,7 @@ export default {
       price: 1440,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "57",
@@ -80,6 +83,7 @@ export default {
       price: 1440,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "58",
@@ -98,6 +102,7 @@ export default {
       price: 1720,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "59",
@@ -116,6 +121,7 @@ export default {
       price: 1720,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
   ],
 };

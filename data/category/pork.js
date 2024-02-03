@@ -26,6 +26,7 @@ export default {
       price: 1660,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "61",
@@ -44,6 +45,7 @@ export default {
       price: 1790,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "62",
@@ -62,6 +64,7 @@ export default {
       price: 1690,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "63",
@@ -80,6 +83,7 @@ export default {
       price: 1440,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
   ],
 };

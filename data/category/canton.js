@@ -1,4 +1,5 @@
 import sidesOptions from "../options/sidesOptions";
+import btw from "../options/btw";
 
 export default {
   category: {
@@ -26,6 +27,7 @@ export default {
       price: 1720,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "21",
@@ -44,6 +46,7 @@ export default {
       price: 1660,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "22",
@@ -61,6 +64,7 @@ export default {
       price: 1580,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "23",
@@ -79,6 +83,7 @@ export default {
       price: 1660,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "24",
@@ -97,6 +102,7 @@ export default {
       price: 1810,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "25",
@@ -115,6 +121,7 @@ export default {
       price: 1920,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "26",
@@ -133,6 +140,7 @@ export default {
       price: 2120,
       qtyPlastic: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
   ],
 };

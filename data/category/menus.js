@@ -78,6 +78,7 @@ const maandmenu = {
   qtyPlastic: 5,
   sides: sidesOptions,
   totalSides: 2,
+  btw: btw.laag,
 };
 
 export default {
@@ -237,6 +238,7 @@ export default {
       ],
       totalOptions: 2,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "97",
@@ -386,6 +388,7 @@ export default {
       ],
       totalOptions: 3,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "98",
@@ -488,6 +491,7 @@ export default {
       ],
       totalOptions: 1,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "99",
@@ -747,6 +751,7 @@ export default {
       totalOptions: 3,
       sides: sidesOptions,
       totalSides: 2,
+      btw: btw.laag,
     },
     maandmenu,
     {
@@ -849,6 +854,7 @@ export default {
       qtyPlastic: 7,
       sides: sidesOptions,
       totalSides: 2,
+      btw: btw.laag,
     },
     {
       id: "102",
@@ -956,6 +962,7 @@ export default {
       qtyPlastic: 6,
       sides: sidesOptions,
       totalSides: 2,
+      btw: btw.laag,
     },
     {
       id: "103",
@@ -1041,6 +1048,7 @@ export default {
       qtyPlastic: 8,
       sides: sidesOptions,
       totalSides: 2,
+      btw: btw.laag,
     },
   ],
 };

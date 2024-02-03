@@ -69,6 +69,7 @@ export default {
       qtyPlastic: 2,
       options: tippanSauce,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "89",
@@ -88,6 +89,7 @@ export default {
       qtyPlastic: 2,
       options: tippanSauce,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "90",
@@ -107,6 +109,7 @@ export default {
       qtyPlastic: 2,
       options: tippanSauce,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "91",
@@ -126,6 +129,7 @@ export default {
       qtyPlastic: 2,
       options: tippanSauce,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "92",
@@ -145,6 +149,7 @@ export default {
       qtyPlastic: 2,
       options: tippanSauce,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "93",
@@ -164,6 +169,7 @@ export default {
       qtyPlastic: 2,
       options: tippanSauce,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "94",
@@ -183,6 +189,7 @@ export default {
       qtyPlastic: 2,
       options: tippanSauce,
       sides: sidesOptions,
+      btw: btw.laag,
     },
     {
       id: "95",
@@ -202,6 +209,7 @@ export default {
       qtyPlastic: 2,
       options: tippanSauce,
       sides: sidesOptions,
+      btw: btw.laag,
     },
   ],
 };

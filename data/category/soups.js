@@ -23,6 +23,7 @@ export default {
       },
       price: 390,
       qtyPlastic: 1,
+      btw: btw.laag,
     },
     {
       id: "2",
@@ -40,6 +41,7 @@ export default {
       },
       price: 390,
       qtyPlastic: 1,
+      btw: btw.laag,
     },
     {
       id: "3",
@@ -57,6 +59,7 @@ export default {
       },
       price: 450,
       qtyPlastic: 1,
+      btw: btw.laag,
     },
     {
       id: "4",
@@ -74,6 +77,7 @@ export default {
       },
       price: 460,
       qtyPlastic: 1,
+      btw: btw.laag,
     },
     {
       id: "5",
@@ -91,6 +95,7 @@ export default {
       },
       price: 590,
       qtyPlastic: 1,
+      btw: btw.laag,
     },
     {
       id: "6",
@@ -108,6 +113,7 @@ export default {
       },
       price: 590,
       qtyPlastic: 1,
+      btw: btw.laag,
     },
     {
       id: "7",
@@ -125,6 +131,7 @@ export default {
       },
       price: 630,
       qtyPlastic: 1,
+      btw: btw.laag,
     },
   ],
 };

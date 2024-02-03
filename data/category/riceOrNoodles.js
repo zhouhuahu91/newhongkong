@@ -66,6 +66,7 @@ export default {
         },
       ],
       optionIsMain: true,
+      btw: btw.laag,
     },
     {
       id: "65",
@@ -106,6 +107,7 @@ export default {
         },
       ],
       optionIsMain: true,
+      btw: btw.laag,
     },
     {
       id: "66",
@@ -146,6 +148,7 @@ export default {
         },
       ],
       optionIsMain: true,
+      btw: btw.laag,
     },
     {
       id: "67",
@@ -186,6 +189,7 @@ export default {
         },
       ],
       optionIsMain: true,
+      btw: btw.laag,
     },
     {
       id: "68",
@@ -227,6 +231,7 @@ export default {
         },
       ],
       optionIsMain: true,
+      btw: btw.laag,
     },
     {
       id: "69",
@@ -267,6 +272,7 @@ export default {
         },
       ],
       optionIsMain: true,
+      btw: btw.laag,
     },
     {
       id: "70",
@@ -307,6 +313,7 @@ export default {
         },
       ],
       optionIsMain: true,
+      btw: btw.laag,
     },
     {
       id: "71",
@@ -347,6 +354,7 @@ export default {
         },
       ],
       optionIsMain: true,
+      btw: btw.laag,
     },
     {
       id: "72",
@@ -387,6 +395,7 @@ export default {
         },
       ],
       optionIsMain: true,
+      btw: btw.laag,
     },
     {
       id: "73",
@@ -404,6 +413,7 @@ export default {
       },
       price: 1620,
       qtyPlastic: 1,
+      btw: btw.laag,
     },
   ],
 };
