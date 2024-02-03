@@ -108,6 +108,9 @@ const Menu = () => {
               </div>
             )}
             {filteredData.map((category, idx) => {
+              if (category.adminOnly) {
+                if (!user && !user?.admin) return;
+              }
               return (
                 <div
                   ref={(e) => (categoryRef.current[idx] = e)}

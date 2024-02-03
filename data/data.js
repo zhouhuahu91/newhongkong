@@ -21,7 +21,8 @@ import beverages from "./category/beverages";
 // version 0.0.4 type in sam fook babi ketjap
 // version 0.0.5 forgot to add chinese for haaienvinnensoep
 // version 0.0.6 added btw and adminOnly option
-export const version = "0.0.6";
+// version 0.0.7 added beverages
+export const version = "0.0.7";
 
 export const data = [
   menus,
@@ -39,6 +40,5 @@ export const data = [
   riceNoodlesOrChowMein,
   indonesian,
   tippan,
+  beverages,
 ];
-
-export const adminOnly = [beverages];
