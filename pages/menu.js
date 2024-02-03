@@ -17,7 +17,7 @@ import Spinner from "@/components/Spinner";
 import AdminCart from "../components/cart/AdminCart";
 
 // Upload new menu to firestore if needed.
-// import uploadData from "../data/uploadData";
+import uploadData from "../data/uploadData";
 
 const Menu = () => {
   // This returns the cart state and dispatch functions.
