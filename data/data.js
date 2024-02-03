@@ -14,12 +14,14 @@ import riceOrNoodles from "./category/riceOrNoodles";
 import riceNoodlesOrChowMein from "./category/riceNoodlesOrChowMein";
 import indonesian from "./category/indonesian";
 import tippan from "./category/tippan";
+import beverages from "./category/beverages";
 
 // version 0.0.2 added chinese.
 // version 0.0.3 changed kroepoek to dutch printer.
 // version 0.0.4 type in sam fook babi ketjap
 // version 0.0.5 forgot to add chinese for haaienvinnensoep
-export const version = "0.0.5";
+// version 0.0.6 added btw and adminOnly option
+export const version = "0.0.6";
 
 export const data = [
   menus,
@@ -38,3 +40,5 @@ export const data = [
   indonesian,
   tippan,
 ];
+
+export const adminOnly = [beverages];
