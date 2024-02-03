@@ -229,7 +229,7 @@ const addItem = (cart, payload) => {
       id,
       qwt,
       ...preparedItem,
-      optionIsMain: item.optionIsMain,
+      optionIsMain: item.optionIsMain ? true : false,
       selectedOptions,
       selectedSides,
       remarks,
