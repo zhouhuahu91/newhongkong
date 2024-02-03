@@ -5,6 +5,7 @@ import CloseIcon from "@/icons/CloseIcon";
 import MinusIcon from "@/icons/MinusIcon";
 import InfoIcon from "@/icons/InfoIcon";
 import PlusIcon from "@/icons/PlusIcon";
+import Switch from "@/components/Switch";
 // Function imports
 import euro from "@/functions/euro";
 // Hook imports
@@ -31,6 +32,8 @@ const SpecialDishModal = ({ open, setOpen }) => {
   const [qwt, setQwt] = useState(1);
   const [price, setPrice] = useState(0);
   const [msg, setMsg] = useState("");
+  // true if btw high
+  const [btw, setBtw] = useState(false);
 
   const { dispatch } = useCart();
   const { user } = useAuth();
@@ -56,7 +59,7 @@ const SpecialDishModal = ({ open, setOpen }) => {
       return setMsg("Keuken omschrijving is verplicht");
     }
     // Return if price isn't a number
-    if (/^[0-9]+$/.test(price)) return setMsg("Prijs moet in cijfers.");
+    if (!/^[0-9]+$/.test(price)) return setMsg("Prijs moet in cijfers.");
 
     setMsg("");
 
@@ -77,9 +80,10 @@ const SpecialDishModal = ({ open, setOpen }) => {
             de: "",
             zh: kitchenName,
           },
-          id: "888",
-          price,
+          id: Date.now().toString(),
+          price: Number(price),
           optionIsMain: false,
+          btw: btw ? 21 : 9,
         },
         selectedOptions: [],
         selectedSides: [],
@@ -88,6 +92,7 @@ const SpecialDishModal = ({ open, setOpen }) => {
       },
     });
     resetValues();
+    setOpen(false);
   };
 
   return (
@@ -150,6 +155,12 @@ const SpecialDishModal = ({ open, setOpen }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="btw" className="label mb-0.5">
+            {btw ? "21% btw" : "9% btw"}
+          </label>
+          <Switch toggle={btw} onClick={() => setBtw((prev) => !prev)} />
         </div>
         <div className="flex items-center justify-evenly relative h-8 mt-2">
           <IconBtn onClick={() => setQwt((qwt) => (qwt > 1 ? qwt - 1 : qwt))}>

@@ -53,6 +53,7 @@ const Menu = () => {
     return <Spinner />;
   }
 
+  console.log(cartState);
   return (
     <>
       <PickUpOrDeliveryModal

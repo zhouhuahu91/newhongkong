@@ -233,6 +233,7 @@ const addItem = (cart, payload) => {
       selectedOptions,
       selectedSides,
       remarks,
+      btw: item.btw,
     };
     // we add the new item to the cart.
     return [...cart, newItem];
