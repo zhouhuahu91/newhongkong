@@ -16,6 +16,8 @@ import PickUpOrDeliveryModal from "@/components/menu/PickUpOrDeliveryModal";
 import Spinner from "@/components/Spinner";
 import AdminCart from "@/components/cart/AdminCart";
 import SpecialDishModal from "@/components/menu/SpecialDishModal";
+import SettingsIcon from "@/icons/SettingsIcon";
+import IconBtn from "@/components/IconBtn";
 
 // Upload new menu to firestore if needed.
 // import uploadData from "../data/uploadData";
@@ -95,25 +97,20 @@ const Menu = () => {
             )}
             {!searchInput.length && (
               <div className="">
-                <h2 className="font-semibold text-2xl capitalize mt-8 mb-4">
-                  {t.popular}
-                </h2>
-                <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-                  {user && user.admin && (
-                    <button
+                <div className="flex items-center mt-8 mb-4">
+                  <h2 className="font-semibold text-2xl capitalize ">
+                    {t.popular}
+                  </h2>
+                  {user && user?.admin && (
+                    <IconBtn
+                      className="ml-2"
                       onClick={() => setSpecialDishModal(true)}
-                      type="button"
-                      className="border rounded-lg p-3 text-left flex flex-col bg-white hover:shadow hover:scale-[1.04] red-focus-ring transition-all ease-in"
                     >
-                      <h3 className="font-medium capitalize">
-                        speciale gerecht
-                      </h3>
-                      <span className="text-xs text-gray-500 block my-2 flex-grow line-clamp-2">
-                        stel zelf samen
-                      </span>
-                      <span className="font-medium">€ 0,00</span>
-                    </button>
+                      <SettingsIcon />
+                    </IconBtn>
                   )}
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
                   {popularMenuItems.map((item) => {
                     return (
                       <Card
