@@ -28,17 +28,6 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
   const [paymentMethodType, setPaymentMethodType] = useState(null);
   const [errors, setErrors] = useState({});
 
-  // When AdminCart starts up we need to set a few settings to default.
-  // AdminCart is used for orders placed in the store.
-  // delivery is always === false
-  if (cartState.delivery !== false && open) {
-    dispatch({ type: "SET_DELIVERY", payload: false });
-  }
-  // paymentMethod === "in_person"
-  if (cartState.paymentMethod !== "in_person" && open) {
-    dispatch({ type: "SET_PAYMENT_METHOD", payload: "in_person" });
-  }
-
   const onSubmit = async (paid) => {
     // If name is not filled in we return with error.
     if (name.length === 0) {
