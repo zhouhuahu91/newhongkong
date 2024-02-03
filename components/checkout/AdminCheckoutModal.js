@@ -89,7 +89,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
       className="bg-white w-full max-w-md rounded-lg mx-2 overflow-hidden"
     >
       <div className="flex p-4 justify-between items-center border-b">
-        <h1 className="font-semibold text-lg">Bestellen</h1>
+        <h1 className="font-semibold text-lg">Afhaal</h1>
         <IconBtn onClick={() => setOpen(false)}>
           <CloseIcon />
         </IconBtn>
@@ -177,23 +177,23 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
             if (paymentMethodType === null) {
               return setErrors((prev) => ({
                 ...prev,
-                paymentMethodType: "verplicht",
+                paymentMethodType: "Is verplicht",
               }));
             }
             onSubmit(true);
           }}
           type="button"
-          className="button bg-main text-white w-2/3"
+          className="button bg-main text-white w-3/5"
         >
-          Direct betalen {euro(calculateTotalCartPrice(cartState, storeFees))}
+          Direct afrekenen {euro(calculateTotalCartPrice(cartState, storeFees))}
         </button>
         <button
           disabled={processing}
           onClick={() => onSubmit(false)}
           type="button"
-          className="button border w-1/3"
+          className="button border w-2/5"
         >
-          Niet Betaald
+          Straks afrekenen
         </button>
       </div>
     </Modal>
