@@ -45,6 +45,7 @@ const SpecialDishModal = ({ open, setOpen }) => {
     setKitchenName("");
     setPrice(0);
     setQwt(1);
+    setBtw(false);
   };
 
   const addItemToCart = () => {
@@ -98,7 +99,10 @@ const SpecialDishModal = ({ open, setOpen }) => {
   return (
     <Modal
       toggle={open}
-      close={() => setOpen(false)}
+      close={() => {
+        setOpen(false);
+        resetValues();
+      }}
       className="bg-white h-auto w-full mx-2 max-w-sm rounded-lg relative flex flex-col overflow-hidden select-none"
     >
       {/* Container for the title */}
