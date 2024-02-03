@@ -163,13 +163,16 @@ const useMenuProvider = () => {
 
     // We filter over the raw data and check every category and the items in that category.
     data.forEach((array) => {
+      // We skip if the array is onlyAdmin and user is not admin
+      if (!user?.admin && array.adminOnly) return;
+
       const { items, category } = array;
       // If the category matches with the input we push the whole array.
       if (sanitize(category[locale]?.includes(sanitizedInput))) {
         return tempMenu.push(array);
       }
 
-      // If the category name doesn't match we check the individual items in the...
+      // If the category name doesn't match we check the ndividual items in the...
       // category with .filter.
       const filteredItem = items.filter((item) => {
         return (
