@@ -197,17 +197,18 @@ const Dashboard = () => {
     return () => unsubscribe();
   }, [date, showCompleted]);
 
+  // Dashboard is only for admin...
+  // If no user is not fetched yet we show spinner
+  // If there is no user we redirect to log in
+  // If there is a user but not an admin we redirect to home page.
   if (user === null) {
     return <Spinner />;
   } else if (user === false) {
     router.push("/sign_in");
+    return <Spinner />;
   } else if (!user?.admin) {
     router.push("/");
-    return (
-      <div className="w-full flex justify-center mt-20 font-bold text-3xl">
-        Acces denied, rerouting...
-      </div>
-    );
+    return <Spinner />;
   }
 
   return (

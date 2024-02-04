@@ -49,14 +49,19 @@ const Delivery = () => {
     return () => unsubscribe();
   }, [currentDate]);
 
-  useEffect(() => {
-    if (user !== null && !user?.admin && !user?.employee) {
-      router.push("/sign_in");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  if (!user || (!user?.admin && !user?.employee)) return <Spinner />;
+  // Delivery page is only for admins or emplyees
+  // If user not fetched we show spinner
+  // If there is no user we rerout to sign in
+  // if there is a user but not an admin or emplyee we rerout to home page.
+  if (user === null) {
+    return <Spinner />;
+  } else if (user === false) {
+    router.push("/sign_in");
+    return <Spinner />;
+  } else if (!user?.admin && !user?.employee) {
+    router.push("/");
+    return <Spinner />;
+  }
 
   return (
     <div className="max-w-sm mx-auto p-4 space-y-4">
