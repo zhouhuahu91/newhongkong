@@ -61,8 +61,6 @@ const SpecialDishModal = ({ open, setOpen }) => {
     if (kitchenName.length < 1) {
       return setMsg("Keuken omschrijving is verplicht");
     }
-    // Return if price isn't a number
-    if (!/^[0-9]+$/.test(price)) return setMsg("Prijs moet in cijfers.");
 
     setMsg("");
 
@@ -84,7 +82,7 @@ const SpecialDishModal = ({ open, setOpen }) => {
             zh: kitchenName,
           },
           id: Date.now().toString(),
-          price: Number(price),
+          price,
           optionIsMain: false,
           btw: btw ? 21 : 9,
         },
@@ -151,7 +149,7 @@ const SpecialDishModal = ({ open, setOpen }) => {
             onChange={(e) => setKitchenName(e.target.value)}
           />
         </div>
-        <div>
+        <div className="flex flex-col">
           <label htmlFor="price" className="label">
             Prijs
           </label>
