@@ -196,7 +196,7 @@ const SpecialDishModal = ({ open, setOpen }) => {
           type="button"
           className="bg-main text-white button col-span-7"
         >
-          Toevoegen {euro(price)}
+          Toevoegen {euro(price * qwt)}
         </button>
       </div>
     </Modal>
