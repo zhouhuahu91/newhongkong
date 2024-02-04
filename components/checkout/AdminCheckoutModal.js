@@ -48,7 +48,8 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
       total: calculateTotalCartPrice(cartState, storeFees),
       canceled: false,
       printed: false,
-      ready: false,
+      // We set ready true so that we know the order is placed locally
+      ready: true,
       mailSent: false,
       completed: false,
       delivery: false,
