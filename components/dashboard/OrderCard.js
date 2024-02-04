@@ -55,7 +55,6 @@ const OrderCard = ({
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
   // Check if this order is at the printer
-
   const sendOrderToPrinter = async (order) => {
     // If printer already has this order inside it means it is printing it already.
     if (isPrinting) return;
