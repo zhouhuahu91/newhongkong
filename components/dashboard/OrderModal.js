@@ -7,11 +7,13 @@ import IconBtn from "@/components/IconBtn";
 import EmailReadIcon from "@/icons/EmailReadIcon";
 import CloseIcon from "@/icons/CloseIcon";
 import ChangeItemRemarks from "@/components/dashboard/ChangeItemRemarks";
+import Switch from "@/components/Switch";
 // Function imports
 import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
 import getCurrentDate from "@/functions/getCurrentDate";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
+import calculateTotalOrderPrice from "@/functions/calculateTotalOrderPrice";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, updateDoc } from "firebase/firestore";
@@ -26,6 +28,8 @@ const OrderModal = ({ open, setOpen, order }) => {
   const [remarks, setRemarks] = useState(order.remarks);
   const [time, setTime] = useState(order.time);
   const [tel, setTel] = useState(order.tel);
+  const [tip, setTip] = useState(order.tip);
+  const [formattedTip, setFormattedTip] = useState(euro(order.tip));
 
   // Reference to the order in firestire
   const ref = doc(db, `orders/${order.id}`);
@@ -127,40 +131,56 @@ const OrderModal = ({ open, setOpen, order }) => {
               </Fragment>
             );
           })}
-          {order.tip > 0 && (
-            <>
-              <div className={itemIdStyling}>
-                <span className="text-lg font-semibold">1x</span>
-                <span className="text-lg font-semibold">887</span>
-              </div>
-              <div className={itemNameStyling}>tip</div>
-              <div className="col-span-2 text-right">{euro(order.tip)}</div>
-            </>
-          )}
 
-          {order.storeFees.packagingFee > 0 && (
-            <>
-              <div className={itemIdStyling}>
-                <span className="text-lg font-semibold">1x</span>
-                <span className="text-lg font-semibold">
-                  {order.storeFees.packagingFee === 10 ? "711" : "712"}
-                </span>
-              </div>
-              <div className={itemNameStyling}>packaging fee</div>
-              <div className="col-span-2 text-right">
-                {euro(order.storeFees.packagingFee)}
-              </div>
-            </>
-          )}
+          <>
+            <div className={itemIdStyling}>
+              <span className="text-lg font-semibold">1x</span>
+              <span className="text-lg font-semibold">887</span>
+            </div>
+            <div className={itemNameStyling}>tip</div>
+            <div className="col-span-2 text-right">
+              <input
+                value={formattedTip}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
+                  const number = value === "" ? 0 : parseInt(value, 10);
+                  setFormattedTip(euro(number));
+                  setTip(number);
+                }}
+                className="input text-right"
+                onBlur={() => {
+                  updateDoc(ref, {
+                    tip: tip,
+                    total: calculateTotalOrderPrice({ ...order, tip: tip }),
+                  });
+                }}
+              />
+            </div>
+          </>
 
-          {order.bag && !order.delivery && (
+          {!order.delivery && (
             <>
               <div className={itemIdStyling}>
                 <span className="text-lg font-semibold">1x</span>
                 <span className="text-lg font-semibold">720</span>
               </div>
               <div className={itemNameStyling}>bag</div>
-              <div className="col-span-2 text-right">
+              <div className="col-span-2 text-right flex items-center">
+                <Switch
+                  onClick={() => {
+                    // Removes or adds the bag to the order
+                    updateDoc(ref, {
+                      bag: !order.bag,
+                      // We need to calculate the new total price depending on this.
+                      total: calculateTotalOrderPrice({
+                        ...order,
+                        bag: !order.bag,
+                      }),
+                    });
+                  }}
+                  toggle={order.bag}
+                  className="mr-3"
+                />
                 {euro(order.storeFees.plasticBagFee)}
               </div>
             </>

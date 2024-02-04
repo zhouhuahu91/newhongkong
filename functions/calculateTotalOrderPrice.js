@@ -19,6 +19,8 @@ const calculateTotalOrderPrice = (order) => {
     total += order.storeFees.plasticBagFee;
   }
 
+  total += order.tip;
+
   return total;
 };
 
