@@ -24,7 +24,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.6 added btw and adminOnly option
 // version 0.0.7 added beverages
 // version 0.0.8 added small dishes for admin only
-export const version = "0.0.8";
+// version 0.0.9 added tax to pangsit, skipped
+export const version = "0.0.9";
 
 export const data = [
   menus,
