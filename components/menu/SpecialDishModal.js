@@ -31,6 +31,7 @@ const SpecialDishModal = ({ open, setOpen }) => {
   const [kitchenName, setKitchenName] = useState("");
   const [qwt, setQwt] = useState(1);
   const [price, setPrice] = useState(0);
+  const [formattedPrice, setFormattedPrice] = useState(euro(0));
   const [msg, setMsg] = useState("");
   // true if btw high
   const [btw, setBtw] = useState(false);
@@ -43,6 +44,7 @@ const SpecialDishModal = ({ open, setOpen }) => {
     setName("");
     setMsg("");
     setKitchenName("");
+    setFormattedPrice(euro(0));
     setPrice(0);
     setQwt(1);
     setBtw(false);
@@ -151,13 +153,18 @@ const SpecialDishModal = ({ open, setOpen }) => {
         </div>
         <div>
           <label htmlFor="price" className="label">
-            Prijs in centen
+            Prijs
           </label>
           <input
             id="price"
             className="input remove-arrow"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            value={formattedPrice}
+            onChange={(e) => {
+              const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
+              const number = value === "" ? 0 : parseInt(value, 10);
+              setFormattedPrice(euro(number));
+              setPrice(number);
+            }}
           />
         </div>
         <div className="flex flex-col">
