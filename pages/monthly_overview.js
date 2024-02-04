@@ -122,13 +122,20 @@ const MonthlyOverview = () => {
     return () => unsubscribe();
   }, [date]);
 
-  useEffect(() => {
-    if (!user || (!user?.admin && !user?.accountant)) {
-      router.push("/sign_in");
-    }
-  }, [user, router]);
+  // Overview page is only for admins or accountant
+  // If user not fetched we show spinner
+  // If there is no user we rerout to sign in
+  // if there is a user but not an admin or accountant we rerout to home page.
 
-  if (!user || (!user?.admin && !user?.accountant)) return <Spinner />;
+  if (user === null) {
+    return <Spinner />;
+  } else if (user === false) {
+    router.push("/sign_in");
+    return <Spinner />;
+  } else if (!user?.admin && !user?.accountant) {
+    router.push("/");
+    return <Spinner />;
+  }
 
   return (
     <div className="max-w-screen-lg mx-auto">
