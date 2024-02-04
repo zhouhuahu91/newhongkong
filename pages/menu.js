@@ -47,8 +47,6 @@ const Menu = () => {
   // ...where we can scroll to a category on click.
   const categoryRef = useRef([]);
 
-  console.log(cartState.cart);
-
   // useEffect(() => {
   //   uploadData();
   // }, []);
