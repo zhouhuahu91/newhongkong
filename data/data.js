@@ -23,7 +23,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.5 forgot to add chinese for haaienvinnensoep
 // version 0.0.6 added btw and adminOnly option
 // version 0.0.7 added beverages
-export const version = "0.0.7";
+// version 0.0.8 added small dishes for admin only
+export const version = "0.0.8";
 
 export const data = [
   menus,
