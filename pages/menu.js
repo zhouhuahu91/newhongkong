@@ -1,5 +1,5 @@
 //React imports
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -24,7 +24,7 @@ import IconBtn from "@/components/IconBtn";
 
 const Menu = () => {
   // This returns the cart state and dispatch functions.
-  const { dispatch, cartState } = useCart();
+  const { cartState } = useCart();
   // This state holds the temporary state for delivery true || false.
   // It is used mainly in the delivery or pickup modal.
   const [delivery, setDelivery] = useState(cartState.delivery);
