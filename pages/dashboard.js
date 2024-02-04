@@ -182,14 +182,14 @@ const Dashboard = () => {
       // Sets delivery to orders that are for delivery and are ready.
       setDelivery(
         filtered.filter((order) => {
-          if (order.delivery && order.ready) return order;
+          if (order.delivery && order.ready && order.printed) return order;
         })
       );
 
       // Sets pickup to orders that are for pickup and are ready.ƒ
       setPickup(
         filtered.filter((order) => {
-          if (!order.delivery && order.ready) return order;
+          if (!order.delivery && order.ready && order.printed) return order;
         })
       );
     });
