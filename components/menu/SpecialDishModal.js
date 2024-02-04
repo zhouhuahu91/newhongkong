@@ -120,7 +120,7 @@ const SpecialDishModal = ({ open, setOpen }) => {
         </IconBtn>
       </div>
       {/* Container for the inputs */}
-      <div className="bg-gray-50 p-4 flex gap-2 flex-col">
+      <div className="bg-gray-50 p-4 flex gap-1 flex-col">
         {msg && (
           <span className="flex items-center text-sm border w-full p-2 bg-yellow-100">
             <InfoIcon className="mr-2 fill-main" />
