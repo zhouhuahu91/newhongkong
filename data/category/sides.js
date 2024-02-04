@@ -112,6 +112,7 @@ export default {
       },
       price: 600,
       qtyPlastic: 1,
+      btw: btw.laag,
     },
     {
       id: "12",
