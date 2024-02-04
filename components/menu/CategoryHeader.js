@@ -2,6 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
+import { useAuth } from "@/hooks/useAuth";
 // Function imports
 import getElementDimensions from "@/functions/getElementDimensions";
 // Component imports
@@ -19,6 +20,8 @@ const CategoryHeader = ({ data, categoryRef }) => {
   const categoryTitleRef = useRef([]);
   // This is a reference to the container holding the titles.
   const containerRef = useRef();
+  // Returns the user
+  const { user } = useAuth();
 
   // This useEffect listens to scroll and changes the visableCategory state.
   useEffect(() => {
@@ -93,30 +96,34 @@ const CategoryHeader = ({ data, categoryRef }) => {
           ref={containerRef}
           className="flex overflow-scroll hide-scroll-bar"
         >
-          {data.map((category, idx) => (
-            <button
-              type="button"
-              id={category.id}
-              key={category.id}
-              ref={(e) => (categoryTitleRef.current[idx] = e)}
-              onClick={() => {
-                // This scrolls the main menu in the y axis.
-                window.scrollTo({
-                  behavior: "smooth",
-                  // We scroll to the top of the category + 70px for ajustment.
-                  top: categoryRef.current[idx].offsetTop + 70,
-                });
-              }}
-              className={`whitespace-nowrap my-3 rounded-full px-2 text-sm py-1 transition-colors ease-in duration-200 ${
-                visableCategory?.id == category.id
-                  ? "border-main font-medium text-main selected red-focus-ring mx-1"
-                  : "red-focus-text"
-              }`}
-            >
-              {/* We highlight the category that is selected. */}
-              {category.category[t.locale]}
-            </button>
-          ))}
+          {data.map((category, idx) => {
+            // if there is no user or user is not admin and category is adminOnly we return.
+            if (!user?.admin && category.adminOnly) return;
+            return (
+              <button
+                type="button"
+                id={category.id}
+                key={category.id}
+                ref={(e) => (categoryTitleRef.current[idx] = e)}
+                onClick={() => {
+                  // This scrolls the main menu in the y axis.
+                  window.scrollTo({
+                    behavior: "smooth",
+                    // We scroll to the top of the category + 70px for ajustment.
+                    top: categoryRef.current[idx].offsetTop + 70,
+                  });
+                }}
+                className={`whitespace-nowrap my-3 rounded-full px-2 text-sm py-1 transition-colors ease-in duration-200 ${
+                  visableCategory?.id == category.id
+                    ? "border-main font-medium text-main selected red-focus-ring mx-1"
+                    : "red-focus-text"
+                }`}
+              >
+                {/* We highlight the category that is selected. */}
+                {category.category[t.locale]}
+              </button>
+            );
+          })}
         </div>
         <IconBtn
           onClick={() => {
