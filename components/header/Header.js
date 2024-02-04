@@ -103,18 +103,23 @@ const Header = () => {
                 </Link>
               )}
             {/* Link to delivery orders*/}
-            {(user?.admin || user?.employee) && !(user?.admin && width < 768) && (
-              <Link href="/delivery">
-                <a className="red-focus-ring rounded">
-                  <PedalBikeIcon className={`${atHome && "fill-white"}`} />
-                </a>
-              </Link>
+            {(user?.admin || user?.employee) &&
+              !(user?.admin && width < 768) && (
+                <Link href="/delivery">
+                  <a className="red-focus-ring rounded">
+                    <PedalBikeIcon className={`${atHome && "fill-white"}`} />
+                  </a>
+                </Link>
+              )}
+            {user !== null && (
+              <>
+                {/* Options for language, available on all screen sizes. */}
+                <I18nMenu />
+                {/* Auth menu is only availeble on screens bigger than md. */}
+                {/* Auth menu only smaller screens is in the BurgerMenu. */}
+                <AuthMenu />
+              </>
             )}
-            {/* Options for language, available on all screen sizes. */}
-            <I18nMenu />
-            {/* Auth menu is only availeble on screens bigger than md. */}
-            {/* Auth menu only smaller screens is in the BurgerMenu. */}
-            <AuthMenu />
           </div>
         </div>
         {/* ********* MAIN CONTAINER  ********* */}

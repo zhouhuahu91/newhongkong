@@ -180,7 +180,7 @@ const useAuthProvider = () => {
         // to the user in firestore.
         return setUserUID(uid);
       }
-      // If there is no user we reset the values to null
+      // If there is no user we reset the values to false
       setUserUID(false);
       setUser(false);
     });
