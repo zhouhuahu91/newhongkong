@@ -156,7 +156,7 @@ const Menu = () => {
             {/* This span is needed so that the desktop starts on the same height as the menu without title. */}
             {/* <DesktopCart setOpen={setOpen} setDelivery={setDelivery} /> */}
 
-            {user && user?.admin ? (
+            {user && user?.admin === true ? (
               <AdminCart />
             ) : (
               <DesktopCart setOpen={setOpen} setDelivery={setDelivery} />

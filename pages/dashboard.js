@@ -197,12 +197,18 @@ const Dashboard = () => {
     return () => unsubscribe();
   }, [date, showCompleted]);
 
-  useEffect(() => {
-    if (user === null || !user?.admin) {
-      router.push("/sign_in");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, router]);
+  if (user === null) {
+    return <Spinner />;
+  } else if (user === false) {
+    router.push("/sign_in");
+  } else if (!user?.admin) {
+    router.push("/");
+    return (
+      <div className="w-full flex justify-center mt-20 font-bold text-3xl">
+        Acces denied, rerouting...
+      </div>
+    );
+  }
 
   return (
     <div>

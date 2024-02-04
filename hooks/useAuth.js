@@ -181,8 +181,8 @@ const useAuthProvider = () => {
         return setUserUID(uid);
       }
       // If there is no user we reset the values to null
-      setUserUID(null);
-      setUser(null);
+      setUserUID(false);
+      setUser(false);
     });
 
     return () => unsubscribe();
