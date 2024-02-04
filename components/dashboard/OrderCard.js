@@ -213,7 +213,7 @@ const OrderCard = ({
             )}
             {/* If the order is ready and paid for but not yet completed we show... */}
             {/* the icon that indicates that it can be put on completed. */}
-            {order.ready && order.paid && !order.completed && (
+            {order.ready && order.paid && !order.completed && order.printed && (
               <IconBtn
                 onClick={(e) => {
                   e.stopPropagation();
