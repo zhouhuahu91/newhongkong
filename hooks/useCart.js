@@ -184,10 +184,15 @@ const prepareItemToAddToCart = (selectedOptions, selectedSides, item, qwt) => {
   // We need a description for the options and sides they have selected.
   const description = createItemDescription(item, options, sides);
 
+  // We need to calcuate the tax of this product.
+  const vatAmount = Math.round(price * (item.btw / (100 + item.btw)));
+  const netPrice = Math.round(price / ((100 + item.btw) / 100));
   return {
     name,
     description,
     price,
+    netPrice,
+    vatAmount,
     selectedOptionsForPrinter: options,
     selectedSidesForPrinter: sides,
   };
@@ -205,16 +210,25 @@ const addItem = (cart, payload) => {
   // If found we map over the cart array and increment the qwt.
   if (found) {
     return cart.map((cartItem) => {
-      return cartItem.id === id
-        ? {
-            ...cartItem,
-            qwt: cartItem.qwt + qwt,
-            // We need the price of 1 item to calculate the new price.
-            price: (cartItem.price / cartItem.qwt) * (cartItem.qwt + qwt),
-            // If the item has remarks we replace the old remarks with the new ones.
-            remarks: remarks ? remarks : cartItem.remarks,
-          }
-        : cartItem;
+      if (cartItem.id === id) {
+        const newPrice = (cartItem.price / cartItem.qwt) * (cartItem.qwt + qwt);
+        const newVatAmount = Math.round(
+          newPrice * (item.btw / (100 + item.btw))
+        );
+        const newNetPrice = Math.round(newPrice / ((100 + item.btw) / 100));
+        return {
+          ...cartItem,
+          qwt: cartItem.qwt + qwt,
+          // We need the price of 1 item to calculate the new price.
+          price: newPrice,
+          vatAmount: newVatAmount,
+          netPrice: newNetPrice,
+          // If the item has remarks we replace the old remarks with the new ones.
+          remarks: remarks ? remarks : cartItem.remarks,
+        };
+      } else {
+        return cartItem;
+      }
     });
   } else {
     // If not found we need to prepare a new item.
@@ -256,16 +270,25 @@ const saveItem = (cart, payload) => {
   // Those are the only things that can be changed if user didn't change sides and options.
   if (cartItem.id === id) {
     return cart.map((currentCartItem) => {
-      return currentCartItem.id === id
-        ? {
-            ...currentCartItem,
-            qwt,
-            // We need the price of 1 item to calculate the new price.
-            price: (currentCartItem.price / currentCartItem.qwt) * qwt,
-            // We replace the remarks.
-            remarks,
-          }
-        : currentCartItem;
+      if (currentCartItem.id === id) {
+        const newPrice = (currentCartItem.price / currentCartItem.qwt) * qwt;
+        const newVatAmount = Math.round(
+          newPrice * (item.btw / (100 + item.btw))
+        );
+        const newNetPrice = Math.round(newPrice / ((100 + item.btw) / 100));
+        return {
+          ...currentCartItem,
+          qwt,
+          // We need the price of 1 item to calculate the new price.
+          price: newPrice,
+          vatAmount: newVatAmount,
+          netPrice: newNetPrice,
+          // We replace the remarks.
+          remarks,
+        };
+      } else {
+        return currentCartItem;
+      }
     });
 
     // If cartItem.id !== id that means the user changed the options and sides.
@@ -276,18 +299,27 @@ const saveItem = (cart, payload) => {
     return (
       cart
         .map((currentCartItem) => {
-          return currentCartItem.id === id
-            ? {
-                ...currentCartItem,
-                qwt: currentCartItem.qwt + qwt,
-                // We need the price of 1 item to calculate the new price.
-                price:
-                  (currentCartItem.price / currentCartItem.qwt) *
-                  (currentCartItem.qwt + qwt),
-                // We replace the remarks.
-                remarks,
-              }
-            : currentCartItem;
+          if (currentCartItem.id === id) {
+            const newPrice =
+              (currentCartItem.price / currentCartItem.qwt) *
+              (currentCartItem.qwt + qwt);
+            const newVatAmount = Math.round(
+              newPrice * (item.btw / (100 + item.btw))
+            );
+            const newNetPrice = Math.round(newPrice / ((100 + item.btw) / 100));
+            return {
+              ...currentCartItem,
+              qwt: currentCartItem.qwt + qwt,
+              // We need the price of 1 item to calculate the new price.
+              price: newPrice,
+              vatAmount: newVatAmount,
+              netPrice: newNetPrice,
+              // We replace the remarks.
+              remarks,
+            };
+          } else {
+            return currentCartItem;
+          }
         })
         // We then filter out the old item.
         .filter((x) => x.id !== cartItem.id)
@@ -324,15 +356,24 @@ const saveItem = (cart, payload) => {
 const incrementItem = (cart, payload) => {
   // We use the map function to increment the qwt of the item.
   return cart.map((cartItem) => {
-    return cartItem.id === payload.id
-      ? {
-          ...cartItem,
-          qwt: cartItem.qwt + 1,
-          // We calculate the new price by getting the price of 1 and then...
-          // multipling it with the new qwt + 1.
-          price: (cartItem.price / cartItem.qwt) * (cartItem.qwt + 1),
-        }
-      : cartItem;
+    if (cartItem.id === payload.id) {
+      const newPrice = (cartItem.price / cartItem.qwt) * (cartItem.qwt + 1);
+      const newVatAmount = Math.round(
+        newPrice * (cartItem.btw / (100 + cartItem.btw))
+      );
+      const newNetPrice = Math.round(newPrice / ((100 + cartItem.btw) / 100));
+      return {
+        ...cartItem,
+        qwt: cartItem.qwt + 1,
+        // We calculate the new price by getting the price of 1 and then...
+        // multipling it with the new qwt + 1.
+        price: newPrice,
+        vatAmount: newVatAmount,
+        netPrice: newNetPrice,
+      };
+    } else {
+      return cartItem;
+    }
   });
 };
 
@@ -343,15 +384,24 @@ const decrementItem = (cart, payload) => {
   } else {
     // If there is more than one we decrement the qwt.
     return cart.map((cartItem) => {
-      return cartItem.id === payload.id
-        ? {
-            ...cartItem,
-            qwt: cartItem.qwt - 1,
-            // We calculate the new price by getting the price of 1 and then...
-            // multipling it with the new qwt - 1.
-            price: (cartItem.price / cartItem.qwt) * (cartItem.qwt - 1),
-          }
-        : cartItem;
+      if (cartItem.id === payload.id) {
+        const newPrice = (cartItem.price / cartItem.qwt) * (cartItem.qwt - 1);
+        const newVatAmount = Math.round(
+          newPrice * (cartItem.btw / (100 + cartItem.btw))
+        );
+        const newNetPrice = Math.round(newPrice / ((100 + cartItem.btw) / 100));
+        return {
+          ...cartItem,
+          qwt: cartItem.qwt - 1,
+          // We calculate the new price by getting the price of 1 and then...
+          // multipling it with the new qwt - 1.
+          price: newPrice,
+          vatAmount: newVatAmount,
+          netPrice: newNetPrice,
+        };
+      } else {
+        return cartItem;
+      }
     });
   }
 };
