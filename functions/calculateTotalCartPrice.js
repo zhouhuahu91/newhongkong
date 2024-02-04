@@ -1,3 +1,4 @@
+// This function is for when the order is not placed yet.
 const calculateTotalCartPrice = (cartState, storeFees) => {
   let total = 0;
   // We add the price of all the items in the cart.
