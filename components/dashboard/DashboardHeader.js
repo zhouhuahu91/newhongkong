@@ -9,6 +9,7 @@ import StoreSettings from "@/components/dashboard/StoreSettings";
 import BurgerMenu from "@/components/header/BurgerMenu";
 import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
 import AddTimeSlotModal from "@/components/dashboard/AddTimeSlotModal";
+import DailyReportModal from "@/components/dashboard/DailyReportModal";
 
 const DashboardHeader = ({
   date,
@@ -41,6 +42,7 @@ const DashboardHeader = ({
             toggle={showCompleted}
             onClick={() => setShowCompleted((prev) => !prev)}
           />
+          <DailyReportModal date={date} />
           <AddEmployeeRoll />
           <AddTimeSlotModal />
           <StoreSettings />
