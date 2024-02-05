@@ -229,7 +229,7 @@ const Dashboard = () => {
             <div className="grid gap-4">
               {/* these are the orders that are in the kitchen. */}
               {orders.map((order) => {
-                if (order.printed && !order.ready && !order.completed)
+                if (order.printed && !order.ready)
                   return (
                     <OrderCard
                       key={order.id}
@@ -315,7 +315,6 @@ const Dashboard = () => {
               })}
             </div>
           </div>
-
           {/* ***** END FOURTH COLUMN ****** */}
         </div>
       </div>
