@@ -21,7 +21,6 @@ import {
   onSnapshot,
   doc,
   updateDoc,
-  getDoc,
   deleteDoc,
 } from "firebase/firestore";
 // Fucntion imports
