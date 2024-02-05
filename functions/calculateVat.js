@@ -13,6 +13,9 @@ const calculateVat = (order) => {
     } else if (item.btw === 21) {
       // add the price to high
       high += item.price;
+    } else if (item.btw === undefined) {
+      // if items doesn't specify btw we assume it is low
+      low += item.price;
     }
   });
 
