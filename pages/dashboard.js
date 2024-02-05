@@ -30,6 +30,12 @@ import euro from "@/functions/euro";
 const Dashboard = () => {
   const router = useRouter();
   const { currentDate } = useStoreInfo();
+  const { user } = useAuth();
+  // We store all orders here
+  const [orders, setOrders] = useState([]);
+  // We need to keep score of the orders length to know when we play a new order sound.
+  const [ordersLength, setOrdersLength] = useState(0);
+  // Audio will be stored here
   const [audio, setAudio] = useState(null);
   // Show orders that are completed or not.
   const [showCompleted, setShowCompleted] = useState(false);
@@ -37,28 +43,14 @@ const Dashboard = () => {
   const [date, setDate] = useState(currentDate);
   // This state holds the id of the last selected order.
   const [lastSelectedOrder, setLastSelectedOrder] = useState(null);
-  // Dashboard orders are filtered in 4 categories:
-  // 1. New orders.
-  const [newOrders, setNewOrders] = useState([]);
-  // 2. Orders in the kitchen.
-  const [printed, setPrinted] = useState([]);
-  // 3. Orders that are ready for pickup.
-  const [pickup, setPickup] = useState([]);
-  // 4. Orders that are being delivered.
-  const [delivery, setDelivery] = useState([]);
-
-  const [totalTips, setTotalTips] = useState(0);
-
-  // We need the toggle for the chat modal here because when chat is open...
-  // ... we need to disable the enter click event.
-  const [chatModal, setChatModal] = useState(false);
-  // We need the orders count to know when we play a new order sound.
-  const [ordersCount, setOrdersCount] = useState(newOrders.length);
   // The job currently in the printer.
   // Should never be more than one.
   const [printJobs, setPrintJobs] = useState([]);
+  // We need the toggle for the chat modal here because when chat is open...
+  // ... we need to disable the enter click event.
+  const [chatModal, setChatModal] = useState(false);
 
-  const { user } = useAuth();
+  const totalTips = orders.reduce((x, y) => (y.delivery ? x + y.tip : x), 0);
 
   // listen for enter key with useEffect
   useEffect(() => {
@@ -95,14 +87,16 @@ const Dashboard = () => {
   }, [lastSelectedOrder, chatModal]);
 
   useEffect(() => {
-    if (ordersCount > newOrders.length) {
-      return setOrdersCount(newOrders.length);
+    // If the current orders count is bigger than the length of orders
+    if (ordersLength > orders.length) {
+      return setOrdersLength(orders.length);
     }
-    if (newOrders.length > ordersCount && audio) {
+    // If this is true we play the audio and set the new orders counts.
+    if (orders.length > ordersLength && audio) {
       audio.play();
-      setOrdersCount(newOrders.length);
+      setOrdersLength(orders.length);
     }
-  }, [newOrders, audio, ordersCount]);
+  }, [audio, ordersLength, orders.length]);
 
   useEffect(() => {
     setAudio(new Audio("/bell.mp3"));
@@ -115,7 +109,6 @@ const Dashboard = () => {
       const data = snapshot.docs.map((doc) => {
         return { id: doc.id, ...doc.data() };
       });
-
       setPrintJobs(data);
     });
 
@@ -128,18 +121,9 @@ const Dashboard = () => {
       const data = snapshot.docs.map((doc) => {
         return { ...doc.data(), id: doc.id };
       });
-
       // We seperate the orders in delivery and pick up.
       const deliveryOrders = data.filter((order) => order.delivery);
       const pickupOrders = data.filter((order) => !order.delivery);
-
-      // We calculate all the tips for deliveryOrders.
-      const tempTotalTips = deliveryOrders.reduce((x, y) => x + y.tip, 0);
-      // If tempTotalTips is different than total tips we set totalTips to tempTotalTips.
-      if (tempTotalTips !== totalTips) {
-        setTotalTips(tempTotalTips);
-      }
-
       // We sort the pick up orders by time. 16:00 => 1600.
       const sortedPickUpOrders = pickupOrders.sort((a, b) => {
         return a.time.replace(":", "") - b.time.replace(":", "");
@@ -149,7 +133,6 @@ const Dashboard = () => {
       // number.
       // We just need the first time to sort the value. We slice the time to get 16:00 and then...
       // replace : with nothing so we eventually get 1600.
-
       const sortedDeliveryOrders = deliveryOrders.sort((a, b) => {
         let x = a.time.includes(":")
           ? a.time.slice(0, 5).replace(":", "")
@@ -159,43 +142,11 @@ const Dashboard = () => {
           : b.createdAt / 10000000000000;
         return x - y;
       });
-
-      // Just to show completed or not completed orders.
-      const filtered = [...sortedPickUpOrders, ...sortedDeliveryOrders].filter(
-        (order) => (showCompleted ? order : order.completed === false)
-      );
-
-      // Sets newOrders to orders that haven't been printed and aren't ready yet.
-      setNewOrders(
-        filtered.filter((order) => {
-          if (!order.printed) return order;
-        })
-      );
-
-      // Sets printed to orders that are printed and that aren't ready yet.
-      setPrinted(
-        filtered.filter((order) => {
-          if (order.printed && !order.ready) return order;
-        })
-      );
-
-      // Sets delivery to orders that are for delivery and are ready.
-      setDelivery(
-        filtered.filter((order) => {
-          if (order.delivery && order.ready && order.printed) return order;
-        })
-      );
-
-      // Sets pickup to orders that are for pickup and are ready.ƒ
-      setPickup(
-        filtered.filter((order) => {
-          if (!order.delivery && order.ready && order.printed) return order;
-        })
-      );
+      setOrders([...sortedPickUpOrders, ...sortedDeliveryOrders]);
     });
 
     return () => unsubscribe();
-  }, [date, showCompleted]);
+  }, [date]);
 
   // Dashboard is only for admin...
   // If no user is not fetched yet we show spinner
@@ -221,6 +172,8 @@ const Dashboard = () => {
       />
       <div className="p-4 mt-8 select-none">
         <div className="grid grid-cols-12">
+          {/* ***** START FIRST COLUMN ****** */}
+
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <div className="mb-4 border-b flex justify-center items-center">
               <h1 className="text-2xl font-semibold text-center mr-4">NEW</h1>
@@ -240,54 +193,95 @@ const Dashboard = () => {
               </IconBtn>
             </div>
             <div className="grid gap-4">
-              {newOrders.map((order, idx) => (
-                <OrderCard
-                  key={order.id}
-                  order={order}
-                  atNew={true}
-                  idx={idx}
-                  printerBusy={printJobs.length > 0}
-                  isPrinting={printJobs.map((job) => job.id).includes(order.id)}
-                  lastSelectedOrder={lastSelectedOrder}
-                  setLastSelectedOrder={setLastSelectedOrder}
-                />
-              ))}
+              {/* First column is for all the orders that are not printed aka new orders. */}
+              {orders.map((order, idx) => {
+                if (order.printed === false) {
+                  return (
+                    <OrderCard
+                      key={order.id}
+                      order={order}
+                      atNew={true}
+                      // When we start up dashboard and there are more than one order we only want to auto print the first order.
+                      // Thats why this component needs idx
+                      idx={idx}
+                      // We use this to disable print if there is already an order printing.
+                      printerBusy={printJobs.length > 0}
+                      // We want to show a spinner if current order is printing.
+                      isPrinting={printJobs
+                        .map((job) => job.id)
+                        .includes(order.id)}
+                      lastSelectedOrder={lastSelectedOrder}
+                      setLastSelectedOrder={setLastSelectedOrder}
+                    />
+                  );
+                }
+              })}
             </div>
           </div>
+
+          {/* ***** END FIRST COLUMN ****** */}
+          {/* ***** START SECOND COLUMN ****** */}
+
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <h1 className="text-2xl mb-4 font-semibold text-center border-b">
               KITCHEN
             </h1>
             <div className="grid gap-4">
-              {printed.map((order) => (
-                <OrderCard
-                  key={order.id}
-                  order={order}
-                  printerBusy={printJobs.length > 0}
-                  isPrinting={printJobs.map((job) => job.id).includes(order.id)}
-                  lastSelectedOrder={lastSelectedOrder}
-                  setLastSelectedOrder={setLastSelectedOrder}
-                />
-              ))}
+              {/* these are the orders that are in the kitchen. */}
+              {orders.map((order) => {
+                if (order.printed && !order.ready && !order.completed)
+                  return (
+                    <OrderCard
+                      key={order.id}
+                      order={order}
+                      // We use this to disable print if there is already an order printing.
+                      printerBusy={printJobs.length > 0}
+                      // We want to show a spinner if current order is printing.
+                      isPrinting={printJobs
+                        .map((job) => job.id)
+                        .includes(order.id)}
+                      lastSelectedOrder={lastSelectedOrder}
+                      setLastSelectedOrder={setLastSelectedOrder}
+                    />
+                  );
+              })}
             </div>
           </div>
+
+          {/* ***** END SECOND COLUMN ****** */}
+          {/* ***** START THIRD COLUMN ****** */}
+
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <h1 className="text-2xl mb-4 font-semibold text-center border-b">
               PICK UP
             </h1>
             <div className="grid gap-4">
-              {pickup.map((order) => (
-                <OrderCard
-                  key={order.id}
-                  order={order}
-                  printerBusy={printJobs.length > 0}
-                  isPrinting={printJobs.map((job) => job.id).includes(order.id)}
-                  lastSelectedOrder={lastSelectedOrder}
-                  setLastSelectedOrder={setLastSelectedOrder}
-                />
-              ))}
+              {/* These are orders that are printed and ready for pickup. */}
+              {orders.map((order) => {
+                // If order is already completed and show order is false we return
+                if (order.completed && showCompleted === false) return;
+                if (order.printed && order.ready && !order.delivery)
+                  return (
+                    <OrderCard
+                      key={order.id}
+                      order={order}
+                      // We use this to disable print if there is already an order printing.
+                      printerBusy={printJobs.length > 0}
+                      // We want to show a spinner if current order is printing.
+                      isPrinting={printJobs
+                        .map((job) => job.id)
+                        .includes(order.id)}
+                      lastSelectedOrder={lastSelectedOrder}
+                      setLastSelectedOrder={setLastSelectedOrder}
+                    />
+                  );
+              })}
             </div>
           </div>
+
+          {/* ***** END THIRD COLUMN ****** */}
+          {/* ***** START FOURTH COLUMN ****** */}
+
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <div className="text-2xl mb-4 font-semibold text-center border-b flex justify-center items-center">
               <h1 className="mr-2">DELIVERY</h1>
@@ -299,18 +293,30 @@ const Dashboard = () => {
               />
             </div>
             <div className="grid gap-4">
-              {delivery.map((order) => (
-                <OrderCard
-                  key={order.id}
-                  order={order}
-                  printerBusy={printJobs.length > 0}
-                  isPrinting={printJobs.map((job) => job.id).includes(order.id)}
-                  lastSelectedOrder={lastSelectedOrder}
-                  setLastSelectedOrder={setLastSelectedOrder}
-                />
-              ))}
+              {/* These are orders that are on the way */}
+              {orders.map((order) => {
+                // If order is already completed and show order is false we return
+                if (order.completed && showCompleted === false) return;
+                if (order.printed && order.ready && order.delivery)
+                  return (
+                    <OrderCard
+                      key={order.id}
+                      order={order}
+                      // We use this to disable print if there is already an order printing.
+                      printerBusy={printJobs.length > 0}
+                      // We want to show a spinner if current order is printing.
+                      isPrinting={printJobs
+                        .map((job) => job.id)
+                        .includes(order.id)}
+                      lastSelectedOrder={lastSelectedOrder}
+                      setLastSelectedOrder={setLastSelectedOrder}
+                    />
+                  );
+              })}
             </div>
           </div>
+
+          {/* ***** END FOURTH COLUMN ****** */}
         </div>
       </div>
       <DashboardChat open={chatModal} setOpen={setChatModal} />
