@@ -59,11 +59,9 @@ const Dashboard = () => {
       // chatModal has it's own enter key listener.
       if (e.key === "Enter" && lastSelectedOrder && !chatModal) {
         const ref = doc(db, `orders/${lastSelectedOrder.id}`);
-        const snapshot = await getDoc(ref);
-        const order = snapshot.data();
-        // if enter key pressed we set order to printed
-        // we get the ref
-
+        const [order] = orders.filter((x) => x.id === lastSelectedOrder.id);
+        // If there is no order we return.
+        if (!order) return;
         // If order is printed ready and paid for we can put it on complete.
         if (order.printed && order.ready && order.paid) {
           await updateDoc(ref, {
@@ -71,7 +69,6 @@ const Dashboard = () => {
           });
           setLastSelectedOrder(null);
         }
-
         // If order is printed we can put it to ready.
         if (order.printed) {
           return updateDoc(ref, {
@@ -84,7 +81,7 @@ const Dashboard = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [lastSelectedOrder, chatModal]);
+  }, [lastSelectedOrder, chatModal, orders]);
 
   useEffect(() => {
     // If the current orders count is bigger than the length of orders
