@@ -1,19 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import receiptline from "receiptline";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  setDoc,
-  doc,
-} from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 // Icon imports
 import ReportIcon from "@/icons/ReportIcon";
 import LoadingIcon from "@/icons/LoadingIcon";
 import PrintIcon from "@/icons/PrintIcon";
+import CloseIcon from "@/icons/CloseIcon";
 // Component imports
 import IconBtn from "@/components/IconBtn";
 import Modal from "@/components/Modal";
@@ -21,74 +15,60 @@ import Modal from "@/components/Modal";
 import calculateVat from "@/functions/calculateVat";
 import euro from "@/functions/euro";
 
-const DailyReportModal = ({ date, printJobs }) => {
+const DailyReportModal = ({ date, printJobs, orders }) => {
   // State for opening and closing the modal
   const [open, setOpen] = useState(false);
-  // We store all the orders here
-  const [report, setReport] = useState("");
-  // Refresh is to not waste recourse. We don't need to fetch all the orders all the time.
-  const [refresh, setRefresh] = useState(true);
 
-  const fetchOrders = async () => {
-    // We want all the orders that are completed on this day.
-    const q = query(
-      collection(db, "orders"),
-      where("date", "==", date),
-      where("completed", "==", true)
-    );
-    const snapshot = await getDocs(q);
-    const data = snapshot.docs.map((doc) => doc.data());
-
-    // Total revenue
-    const revenue = data.reduce((x, y) => x + y.total, 0);
-    // Total online payments
-    const onlinePayments = {};
-    data.forEach((order) => {
-      if (order.paymentMethod === "online") {
-        if (onlinePayments[`${order.paymentMethodType}`] > 0) {
-          onlinePayments[`${order.paymentMethodType}`] += order.total;
-        } else {
-          onlinePayments[`${order.paymentMethodType}`] = order.total;
-        }
-      }
-    });
-
-    // Total card payments in store, online payment is also set to card if they pay with credit card. Didn't know stripe did this.
-    const cardPayments = data.reduce((x, y) => {
-      if (y.paymentMethod === "in_person" && y.paymentMethodType === "card") {
-        return x + y.total;
+  // Total revenue
+  const revenue = orders.reduce((x, y) => x + y.total, 0);
+  // Total online payments
+  const onlinePayments = {};
+  orders.forEach((order) => {
+    if (order.paymentMethod === "online") {
+      if (onlinePayments[`${order.paymentMethodType}`] > 0) {
+        onlinePayments[`${order.paymentMethodType}`] += order.total;
       } else {
-        return x;
+        onlinePayments[`${order.paymentMethodType}`] = order.total;
       }
-    }, 0);
+    }
+  });
 
-    // This one is easier we just need to check paymentMethodType if that one is cash or not but we do it just in case.
-    const cashPayments = data.reduce((x, y) => {
-      if (y.paymentMethod === "in_person" && y.paymentMethodType === "cash") {
-        return x + y.total;
-      } else {
-        return x;
-      }
-    }, 0);
+  // Total card payments in store, online payment is also set to card if they pay with credit card. Didn't know stripe did this.
+  const cardPayments = orders.reduce((x, y) => {
+    if (y.paymentMethod === "in_person" && y.paymentMethodType === "card") {
+      return x + y.total;
+    } else {
+      return x;
+    }
+  }, 0);
 
-    const vat = data.reduce(
-      (x, y) => {
-        // z returns the vat of the current order
-        const z = calculateVat(y);
-        // We add the vat of current order with the vat that is store in x.
-        return {
-          low: x.low + z.low,
-          high: x.high + z.high,
-          zero: x.zero + z.zero,
-        };
-      },
-      { low: 0, high: 0, zero: 0 }
-    );
+  // This one is easier we just need to check paymentMethodType if that one is cash or not but we do it just in case.
+  const cashPayments = orders.reduce((x, y) => {
+    if (y.paymentMethod === "in_person" && y.paymentMethodType === "cash") {
+      return x + y.total;
+    } else {
+      return x;
+    }
+  }, 0);
 
-    const lowBTW = Math.round((vat.low / 109) * 9);
-    const highBTW = Math.round((vat.high / 121) * 21);
+  const vat = orders.reduce(
+    (x, y) => {
+      // z returns the vat of the current order
+      const z = calculateVat(y);
+      // We add the vat of current order with the vat that is store in x.
+      return {
+        low: x.low + z.low,
+        high: x.high + z.high,
+        zero: x.zero + z.zero,
+      };
+    },
+    { low: 0, high: 0, zero: 0 }
+  );
 
-    let markup = `
+  const lowBTW = Math.round((vat.low / 109) * 9);
+  const highBTW = Math.round((vat.high / 121) * 21);
+
+  let markup = `
     "^^^^New Hong Kong
 
     Havenstraat 13  
@@ -126,29 +106,18 @@ const DailyReportModal = ({ date, printJobs }) => {
     |pinnen       | ${euro(cardPayments)}|  €~~~~~~~~~|
 `;
 
-    for (const type in onlinePayments) {
-      markup += `|${type.replace("_", " ")} | ${euro(
-        onlinePayments[type]
-      )}| ${euro(0)}
+  for (const type in onlinePayments) {
+    markup += `|${type.replace("_", " ")} | ${euro(
+      onlinePayments[type]
+    )}| ${euro(0)}
       `;
-    }
+  }
 
-    const svg = receiptline.transform(markup, {
-      cpl: 46,
-      encoding: "cp936",
-      spacing: true,
-    });
-
-    setReport(svg);
-
-    setRefresh(false);
-  };
-
-  useEffect(() => {
-    if (open && refresh) {
-      fetchOrders();
-    }
-  }, [open, date, refresh]);
+  const report = receiptline.transform(markup, {
+    cpl: 46,
+    encoding: "cp936",
+    spacing: true,
+  });
 
   return (
     <>
@@ -181,10 +150,10 @@ const DailyReportModal = ({ date, printJobs }) => {
           </div>
           <IconBtn
             onClick={() => {
-              setRefresh(true);
+              setOpen(false);
             }}
           >
-            <LoadingIcon />
+            <CloseIcon />
           </IconBtn>
         </div>
         <div

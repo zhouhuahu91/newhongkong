@@ -166,6 +166,7 @@ const Dashboard = () => {
         showCompleted={showCompleted}
         setShowCompleted={setShowCompleted}
         printJobs={printJobs}
+        orders={orders}
       />
       <div className="p-4 mt-8 select-none">
         <div className="grid grid-cols-12">

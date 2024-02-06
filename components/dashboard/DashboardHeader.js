@@ -17,6 +17,7 @@ const DashboardHeader = ({
   showCompleted,
   setShowCompleted,
   printJobs,
+  orders,
 }) => {
   const { digitalCurrentTime } = useStoreInfo();
 
@@ -43,7 +44,7 @@ const DashboardHeader = ({
             toggle={showCompleted}
             onClick={() => setShowCompleted((prev) => !prev)}
           />
-          <DailyReportModal date={date} printJobs={printJobs} />
+          <DailyReportModal date={date} printJobs={printJobs} orders={orders} />
           <AddEmployeeRoll />
           <AddTimeSlotModal />
           <StoreSettings />
