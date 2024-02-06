@@ -193,14 +193,23 @@ const Dashboard = () => {
             <div className="grid gap-4">
               {/* First column is for all the orders that are not printed aka new orders. */}
               {orders.map((order) => {
-                // We want the first order in line that hasn't been printed yet and doesn't have remarks.
-                const firstInLine = orders.filter(
-                  (order) => order.printed === false
-                );
                 if (order.printed === false) {
+                  // We want the first order in line that hasn't been printed yet and doesn't have remarks.
+                  const firstInLine = orders.find((order) => {
+                    // We also need to check if one of the items in the cart has remarks
+                    const itemsHasRemarks = order.cart.some(
+                      (item) => item.remarks && item.remarks.trim() !== ""
+                    );
+                    if (
+                      !order.remarks.trim() &&
+                      !order.printed &&
+                      !itemsHasRemarks
+                    )
+                      return order;
+                  });
                   return (
                     <OrderCard
-                      firstInline={firstInLine}
+                      firstInLine={firstInLine}
                       key={order.id}
                       order={order}
                       atNew={true}
