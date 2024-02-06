@@ -2,7 +2,14 @@ import { useState, useEffect } from "react";
 import receiptline from "receiptline";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+} from "firebase/firestore";
 // Icon imports
 import ReportIcon from "@/icons/ReportIcon";
 import LoadingIcon from "@/icons/LoadingIcon";
@@ -14,7 +21,7 @@ import Modal from "@/components/Modal";
 import calculateVat from "@/functions/calculateVat";
 import euro from "@/functions/euro";
 
-const DailyReportModal = ({ date }) => {
+const DailyReportModal = ({ date, printJobs }) => {
   // State for opening and closing the modal
   const [open, setOpen] = useState(false);
   // We store all the orders here
@@ -90,7 +97,7 @@ const DailyReportModal = ({ date }) => {
     info@newhongkong.nl
 
     -
-    dagrapport | 5 februari 2024 
+    dagrapport | ${date}
     -
 
     "afhaal     | "omzet|             "btw  
@@ -156,7 +163,16 @@ const DailyReportModal = ({ date }) => {
         <div className="flex items-center justify-between p-4 shadow border-b">
           <div className="flex items-center gap-2">
             <h2 className="text-lg font-normal">Daily Report</h2>
-            <IconBtn onClick={() => {}}>
+            <IconBtn
+              onClick={async () => {
+                // Check if printer is busy
+                if (printJobs.length > 0) return;
+                await setDoc(doc(db, "printer", date), {
+                  type: "dailyReport",
+                  printContent: report,
+                });
+              }}
+            >
               <PrintIcon />
             </IconBtn>
           </div>
