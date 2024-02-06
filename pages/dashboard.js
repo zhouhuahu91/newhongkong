@@ -192,16 +192,18 @@ const Dashboard = () => {
             </div>
             <div className="grid gap-4">
               {/* First column is for all the orders that are not printed aka new orders. */}
-              {orders.map((order, idx) => {
+              {orders.map((order) => {
+                // We want the first order in line that hasn't been printed yet and doesn't have remarks.
+                const firstInLine = orders.filter(
+                  (order) => order.printed === false
+                );
                 if (order.printed === false) {
                   return (
                     <OrderCard
+                      firstInline={firstInLine}
                       key={order.id}
                       order={order}
                       atNew={true}
-                      // When we start up dashboard and there are more than one order we only want to auto print the first order.
-                      // Thats why this component needs idx
-                      idx={idx}
                       // We use this to disable print if there is already an order printing.
                       printerBusy={printJobs.length > 0}
                       // We want to show a spinner if current order is printing.

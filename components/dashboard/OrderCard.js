@@ -38,8 +38,8 @@ const OrderCard = ({
   lastSelectedOrder,
   atNew,
   isPrinting,
-  idx,
   printerBusy,
+  firstInLine,
 }) => {
   const [open, setOpen] = useState(false);
   const [openedBefore, setOpenedBefore] = useState(false);
@@ -73,12 +73,10 @@ const OrderCard = ({
     if (order.printed) return; // We don't need to print if order already printed.
     if (isPrinting) return; // If order is already in process of being printed.
     if (printerBusy) return; // Printer is already in printing different order.
-    // We also do not want to print if this order isn't the first one in the array
-    if (idx !== 0) return;
+    if (firstInLine.id !== order.id) return; // We don't want to send multiple orders to the kitchen when dashboard start up.
     if (order.delivery) return; // We don't want it to be printed if order is for delivery.
     if (order.paymentMethod === "online" && !order.paid) return; // We dont want it printed if user is in process of paying.
     if (order.remarks.trim()) return; // If there are remarks we want to read those before printing.
-
     // We also need to check if one of the items in the cart has remarks
     const itemsHasRemarks = order.cart.some(
       (item) => item.remarks && item.remarks.trim() !== ""
