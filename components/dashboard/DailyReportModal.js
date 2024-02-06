@@ -95,9 +95,10 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
     "           | "€~~~~~~~~~|       "€~~~~~~~~~|
 
     
-                       ^^totaal afhaal ${euro(revenue)}|
-                   ^^totaal restaurant €_~~~~~~~~~~~~~~|
-                              ^^"totaal €~~~~~~~~~~~~~~| 
+                    ^^totaal afhaal ${euro(revenue)}|
+                ^^totaal restaurant  €~~~~~~~~~~~~~~|
+    -------------------------------------------------
+                     ^^"totale omzet €~~~~~~~~~~~~~~| 
 
 
 
