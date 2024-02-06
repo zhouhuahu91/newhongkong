@@ -7,7 +7,6 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 // Function imports
 import euro from "@/functions/euro";
 // Hook imports
-import useI18n from "@/hooks/useI18n";
 import { useAuth } from "@/hooks/useAuth";
 // Component imports
 import Spinner from "@/components/Spinner";
@@ -20,7 +19,9 @@ const MonthlyOverview = () => {
 
   const { user } = useAuth();
   const router = useRouter();
-  const t = useI18n();
+
+  // Is the day that we use the website to store all orders.
+  const midnightFeb5_2024 = new Date("2024-02-05T00:00:00").getTime();
 
   const tdStyling = "py-2 px-4 text-center";
   const thStyling = "p-4 text-center font-medium";
@@ -89,6 +90,7 @@ const MonthlyOverview = () => {
           pickup,
           qwt: day.length,
           date: day[0].date,
+          createdAt: day[0].createdAt,
         };
       });
       // Besides the daily summary we need a monthly summary.
@@ -103,7 +105,10 @@ const MonthlyOverview = () => {
         0
       );
       monthlySummary.card = documents.reduce(
-        (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
+        (x, y) =>
+          y.paymentMethodType === "card" && y.paymentMethod === "in_person"
+            ? x + y.total
+            : x,
         0
       );
       monthlySummary.delivery = documents.reduce(
@@ -140,9 +145,7 @@ const MonthlyOverview = () => {
   return (
     <div className="max-w-screen-lg mx-auto">
       <h1 className="font-bold text-2xl text-center mt-8 mb-4">
-        {/* {t.monthly_overview} */}
-        PAS OP! PINNEN & CASH NIET COMPLEET, NIET ALLE BESTELLINGEN STAAN
-        ONLINE.
+        Overzicht afhaal
       </h1>
       <table className="table-auto w-full text-left border shadow rounded-xl overflow-hidden min-h-[210px]">
         <thead className="border-b bg-white">
@@ -168,9 +171,33 @@ const MonthlyOverview = () => {
                 <td className={tdStyling}>{day.pickup}</td>
                 <td className={tdStyling}>{day.delivery}</td>
                 <td className={tdStyling}>{euro(day.online)}</td>
-                <td className={tdStyling}>{euro(day.card)}</td>
-                <td className={tdStyling}>{euro(day.cash)}</td>
-                <td className={tdStyling}>{euro(day.total)}</td>
+                <td
+                  className={`${tdStyling} ${
+                    midnightFeb5_2024 > day.createdAt
+                      ? "text-red-700 line-through"
+                      : ""
+                  }`}
+                >
+                  {euro(day.card)}
+                </td>
+                <td
+                  className={`${tdStyling} ${
+                    midnightFeb5_2024 > day.createdAt
+                      ? "text-red-700 line-through"
+                      : ""
+                  }`}
+                >
+                  {euro(day.cash)}
+                </td>
+                <td
+                  className={`${tdStyling} ${
+                    midnightFeb5_2024 > day.createdAt
+                      ? "text-red-700 line-through"
+                      : ""
+                  }`}
+                >
+                  {euro(day.total)}
+                </td>
               </tr>
             );
           })}
@@ -182,9 +209,33 @@ const MonthlyOverview = () => {
             <th className={thStyling}>{monthlyData.pickup}</th>
             <th className={thStyling}>{monthlyData.delivery}</th>
             <th className={thStyling}>{euro(monthlyData.online)}</th>
-            <th className={thStyling}>{euro(monthlyData.card)}</th>
-            <th className={thStyling}>{euro(monthlyData.cash)}</th>
-            <th className={thStyling}>{euro(monthlyData.total)}</th>
+            <th
+              className={`${thStyling} ${
+                midnightFeb5_2024 + 432000000 > new Date(date).getTime()
+                  ? "text-red-700 line-through"
+                  : ""
+              }`}
+            >
+              {euro(monthlyData.card)}
+            </th>
+            <th
+              className={`${thStyling} ${
+                midnightFeb5_2024 + 432000000 > new Date(date).getTime()
+                  ? "text-red-700 line-through"
+                  : ""
+              }`}
+            >
+              {euro(monthlyData.cash)}
+            </th>
+            <th
+              className={`${thStyling} ${
+                midnightFeb5_2024 + 432000000 > new Date(date).getTime()
+                  ? "text-red-700 line-through"
+                  : ""
+              }`}
+            >
+              {euro(monthlyData.total)}
+            </th>
           </tr>
         </thead>
       </table>
