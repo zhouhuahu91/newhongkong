@@ -75,12 +75,6 @@ const OrderCard = ({
     if (printerBusy) return; // Printer is already in printing different order.
     if (order.delivery) return; // We don't want it to be printed if order is for delivery.
     if (order.paymentMethod === "online" && !order.paid) return; // We dont want it printed if user is in process of paying.
-    if (order.remarks.trim()) return; // If there are remarks we want to read those before printing.
-    // We also need to check if one of the items in the cart has remarks
-    const itemsHasRemarks = order.cart.some(
-      (item) => item.remarks && item.remarks.trim() !== ""
-    );
-    if (itemsHasRemarks) return; // We also do not print if one of the items in the order has remarks.
     if (firstInLine.id !== order.id) return; // We don't want to send multiple orders to the kitchen when dashboard start up.
     // If it passes all these test we can safely send the order to be printed
     sendOrderToPrinter(order);
