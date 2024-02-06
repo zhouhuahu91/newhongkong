@@ -27,7 +27,7 @@ const DailyReportModal = ({ date, printJobs }) => {
   // We store all the orders here
   const [report, setReport] = useState("");
   // Refresh is to not waste recourse. We don't need to fetch all the orders all the time.
-  const [refresh, setRefresh] = useState(false);
+  const [refresh, setRefresh] = useState(true);
 
   const fetchOrders = async () => {
     // We want all the orders that are completed on this day.
