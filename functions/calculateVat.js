@@ -31,13 +31,13 @@ const calculateVat = (order) => {
     high += order.storeFees.plasticBagFee;
   }
 
-  // transaction fee is in the zero bracket
+  // transaction fee is in the high bracket
   if (order.paymentMethod === "online") {
     // add fee to zero
-    zero += order.storeFees.transactionFee;
+    high += order.storeFees.transactionFee;
   }
 
-  // tip is also in the zero bracket
+  // tip is in the zero bracket
   zero += order.tip;
 
   return { low, high, zero };

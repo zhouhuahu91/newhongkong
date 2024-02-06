@@ -6,6 +6,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 // Icon imports
 import ReportIcon from "@/icons/ReportIcon";
 import LoadingIcon from "@/icons/LoadingIcon";
+import PrintIcon from "@/icons/PrintIcon";
 // Component imports
 import IconBtn from "@/components/IconBtn";
 import Modal from "@/components/Modal";
@@ -22,7 +23,6 @@ const DailyReportModal = ({ date }) => {
   const [refresh, setRefresh] = useState(false);
 
   const fetchOrders = async () => {
-    console.log("i fetched");
     // We want all the orders that are completed on this day.
     const q = query(
       collection(db, "orders"),
@@ -35,10 +35,17 @@ const DailyReportModal = ({ date }) => {
     // Total revenue
     const revenue = data.reduce((x, y) => x + y.total, 0);
     // Total online payments
-    const onlinePayments = data.reduce(
-      (x, y) => (y.paymentMethod === "online" ? x + y.total : x),
-      0
-    );
+    const onlinePayments = {};
+    data.forEach((order) => {
+      if (order.paymentMethod === "online") {
+        if (onlinePayments[`${order.paymentMethodType}`] > 0) {
+          onlinePayments[`${order.paymentMethodType}`] += order.total;
+        } else {
+          onlinePayments[`${order.paymentMethodType}`] = order.total;
+        }
+      }
+    });
+
     // Total card payments in store, online payment is also set to card if they pay with credit card. Didn't know stripe did this.
     const cardPayments = data.reduce((x, y) => {
       if (y.paymentMethod === "in_person" && y.paymentMethodType === "card") {
@@ -74,29 +81,50 @@ const DailyReportModal = ({ date }) => {
     const lowBTW = Math.round((vat.low / 109) * 9);
     const highBTW = Math.round((vat.high / 121) * 21);
 
-    const markup = `
+    let markup = `
     "^^^^New Hong Kong
 
     Havenstraat 13  
     2211EE Noordwijkerhout
     0252 37 29 02
-    5 februari 2024
+    info@newhongkong.nl
 
-    ^^^OMZET AFHAAL
+    -
+    dagrapport | 5 februari 2024 
+    -
 
-    BTW       | omzet|              BTW    
-    geen 0%   | ${euro(vat.zero)}|  ${euro(0)}   
-    laag 9%   | ${euro(vat.low)}|   ${euro(lowBTW)}
-    hoog 21%  | ${euro(vat.high)}|  ${euro(highBTW)}
+    "afhaal     | "omzet|             "btw  
+    laag 9%     | ${euro(vat.low)}|   ${euro(lowBTW)}  
+    hoog 21%    | ${euro(vat.high)}|  ${euro(highBTW)}
+    geen 0%     | ${euro(vat.zero)}|  ${euro(0)}   
     ------------------------------------------------
-    "totaal   | ${euro(revenue)}|   ${euro(lowBTW + highBTW)}
+    "           | "${euro(revenue)}|  "${euro(lowBTW + highBTW)}
 
-    Betaalwijze
-    online | ${euro(onlinePayments)}
-    pinnen | ${euro(cardPayments)}
-    cash | ${euro(cashPayments)}
+    "restaurant | "omzet|             "btw  
+    laag 9%     | €~~~~~~~~~|        €~~~~~~~~~|         
+    hoog 21%    | €~~~~~~~~~|        €~~~~~~~~~|           
+    geen 0%     | €~~~~~~~~~|        ${euro(0)}   
+    ------------------------------------------------
+    "           | "€~~~~~~~~~|       "€~~~~~~~~~|
 
+    
+                       ^^totaal afhaal ${euro(revenue)}|
+                   ^^totaal restaurant €_~~~~~~~~~~~~~~|
+                              ^^"totaal €~~~~~~~~~~~~~~| 
+
+
+
+    |"betaalwijze | "afhaal|                "restaurant
+    |cash         | ${euro(cashPayments)}|  €~~~~~~~~~|
+    |pinnen       | ${euro(cardPayments)}|  €~~~~~~~~~|
 `;
+
+    for (const type in onlinePayments) {
+      markup += `|${type.replace("_", " ")} | ${euro(
+        onlinePayments[type]
+      )}| ${euro(0)}
+      `;
+    }
 
     const svg = receiptline.transform(markup, {
       cpl: 46,
@@ -123,10 +151,15 @@ const DailyReportModal = ({ date }) => {
       <Modal
         toggle={open}
         close={() => setOpen(false)}
-        className="bg-white max-w-xl w-full rounded-lg overflow-hidden text-sm mx-2"
+        className="bg-white max-w-2xl w-full rounded-lg text-sm mx-2 max-h-[900px] overflow-scroll"
       >
         <div className="flex items-center justify-between p-4 shadow border-b">
-          <h2 className="text-lg font-normal">Daily Report</h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-lg font-normal">Daily Report</h2>
+            <IconBtn onClick={() => {}}>
+              <PrintIcon />
+            </IconBtn>
+          </div>
           <IconBtn
             onClick={() => {
               setRefresh(true);
@@ -136,7 +169,7 @@ const DailyReportModal = ({ date }) => {
           </IconBtn>
         </div>
         <div
-          className="flex bg-neutral-50 w-full justify-center"
+          className="flex bg-neutral-50 w-full justify-center pt-10 pb-20"
           dangerouslySetInnerHTML={{ __html: report }}
         />
       </Modal>
