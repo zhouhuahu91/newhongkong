@@ -167,9 +167,12 @@ const DailyReportModal = ({ date, printJobs }) => {
               onClick={async () => {
                 // Check if printer is busy
                 if (printJobs.length > 0) return;
+                // We cant' send the svg so we convert it to a base 64 string
+                const buffer = Buffer.from(report);
+                const base64String = buffer.toString("base64");
                 await setDoc(doc(db, "printer", date), {
                   type: "dailyReport",
-                  printContent: report,
+                  printContent: base64String,
                 });
               }}
             >
