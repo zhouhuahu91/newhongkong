@@ -8,6 +8,7 @@ import EmailReadIcon from "@/icons/EmailReadIcon";
 import CloseIcon from "@/icons/CloseIcon";
 import ChangeItemRemarks from "@/components/dashboard/ChangeItemRemarks";
 import Switch from "@/components/Switch";
+import CreateCustomerReceipt from "@/components/dashboard/CreateCustomerReceipt";
 // Function imports
 import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
@@ -24,7 +25,7 @@ const itemNameStyling = "hidden sm:block col-span-5";
 const checkboxStyling =
   "form-checkbox p-2 rounded shadow border-gray-300 text-main focus:ring-red-200 focus:ring-offset-0 cursor-pointer";
 
-const OrderModal = ({ open, setOpen, order }) => {
+const OrderModal = ({ open, setOpen, order, printerBusy }) => {
   const [remarks, setRemarks] = useState(order.remarks);
   const [time, setTime] = useState(order.time);
   const [tel, setTel] = useState(order.tel);
@@ -306,6 +307,7 @@ const OrderModal = ({ open, setOpen, order }) => {
             ready
           </label>
         </div>
+        <CreateCustomerReceipt order={order} printerBusy={printerBusy} />
       </div>
     </Modal>
   );

@@ -87,7 +87,12 @@ const OrderCard = ({
       {/* We use the modal card for the /delivery page and /dashboard page.*/}
       {/* Depending on where we are we open the correct modal. */}
       {atDashboard ? (
-        <OrderModal open={open} setOpen={setOpen} order={order} />
+        <OrderModal
+          printerBusy={printerBusy}
+          open={open}
+          setOpen={setOpen}
+          order={order}
+        />
       ) : (
         <DeliveryOrderModal open={open} setOpen={setOpen} order={order} />
       )}
