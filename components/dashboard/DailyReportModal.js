@@ -128,7 +128,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
       <Modal
         toggle={open}
         close={() => setOpen(false)}
-        className="bg-white max-w-2xl w-full rounded-lg text-sm mx-2 max-h-[900px] overflow-scroll"
+        className="bg-white max-w-2xl rounded-lg text-sm mx-2 overflow-scroll"
       >
         <div className="flex items-center justify-between p-4 shadow border-b">
           <div className="flex items-center gap-2">
@@ -158,7 +158,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
           </IconBtn>
         </div>
         <div
-          className="flex bg-neutral-50 w-full justify-center pt-10 pb-20"
+          className="flex bg-neutral-50 w-full justify-center p-10 max-w-[440px] max-h-[900px] overflow-hidden"
           dangerouslySetInnerHTML={{ __html: report }}
         />
       </Modal>
