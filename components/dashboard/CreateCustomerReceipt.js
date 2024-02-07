@@ -23,7 +23,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     info@newhongkong.nl
 
     -
-    ${order.date} | ${getDigitalTime(
+    ^^${order.date} | ^^${getDigitalTime(
       getCurrentTimeInSeconds(new Date(order.createdAt))
     )}
     -
@@ -31,7 +31,8 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
 `;
 
     order.cart.forEach((item) => {
-      markup += `^^^${item.qwt} ${item.name["nl"]} | ^^^${item.price}
+      markup += `{w:*,10}
+      ^^${item.qwt} ${item.name["nl"]} | ^^${euro(item.price)}
       `;
 
       if (item.description["nl"].length) {
@@ -41,10 +42,9 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     });
 
     // adds the total of all the items in the cart.
-    markup += `
-
+    markup += `{w:auto}
+    
     -
-
     ^^Subtotaal ${euro(order.cart.reduce((x, y) => x + y.price, 0))}|`;
 
     // adds delivery cost of order is for delivery
@@ -76,13 +76,15 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     -
     ^^^Totaal ${euro(order.total)}|
 
+
 `;
 
     const vat = calculateVat(order);
     const vatLow = Math.round((vat.low / 109) * 9);
     const vatHigh = Math.round((vat.high / 121) * 21);
 
-    markup += `|Totaal is inclusief BTW: | ${euro(vatLow + vatHigh)}
+    markup += `{w:*,10}
+    |Totaal is inclusief BTW: | ${euro(vatLow + vatHigh)}
     `;
 
     markup += `BTW 9% | ${euro(vatLow)}
@@ -90,7 +92,10 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     markup += `BTW 21% | ${euro(vatHigh)}
     `;
 
-    markup += `"^^^BEDANKT EN TOT ZIENS!`;
+    markup += `{w:auto}`;
+
+    markup += `
+    "^^^BEDANKT EN TOT ZIENS!`;
 
     const report = receiptline.transform(markup, {
       cpl: 46,
