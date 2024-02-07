@@ -25,7 +25,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
   const [processing, setProcessing] = useState(false);
   const [name, setName] = useState("");
   const [remarks, setRemarks] = useState("");
-  const [paymentMethodType, setPaymentMethodType] = useState(null);
+  const [paymentMethodType, setPaymentMethodType] = useState("card");
   const [errors, setErrors] = useState({});
 
   const onSubmit = async (paid) => {
@@ -71,7 +71,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
       // If it is a succes we reset every state
       setName("");
       setRemarks("");
-      setPaymentMethodType("");
+      setPaymentMethodType("card");
       setProcessing(false);
       setErrors({});
       // We clear the cart and close the modal
@@ -128,25 +128,6 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
           <span className="text-sm text-gray-500">Betaalmethode</span>
           <div className="flex space-x-2">
             <button
-              onClick={() => setPaymentMethodType("cash")}
-              type="button"
-              className={`pick-up-deliver ${
-                paymentMethodType === "cash"
-                  ? "border-main selected text-main"
-                  : "text-gray-500"
-              }`}
-            >
-              <div className="flex items-center space-x-1 text-inherit">
-                <CashIcon
-                  size="18"
-                  className={`${
-                    paymentMethodType === "cash" ? "fill-main" : "fill-gray-500"
-                  }`}
-                />
-              </div>
-              Contant
-            </button>
-            <button
               onClick={() => setPaymentMethodType("card")}
               type="button"
               className={`pick-up-deliver ${
@@ -164,6 +145,25 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
                 />
               </div>
               Pinnen
+            </button>
+            <button
+              onClick={() => setPaymentMethodType("cash")}
+              type="button"
+              className={`pick-up-deliver ${
+                paymentMethodType === "cash"
+                  ? "border-main selected text-main"
+                  : "text-gray-500"
+              }`}
+            >
+              <div className="flex items-center space-x-1 text-inherit">
+                <CashIcon
+                  size="18"
+                  className={`${
+                    paymentMethodType === "cash" ? "fill-main" : "fill-gray-500"
+                  }`}
+                />
+              </div>
+              Contant
             </button>
           </div>
           <label htmlFor="name" className="text-red-400 text-sm">
