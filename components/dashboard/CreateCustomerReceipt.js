@@ -26,7 +26,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     ^^${order.date} | ^^${getDigitalTime(
       getCurrentTimeInSeconds(new Date(order.createdAt))
     )}
-    
+
     -
     
 `;
@@ -96,6 +96,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     markup += `{w:auto}`;
 
     markup += `
+    
     "^^^BEDANKT EN TOT ZIENS!`;
 
     const report = receiptline.transform(markup, {
