@@ -62,15 +62,15 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "tau sie ky",
-        en: "tau sie ky",
-        de: "tau sie ky",
+        nl: "tippan kipfilet",
+        en: "tippan chicken",
+        de: "Tippan Hühnerfleisch",
         zh: "",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in zwarte bonensaus",
-        en: "stir fried chicken with vegetables in a black bean sauce",
-        de: "gebratenes Hühnerfleisch mit Gemüse in einer Soße aus schwarze Bohnen",
+        nl: "roergebakken kipfilet met groenten in oestersaus",
+        en: "stir fried chicken with vegetables in oystersauce",
+        de: "gebratenes Hühnerfleisch mit Gemüse in einer Soße aus Austernsauce",
         zh: "",
       },
     },
