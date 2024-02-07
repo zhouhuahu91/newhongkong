@@ -26,6 +26,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     ^^${order.date} | ^^${getDigitalTime(
       getCurrentTimeInSeconds(new Date(order.createdAt))
     )}
+    
     -
     
 `;
@@ -43,7 +44,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
 
     // adds the total of all the items in the cart.
     markup += `{w:auto}
-    
+
     -
     ^^Subtotaal ${euro(order.cart.reduce((x, y) => x + y.price, 0))}|`;
 
