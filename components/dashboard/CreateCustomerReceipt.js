@@ -1,5 +1,6 @@
 // Icon imports
 import PrintIcon from "@/icons/PrintIcon";
+import LoadingIcon from "@/icons/LoadingIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { setDoc, doc } from "firebase/firestore";
@@ -96,7 +97,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     markup += `{w:auto}`;
 
     markup += `
-    
+
     "^^^BEDANKT EN TOT ZIENS!`;
 
     const report = receiptline.transform(markup, {
@@ -123,7 +124,12 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
       className="button w-40 border gap-4 bg-main text-white"
       onClick={() => printReceipt()}
     >
-      Bonnetje <PrintIcon className="fill-gray-100" />
+      Bonnetje{" "}
+      {printerBusy ? (
+        <LoadingIcon className="fill-gray-100 animate-spin" />
+      ) : (
+        <PrintIcon className="fill-gray-100" />
+      )}
     </button>
   );
 };
