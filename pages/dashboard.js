@@ -200,12 +200,11 @@ const Dashboard = () => {
                     const itemsHasRemarks = order.cart.some(
                       (item) => item.remarks && item.remarks.trim() !== ""
                     );
-                    if (
-                      !order.remarks.trim() &&
-                      !order.printed &&
-                      !itemsHasRemarks
-                    )
-                      return order;
+                    if (order.paymentMethod === "online" && !order.paid) return;
+                    if (order.remarks.trim()) return;
+                    if (order.printed) return;
+                    if (itemsHasRemarks) return;
+                    return order;
                   });
                   return (
                     <OrderCard
