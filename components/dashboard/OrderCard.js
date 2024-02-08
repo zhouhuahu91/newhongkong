@@ -47,6 +47,9 @@ const OrderCard = ({
   const { user } = useAuth();
   const { atDashboard } = usePath();
   const [showMap, setShowMap] = useState(!atDashboard);
+  // This bolean shows if the order are already tried auto printing or not.
+  // If it already tried we don't want it to do it again to prevent infinite looping when printer is offline.
+  const [autoPrint, setAutoPrint] = useState(true);
 
   const destination = `${order.address.street}+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
@@ -76,8 +79,11 @@ const OrderCard = ({
     if (order.delivery) return; // We don't want it to be printed if order is for delivery.
     if (order.paymentMethod === "online" && !order.paid) return; // We dont want it printed if user is in process of paying.
     if (firstInLine.id !== order.id) return; // We don't want to send multiple orders to the kitchen when dashboard start up.
+    // If order already auto printed before and didn't succeed we return
+    if (!autoPrint) return;
     // If it passes all these test we can safely send the order to be printed
-    sendOrderToPrinter(order);
+    await sendOrderToPrinter(order);
+    setAutoPrint(false);
   };
 
   autoPrintOrder(order);
