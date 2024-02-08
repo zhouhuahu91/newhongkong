@@ -203,6 +203,7 @@ const Dashboard = () => {
                     if (order.paymentMethod === "online" && !order.paid) return;
                     if (order.remarks.trim()) return;
                     if (order.printed) return;
+                    if (order.delivery) return;
                     if (itemsHasRemarks) return;
                     return order;
                   });

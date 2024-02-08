@@ -73,11 +73,10 @@ const OrderCard = ({
 
   // There are a lot of reasons not to auto print an order.
   const autoPrintOrder = async (order) => {
-    if (order.printed) return; // We don't need to print if order already printed.
     if (isPrinting) return; // If order is already in process of being printed.
     if (printerBusy) return; // Printer is already in printing different order.
-    if (order.delivery) return; // We don't want it to be printed if order is for delivery.
-    if (order.paymentMethod === "online" && !order.paid) return; // We dont want it printed if user is in process of paying.
+    if (order.delivery) return; // If order is for delivery
+    if (!firstInLine) return; // if there is no first in line we return
     if (firstInLine.id !== order.id) return; // We don't want to send multiple orders to the kitchen when dashboard start up.
     // If order already auto printed before and didn't succeed we return
     if (!autoPrint) return;
