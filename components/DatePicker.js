@@ -28,7 +28,7 @@ const DatePickerComponent = ({ setDate, className, date }) => {
         type="button"
         className="flex items-center red-focus-ring px-1 rounded-md"
       >
-        <span className={`mt-1 mr-2 font-medium`}>{date.slice(0, 5)}</span>
+        <span className={`mt-1 mr-2 font-medium hidden sm:block`}>{date}</span>
         <CalendarIcon
           className={`${getCurrentDate() !== date && "fill-main"}`}
         />
