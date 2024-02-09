@@ -40,7 +40,7 @@ const DatePickerComponent = ({ setDate, className, date }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", damping: 20, stiffness: 300 }}
             exit={{ opacity: 0, scale: 0.85 }}
-            className={`absolute top-10 -right-16 z-10`}
+            className={`absolute top-10 -right-10 z-10`}
           >
             <DatePicker
               selected={selectedDate}

@@ -1,9 +1,13 @@
+import { useState } from "react";
+// Hook imports
+import { useStoreInfo } from "@/hooks/useStoreInfo";
+// Component imports
+import Header from "@/tables/Header";
+
 const Tables = () => {
-  return (
-    <div className="h-full w-full flex justify-center items-center mt-20">
-      <div className="grid grid-cols-12 gap-4 w-full h-full max-w-screen-md"></div>
-    </div>
-  );
+  const { currentDate } = useStoreInfo();
+  const [date, setDate] = useState(currentDate);
+  return <Header date={date} setDate={setDate} />;
 };
 
 export default Tables;
