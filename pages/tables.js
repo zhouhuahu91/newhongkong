@@ -29,6 +29,8 @@ const Tables = () => {
         x: 10,
         y: 10,
       },
+      drinks: [],
+      food: [],
       paid: false,
       paymentMethodType: null,
       date: currentDate,

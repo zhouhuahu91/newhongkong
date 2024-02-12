@@ -10,7 +10,7 @@ const Table = ({ table }) => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <TableModal talbe={table} open={open} setOpen={setOpen} />
+      <TableModal talbe={table} open={open} table={table} setOpen={setOpen} />
       <Dragable
         onClick={() => setOpen(true)}
         position={table.position}
