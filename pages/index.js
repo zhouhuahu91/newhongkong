@@ -8,6 +8,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import useI18n from "@/hooks/useI18n";
 // Icon imports
 import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
+// import StoreLogo from "@/icons/StoreLogo";
 // Third party library imports
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -33,6 +34,7 @@ const Home = () => {
 
   return (
     <div className="bg-main flex items-center justify-center">
+      {/* <StoreLogo className="absolute -bottom-60 -left-96" /> */}
       {/* We make sure that animations finsihes before we start the next one. */}
       <AnimatePresence exitBeforeEnter>
         {chinese && (
