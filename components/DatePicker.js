@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // Component imports
 import CalendarIcon from "@/icons/CalendarIcon";
 
-const DatePickerComponent = ({ setDate, className, date }) => {
+const DatePickerComponent = ({ setDate, className, date, top }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [show, setShow] = useState(false);
   // This is a reference to the div surrounding this component.
@@ -28,7 +28,9 @@ const DatePickerComponent = ({ setDate, className, date }) => {
         type="button"
         className="flex items-center red-focus-ring px-1 rounded-md"
       >
-        <span className={`mt-1 mr-2 font-medium hidden sm:block`}>{date}</span>
+        <span className={`mt-1 mr-2 font-medium hidden sm:block mb-0.5`}>
+          {date}
+        </span>
         <CalendarIcon
           className={`${getCurrentDate() !== date && "fill-main"}`}
         />
@@ -40,7 +42,7 @@ const DatePickerComponent = ({ setDate, className, date }) => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", damping: 20, stiffness: 300 }}
             exit={{ opacity: 0, scale: 0.85 }}
-            className={`absolute top-10 -right-10 z-10`}
+            className={`absolute ${top ? "-top-64" : "top-10"} -right-10 z-10`}
           >
             <DatePicker
               selected={selectedDate}

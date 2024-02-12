@@ -14,7 +14,6 @@ import {
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 import { useAuth } from "@/hooks/useAuth";
 // Component imports
-import Header from "@/tables/Header";
 import Spinner from "@/components/Spinner";
 import StoreLayout from "@/tables/StoreLayout";
 import Dragable from "@/components/Dragable";
@@ -68,41 +67,35 @@ const Tables = () => {
   }
 
   return (
-    <>
-      <Header date={date} setDate={setDate} />
-      <div className="w-full max-w-screen-xl mx-auto">
-        <div className="w-full border rounded-xl relative h-[756px] mt-o xl:mt-20">
-          <StoreLayout />
-          {tables.map((table) => {
-            const ref = doc(db, `tables/${table.id}`);
-            return (
-              <Dragable
-                position={table.position}
-                setPosition={(position) => {
-                  updateDoc(ref, {
-                    position,
-                  });
-                }}
-                key={table.id}
+    <div className="w-full max-w-screen-xl mx-auto">
+      <div className="w-full border rounded-xl relative h-[756px] mt-o xl:mt-20">
+        <StoreLayout
+          date={date}
+          setDate={setDate}
+          createNewTable={createNewTable}
+        />
+        {tables.map((table) => {
+          const ref = doc(db, `tables/${table.id}`);
+          return (
+            <Dragable
+              position={table.position}
+              setPosition={(position) => {
+                updateDoc(ref, {
+                  position,
+                });
+              }}
+              key={table.id}
+            >
+              <div
+                className={`select-none fixed w-24 aspect-square bg-white rounded-md border shadow-md flex items-center justify-center text-3xl font-bold`}
               >
-                <div
-                  className={`fixed w-24 aspect-square bg-white rounded-md border shadow-xl flex items-center justify-center text-3xl font-bold`}
-                >
-                  {table.number}
-                </div>
-              </Dragable>
-            );
-          })}
-          <button
-            onClick={() => createNewTable()}
-            type="button"
-            className="button absolute bottom-3 right-80 bg-main text-white w-40"
-          >
-            Nieuwe tafel
-          </button>
-        </div>
+                {table.number}
+              </div>
+            </Dragable>
+          );
+        })}
       </div>
-    </>
+    </div>
   );
 };
 
