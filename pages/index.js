@@ -8,7 +8,6 @@ import useWindowSize from "@/hooks/useWindowSize";
 import useI18n from "@/hooks/useI18n";
 // Icon imports
 import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
-// import StoreLogo from "@/icons/StoreLogo";
 // Third party library imports
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -28,13 +27,12 @@ const Home = () => {
     const interval = setInterval(() => {
       setChinese((prev) => !prev);
       // Every 8 seconds we switch from new hong kong => 新香港酒楼
-    }, 8000);
+    }, 6000);
     return () => clearInterval(interval); // We clear the interval.
   }, []);
 
   return (
     <div className="bg-main flex items-center justify-center">
-      {/* <StoreLogo className="absolute -bottom-60 -left-96" /> */}
       {/* We make sure that animations finsihes before we start the next one. */}
       <AnimatePresence exitBeforeEnter>
         {chinese && (
