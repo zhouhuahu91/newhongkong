@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
         {!atDashboard && !atHome && !atTables && <Banner />}
         {!atDashboard && !atTables && <Header />}
         <div className="flex-grow">{children}</div>
-        {!atHome && <Footer />}
+        {!atHome && !atTables && <Footer />}
         {!atDashboard && !atTables && <DynamicChat />}
       </div>
     </>

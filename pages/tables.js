@@ -5,8 +5,6 @@ import {
   collection,
   addDoc,
   query,
-  updateDoc,
-  doc,
   where,
   onSnapshot,
 } from "firebase/firestore";
@@ -16,7 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 // Component imports
 import Spinner from "@/components/Spinner";
 import StoreLayout from "@/tables/StoreLayout";
-import Dragable from "@/components/Dragable";
+import Table from "@/components/tables/table";
 
 const Tables = () => {
   const { currentDate } = useStoreInfo();
@@ -28,8 +26,8 @@ const Tables = () => {
     const table = {
       number: tables.length + 1,
       position: {
-        x: 0,
-        y: 0,
+        x: 10,
+        y: 10,
       },
       paid: false,
       paymentMethodType: null,
@@ -68,31 +66,14 @@ const Tables = () => {
 
   return (
     <div className="w-full max-w-screen-xl mx-auto">
-      <div className="w-full border rounded-xl relative h-[756px] mt-o xl:mt-20">
+      <div className="w-full border rounded-xl relative h-[820px] mt-0 xl:mt-20">
         <StoreLayout
           date={date}
           setDate={setDate}
           createNewTable={createNewTable}
         />
         {tables.map((table) => {
-          const ref = doc(db, `tables/${table.id}`);
-          return (
-            <Dragable
-              position={table.position}
-              setPosition={(position) => {
-                updateDoc(ref, {
-                  position,
-                });
-              }}
-              key={table.id}
-            >
-              <div
-                className={`select-none fixed w-24 aspect-square bg-white rounded-md border shadow-md flex items-center justify-center text-3xl font-bold`}
-              >
-                {table.number}
-              </div>
-            </Dragable>
-          );
+          return <Table key={table.id} table={table} />;
         })}
       </div>
     </div>
