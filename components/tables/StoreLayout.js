@@ -13,12 +13,12 @@ const StoreLayout = ({ date, setDate, createNewTable }) => {
         <div className="w-2 h-full bg-gray-600 absolute left-1/3 -translate-x-1/3" />
         <div className="w-2 h-full bg-gray-600 absolute right-1/3 translate-x-1/3" />
       </div>
-      <div className="absolute bottom-48 w-2/3 left-1/2 -translate-x-1/2 h-52">
-        <div className="absolute w-36 text-xl font-bold h-full border shadow-md rounded-lg bg-white left-0 flex justify-center items-center select-none">
+      <div className="absolute bottom-40 w-2/3 left-1/2 -translate-x-1/2 h-52">
+        <div className="absolute w-36 text-xl font-bold h-full border rounded-lg bg-white left-0 flex justify-center items-center select-none">
           <ToiletIcon size="36" className="" />
         </div>
       </div>
-      <div className="select-none text-xl font-bold absolute bottom-0 rounded-t-full w-2/3 h-16 border shadow-md left-1/2 -translate-x-1/2 flex items-center justify-between px-14">
+      <div className="select-none text-xl font-bold absolute bottom-0 rounded-t-full w-2/3 h-16 border-t border-x bg-white left-1/2 -translate-x-1/2 flex items-center justify-between px-20">
         <Link href="/menu">
           <a
             className={`text-2xl font-bold red-focus-ring rounded-md px-1 text-main`}
@@ -26,7 +26,6 @@ const StoreLayout = ({ date, setDate, createNewTable }) => {
             nHK
           </a>
         </Link>
-
         <div className="flex items-center text-xl">
           <DatePicker top date={date} setDate={setDate} />
           <Link href="/dashboard">
