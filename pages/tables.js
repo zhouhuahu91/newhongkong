@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -18,6 +17,7 @@ import { useAuth } from "@/hooks/useAuth";
 import Header from "@/tables/Header";
 import Spinner from "@/components/Spinner";
 import StoreLayout from "@/tables/StoreLayout";
+import Dragable from "@/components/Dragable";
 
 const Tables = () => {
   const { currentDate } = useStoreInfo();
@@ -73,29 +73,24 @@ const Tables = () => {
       <div className="w-full max-w-screen-xl mx-auto">
         <div className="w-full border rounded-xl relative h-[756px] mt-o xl:mt-20">
           <StoreLayout />
-          {tables.map((table, idx) => {
+          {tables.map((table) => {
             const ref = doc(db, `tables/${table.id}`);
             return (
-              <motion.div
-                style={{
-                  top: table.position.y,
-                  left: table.position.x,
+              <Dragable
+                position={table.position}
+                setPosition={(position) => {
+                  updateDoc(ref, {
+                    position,
+                  });
                 }}
                 key={table.id}
-                onMouseUp={(e) =>
-                  updateDoc(ref, {
-                    position: {
-                      x: e.screenX,
-                      y: e.screenY,
-                    },
-                  })
-                }
-                drag
-                dragSnapToOrigin
-                className={`fixed w-24 aspect-square bg-white rounded-md border shadow-xl flex items-center justify-center text-3xl font-bold`}
               >
-                {table.number}
-              </motion.div>
+                <div
+                  className={`fixed w-24 aspect-square bg-white rounded-md border shadow-xl flex items-center justify-center text-3xl font-bold`}
+                >
+                  {table.number}
+                </div>
+              </Dragable>
             );
           })}
           <button
