@@ -71,7 +71,7 @@ const Tables = () => {
   if (width < 1180 || height < 820) {
     return (
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-4xl font-semibold font-mono">
-        You need a bigger screen for this tables.
+        You need a bigger screen for tables.
       </div>
     );
   }
