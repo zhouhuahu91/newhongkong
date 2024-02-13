@@ -37,9 +37,8 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
               </h1>
               {Object.keys(sizes).map((size, idx) => {
                 return (
-                  <div className="flex items-center justify-center">
+                  <div key={idx} className="flex items-center justify-center">
                     <button
-                      key={idx}
                       onClick={() => {
                         const ref = doc(db, `tables/${table.id}`);
                         updateDoc(ref, {
