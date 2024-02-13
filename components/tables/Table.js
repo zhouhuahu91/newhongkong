@@ -8,6 +8,7 @@ import TableModal from "@/tables/TableModal";
 
 const Table = ({ table }) => {
   const [open, setOpen] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   // I am not 100% sure how this work but this library solves the dragging issue.
   // it calculates the position of the div and also get() the correct top and left values.
@@ -18,8 +19,11 @@ const Table = ({ table }) => {
     <>
       <TableModal talbe={table} open={open} table={table} setOpen={setOpen} />
       <motion.div
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          if (!isDragging) setOpen(true);
+        }}
         drag
+        onDragStart={() => setIsDragging(true)}
         onDragEnd={async () => {
           const ref = doc(db, `tables/${table.id}`);
           await updateDoc(ref, {
@@ -28,6 +32,7 @@ const Table = ({ table }) => {
               y: y.get(),
             },
           });
+          setIsDragging(false);
         }}
         style={{
           x,
