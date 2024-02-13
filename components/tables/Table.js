@@ -1,9 +1,9 @@
 import { useState } from "react";
+import Draggable from "react-draggable";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { updateDoc, doc } from "firebase/firestore";
 // Component imports
-import Dragable from "@/components/Dragable";
 import TableModal from "@/components/tables/TableModal";
 
 const Table = ({ table }) => {
@@ -11,22 +11,23 @@ const Table = ({ table }) => {
   return (
     <>
       <TableModal talbe={table} open={open} table={table} setOpen={setOpen} />
-      <Dragable
-        onClick={() => setOpen(true)}
-        position={table.position}
-        setPosition={(position) => {
+      <Draggable
+        onStop={async (e) => {
           const ref = doc(db, `tables/${table.id}`);
-          updateDoc(ref, {
-            position,
+          await updateDoc(ref, {
+            position: {
+              x: e.clientX,
+              y: e.clientY,
+            },
           });
         }}
       >
         <div
-          className={`select-none fixed w-24 aspect-square bg-white rounded-md border shadow-md flex items-center justify-center text-3xl font-bold`}
+          className={`aboslute select-none w-24 aspect-square bg-white rounded-md border shadow-md flex items-center justify-center text-3xl font-bold`}
         >
           {table.number}
         </div>
-      </Dragable>
+      </Draggable>
     </>
   );
 };
