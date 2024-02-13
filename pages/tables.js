@@ -27,6 +27,7 @@ const Tables = () => {
   const createNewTable = () => {
     const table = {
       number: tables.length + 1,
+      type: "small",
       position: {
         x: 10,
         y: 10,

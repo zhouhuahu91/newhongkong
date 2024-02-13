@@ -15,9 +15,25 @@ const Table = ({ table }) => {
   const x = useMotionValue(table.position.x);
   const y = useMotionValue(table.position.y);
 
+  // These are the types of tables.
+  const sizes = {
+    round: "aspect-square w-36 rounded-full",
+    small: "w-32 h-32",
+    normal: "w-32 h-48 rounded-md",
+    normalH: "h-32 w-48 rounded-md",
+    big: "w-32 h-72 rounded-md",
+    bigH: "w-72 h-32 rounded-md",
+  };
+
   return (
     <>
-      <TableModal talbe={table} open={open} table={table} setOpen={setOpen} />
+      <TableModal
+        sizes={sizes}
+        talbe={table}
+        open={open}
+        table={table}
+        setOpen={setOpen}
+      />
       <motion.div
         onClick={() => {
           if (!isDragging) setOpen(true);
@@ -38,7 +54,9 @@ const Table = ({ table }) => {
           x,
           y,
         }}
-        className={`absolute cursor-pointer select-none w-28 aspect-square bg-white rounded-full border shadow-md flex items-center justify-center text-3xl font-bold`}
+        className={`${
+          sizes[table.type]
+        } absolute cursor-pointer select-none bg-white border shadow-md flex items-center justify-center text-3xl font-bold`}
       >
         {table.number}
       </motion.div>

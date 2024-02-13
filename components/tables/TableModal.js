@@ -1,11 +1,19 @@
+import { useState } from "react";
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
 // Icon imports
 import CloseIcon from "@/icons/CloseIcon";
 // Hook imports
 import { useMenu } from "@/hooks/useMenu";
+// Firebase imports
+import { db } from "@/firebase/firebase";
+import { updateDoc, doc } from "firebase/firestore";
 
-const TableModal = ({ open, setOpen, table }) => {
+const TableModal = ({ open, setOpen, table, sizes }) => {
+  const [settings, setSettings] = useState(false);
+  const [tableNumber, setTableNumber] = useState(table.number);
+  const [tableName, setTableName] = useState(`Tafel ${tableNumber}`);
+
   const { data } = useMenu();
   return (
     <Modal
@@ -21,22 +29,49 @@ const TableModal = ({ open, setOpen, table }) => {
       </IconBtn>
       {/* Two containers left and right one is the receipt and the other items that we can add to the receipt */}
       <div className="flex flex-row w-full h-full justify-between gap-2 bg-neutral-50">
-        <div className="w-full h-full border-r p-4 bg-white grid grid-cols-2 gap-2">
-          {data.map((category) => {
-            return (
-              <div
-                key={category.id}
-                className="col-span-1 p-3 text-left flex flex-col rounded-lg bg-white hover:shadow hover:scale-[1.04] red-focus-ring transition-all ease-in border cursor-pointer"
-              >
-                {category.category["nl"]}
-              </div>
-            );
-          })}
+        <div className="w-full border-r p-4">
+          {settings && (
+            <div className="grid grid-cols-2">
+              <h1 className="col-span-2 w-full text-center">
+                change table type
+              </h1>
+              {Object.keys(sizes).map((size) => {
+                return (
+                  <div className="flex items-center justify-center">
+                    <button
+                      key={size}
+                      onClick={() => {
+                        const ref = doc(db, `tables/${table.id}`);
+                        updateDoc(ref, {
+                          type: size,
+                        });
+                      }}
+                      type="button"
+                      className={`${sizes[size]} scale-75 bg-white border shadow-md`}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
         <div className="w-full h-full flex border-l p-4 bg-white flex-col font-mono">
-          <h1 className="border-b mt-6 p-4 w-full text-center font-bold text-3xl">
-            Tafel {table.number}
-          </h1>
+          <input
+            value={tableName}
+            className="appearance-none focus:outline-none text-center font-bold text-3xl border-b mt-6 pb-2"
+            onChange={(e) => {
+              const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
+              const number = value === "" ? 0 : parseInt(value, 10);
+              setTableNumber(number);
+              setTableName(`Tafel ${number}`);
+            }}
+            onBlur={() => {
+              const ref = doc(db, `tables/${table.id}`);
+              updateDoc(ref, {
+                number: tableNumber,
+              });
+            }}
+          />
           <div>test</div>
         </div>
       </div>
