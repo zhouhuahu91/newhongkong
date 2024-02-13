@@ -87,7 +87,7 @@ export default {
         nl: "Chinese champignonsoep",
         en: "Chinese mushroom soup",
         de: "Chinesische Pilzsuppe",
-        zh: "",
+        zh: "冬菇汤",
       },
       description: {
         nl: "gebonden soep gemaakt van donkere sojasaus met poku, kipstukjes, garnalen en lente-uitjes",

@@ -26,7 +26,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.8 added small dishes for admin only
 // version 0.0.9 added tax to pangsit, skipped
 // version 0.0.10 changed maandmenu
-export const version = "0.0.10";
+// version 0.0.11 no chinese for number 5
+export const version = "0.0.11";
 
 export const data = [
   menus,
