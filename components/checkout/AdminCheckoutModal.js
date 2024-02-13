@@ -29,17 +29,10 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
   const [errors, setErrors] = useState({});
 
   const onSubmit = async (paid) => {
-    // If name is not filled in we return with error.
-    if (name.length === 0) {
-      return setErrors((prev) => ({ ...prev, name: "Is verplicht" }));
-    } else {
-      setErrors((prev) => ({ ...prev, name: "" }));
-    }
-
     setProcessing(true);
     const order = {
       ...cartState,
-      name,
+      name: name.length > 0 ? name : "Afhaal",
       remarks,
       paid,
       paymentMethodType,
@@ -104,7 +97,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             id="name"
-            placeholder="Verplicht"
+            placeholder="Optioneel"
             className="appearance-none my-0.5 border rounded-md w-full text-sm focus:outline-none red-focus-ring py-2 px-3"
           />
           <label htmlFor="name" className="text-red-400 text-sm">
