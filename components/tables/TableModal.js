@@ -30,16 +30,16 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
       {/* Two containers left and right one is the receipt and the other items that we can add to the receipt */}
       <div className="flex flex-row w-full h-full justify-between gap-2 bg-neutral-50">
         <div className="w-full border-r p-4">
-          {settings && (
+          {true && (
             <div className="grid grid-cols-2">
               <h1 className="col-span-2 w-full text-center">
                 change table type
               </h1>
-              {Object.keys(sizes).map((size) => {
+              {Object.keys(sizes).map((size, idx) => {
                 return (
                   <div className="flex items-center justify-center">
                     <button
-                      key={size}
+                      key={idx}
                       onClick={() => {
                         const ref = doc(db, `tables/${table.id}`);
                         updateDoc(ref, {
@@ -47,7 +47,11 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
                         });
                       }}
                       type="button"
-                      className={`${sizes[size]} scale-75 bg-white border shadow-md`}
+                      className={`${
+                        sizes[size]
+                      } scale-75 bg-white border shadow-md ${
+                        table.type === size ? "border-red-200 border-4" : ""
+                      }`}
                     />
                   </div>
                 );
