@@ -4,7 +4,7 @@ import { motion, useMotionValue } from "framer-motion";
 import { db } from "@/firebase/firebase";
 import { updateDoc, doc } from "firebase/firestore";
 // Component imports
-import TableModal from "@/components/tables/TableModal";
+import TableModal from "@/tables/TableModal";
 
 const Table = ({ table }) => {
   const [open, setOpen] = useState(false);
@@ -33,7 +33,7 @@ const Table = ({ table }) => {
           x,
           y,
         }}
-        className={`absolute cursor-pointer select-none w-24 aspect-square bg-white rounded-md border shadow-md flex items-center justify-center text-3xl font-bold`}
+        className={`absolute cursor-pointer select-none w-28 aspect-square bg-white rounded-full border shadow-md flex items-center justify-center text-3xl font-bold`}
       >
         {table.number}
       </motion.div>

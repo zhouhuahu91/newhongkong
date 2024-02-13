@@ -14,7 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 // Component imports
 import Spinner from "@/components/Spinner";
 import StoreLayout from "@/tables/StoreLayout";
-import Table from "@/components/tables/table";
+import Table from "@/tables/Table";
 
 const Tables = () => {
   const { currentDate } = useStoreInfo();
