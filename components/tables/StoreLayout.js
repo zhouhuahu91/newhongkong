@@ -14,7 +14,7 @@ const StoreLayout = ({ date, setDate, createNewTable }) => {
         <div className="w-2 h-full bg-gray-600 absolute right-1/3 translate-x-1/3" />
       </div>
       <div className="absolute bottom-40 w-full h-72">
-        <div className="absolute w-44 text-xl font-bold h-full left-20 border rounded-lg bg-white flex justify-center items-center select-none">
+        <div className="absolute w-44 text-xl font-bold h-full left-60 border rounded-lg bg-white flex justify-center items-center select-none">
           <ToiletIcon size="36" className="" />
         </div>
       </div>

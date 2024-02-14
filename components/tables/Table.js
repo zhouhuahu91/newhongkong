@@ -17,12 +17,12 @@ const Table = ({ table }) => {
 
   // These are the types of tables.
   const sizes = {
-    round: "aspect-square w-36 rounded-full",
-    small: "w-32 h-32 rounded-md",
-    normal: "w-32 h-48 rounded-md",
-    normalH: "h-32 w-48 rounded-md",
-    big: "w-32 h-72 rounded-md",
-    bigH: "w-72 h-32 rounded-md",
+    round: "aspect-square w-32 rounded-full",
+    small: "w-28 h-28 rounded-md",
+    normal: "w-28 h-44 rounded-md",
+    normalH: "h-28 w-44 rounded-md",
+    big: "w-28 h-60 rounded-md",
+    bigH: "w-60 h-28 rounded-md",
   };
 
   return (
