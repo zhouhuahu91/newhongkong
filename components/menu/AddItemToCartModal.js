@@ -40,6 +40,13 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
     setTimeOutRef.current = setTimeout(() => {
       if (searchInputRef.current) {
         setSearchInput("");
+        // We scroll back to the top.
+        // If clear search and we do not scroll back to top it will scroll to the item we last added.
+        window.scrollTo({
+          top: 0, // Scroll to the top of the document
+          left: 0,
+          behavior: "smooth", // Smooth scroll
+        });
         searchInputRef.current.focus();
       }
     }, 600);
