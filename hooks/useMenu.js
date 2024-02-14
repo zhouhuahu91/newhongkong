@@ -1,5 +1,5 @@
 // React imports
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useEffect, useContext, createContext, useRef } from "react";
 //Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -33,6 +33,8 @@ const useMenuProvider = () => {
   // We need searchInput in different components.
   // Thats why I moved it in the context.
   const [searchInput, setSearchInput] = useState("");
+  // Ref for the search input
+  const searchInputRef = useRef();
   const [favoritesID, setFavoritesID] = useState([]);
   const [favoriteMenuItems, setFavoriteMenuItems] = useState([]);
   const [popularMenuItems, setPopularMenuItems] = useState([]);
@@ -229,6 +231,7 @@ const useMenuProvider = () => {
     resetFilter,
     searchInput,
     setSearchInput,
+    searchInputRef,
     favoritesID,
     favoriteMenuItems,
     toggleFavorite,

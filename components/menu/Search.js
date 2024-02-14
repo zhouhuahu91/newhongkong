@@ -17,10 +17,10 @@ const Search = () => {
   // Holds state for focus on input to change styling for parent div.
   const [inputFocus, setInputFocus] = useState(false);
   // This returns functions to filter the data.
-  const { searchInput, setSearchInput } = useMenu();
+  const { searchInput, setSearchInput, searchInputRef } = useMenu();
   // We need the input ref to focus it when we clear the input.
-  const inputRef = useRef();
-  useOnClickOutside(inputRef, () => {
+
+  useOnClickOutside(searchInputRef, () => {
     if (searchInput === "") {
       setOpen(false);
     }
@@ -50,7 +50,7 @@ const Search = () => {
   }, [setOpen, open]);
 
   return (
-    <div ref={inputRef}>
+    <div ref={searchInputRef}>
       <AnimatePresence>
         {open && (
           <motion.div
@@ -85,8 +85,8 @@ const Search = () => {
                   return setOpen(false);
                 }
                 setSearchInput("");
-                if (inputRef.current) {
-                  inputRef.current.focus();
+                if (searchInputRef.current) {
+                  searchInputRef.current.focus();
                 }
               }}
             >
