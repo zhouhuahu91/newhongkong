@@ -20,7 +20,9 @@ const Search = () => {
   const { searchInput, setSearchInput, searchInputRef } = useMenu();
   // We need the input ref to focus it when we clear the input.
 
-  useOnClickOutside(searchInputRef, () => {
+  const searchContainerRef = useRef();
+
+  useOnClickOutside(searchContainerRef, () => {
     if (searchInput === "") {
       setOpen(false);
     }
@@ -50,7 +52,7 @@ const Search = () => {
   }, [setOpen, open]);
 
   return (
-    <div ref={searchInputRef}>
+    <div ref={searchContainerRef}>
       <AnimatePresence>
         {open && (
           <motion.div
@@ -70,6 +72,7 @@ const Search = () => {
             }`}
           >
             <input
+              ref={searchInputRef}
               type="text"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}

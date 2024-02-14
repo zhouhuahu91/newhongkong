@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
+import { useMenu } from "@/hooks/useMenu";
 // Component Imports
 import Modal from "@/components/Modal";
 import ItemModalContent from "../ItemModalContent";
@@ -24,6 +25,8 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   // This state holds the remarks for the item
   const [remarks, setRemarks] = useState("");
+  // Returns the input ref.
+  const { searchInputRef, setSearchInput } = useMenu();
 
   // When we close modal we want to reset all the values.
   useEffect(() => {
@@ -145,6 +148,14 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
               return setOpenDeliveryOrPickUp(true);
             }
             addItemToCart();
+            // if input is open and we add items to the cart we clear the input and set focus to the input.
+            if (searchInputRef.current) {
+              setSearchInput("");
+              // We need timeout to wait for modal to close.
+              setTimeout(() => {
+                searchInputRef.current.focus();
+              }, 600);
+            }
           }}
           type="button"
           className="bg-main text-white button col-span-7"
