@@ -42,7 +42,6 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
         setSearchInput("");
         searchInputRef.current.focus();
       }
-      // Do something here
     }, 600);
   };
 
