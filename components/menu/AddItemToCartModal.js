@@ -183,7 +183,9 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
               return setOpenDeliveryOrPickUp(true);
             }
             addItemToCart();
-            setFocusToInPut();
+            if (searchInputRef.current) {
+              setFocusToInPut();
+            }
           }}
           type="button"
           className="bg-main text-white button col-span-7"
