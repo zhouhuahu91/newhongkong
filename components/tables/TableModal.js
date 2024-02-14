@@ -1,4 +1,6 @@
 import { useState } from "react";
+// Component imports
+import TableModalMenu from "@/tables/TableModalMenu";
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
 // Icon imports
@@ -14,7 +16,6 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
   const [tableName, setTableName] = useState(`Tafel ${tableNumber}`);
 
-  const { data } = useMenu();
   return (
     <Modal
       className="w-full h-full max-w-[1080px] max-h-[820px] relative bg-white rounded-xl overflow-hidden"
@@ -30,7 +31,8 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
       {/* Two containers left and right one is the receipt and the other items that we can add to the receipt */}
       <div className="flex flex-row w-full h-full justify-between gap-2 bg-neutral-50">
         <div className="w-full border-r p-4">
-          {true && (
+          <TableModalMenu />
+          {settings && (
             <div className="grid grid-cols-2">
               <h1 className="col-span-2 w-full text-center">
                 change table type
