@@ -1,5 +1,5 @@
 // React imports
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -27,6 +27,33 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
   const [remarks, setRemarks] = useState("");
   // Returns the input ref.
   const { searchInputRef, setSearchInput } = useMenu();
+  // Current time out, we store it in a ref so we can clear it on unmount.
+  const setTimeOutRef = useRef(null);
+
+  // We put this in a seperate function so we can clear the time out when we unmount.
+  const setFocusToInPut = () => {
+    // Clear any existing timeout to avoid memory leaks
+    if (setTimeOutRef.current) {
+      clearTimeout(setTimeOutRef.current);
+    }
+    // Set a new timeout and store its ID
+    setTimeOutRef.current = setTimeout(() => {
+      if (searchInputRef.current) {
+        setSearchInput("");
+        searchInputRef.current.focus();
+      }
+      // Do something here
+    }, 600);
+  };
+
+  useEffect(() => {
+    // We clear the set time out on unmount here.
+    return () => {
+      if (setTimeOutRef.current) {
+        clearTimeout(setTimeOutRef.current);
+      }
+    };
+  }, []);
 
   // When we close modal we want to reset all the values.
   useEffect(() => {
@@ -148,14 +175,7 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
               return setOpenDeliveryOrPickUp(true);
             }
             addItemToCart();
-            // if input is open and we add items to the cart we clear the input and set focus to the input.
-            if (searchInputRef.current) {
-              setSearchInput("");
-              // We need timeout to wait for modal to close.
-              setTimeout(() => {
-                searchInputRef.current.focus();
-              }, 600);
-            }
+            setFocusToInPut();
           }}
           type="button"
           className="bg-main text-white button col-span-7"
