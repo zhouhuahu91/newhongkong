@@ -36,10 +36,12 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
     if (setTimeOutRef.current) {
       clearTimeout(setTimeOutRef.current);
     }
+
+    setSearchInput("");
+
     // Set a new timeout and store its ID
     setTimeOutRef.current = setTimeout(() => {
       if (searchInputRef.current) {
-        setSearchInput("");
         // We scroll back to the top.
         // If clear search and we do not scroll back to top it will scroll to the item we last added.
         window.scrollTo({
