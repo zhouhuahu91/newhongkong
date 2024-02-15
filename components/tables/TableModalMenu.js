@@ -1,57 +1,23 @@
 import { useState } from "react";
-// Hook imports
-import { useMenu } from "@/hooks/useMenu";
 // Icon imports
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
+// component imports
+import Beverages from "@/tables/items/Beverages";
 
 const TableModalMenu = () => {
-  const { data } = useMenu();
   const [mainCategory, setMainCategory] = useState(false);
-  const [category, setCategory] = useState(false);
+  const [subCategory, setSubCategory] = useState(false);
 
-  console.log(category);
-
-  const Eten = () => {
-    return data
-      .filter((x) => {
-        if (category !== false) {
-          return category === x.id;
-        }
-        return x.id !== 15;
-      })
-      .map((x) => {
-        if (category !== false) {
-          return x.items.map((item) => {
-            return (
-              <button
-                className="col-span-1 border h-24 bg-white rounded-md font-bold"
-                key={item.id}
-              >
-                {item.name["nl"]}
-              </button>
-            );
-          });
-        }
-        return (
-          <button
-            onClick={() => setCategory(x.id)}
-            className="col-span-1 border h-24 bg-white rounded-md font-bold"
-            key={x.id}
-          >
-            {x.category["nl"]}
-          </button>
-        );
-      });
-  };
-  const Drinken = data.filter((x) => x.id === 15);
+  const buttonStyle = "bg-white col-span-1 h-24 border rounded-md shadow-md";
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      <div className="col-span-2 flex items-center font-mono">
+    <div className="grid grid-cols-2 gap-2 font-mono">
+      {/* Header for the displaying menu */}
+      <div className="col-span-2 flex items-center h-12 text-lg font-semibold">
         <button
           onClick={() => {
             setMainCategory(false);
-            setCategory(false);
+            setSubCategory(false);
           }}
           type="button"
           className=""
@@ -60,32 +26,30 @@ const TableModalMenu = () => {
         </button>
         {mainCategory && (
           <button
-            onClick={() => setCategory(false)}
+            onClick={() => {
+              setSubCategory(false);
+            }}
             className="flex items-center"
           >
             <ChevronRightIcon /> {mainCategory}
           </button>
         )}
+        {subCategory && (
+          <button
+            onClick={() => setSubCategory(false)}
+            className="flex items-center"
+          >
+            <ChevronRightIcon /> {subCategory}
+          </button>
+        )}
       </div>
-      {!mainCategory && (
-        <>
-          <button
-            type="button"
-            onClick={() => setMainCategory("eten")}
-            className="col-span-1 border h-24 bg-white rounded-md font-bold"
-          >
-            eten
-          </button>
-          <button
-            type="button"
-            onClick={() => setMainCategory("drinken")}
-            className="col-span-1 border h-24 bg-white rounded-md font-bold"
-          >
-            drinken
-          </button>
-        </>
-      )}
-      {mainCategory === "eten" && <Eten />}
+      <Beverages
+        buttonStyle={buttonStyle}
+        subCategory={subCategory}
+        setSubCategory={setSubCategory}
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
+      />
     </div>
   );
 };

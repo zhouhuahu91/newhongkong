@@ -1,7 +1,7 @@
 import btw from "../../options/btw";
 
 export default {
-  name: "wine",
+  name: "wijn",
   id: "1200",
   items: [
     {

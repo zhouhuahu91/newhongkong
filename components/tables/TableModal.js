@@ -29,7 +29,7 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
         <CloseIcon />
       </IconBtn>
       {/* Two containers left and right one is the receipt and the other items that we can add to the receipt */}
-      <div className="flex flex-row w-full h-full justify-between gap-2 bg-neutral-50">
+      <div className="flex flex-row w-full h-full justify-between gap-2 b-50">
         <div className="w-full border-r p-4">
           <TableModalMenu />
           {settings && (
