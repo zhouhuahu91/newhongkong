@@ -18,14 +18,14 @@ const TableModalMenu = ({ sizes, table }) => {
   return (
     <div className="grid grid-cols-2 gap-2 font-mono">
       {/* Header for the displaying menu */}
-      <div className="col-span-2 flex items-center h-12 text-lg font-semibold">
+      <div className="col-span-2 flex items-center h-16 text-xl font-semibold">
         <button
           onClick={() => {
             setMainCategory(false);
             setSubCategory(false);
           }}
           type="button"
-          className=""
+          className={`${mainCategory !== false ? "text-main" : ""}`}
         >
           home
         </button>
@@ -34,7 +34,9 @@ const TableModalMenu = ({ sizes, table }) => {
             onClick={() => {
               setSubCategory(false);
             }}
-            className="flex items-center"
+            className={`flex items-center ${
+              subCategory !== false ? "text-main" : ""
+            }`}
           >
             <ChevronRightIcon /> {mainCategory}
           </button>
@@ -48,6 +50,9 @@ const TableModalMenu = ({ sizes, table }) => {
           </button>
         )}
       </div>
+      {/* These are the categories we can go in to.  */}
+      {/* If mainCategory is false these will return a button which will select their... */}
+      {/* category as the main one. */}
       <Beverages
         buttonStyle={buttonStyle}
         subCategory={subCategory}
