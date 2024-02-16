@@ -3,6 +3,7 @@ import { useState } from "react";
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
 // component imports
 import Beverages from "@/tables/items/Beverages";
+import Food from "@/tables/items/Food";
 
 const TableModalMenu = () => {
   const [mainCategory, setMainCategory] = useState(false);
@@ -44,6 +45,13 @@ const TableModalMenu = () => {
         )}
       </div>
       <Beverages
+        buttonStyle={buttonStyle}
+        subCategory={subCategory}
+        setSubCategory={setSubCategory}
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
+      />
+      <Food
         buttonStyle={buttonStyle}
         subCategory={subCategory}
         setSubCategory={setSubCategory}
