@@ -18,7 +18,7 @@ const TableModalMenu = ({ sizes, table }) => {
   return (
     <div className="grid grid-cols-2 gap-2 font-mono">
       {/* Header for the displaying menu */}
-      <div className="col-span-2 flex items-center h-16 text-xl font-semibold">
+      <div className="col-span-2 flex items-center h-16 font-semibold">
         <button
           onClick={() => {
             setMainCategory(false);
@@ -27,7 +27,7 @@ const TableModalMenu = ({ sizes, table }) => {
           type="button"
           className={`${mainCategory !== false ? "text-main" : ""}`}
         >
-          home
+          menu
         </button>
         {mainCategory && (
           <button

@@ -12,17 +12,17 @@ const Beverages = ({
   if (mainCategory === false) {
     return (
       <button
-        onClick={() => setMainCategory("beverages")}
+        onClick={() => setMainCategory("drinken")}
         type="button"
         className={buttonStyle}
       >
-        drankjes
+        drinken
       </button>
     );
   }
 
   // If main category is equel to beverages we want to show all types of beverages but only if sub category is still false
-  if (mainCategory === "beverages" && subCategory === false) {
+  if (mainCategory === "drinken" && subCategory === false) {
     return (
       <>
         {beverages.map((type) => {
@@ -45,7 +45,7 @@ const Beverages = ({
 
   // As soon as the main category is beverages and subcategory is not false we check if the id of the subCategory of the beverages
   // and return those items.
-  if (mainCategory === "beverages" && subCategory !== false) {
+  if (mainCategory === "drinken" && subCategory !== false) {
     return (
       <>
         {beverages.map((type) => {
