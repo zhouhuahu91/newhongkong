@@ -7,6 +7,7 @@ const Beverages = ({
   setSubCategory,
   mainCategory,
   setMainCategory,
+  addItemToTable,
 }) => {
   // If there is no main category selected we just return the button for beverages.
   if (mainCategory === false) {
@@ -54,7 +55,7 @@ const Beverages = ({
               return (
                 <button
                   onClick={() => {
-                    console.log(item);
+                    addItemToTable(item);
                     // To do: add item to the tabel.
                   }}
                   type="button"

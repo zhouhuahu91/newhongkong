@@ -1,6 +1,9 @@
 import { useState } from "react";
 // Icon imports
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
+// Firebase imports
+import { db } from "@/firebase/firebase";
+import { doc, deleteDoc } from "firebase/firestore";
 // component imports
 import Beverages from "@/tables/items/Beverages";
 import Food from "@/tables/items/Food";
@@ -8,7 +11,7 @@ import Dessert from "@/tables/items/Dessert";
 import AllFood from "@/tables/items/AllFood";
 import TableTypes from "@/tables/TableTypes";
 
-const TableModalMenu = ({ sizes, table }) => {
+const TableModalMenu = ({ sizes, table, addItemToTable }) => {
   const [mainCategory, setMainCategory] = useState(false);
   const [subCategory, setSubCategory] = useState(false);
 
@@ -59,6 +62,7 @@ const TableModalMenu = ({ sizes, table }) => {
         setSubCategory={setSubCategory}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
+        addItemToTable={addItemToTable}
       />
       <Food
         buttonStyle={buttonStyle}
@@ -66,6 +70,7 @@ const TableModalMenu = ({ sizes, table }) => {
         setSubCategory={setSubCategory}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
+        addItemToTable={addItemToTable}
       />
       <Dessert
         buttonStyle={buttonStyle}
@@ -73,6 +78,7 @@ const TableModalMenu = ({ sizes, table }) => {
         setSubCategory={setSubCategory}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
+        addItemToTable={addItemToTable}
       />
       <AllFood
         buttonStyle={buttonStyle}
@@ -80,6 +86,7 @@ const TableModalMenu = ({ sizes, table }) => {
         setSubCategory={setSubCategory}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
+        addItemToTable={addItemToTable}
       />
       <TableTypes
         mainCategory={mainCategory}
@@ -88,6 +95,16 @@ const TableModalMenu = ({ sizes, table }) => {
         sizes={sizes}
         table={table}
       />
+      <button
+        onClick={() => {
+          const ref = doc(db, `tables/${table.id}`);
+          deleteDoc(ref);
+        }}
+        type="button"
+        className={buttonStyle}
+      >
+        delete
+      </button>
     </div>
   );
 };
