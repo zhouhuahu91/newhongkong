@@ -1,17 +1,9 @@
 import { useMenu } from "@/hooks/useMenu";
 import euro from "@/functions/euro";
 
-const Food = ({
-  mainCategory,
-  setMainCategory,
-  subCategory,
-  setSubCategory,
-  buttonStyle,
-}) => {
-  const { data } = useMenu();
-
+const getCustomFoodMenu = (data) => {
   const soupID = ["1", "2", "3", "6", "7"];
-  const sidesID = ["13", "8", "9", "10", "11", "12", "16", "18", "17"];
+  const sidesID = ["14", "8", "9", "10", "11", "12", "16", "18", "17"];
   const mainID = [
     "43",
     "49",
@@ -27,9 +19,9 @@ const Food = ({
     "38",
     "39",
     "31",
-    "83",
+    "84",
   ];
-  const nasiBamiMihoenID = ["64", "67", "68", "73", "85", "81"];
+  const nasiBamiMihoenID = ["64", "67", "68", "73", "75", "80"];
   const rijsttafelsID = ["101", "102", "103"];
   const soup = {
     name: "soepen",
@@ -52,7 +44,7 @@ const Food = ({
     items: [],
   };
   const nasiBamiMihoen = {
-    name: "nasi, bami of mihoen gerechten",
+    name: "nasi, bami of mihoen",
     id: "5",
     items: [],
   };
@@ -86,7 +78,24 @@ const Food = ({
     });
   });
 
-  const food = [soup, sides, main, tippan, nasiBamiMihoen, rijsttafels];
+  sides.items = sidesID.map((id) => sides.items.find((item) => item.id === id));
+  main.items = mainID.map((id) => main.items.find((item) => item.id === id));
+  nasiBamiMihoen.items = nasiBamiMihoenID.map((id) =>
+    nasiBamiMihoen.items.find((item) => item.id === id)
+  );
+
+  return [soup, sides, main, tippan, nasiBamiMihoen, rijsttafels];
+};
+
+const Food = ({
+  mainCategory,
+  setMainCategory,
+  subCategory,
+  setSubCategory,
+  buttonStyle,
+}) => {
+  const { data } = useMenu();
+  const food = getCustomFoodMenu(data);
 
   // If there is no main category selected we just return the button for beverages.
   if (mainCategory === false) {

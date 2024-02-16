@@ -4,6 +4,7 @@ import ChevronRightIcon from "@/icons/ChevronRightIcon";
 // component imports
 import Beverages from "@/tables/items/Beverages";
 import Food from "@/tables/items/Food";
+import Dessert from "@/tables/items/Dessert";
 
 const TableModalMenu = () => {
   const [mainCategory, setMainCategory] = useState(false);
@@ -52,6 +53,13 @@ const TableModalMenu = () => {
         setMainCategory={setMainCategory}
       />
       <Food
+        buttonStyle={buttonStyle}
+        subCategory={subCategory}
+        setSubCategory={setSubCategory}
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
+      />
+      <Dessert
         buttonStyle={buttonStyle}
         subCategory={subCategory}
         setSubCategory={setSubCategory}
