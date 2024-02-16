@@ -12,7 +12,6 @@ import { db } from "@/firebase/firebase";
 import { updateDoc, doc } from "firebase/firestore";
 
 const TableModal = ({ open, setOpen, table, sizes }) => {
-  const [settings, setSettings] = useState(false);
   const [tableNumber, setTableNumber] = useState(table.number);
   const [tableName, setTableName] = useState(`Tafel ${tableNumber}`);
 
@@ -31,34 +30,7 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
       {/* Two containers left and right one is the receipt and the other items that we can add to the receipt */}
       <div className="flex flex-row w-full h-full justify-between gap-2 b-50">
         <div className="w-full border-r p-4 overflow-scroll">
-          <TableModalMenu />
-          {settings && (
-            <div className="grid grid-cols-2">
-              <h1 className="col-span-2 w-full text-center">
-                change table type
-              </h1>
-              {Object.keys(sizes).map((size, idx) => {
-                return (
-                  <div key={idx} className="flex items-center justify-center">
-                    <button
-                      onClick={() => {
-                        const ref = doc(db, `tables/${table.id}`);
-                        updateDoc(ref, {
-                          type: size,
-                        });
-                      }}
-                      type="button"
-                      className={`${
-                        sizes[size]
-                      } scale-75 bg-white border shadow-md ${
-                        table.type === size ? "border-red-200 border-4" : ""
-                      }`}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          )}
+          <TableModalMenu sizes={sizes} table={table} />
         </div>
         <div className="w-full h-full flex border-l p-4 bg-white flex-col font-mono">
           <input

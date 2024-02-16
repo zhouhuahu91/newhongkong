@@ -6,8 +6,9 @@ import Beverages from "@/tables/items/Beverages";
 import Food from "@/tables/items/Food";
 import Dessert from "@/tables/items/Dessert";
 import AllFood from "@/tables/items/AllFood";
+import TableTypes from "@/tables/TableTypes";
 
-const TableModalMenu = () => {
+const TableModalMenu = ({ sizes, table }) => {
   const [mainCategory, setMainCategory] = useState(false);
   const [subCategory, setSubCategory] = useState(false);
 
@@ -74,6 +75,13 @@ const TableModalMenu = () => {
         setSubCategory={setSubCategory}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
+      />
+      <TableTypes
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
+        buttonStyle={buttonStyle}
+        sizes={sizes}
+        table={table}
       />
     </div>
   );

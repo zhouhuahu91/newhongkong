@@ -1,14 +1,8 @@
 import dessert from "@/data/restaurant/dessert/dessert";
 import euro from "@/functions/euro";
 
-const Dessert = ({
-  mainCategory,
-  setMainCategory,
-  subCategory,
-  setSubCategory,
-  buttonStyle,
-}) => {
-  // If there is no main category selected we just return the button for beverages.
+const Dessert = ({ mainCategory, setMainCategory, buttonStyle }) => {
+  // If there is no main category selected we just return the button for dessert.
   if (mainCategory === false) {
     return (
       <button
