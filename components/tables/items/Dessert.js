@@ -34,7 +34,7 @@ const Dessert = ({
                 }}
                 type="button"
                 key={item.id}
-                className={`${buttonStyle} flex flex-col justify-between p-4 text-left`}
+                className={`${buttonStyle} flex flex-col justify-between text-left`}
               >
                 <span>{item.name}</span>
                 <span className="text-xs">{euro(item.price)}</span>

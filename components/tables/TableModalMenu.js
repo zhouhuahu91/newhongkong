@@ -5,12 +5,14 @@ import ChevronRightIcon from "@/icons/ChevronRightIcon";
 import Beverages from "@/tables/items/Beverages";
 import Food from "@/tables/items/Food";
 import Dessert from "@/tables/items/Dessert";
+import AllFood from "@/tables/items/AllFood";
 
 const TableModalMenu = () => {
   const [mainCategory, setMainCategory] = useState(false);
   const [subCategory, setSubCategory] = useState(false);
 
-  const buttonStyle = "bg-white col-span-1 h-24 border rounded-md shadow-md";
+  const buttonStyle =
+    "bg-white col-span-1 h-24 border p-4 rounded-md shadow-md";
 
   return (
     <div className="grid grid-cols-2 gap-2 font-mono">
@@ -60,6 +62,13 @@ const TableModalMenu = () => {
         setMainCategory={setMainCategory}
       />
       <Dessert
+        buttonStyle={buttonStyle}
+        subCategory={subCategory}
+        setSubCategory={setSubCategory}
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
+      />
+      <AllFood
         buttonStyle={buttonStyle}
         subCategory={subCategory}
         setSubCategory={setSubCategory}
