@@ -101,17 +101,17 @@ const Food = ({
   if (mainCategory === false) {
     return (
       <button
-        onClick={() => setMainCategory("food")}
+        onClick={() => setMainCategory("gerechten")}
         type="button"
         className={buttonStyle}
       >
-        eten
+        gerechten
       </button>
     );
   }
 
   // If main category is equel to food we want to show all types of food but only if sub category is still false
-  if (mainCategory === "food" && subCategory === false) {
+  if (mainCategory === "gerechten" && subCategory === false) {
     return (
       <>
         {food.map((type) => {
@@ -133,7 +133,7 @@ const Food = ({
   }
   // As soon as the main category is food and subcategory is not false we check if the id of the subCategory of the food
   // and return those items.
-  if (mainCategory === "food" && subCategory !== false) {
+  if (mainCategory === "gerechten" && subCategory !== false) {
     return (
       <>
         {food.map((type) => {
