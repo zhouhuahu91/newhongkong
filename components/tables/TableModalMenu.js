@@ -1,6 +1,7 @@
 import { useState } from "react";
 // Icon imports
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
+import DeleteIcon from "@/icons/DeleteIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, deleteDoc } from "firebase/firestore";
@@ -19,7 +20,7 @@ const TableModalMenu = ({ sizes, table, addBeverageToTable }) => {
     "bg-white col-span-1 h-24 border p-4 rounded-md shadow-md";
 
   return (
-    <div className="grid grid-cols-2 gap-2 font-mono">
+    <div className="grid grid-cols-2 gap-2">
       {/* Header for the displaying menu */}
       <div className="col-span-2 flex items-center h-16 font-semibold ml-2">
         <button
@@ -102,8 +103,9 @@ const TableModalMenu = ({ sizes, table, addBeverageToTable }) => {
             deleteDoc(ref);
           }}
           type="button"
-          className={buttonStyle}
+          className={`${buttonStyle} flex items-center justify-center gap-2`}
         >
+          <DeleteIcon />
           delete
         </button>
       )}

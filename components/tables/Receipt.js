@@ -13,13 +13,13 @@ const Receipt = ({ table, incrementBeverage, decrementBeverage }) => {
         {table.beverages.map((beverage) => {
           return (
             <div className="grid grid-cols-12" key={beverage.id}>
-              <div className="col-span-2 flex items-center justify-around">
+              <div className="col-span-2 flex items-center justify-center">
                 <IconBtn onClick={() => decrementBeverage(beverage)}>
-                  <MinusIcon className="fill-main" />
+                  <MinusIcon size="18" className="fill-main" />
                 </IconBtn>
-                <div>{beverage.qwt}</div>
+                <div className="mx-2">{beverage.qwt}</div>
                 <IconBtn onClick={() => incrementBeverage(beverage)}>
-                  <PlusIcon className="fill-main" />
+                  <PlusIcon size="18" className="fill-main" />
                 </IconBtn>
               </div>
               <div className="col-span-7 ml-1">{beverage.name}</div>

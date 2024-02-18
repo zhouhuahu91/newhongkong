@@ -118,7 +118,7 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
             table={table}
           />
         </div>
-        <div className="w-full h-full flex border-l p-4 bg-white flex-col font-mono">
+        <div className="w-full h-full flex border-l p-4 bg-white flex-col">
           <input
             value={tableName}
             className="appearance-none focus:outline-none text-center font-bold text-3xl border-b mt-6 pb-2"
