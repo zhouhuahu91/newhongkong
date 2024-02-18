@@ -8,7 +8,7 @@ import PlusIcon from "@/icons/PlusIcon";
 
 const Receipt = ({ table, incrementBeverage, decrementBeverage }) => {
   return (
-    <div className="p-4 flex flex-col">
+    <div className="p-4 flex flex-col uppercase text-lg">
       <div>
         {table.beverages.map((beverage) => {
           return (

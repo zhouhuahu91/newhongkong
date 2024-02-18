@@ -57,7 +57,7 @@ const getCustomFoodMenu = (data) => {
 
   data.forEach((category) => {
     if (category.id === 14) {
-      tippan.items.push(category.items);
+      tippan.items = category.items;
     }
     category.items.forEach((item) => {
       if (soupID.includes(item.id)) {
@@ -131,6 +131,7 @@ const Food = ({
       </>
     );
   }
+
   // As soon as the main category is food and subcategory is not false we check if the id of the subCategory of the food
   // and return those items.
   if (mainCategory === "gerechten" && subCategory !== false) {
@@ -149,7 +150,7 @@ const Food = ({
                   key={item.id}
                   className={`${buttonStyle} flex flex-col justify-between text-left`}
                 >
-                  <span>{item.name.nl}</span>
+                  <span>{item.name?.nl}</span>
                   <span className="text-xs">{euro(item.price)}</span>
                 </button>
               );

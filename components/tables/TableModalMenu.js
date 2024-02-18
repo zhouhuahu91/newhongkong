@@ -17,19 +17,21 @@ const TableModalMenu = ({ sizes, table, addBeverageToTable }) => {
   const [subCategory, setSubCategory] = useState(false);
 
   const buttonStyle =
-    "bg-white col-span-1 h-24 border p-4 rounded-md shadow-md";
+    "bg-white col-span-1 h-24 border p-4 rounded-md shadow-md uppercase font-medium text-lg";
 
   return (
     <div className="grid grid-cols-2 gap-2">
       {/* Header for the displaying menu */}
-      <div className="col-span-2 flex items-center h-16 font-semibold ml-2">
+      <div className="col-span-2 flex items-center h-16 font-medium ml-2">
         <button
           onClick={() => {
             setMainCategory(false);
             setSubCategory(false);
           }}
           type="button"
-          className={`${mainCategory !== false ? "text-main" : ""}`}
+          className={`uppercase text-lg ${
+            mainCategory !== false ? "text-main" : ""
+          }`}
         >
           menu
         </button>
@@ -38,7 +40,7 @@ const TableModalMenu = ({ sizes, table, addBeverageToTable }) => {
             onClick={() => {
               setSubCategory(false);
             }}
-            className={`flex items-center ${
+            className={`flex items-center uppercase text-lg ${
               subCategory !== false ? "text-main" : ""
             }`}
           >
@@ -48,7 +50,7 @@ const TableModalMenu = ({ sizes, table, addBeverageToTable }) => {
         {subCategory && (
           <button
             onClick={() => setSubCategory(false)}
-            className="flex items-center"
+            className="flex items-center uppercase text-lg"
           >
             <ChevronRightIcon /> {subCategory}
           </button>
