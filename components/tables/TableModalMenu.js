@@ -11,7 +11,7 @@ import Dessert from "@/tables/items/Dessert";
 import AllFood from "@/tables/items/AllFood";
 import TableTypes from "@/tables/TableTypes";
 
-const TableModalMenu = ({ sizes, table, addItemToTable }) => {
+const TableModalMenu = ({ sizes, table, addBeverageToTable }) => {
   const [mainCategory, setMainCategory] = useState(false);
   const [subCategory, setSubCategory] = useState(false);
 
@@ -62,7 +62,7 @@ const TableModalMenu = ({ sizes, table, addItemToTable }) => {
         setSubCategory={setSubCategory}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
-        addItemToTable={addItemToTable}
+        addBeverageToTable={addBeverageToTable}
       />
       <Food
         buttonStyle={buttonStyle}
@@ -70,7 +70,7 @@ const TableModalMenu = ({ sizes, table, addItemToTable }) => {
         setSubCategory={setSubCategory}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
-        addItemToTable={addItemToTable}
+        addBeverageToTable={addBeverageToTable}
       />
       <Dessert
         buttonStyle={buttonStyle}
@@ -78,7 +78,7 @@ const TableModalMenu = ({ sizes, table, addItemToTable }) => {
         setSubCategory={setSubCategory}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
-        addItemToTable={addItemToTable}
+        addBeverageToTable={addBeverageToTable}
       />
       <AllFood
         buttonStyle={buttonStyle}
@@ -86,7 +86,7 @@ const TableModalMenu = ({ sizes, table, addItemToTable }) => {
         setSubCategory={setSubCategory}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
-        addItemToTable={addItemToTable}
+        addBeverageToTable={addBeverageToTable}
       />
       <TableTypes
         mainCategory={mainCategory}
@@ -95,16 +95,18 @@ const TableModalMenu = ({ sizes, table, addItemToTable }) => {
         sizes={sizes}
         table={table}
       />
-      <button
-        onClick={() => {
-          const ref = doc(db, `tables/${table.id}`);
-          deleteDoc(ref);
-        }}
-        type="button"
-        className={buttonStyle}
-      >
-        delete
-      </button>
+      {mainCategory === false && (
+        <button
+          onClick={() => {
+            const ref = doc(db, `tables/${table.id}`);
+            deleteDoc(ref);
+          }}
+          type="button"
+          className={buttonStyle}
+        >
+          delete
+        </button>
+      )}
     </div>
   );
 };

@@ -3,10 +3,9 @@ import { useState } from "react";
 import TableModalMenu from "@/tables/TableModalMenu";
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
+import Receipt from "@/tables/Receipt";
 // Icon imports
 import CloseIcon from "@/icons/CloseIcon";
-// Hook imports
-import { useMenu } from "@/hooks/useMenu";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { updateDoc, doc } from "firebase/firestore";
@@ -15,14 +14,45 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
   const [tableName, setTableName] = useState(`Tafel ${tableNumber}`);
 
-  const addItemToTable = async (item) => {
+  //  ********* THESE ARE FUNCTION FOR DRINKS AND DESSERT THAT DON'T HAVE SIDES OR OPTIONS *********
+  //  MAKES EVERTYTHING A LOT EASIER
+  // This function adds a non kitchen item to the beverages array.
+  const addBeverageToTable = async (item) => {
     const ref = doc(db, `tables/${table.id}`);
-    const drinks = table.drinks;
+    const beverages = table.beverages;
+    // We need to check if the item is already in the beverages array.
+    const found = beverages.find((x) => x.id === item.id);
 
-    updateDoc(ref, {
-      drinks: [...drinks, item],
-    });
+    // If items is already in the beverages array we increment the item instead.
+    if (found) {
+      updateDoc(ref, {
+        beverages: beverages.map((beverage) => {
+          return beverage.id === item.id
+            ? {
+                ...beverage,
+                qwt: beverage.qwt + 1,
+                price: beverage.price + item.price,
+              }
+            : beverage;
+        }),
+      });
+      // If not found we add the new item to the array and set qwt to 1
+    } else {
+      updateDoc(ref, {
+        beverages: [
+          ...beverages,
+          {
+            ...item,
+            qwt: 1,
+          },
+        ],
+      });
+    }
   };
+
+  const incrementBeverage = (item) => {};
+
+  const decrementBeverage = (item) => {};
 
   return (
     <Modal
@@ -40,7 +70,7 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
       <div className="flex flex-row w-full h-full justify-between gap-2 b-50">
         <div className="w-full border-r p-4 overflow-scroll">
           <TableModalMenu
-            addItemToTable={addItemToTable}
+            addBeverageToTable={addBeverageToTable}
             sizes={sizes}
             table={table}
           />
@@ -62,7 +92,7 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
               });
             }}
           />
-          <div>test</div>
+          <Receipt table={table} />
         </div>
       </div>
     </Modal>
