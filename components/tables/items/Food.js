@@ -148,10 +148,12 @@ const Food = ({
                   }}
                   type="button"
                   key={item.id}
-                  className={`${buttonStyle} flex flex-col justify-between text-left`}
+                  className={`${buttonStyle} flex flex-col justify-between text-left font-medium`}
                 >
-                  <span>{item.name?.nl}</span>
-                  <span className="text-xs">{euro(item.price)}</span>
+                  <span className="text-inherit font-medium">
+                    {item.name?.nl}
+                  </span>
+                  <span className="text-sm">{euro(item.price)}</span>
                 </button>
               );
             });
