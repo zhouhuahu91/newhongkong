@@ -14,24 +14,29 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
   const [tableName, setTableName] = useState(`Tafel ${tableNumber}`);
 
+  // This the ref of the current table we are dealing with.
+  const ref = doc(db, `tables/${table.id}`);
+
   //  ********* THESE ARE FUNCTION FOR DRINKS AND DESSERT THAT DON'T HAVE SIDES OR OPTIONS *********
   //  MAKES EVERTYTHING A LOT EASIER
-  // This function adds a non kitchen item to the beverages array.
-  const addBeverageToTable = async (item) => {
-    const ref = doc(db, `tables/${table.id}`);
-    const beverages = table.beverages;
+  // Current beverages in the table
+  const beverages = table.beverages;
+  // This function adds a beverage to the beverages array.
+  const addBeverageToTable = async (beverageToAdd) => {
     // We need to check if the item is already in the beverages array.
-    const found = beverages.find((x) => x.id === item.id);
+    const found = beverages.find(
+      (beverage) => beverage.id === beverageToAdd.id
+    );
 
     // If items is already in the beverages array we increment the item instead.
     if (found) {
       updateDoc(ref, {
         beverages: beverages.map((beverage) => {
-          return beverage.id === item.id
+          return beverage.id === beverageToAdd.id
             ? {
                 ...beverage,
                 qwt: beverage.qwt + 1,
-                price: beverage.price + item.price,
+                price: beverage.price + beverageToAdd.price,
               }
             : beverage;
         }),
@@ -42,7 +47,7 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
         beverages: [
           ...beverages,
           {
-            ...item,
+            ...beverageToAdd,
             qwt: 1,
           },
         ],
@@ -50,9 +55,47 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
     }
   };
 
-  const incrementBeverage = (item) => {};
+  const incrementBeverage = (beverageToIncrement) => {
+    const newBeverages = beverages.map((beverage) => {
+      return beverage.id === beverageToIncrement.id
+        ? {
+            ...beverage,
+            qwt: beverage.qwt + 1,
+            price: (beverage.price / beverage.qwt) * (beverage.qwt + 1),
+          }
+        : beverage;
+    });
 
-  const decrementBeverage = (item) => {};
+    updateDoc(ref, {
+      beverages: newBeverages,
+    });
+  };
+
+  const decrementBeverage = (beverageToDecrement) => {
+    // If the beverage that we want to decrement is only 1 we remove the item from the array.
+    if (beverageToDecrement.qwt === 1) {
+      updateDoc(ref, {
+        beverages: beverages.filter(
+          (beverage) => beverage.id !== beverageToDecrement.id
+        ),
+      });
+      // Otherwise we decrement by one and we deduct the price of one.
+    } else {
+      const newBeverages = beverages.map((beverage) => {
+        return beverage.id === beverageToDecrement.id
+          ? {
+              ...beverage,
+              qwt: beverage.qwt - 1,
+              price: (beverage.price / beverage.qwt) * (beverage.qwt - 1),
+            }
+          : beverage;
+      });
+
+      updateDoc(ref, {
+        beverages: newBeverages,
+      });
+    }
+  };
 
   return (
     <Modal
@@ -92,7 +135,11 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
               });
             }}
           />
-          <Receipt table={table} />
+          <Receipt
+            table={table}
+            incrementBeverage={incrementBeverage}
+            decrementBeverage={decrementBeverage}
+          />
         </div>
       </div>
     </Modal>
