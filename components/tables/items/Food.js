@@ -163,18 +163,25 @@ const Food = ({
             <button
               onClick={() => {
                 setSelectedSides((prev) => {
+                  // we need to add one because when we click we this button we are adding one.
+                  // that means if there are no selected sides after clicking this button there is 1.
                   if (
                     selectedSides.length + 1 ===
                     (currentDish.totalSides || 1)
                   ) {
+                    // If there is enough of the selected sides required we reset the values
                     setCurrentDish(false);
                     setSidesNeeded(false);
+                    // We add the current dish to the table with the selected sides
                     addDishToTable({
                       ...currentDish,
                       selectedSides: [...prev, side],
                     });
+                    // we reset selected sides to an empty array
                     return [];
                   } else {
+                    // if not that means we do not have enough selected sides thus we return the prev
+                    // selected sides with the new clicked on selected side.
                     return [...prev, side];
                   }
                 });

@@ -9,6 +9,9 @@ import CloseIcon from "@/icons/CloseIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { updateDoc, doc } from "firebase/firestore";
+// Function imports
+import createItemDescription from "@/functions/createItemDescription";
+import createItemId from "@/functions/createItemId";
 
 const TableModal = ({ open, setOpen, table, sizes }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
@@ -18,9 +21,60 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
   const ref = doc(db, `tables/${table.id}`);
 
   // ********** THESE ARE THE FUNCTIONS FOR FOOD ***********
+  const food = table.food;
+
+  console.log(food);
 
   const addDishToTable = (dish) => {
-    console.log(dish);
+    const selectedOptions = dish.selectedOptions || [];
+    const selectedSides = dish.selectedSides || [];
+
+    // We create a new description with the selected sides and options.
+    // this return all languages but actually only need dutch.
+    const description = createItemDescription(
+      dish,
+      selectedOptions,
+      selectedSides
+    );
+
+    // We extract the id of the selected sides and options to create a new id.
+    // We sort them so that we always get the same id even if the order is chosen differently.
+    const optionID = selectedOptions.map((x) => x.id).sort();
+    const sidesID = selectedSides.map((x) => x.id).sort();
+
+    // Creates a new id with the selected sides and options.
+    const ID = createItemId(dish, optionID, sidesID);
+
+    // check if ID is in the food array or not
+    const found = food.find((x) => x.id === dish.id);
+
+    // If the dish already exists we just modify the existing one
+    if (found) {
+      updateDoc(ref, {
+        food: food.map((x) => {
+          return x.id === dish.id
+            ? {
+                ...x,
+                qwt: x.qwt + 1,
+                price: x.price + dish.price,
+              }
+            : x;
+        }),
+      });
+      // If product does not exist we add it to the array
+    } else {
+      updateDoc(ref, {
+        food: [
+          ...food,
+          {
+            ...dish,
+            qwt: 1,
+            id: ID,
+            description: description.nl,
+          },
+        ],
+      });
+    }
   };
 
   //  ********* THESE ARE FUNCTION FOR DRINKS AND DESSERT THAT DON'T HAVE SIDES OR OPTIONS *********
