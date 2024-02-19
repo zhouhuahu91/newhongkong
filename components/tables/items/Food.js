@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useMenu } from "@/hooks/useMenu";
 import euro from "@/functions/euro";
 
@@ -93,9 +94,26 @@ const Food = ({
   subCategory,
   setSubCategory,
   buttonStyle,
+  addDishToTable,
 }) => {
   const { data } = useMenu();
   const food = getCustomFoodMenu(data);
+  const [currentDish, setCurrentDish] = useState(false);
+  const [sidesNeeded, setSidesNeeded] = useState(false);
+  const [selectedSides, setSelectedSides] = useState([]);
+
+  // If user goes out of the sides menu before they completed it we reset the values for sides.
+  if (mainCategory !== "gerechten" || subCategory === false) {
+    if (currentDish) {
+      setCurrentDish(false);
+    }
+    if (sidesNeeded) {
+      setSidesNeeded(false);
+    }
+    if (selectedSides.length) {
+      setSelectedSides([]);
+    }
+  }
 
   // If there is no main category selected we just return the button for beverages.
   if (mainCategory === false) {
@@ -132,6 +150,54 @@ const Food = ({
     );
   }
 
+  // If sidesNeeded is true we show the sides that we can select.
+  if (
+    mainCategory === "gerechten" &&
+    subCategory !== false &&
+    sidesNeeded === true
+  ) {
+    return (
+      <>
+        {currentDish.sides.map((side) => {
+          return (
+            <button
+              onClick={() => {
+                setSelectedSides((prev) => {
+                  if (
+                    selectedSides.length + 1 ===
+                    (currentDish.totalSides || 1)
+                  ) {
+                    setCurrentDish(false);
+                    setSidesNeeded(false);
+                    addDishToTable({
+                      ...currentDish,
+                      selectedSides: [...prev, side],
+                    });
+                    return [];
+                  } else {
+                    return [...prev, side];
+                  }
+                });
+              }}
+              type="button"
+              className={`${buttonStyle} flex flex-col justify-between text-left font-medium ${
+                selectedSides.some((x) => x.id === side.id)
+                  ? "border-red-200 border-2"
+                  : ""
+              }`}
+              key={side.id}
+            >
+              <span className="text-inherit font-medium">{side.name.nl}</span>
+              <span className="text-sm">
+                {side.price > 0 ? euro(side.price) : "gratis"}
+              </span>
+            </button>
+          );
+        })}
+      </>
+    );
+  }
+
   // As soon as the main category is food and subcategory is not false we check if the id of the subCategory of the food
   // and return those items.
   if (mainCategory === "gerechten" && subCategory !== false) {
@@ -143,7 +209,14 @@ const Food = ({
               return (
                 <button
                   onClick={() => {
-                    console.log(item);
+                    if (
+                      item.sides &&
+                      selectedSides.length < (item.totalSides || 1)
+                    ) {
+                      setCurrentDish(item);
+                      return setSidesNeeded(true);
+                    }
+                    addDishToTable(item);
                     // To do: add item to the tabel.
                   }}
                   type="button"

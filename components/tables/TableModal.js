@@ -17,6 +17,12 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
   // This the ref of the current table we are dealing with.
   const ref = doc(db, `tables/${table.id}`);
 
+  // ********** THESE ARE THE FUNCTIONS FOR FOOD ***********
+
+  const addDishToTable = (dish) => {
+    console.log(dish);
+  };
+
   //  ********* THESE ARE FUNCTION FOR DRINKS AND DESSERT THAT DON'T HAVE SIDES OR OPTIONS *********
   //  MAKES EVERTYTHING A LOT EASIER
   // Current beverages in the table
@@ -114,6 +120,7 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
         <div className="w-full border-r p-4 overflow-scroll">
           <TableModalMenu
             addBeverageToTable={addBeverageToTable}
+            addDishToTable={addDishToTable}
             sizes={sizes}
             table={table}
           />
