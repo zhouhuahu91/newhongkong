@@ -10,14 +10,8 @@ import Beverages from "@/tables/items/Beverages";
 import Food from "@/tables/items/Food";
 import Dessert from "@/tables/items/Dessert";
 import AllFood from "@/tables/items/AllFood";
-import TableTypes from "@/tables/TableTypes";
 
-const TableModalMenu = ({
-  sizes,
-  table,
-  addBeverageToTable,
-  addDishToTable,
-}) => {
+const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   const [mainCategory, setMainCategory] = useState(false);
   const [subCategory, setSubCategory] = useState(false);
   // We do this just so that we don't have to lift state
@@ -102,13 +96,6 @@ const TableModalMenu = ({
         addDishToTable={addDishToTable}
         resetDish={resetDish}
         setResetDish={setResetDish}
-      />
-      <TableTypes
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-        buttonStyle={buttonStyle}
-        sizes={sizes}
-        table={table}
       />
       {mainCategory === false && (
         <button

@@ -29,11 +29,6 @@ const Tables = () => {
   const createNewTable = (number) => {
     const table = {
       number,
-      type: "small",
-      position: {
-        x: 10,
-        y: 10,
-      },
       beverages: [],
       food: [],
       paid: false,

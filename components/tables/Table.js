@@ -24,7 +24,6 @@ const Table = ({ tables, createNewTable }) => {
           <TableModal
             key={table.id}
             table={table}
-            sizes={sizes}
             open={selectedTable?.id === table.id}
             setSelectedTable={setSelectedTable}
           />

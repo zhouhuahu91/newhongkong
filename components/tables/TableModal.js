@@ -13,7 +13,7 @@ import { updateDoc, doc } from "firebase/firestore";
 import createItemDescription from "@/functions/createItemDescription";
 import createItemId from "@/functions/createItemId";
 
-const TableModal = ({ open, setSelectedTable, table, sizes }) => {
+const TableModal = ({ open, setSelectedTable, table }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
   const [tableName, setTableName] = useState(`Tafel ${tableNumber}`);
 
@@ -22,8 +22,6 @@ const TableModal = ({ open, setSelectedTable, table, sizes }) => {
 
   // ********** THESE ARE THE FUNCTIONS FOR FOOD ***********
   const food = table.food;
-
-  console.log(food);
 
   const addDishToTable = (dish) => {
     const selectedOptions = dish.selectedOptions || [];
@@ -231,27 +229,29 @@ const TableModal = ({ open, setSelectedTable, table, sizes }) => {
           <TableModalMenu
             addBeverageToTable={addBeverageToTable}
             addDishToTable={addDishToTable}
-            sizes={sizes}
             table={table}
           />
         </div>
         <div className="w-full h-full flex border-l p-4 bg-white flex-col">
-          <input
-            value={tableName}
-            className="appearance-none focus:outline-none text-center font-bold text-2xl border-b mt-6 pb-2"
-            onChange={(e) => {
-              const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
-              const number = value === "" ? 0 : parseInt(value, 10);
-              setTableNumber(number);
-              setTableName(`TAFEL ${number}`);
-            }}
-            onBlur={() => {
-              const ref = doc(db, `tables/${table.id}`);
-              updateDoc(ref, {
-                number: tableNumber,
-              });
-            }}
-          />
+          <div className="border-b flex justify-center">
+            <input
+              value={tableName}
+              className="appearance-none focus:outline-none text-center font-bold text-2xl mt-6 pb-2"
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
+                const number = value === "" ? 0 : parseInt(value, 10);
+                setTableNumber(number);
+                setTableName(`TAFEL ${number}`);
+              }}
+              onBlur={() => {
+                const ref = doc(db, `tables/${table.id}`);
+                updateDoc(ref, {
+                  number: tableNumber,
+                });
+              }}
+            />
+          </div>
+
           <Receipt
             table={table}
             incrementBeverage={incrementBeverage}
