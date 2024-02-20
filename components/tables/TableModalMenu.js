@@ -94,7 +94,7 @@ const TableModalMenu = ({
         setSubCategory={setSubCategory}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
-        addBeverageToTable={addBeverageToTable}
+        addDishToTable={addDishToTable}
       />
       <TableTypes
         mainCategory={mainCategory}

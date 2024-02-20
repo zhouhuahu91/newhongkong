@@ -222,7 +222,7 @@ const Food = ({
             >
               <span className="text-inherit font-medium">{option.name.nl}</span>
               <span className="text-sm">
-                {option.price > 0 ? euro(side.option) : "gratis"}
+                {option.price > 0 ? euro(option.price) : "gratis"}
               </span>
             </button>
           );
