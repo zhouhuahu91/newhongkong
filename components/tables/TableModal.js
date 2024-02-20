@@ -13,7 +13,7 @@ import { updateDoc, doc } from "firebase/firestore";
 import createItemDescription from "@/functions/createItemDescription";
 import createItemId from "@/functions/createItemId";
 
-const TableModal = ({ open, setOpen, table, sizes }) => {
+const TableModal = ({ open, setSelectedTable, table, sizes }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
   const [tableName, setTableName] = useState(`Tafel ${tableNumber}`);
 
@@ -213,10 +213,14 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
     <Modal
       className="w-full h-full max-w-[1080px] max-h-[770px] relative bg-white xl:rounded-xl overflow-hidden"
       toggle={open}
-      close={() => setOpen(false)}
+      close={() => {
+        setSelectedTable(null);
+      }}
     >
       <IconBtn
-        onClick={() => setOpen(false)}
+        onClick={() => {
+          setSelectedTable(null);
+        }}
         className="absolute right-4 top-4"
       >
         <CloseIcon />

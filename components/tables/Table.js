@@ -1,66 +1,117 @@
-import { useState, useEffect } from "react";
-import { motion, useMotionValue } from "framer-motion";
-// Firebase imports
-import { db } from "@/firebase/firebase";
-import { updateDoc, doc } from "firebase/firestore";
-// Component imports
+import { useState } from "react";
 import TableModal from "@/tables/TableModal";
 
-const Table = ({ table }) => {
-  const [open, setOpen] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
+// These are the types of tables.
+const sizes = {
+  round: "aspect-square w-28 rounded-full",
+  small: "w-24 h-24 rounded-md",
+  normal: "w-24 h-36 rounded-md",
+  normalH: "h-24 w-36 rounded-md",
+  big: "w-24 h-52 rounded-md",
+  bigH: "w-52 h-24 rounded-md",
+};
 
-  // I am not 100% sure how this work but this library solves the dragging issue.
-  // it calculates the position of the div and also get() the correct top and left values.
-  const x = useMotionValue(table.position.x);
-  const y = useMotionValue(table.position.y);
+const tableStyling = "border rounded-md shadow-md absolute font-medium text-xl";
 
-  // These are the types of tables.
-  const sizes = {
-    round: "aspect-square w-32 rounded-full",
-    small: "w-28 h-28 rounded-md",
-    normal: "w-28 h-44 rounded-md",
-    normalH: "h-28 w-44 rounded-md",
-    big: "w-28 h-60 rounded-md",
-    bigH: "w-60 h-28 rounded-md",
-  };
+const Table = ({ tables, createNewTable }) => {
+  const [selectedTable, setSelectedTable] = useState(null);
+  const activeTables = tables.map((table) => table.number);
 
   return (
     <>
-      <TableModal
-        sizes={sizes}
-        talbe={table}
-        open={open}
-        table={table}
-        setOpen={setOpen}
-      />
-      <motion.div
+      {tables.map((table) => {
+        return (
+          <TableModal
+            key={table.id}
+            table={table}
+            sizes={sizes}
+            open={selectedTable?.id === table.id}
+            setSelectedTable={setSelectedTable}
+          />
+        );
+      })}
+      <button
         onClick={() => {
-          if (!isDragging) setOpen(true);
+          // If there is already a table number 1 we open that table.
+          if (activeTables.includes(1)) {
+            setSelectedTable(tables.find((table) => table.number === 1));
+          } else {
+            createNewTable(1);
+          }
         }}
-        drag
-        onDragStart={() => setIsDragging(true)}
-        onDragEnd={async () => {
-          const ref = doc(db, `tables/${table.id}`);
-          await updateDoc(ref, {
-            position: {
-              x: x.get(),
-              y: y.get(),
-            },
-          });
-          setIsDragging(false);
-        }}
-        style={{
-          x,
-          y,
-        }}
-        className={`${
-          sizes[table.type]
-        } absolute cursor-pointer select-none bg-white border shadow-md flex items-center justify-center text-3xl font-bold`}
+        type="button"
+        className={`${sizes.normal} ${tableStyling} ${
+          activeTables.includes(1) ? "bg-green-100" : ""
+        } top-6 right-56`}
       >
-        {table.number}
-      </motion.div>
+        1
+      </button>
+      <button
+        onClick={() => {
+          // If there is already a table number 2 we open that table.
+          if (activeTables.includes(2)) {
+            setSelectedTable(tables.find((table) => table.number === 2));
+          } else {
+            createNewTable(2);
+          }
+        }}
+        type="button"
+        className={`${sizes.normalH} ${tableStyling} ${
+          activeTables.includes(2) ? "bg-green-100" : ""
+        } top-[12rem] right-48`}
+      >
+        2
+      </button>
+      <button
+        onClick={() => {
+          // If there is already a table number 2 we open that table.
+          if (activeTables.includes(3)) {
+            setSelectedTable(tables.find((table) => table.number === 3));
+          } else {
+            createNewTable(3);
+          }
+        }}
+        type="button"
+        className={`${sizes.normalH} ${tableStyling} ${
+          activeTables.includes(3) ? "bg-green-100" : ""
+        } top-[19.5rem] right-48`}
+      >
+        3
+      </button>
+      <button
+        onClick={() => {
+          // If there is already a table number 2 we open that table.
+          if (activeTables.includes(4)) {
+            setSelectedTable(tables.find((table) => table.number === 4));
+          } else {
+            createNewTable(4);
+          }
+        }}
+        type="button"
+        className={`${sizes.normalH} ${tableStyling} ${
+          activeTables.includes(4) ? "bg-green-100" : ""
+        } top-[27rem] right-48`}
+      >
+        4
+      </button>
+      <button
+        onClick={() => {
+          // If there is already a table number 2 we open that table.
+          if (activeTables.includes(5)) {
+            setSelectedTable(tables.find((table) => table.number === 5));
+          } else {
+            createNewTable(5);
+          }
+        }}
+        type="button"
+        className={`${sizes.normalH} ${tableStyling} ${
+          activeTables.includes(5) ? "bg-green-100" : ""
+        } top-[34.5rem] right-48`}
+      >
+        5
+      </button>
     </>
   );
 };
+
 export default Table;

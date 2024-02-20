@@ -17,6 +17,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import Spinner from "@/components/Spinner";
 import StoreLayout from "@/tables/StoreLayout";
 import Table from "@/tables/Table";
+// import Table from "@/tables/Table";
 
 const Tables = () => {
   const { currentDate } = useStoreInfo();
@@ -25,9 +26,9 @@ const Tables = () => {
   const [tables, setTables] = useState([]);
   const [date, setDate] = useState(currentDate);
 
-  const createNewTable = () => {
+  const createNewTable = (number) => {
     const table = {
-      number: tables.length + 1,
+      number,
       type: "small",
       position: {
         x: 10,
@@ -79,15 +80,9 @@ const Tables = () => {
   }
   return (
     <div className="w-full max-w-[1080px] mx-auto">
-      <div className="w-full border rounded-xl relative h-[770px] mt-5 xl:mt-20">
-        <StoreLayout
-          date={date}
-          setDate={setDate}
-          createNewTable={createNewTable}
-        />
-        {tables.map((table) => {
-          return <Table key={table.id} table={table} />;
-        })}
+      <div className="w-full border rounded-xl shadow-md bg-white relative h-[770px] mt-5 xl:mt-20">
+        <StoreLayout date={date} setDate={setDate} />
+        <Table tables={tables} createNewTable={createNewTable} />
       </div>
     </div>
   );
