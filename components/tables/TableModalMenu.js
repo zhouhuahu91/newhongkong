@@ -20,6 +20,9 @@ const TableModalMenu = ({
 }) => {
   const [mainCategory, setMainCategory] = useState(false);
   const [subCategory, setSubCategory] = useState(false);
+  // We do this just so that we don't have to lift state
+  // We want to be able to reset the options and sides selector from the bread crumb menu
+  const [resetDish, setResetDish] = useState(false);
 
   const buttonStyle =
     "bg-white h-[6.8rem] border p-4 rounded-md shadow-md uppercase font-medium text-lg";
@@ -34,7 +37,7 @@ const TableModalMenu = ({
             setSubCategory(false);
           }}
           type="button"
-          className={`uppercase text-lg ${
+          className={`uppercase text-lg font-medium ${
             mainCategory !== false ? "text-main" : ""
           }`}
         >
@@ -45,7 +48,7 @@ const TableModalMenu = ({
             onClick={() => {
               setSubCategory(false);
             }}
-            className={`flex items-center uppercase text-lg ${
+            className={`flex items-center uppercase text-lg font-medium ${
               subCategory !== false ? "text-main" : ""
             }`}
           >
@@ -54,8 +57,8 @@ const TableModalMenu = ({
         )}
         {subCategory && (
           <button
-            onClick={() => setSubCategory(false)}
-            className="flex items-center uppercase text-lg"
+            onClick={() => setResetDish(true)}
+            className="flex items-center uppercase text-lg font-medium"
           >
             <ChevronRightIcon /> {subCategory}
           </button>
@@ -79,6 +82,8 @@ const TableModalMenu = ({
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
         addDishToTable={addDishToTable}
+        resetDish={resetDish}
+        setResetDish={setResetDish}
       />
       <Dessert
         buttonStyle={buttonStyle}
@@ -95,6 +100,8 @@ const TableModalMenu = ({
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
         addDishToTable={addDishToTable}
+        resetDish={resetDish}
+        setResetDish={setResetDish}
       />
       <TableTypes
         mainCategory={mainCategory}

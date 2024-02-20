@@ -97,6 +97,8 @@ const Food = ({
   setSubCategory,
   buttonStyle,
   addDishToTable,
+  resetDish,
+  setResetDish,
 }) => {
   const { data } = useMenu();
   const food = getCustomFoodMenu(data);
@@ -106,8 +108,7 @@ const Food = ({
   const [optionsNeeded, setOptionsNeeded] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
 
-  // If user goes out of the sides or options menu before they completed it we reset the values for sides or options.
-  if (mainCategory !== "gerechten" || subCategory === false) {
+  const reset = () => {
     if (currentDish) {
       setCurrentDish(false);
     }
@@ -123,6 +124,17 @@ const Food = ({
     if (selectedOptions.length) {
       setSelectedOptions([]);
     }
+  };
+
+  // if resetDish is true we set reset the current dish and its options and sides
+  if (resetDish) {
+    reset();
+    return setResetDish(false);
+  }
+
+  // If user goes out of the sides or options menu before they completed it we reset the values for sides or options.
+  if (mainCategory !== "gerechten" || subCategory === false) {
+    reset();
   }
 
   // If there is no main category selected we just return the button for beverages.
