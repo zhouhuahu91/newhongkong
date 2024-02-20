@@ -69,7 +69,7 @@ const Tables = () => {
     return <Spinner />;
   }
 
-  if (width < 1080 || height < 810) {
+  if (width < 1000 || height < 800) {
     return (
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-4xl font-semibold">
         You need a bigger screen for tables.
