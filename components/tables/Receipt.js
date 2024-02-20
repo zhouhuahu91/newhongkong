@@ -37,7 +37,7 @@ const Receipt = ({
         {table.food.map((dish) => {
           return (
             <div className="grid grid-cols-12" key={dish.id}>
-              <div className="col-span-2 max-w-[4rem] flex items-center justify-around">
+              <div className="col-span-2 min-w-[5rem] flex items-center justify-between pr-2">
                 <IconBtn onClick={() => decrementDish(dish)}>
                   <MinusIcon size="18" className="fill-main" />
                 </IconBtn>
@@ -60,7 +60,7 @@ const Receipt = ({
         {table.beverages.map((beverage) => {
           return (
             <div className="grid grid-cols-12" key={beverage.id}>
-              <div className="col-span-2 max-w-[4rem] flex items-center justify-around">
+              <div className="col-span-2 min-w-[5rem] flex items-center justify-between pr-2">
                 <IconBtn onClick={() => decrementBeverage(beverage)}>
                   <MinusIcon size="18" className="fill-main" />
                 </IconBtn>
