@@ -234,12 +234,12 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
         <div className="w-full h-full flex border-l p-4 bg-white flex-col">
           <input
             value={tableName}
-            className="appearance-none focus:outline-none text-center font-bold text-3xl border-b mt-6 pb-2"
+            className="appearance-none focus:outline-none text-center font-bold text-2xl border-b mt-6 pb-2"
             onChange={(e) => {
               const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
               const number = value === "" ? 0 : parseInt(value, 10);
               setTableNumber(number);
-              setTableName(`Tafel ${number}`);
+              setTableName(`TAFEL ${number}`);
             }}
             onBlur={() => {
               const ref = doc(db, `tables/${table.id}`);

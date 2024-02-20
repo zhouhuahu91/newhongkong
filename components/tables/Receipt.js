@@ -22,9 +22,18 @@ const Receipt = ({
   decrementDish,
 }) => {
   const total = calculateTotal(table);
+
+  if (table.food.length === 0 && table.beverages.length === 0) {
+    return (
+      <div className="w-full h-full flex justify-center mt-40 uppercase font-medium">
+        nog niks besteld.
+      </div>
+    );
+  }
+
   return (
-    <div className="p-4 h-full flex flex-col uppercase text-lg">
-      <div>
+    <div className="p-4 h-full flex flex-col uppercase text-lg gap-4 my-4 overflow-scroll">
+      <div className="">
         {table.food.map((dish) => {
           return (
             <div className="grid grid-cols-12" key={dish.id}>
@@ -47,7 +56,7 @@ const Receipt = ({
           );
         })}
       </div>
-      <div className="mt-4">
+      <div className="">
         {table.beverages.map((beverage) => {
           return (
             <div className="grid grid-cols-12" key={beverage.id}>
