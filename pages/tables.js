@@ -132,6 +132,9 @@ const Tables = () => {
     },
   ];
 
+  // TO DO create a list a tables that are closed. that means paid and printed
+  // We want to show these tables some how.
+
   return (
     <div className="w-full max-w-[1080px] mx-auto">
       <div className="w-full border rounded-xl shadow-md bg-white relative h-[770px] mt-5 xl:mt-20">

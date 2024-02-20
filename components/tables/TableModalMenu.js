@@ -98,6 +98,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
         resetDish={resetDish}
         setResetDish={setResetDish}
       />
+      {/* TO DO: move delete to own component. let it return a warning if i acutally want to delete it or not */}
       {mainCategory === false && (
         <button
           onClick={() => {
@@ -119,7 +120,11 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
             updateDoc(ref, {
               printed: true,
             });
-            // print receipt
+            // TO DO: set main category to pay mode
+            // in this pay mode we can select the amount the client pays and the tip amount
+            // in this pay mode we can also select payment method
+            // we can also reprint the receipt
+            // TO DO: print receipt
           }}
           type="button"
           className={`${buttonStyle} flex items-center justify-center gap-2`}
