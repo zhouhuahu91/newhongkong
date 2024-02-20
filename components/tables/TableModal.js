@@ -211,7 +211,7 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
 
   return (
     <Modal
-      className="w-full h-full relative bg-white xl:rounded-xl overflow-hidden"
+      className="w-full h-full max-w-[1080px] max-h-[770px] relative bg-white xl:rounded-xl overflow-hidden"
       toggle={open}
       close={() => setOpen(false)}
     >
@@ -222,7 +222,7 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
         <CloseIcon />
       </IconBtn>
       {/* Two containers left and right one is the receipt and the other items that we can add to the receipt */}
-      <div className="flex flex-row w-full h-full justify-between gap-2 b-50">
+      <div className="flex flex-row w-full h-full max justify-between gap-2 b-50">
         <div className="w-full border-r p-4 overflow-scroll">
           <TableModalMenu
             addBeverageToTable={addBeverageToTable}
