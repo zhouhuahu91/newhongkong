@@ -110,6 +110,26 @@ const Tables = () => {
       type: sizes.normalH,
       position: "top-[34.5rem] right-48",
     },
+    {
+      number: 6,
+      type: sizes.normal,
+      position: "top-6 left-[26rem]",
+    },
+    {
+      number: 7,
+      type: sizes.big,
+      position: "top-48 left-[26rem]",
+    },
+    {
+      number: 8,
+      type: sizes.round,
+      position: "bottom-[14.5rem] left-[25.55rem]",
+    },
+    {
+      number: 9,
+      type: sizes.round,
+      position: "bottom-[6rem] left-[25.55rem]",
+    },
   ];
 
   return (
