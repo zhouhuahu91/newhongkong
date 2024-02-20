@@ -211,7 +211,7 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
 
   return (
     <Modal
-      className="w-full h-full max-w-[1080px] max-h-[820px] relative bg-white rounded-xl overflow-hidden"
+      className="w-full h-full relative bg-white xl:rounded-xl overflow-hidden"
       toggle={open}
       close={() => setOpen(false)}
     >
