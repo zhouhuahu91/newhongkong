@@ -89,6 +89,46 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
     }
   };
 
+  const incrementDish = (dishToIncrement) => {
+    const newFood = food.map((dish) => {
+      return dish.id === dishToIncrement.id
+        ? {
+            ...dishToIncrement,
+            qwt: dish.qwt + 1,
+            price: (dish.price / dish.qwt) * (dish.qwt + 1),
+          }
+        : dish;
+    });
+
+    updateDoc(ref, {
+      food: newFood,
+    });
+  };
+
+  const decrementDish = (dishToDecrement) => {
+    // If the dish that we want to decrement is only 1 we remove the item from the array.
+    if (dishToDecrement.qwt === 1) {
+      updateDoc(ref, {
+        food: food.filter((dish) => dish.id !== dishToDecrement.id),
+      });
+      // Otherwise we decrement by one and we deduct the price of one.
+    } else {
+      const newFood = food.map((dish) => {
+        return dish.id === dishToDecrement.id
+          ? {
+              ...dish,
+              qwt: dish.qwt - 1,
+              price: (dish.price / dish.qwt) * (dish.qwt - 1),
+            }
+          : dish;
+      });
+
+      updateDoc(ref, {
+        food: newFood,
+      });
+    }
+  };
+
   //  ********* THESE ARE FUNCTION FOR DRINKS AND DESSERT THAT DON'T HAVE SIDES OR OPTIONS *********
   //  MAKES EVERTYTHING A LOT EASIER
   // Current beverages in the table
@@ -212,6 +252,8 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
             table={table}
             incrementBeverage={incrementBeverage}
             decrementBeverage={decrementBeverage}
+            incrementDish={incrementDish}
+            decrementDish={decrementDish}
           />
         </div>
       </div>

@@ -17,7 +17,6 @@ const AllFood = ({
   const [optionsNeeded, setOptionsNeeded] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
 
-  console.log(optionsNeeded);
   // If user goes out of the sides or options menu before they completed it we reset the values for sides or options.
   if (mainCategory !== "alle gerechten" || subCategory === false) {
     if (currentDish) {

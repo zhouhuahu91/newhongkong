@@ -6,7 +6,13 @@ import IconBtn from "@/components/IconBtn";
 import MinusIcon from "@/icons/MinusIcon";
 import PlusIcon from "@/icons/PlusIcon";
 
-const Receipt = ({ table, incrementBeverage, decrementBeverage }) => {
+const Receipt = ({
+  table,
+  incrementBeverage,
+  decrementBeverage,
+  incrementDish,
+  decrementDish,
+}) => {
   return (
     <div className="p-4 flex flex-col uppercase text-lg">
       <div>
@@ -14,11 +20,11 @@ const Receipt = ({ table, incrementBeverage, decrementBeverage }) => {
           return (
             <div className="grid grid-cols-12" key={dish.id}>
               <div className="col-span-2 flex items-center justify-center">
-                <IconBtn onClick={() => console.log(dish)}>
+                <IconBtn onClick={() => decrementDish(dish)}>
                   <MinusIcon size="18" className="fill-main" />
                 </IconBtn>
                 <div className="mx-2">{dish.qwt}</div>
-                <IconBtn onClick={() => console.log(dish)}>
+                <IconBtn onClick={() => incrementDish(dish)}>
                   <PlusIcon size="18" className="fill-main" />
                 </IconBtn>
               </div>
