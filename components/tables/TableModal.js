@@ -29,14 +29,6 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
     const selectedOptions = dish.selectedOptions || [];
     const selectedSides = dish.selectedSides || [];
 
-    // We create a new description with the selected sides and options.
-    // this return all languages but actually only need dutch.
-    const description = createItemDescription(
-      dish,
-      selectedOptions,
-      selectedSides
-    );
-
     // We extract the id of the selected sides and options to create a new id.
     // We sort them so that we always get the same id even if the order is chosen differently.
     const optionID = selectedOptions.map((x) => x.id).sort();
@@ -56,18 +48,38 @@ const TableModal = ({ open, setOpen, table, sizes }) => {
             ? {
                 ...x,
                 qwt: x.qwt + 1,
-                price: x.price + dish.price,
+                price: (x.price / x.qwt) * x.qwt + 1,
               }
             : x;
         }),
       });
-      // If product does not exist we add it to the array
+      // If product does not exist we add it to the array with qwt
+      // and the recalculate the price
+      // and create a new description for the client
     } else {
+      let totalPrice = dish.price;
+      totalPrice += selectedOptions.reduce((x, y) => x + y.price, 0);
+      totalPrice += selectedSides.reduce((x, y) => x + y.price, 0);
+
+      // We create a new description with the selected sides and options.
+      // this return all languages but actually only need dutch.
+      const description = createItemDescription(
+        dish,
+        selectedOptions,
+        selectedSides
+      );
+
+      // We need to check if the option is main because if it is it means that option is also the name of the dish
+      // The name of the item is different if optionIsMain is true.
+      const name = dish.optionIsMain ? selectedOptions[0].name : dish.name;
+
       updateDoc(ref, {
         food: [
           ...food,
           {
             ...dish,
+            price: totalPrice,
+            name,
             qwt: 1,
             id: ID,
             description: description.nl,
