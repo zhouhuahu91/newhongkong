@@ -22,7 +22,7 @@ const TableModalMenu = ({
   const [subCategory, setSubCategory] = useState(false);
 
   const buttonStyle =
-    "bg-white col-span-1 h-[6.8rem] border p-4 rounded-md shadow-md uppercase font-medium text-lg";
+    "bg-white h-[6.8rem] border p-4 rounded-md shadow-md uppercase font-medium text-lg";
 
   return (
     <div className="grid grid-cols-2 gap-2">

@@ -6,6 +6,14 @@ import IconBtn from "@/components/IconBtn";
 import MinusIcon from "@/icons/MinusIcon";
 import PlusIcon from "@/icons/PlusIcon";
 
+const calculateTotal = (table) => {
+  let price = 0;
+  price += table.food.reduce((x, y) => x + y.price, 0);
+  price += table.beverages.reduce((x, y) => x + y.price, 0);
+
+  return price;
+};
+
 const Receipt = ({
   table,
   incrementBeverage,
@@ -13,8 +21,9 @@ const Receipt = ({
   incrementDish,
   decrementDish,
 }) => {
+  const total = calculateTotal(table);
   return (
-    <div className="p-4 flex flex-col uppercase text-lg">
+    <div className="p-4 h-full flex flex-col uppercase text-lg">
       <div>
         {table.food.map((dish) => {
           return (
@@ -59,7 +68,9 @@ const Receipt = ({
           );
         })}
       </div>
-      <div className="text-right border-t pt-2 mt-2">totaal: € 100,00</div>
+      <div className="text-right border-t pt-2 mt-2 font-bold text-2xl">
+        totaal: {euro(total)}
+      </div>
     </div>
   );
 };

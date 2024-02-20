@@ -1,6 +1,8 @@
 import dessert from "@/data/restaurant/dessert/dessert";
 import euro from "@/functions/euro";
 
+import DessertIcon from "@/icons/DessertIcon";
+
 const Dessert = ({
   mainCategory,
   setMainCategory,
@@ -13,9 +15,9 @@ const Dessert = ({
       <button
         onClick={() => setMainCategory("dessert")}
         type="button"
-        className={buttonStyle}
+        className={`${buttonStyle} col-span-2 flex items-center justify-center gap-2`}
       >
-        dessert
+        <DessertIcon size="28" /> <span className="font-medium">dessert</span>
       </button>
     );
   }

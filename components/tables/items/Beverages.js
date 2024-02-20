@@ -1,5 +1,6 @@
 import beverages from "@/data/restaurant/beverages/_beverages.js";
 import euro from "@/functions/euro";
+import BeverageIcon from "@/icons/BeverageIcon";
 
 const Beverages = ({
   buttonStyle,
@@ -15,9 +16,9 @@ const Beverages = ({
       <button
         onClick={() => setMainCategory("drankjes")}
         type="button"
-        className={buttonStyle}
+        className={`${buttonStyle} col-span-2 flex items-center justify-center gap-2`}
       >
-        drankjes
+        <BeverageIcon size="28" /> <span className="font-medium">drankjes</span>
       </button>
     );
   }

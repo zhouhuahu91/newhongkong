@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useMenu } from "@/hooks/useMenu";
 import euro from "@/functions/euro";
 
+import DishIcon from "@/icons/DishIcon";
+
 const getCustomFoodMenu = (data) => {
   const soupID = ["1", "2", "3", "6", "7"];
   const sidesID = ["14", "8", "9", "10", "11", "12", "16", "18", "17"];
@@ -129,9 +131,9 @@ const Food = ({
       <button
         onClick={() => setMainCategory("gerechten")}
         type="button"
-        className={buttonStyle}
+        className={`${buttonStyle} col-span-2 flex items-center justify-center gap-2`}
       >
-        gerechten
+        <DishIcon size="28" /> <span className="font-medium">gerechten</span>
       </button>
     );
   }
