@@ -104,7 +104,7 @@ const Food = ({
   const [optionsNeeded, setOptionsNeeded] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
 
-  // If user goes out of the sides menu before they completed it we reset the values for sides.
+  // If user goes out of the sides or options menu before they completed it we reset the values for sides or options.
   if (mainCategory !== "gerechten" || subCategory === false) {
     if (currentDish) {
       setCurrentDish(false);
@@ -114,6 +114,12 @@ const Food = ({
     }
     if (selectedSides.length) {
       setSelectedSides([]);
+    }
+    if (optionsNeeded) {
+      setOptionsNeeded(false);
+    }
+    if (selectedOptions.length) {
+      setSelectedOptions([]);
     }
   }
 
