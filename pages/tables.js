@@ -69,7 +69,7 @@ const Tables = () => {
     return <Spinner />;
   }
 
-  if (width < 1180 || height < 820) {
+  if (width < 1180 || height < 810) {
     return (
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-4xl font-semibold">
         You need a bigger screen for tables.
@@ -78,7 +78,7 @@ const Tables = () => {
   }
   return (
     <div className="w-full max-w-screen-xl mx-auto">
-      <div className="w-full border rounded-xl relative h-[820px] mt-0 xl:mt-20">
+      <div className="w-full border rounded-xl relative h-[810px] mt-0 xl:mt-20">
         <StoreLayout
           date={date}
           setDate={setDate}
