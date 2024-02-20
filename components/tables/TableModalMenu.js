@@ -2,9 +2,10 @@ import { useState } from "react";
 // Icon imports
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
 import DeleteIcon from "@/icons/DeleteIcon";
+import PrintIcon from "@/icons/PrintIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { doc, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 // component imports
 import Beverages from "@/tables/items/Beverages";
 import Food from "@/tables/items/Food";
@@ -108,6 +109,23 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
         >
           <DeleteIcon />
           delete
+        </button>
+      )}
+      {mainCategory === false && (
+        <button
+          onClick={() => {
+            const ref = doc(db, `tables/${table.id}`);
+            // update status of table
+            updateDoc(ref, {
+              printed: true,
+            });
+            // print receipt
+          }}
+          type="button"
+          className={`${buttonStyle} flex items-center justify-center gap-2`}
+        >
+          <PrintIcon />
+          betalen
         </button>
       )}
     </div>

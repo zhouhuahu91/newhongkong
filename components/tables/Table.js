@@ -13,101 +13,35 @@ const sizes = {
 
 const tableStyling = "border rounded-md shadow-md absolute font-medium text-xl";
 
-const Table = ({ tables, createNewTable }) => {
-  const [selectedTable, setSelectedTable] = useState(null);
-  const activeTables = tables.map((table) => table.number);
-
+const Table = ({ table, physicalTable, createNewTable }) => {
+  const [open, setOpen] = useState(false);
   return (
     <>
-      {tables.map((table) => {
-        return (
-          <TableModal
-            key={table.id}
-            table={table}
-            open={selectedTable?.id === table.id}
-            setSelectedTable={setSelectedTable}
-          />
-        );
-      })}
+      {table && <TableModal open={open} setOpen={setOpen} table={table} />}
       <button
         onClick={() => {
-          // If there is already a table number 1 we open that table.
-          if (activeTables.includes(1)) {
-            setSelectedTable(tables.find((table) => table.number === 1));
+          // if there is a table with the same number as the physical table we open the modal
+          if (table) {
+            setOpen(true);
           } else {
-            createNewTable(1);
+            createNewTable(physicalTable.number);
+            setOpen(true);
           }
         }}
         type="button"
-        className={`${sizes.normal} ${tableStyling} ${
-          activeTables.includes(1) ? "bg-green-100" : ""
-        } top-6 right-56`}
+        className={`${tableStyling} ${physicalTable.position} ${
+          physicalTable.type
+        } 
+          ${
+            table
+              ? table?.printed && !table.paid
+                ? "bg-red-100"
+                : "bg-green-100"
+              : ""
+          } 
+          `}
       >
-        1
-      </button>
-      <button
-        onClick={() => {
-          // If there is already a table number 2 we open that table.
-          if (activeTables.includes(2)) {
-            setSelectedTable(tables.find((table) => table.number === 2));
-          } else {
-            createNewTable(2);
-          }
-        }}
-        type="button"
-        className={`${sizes.normalH} ${tableStyling} ${
-          activeTables.includes(2) ? "bg-green-100" : ""
-        } top-[12rem] right-48`}
-      >
-        2
-      </button>
-      <button
-        onClick={() => {
-          // If there is already a table number 2 we open that table.
-          if (activeTables.includes(3)) {
-            setSelectedTable(tables.find((table) => table.number === 3));
-          } else {
-            createNewTable(3);
-          }
-        }}
-        type="button"
-        className={`${sizes.normalH} ${tableStyling} ${
-          activeTables.includes(3) ? "bg-green-100" : ""
-        } top-[19.5rem] right-48`}
-      >
-        3
-      </button>
-      <button
-        onClick={() => {
-          // If there is already a table number 2 we open that table.
-          if (activeTables.includes(4)) {
-            setSelectedTable(tables.find((table) => table.number === 4));
-          } else {
-            createNewTable(4);
-          }
-        }}
-        type="button"
-        className={`${sizes.normalH} ${tableStyling} ${
-          activeTables.includes(4) ? "bg-green-100" : ""
-        } top-[27rem] right-48`}
-      >
-        4
-      </button>
-      <button
-        onClick={() => {
-          // If there is already a table number 2 we open that table.
-          if (activeTables.includes(5)) {
-            setSelectedTable(tables.find((table) => table.number === 5));
-          } else {
-            createNewTable(5);
-          }
-        }}
-        type="button"
-        className={`${sizes.normalH} ${tableStyling} ${
-          activeTables.includes(5) ? "bg-green-100" : ""
-        } top-[34.5rem] right-48`}
-      >
-        5
+        {physicalTable.number}
       </button>
     </>
   );

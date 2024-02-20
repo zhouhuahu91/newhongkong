@@ -32,6 +32,7 @@ const Tables = () => {
       beverages: [],
       food: [],
       paid: false,
+      printed: false,
       paymentMethodType: null,
       date: currentDate,
       createdAt: Date.now(),
@@ -73,11 +74,58 @@ const Tables = () => {
       </div>
     );
   }
+
+  const sizes = {
+    round: "aspect-square w-28 rounded-full",
+    small: "w-24 h-24 rounded-md",
+    normal: "w-24 h-36 rounded-md",
+    normalH: "h-24 w-36 rounded-md",
+    big: "w-24 h-52 rounded-md",
+    bigH: "w-52 h-24 rounded-md",
+  };
+
+  const physicalTables = [
+    {
+      number: 1,
+      type: sizes.normal,
+      position: "top-6 right-56",
+    },
+    {
+      number: 2,
+      type: sizes.normalH,
+      position: "top-[12rem] right-48",
+    },
+    {
+      number: 3,
+      type: sizes.normalH,
+      position: "top-[19.5rem] right-48",
+    },
+    {
+      number: 4,
+      type: sizes.normalH,
+      position: "top-[27rem] right-48",
+    },
+    {
+      number: 5,
+      type: sizes.normalH,
+      position: "top-[34.5rem] right-48",
+    },
+  ];
+
   return (
     <div className="w-full max-w-[1080px] mx-auto">
       <div className="w-full border rounded-xl shadow-md bg-white relative h-[770px] mt-5 xl:mt-20">
         <StoreLayout date={date} setDate={setDate} />
-        <Table tables={tables} createNewTable={createNewTable} />
+        {physicalTables.map((physicalTable) => (
+          <Table
+            key={physicalTable.number}
+            table={tables.find(
+              (table) => table.number === physicalTable.number
+            )}
+            physicalTable={physicalTable}
+            createNewTable={createNewTable}
+          />
+        ))}
       </div>
     </div>
   );
