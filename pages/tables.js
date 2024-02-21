@@ -131,6 +131,16 @@ const Tables = () => {
       type: sizes.round,
       position: "bottom-[6rem] left-[25.55rem]",
     },
+    {
+      number: 10,
+      type: sizes.normalH,
+      position: "top-36 left-44",
+    },
+    {
+      number: 11,
+      type: sizes.normalH,
+      position: "top-[16.7rem] left-44",
+    },
   ];
 
   // TO DO create a list a tables that are closed. that means paid and printed
