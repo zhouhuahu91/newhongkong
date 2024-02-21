@@ -50,12 +50,19 @@ const ClosedTable = ({ table }) => {
           <UndoIcon size="20" />
         </IconBtn>
         <input
-          className="appearance-none focus:outline-none text-center font-bold w-6 bg-red-100"
+          className="appearance-none focus:outline-none text-center font-bold w-8 bg-red-100"
           onClick={(e) => e.stopPropagation()}
           onChange={(e) => {
             const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
             const number = value === "" ? 0 : parseInt(value, 10);
+
             setTableNumber(number);
+          }}
+          onBlur={async () => {
+            const ref = doc(db, `tables/${table.id}`);
+            await updateDoc(ref, {
+              number: tableNumber,
+            });
           }}
           value={tableNumber}
         />
