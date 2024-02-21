@@ -54,12 +54,14 @@ const ClosedTable = ({ table, date, physicalTables }) => {
           onClick={(e) => e.stopPropagation()}
           onChange={(e) => {
             const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
-            const number = value === "" ? 0 : parseInt(value, 10);
+            const number = value === "" ? 0 : parseInt(value, 10); // If there is no digits we use 0
             setTableNumber(number);
           }}
           onBlur={async () => {
-            if (tableNumber > physicalTables.length) {
+            // If physical table doesn't exist we reset the table number
+            if (tableNumber > physicalTables.length || tableNumber < 1) {
               setTableNumber(table.number);
+              // and return by warning the table doesn't exist
               return window.alert(`TAFEL ${tableNumber} BESTAAT NIET!`);
             }
             const ref = doc(db, `tables/${table.id}`);
