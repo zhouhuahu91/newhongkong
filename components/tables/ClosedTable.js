@@ -14,9 +14,10 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-const ClosedTable = ({ table, date }) => {
+const ClosedTable = ({ table, date, physicalTables }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
   const [open, setOpen] = useState(false);
+
   return (
     <>
       <TableModal open={open} setOpen={setOpen} table={table} date={date} />
@@ -54,10 +55,13 @@ const ClosedTable = ({ table, date }) => {
           onChange={(e) => {
             const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
             const number = value === "" ? 0 : parseInt(value, 10);
-
             setTableNumber(number);
           }}
           onBlur={async () => {
+            if (tableNumber > physicalTables.length) {
+              setTableNumber(table.number);
+              return window.alert(`TAFEL ${tableNumber} BESTAAT NIET!`);
+            }
             const ref = doc(db, `tables/${table.id}`);
             await updateDoc(ref, {
               number: tableNumber,

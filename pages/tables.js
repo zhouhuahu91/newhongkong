@@ -172,7 +172,14 @@ const Tables = () => {
         </h1>
         {tables.map((table) => {
           if (table.paid) {
-            return <ClosedTable date={date} key={table.id} table={table} />;
+            return (
+              <ClosedTable
+                physicalTables={physicalTables}
+                date={date}
+                key={table.id}
+                table={table}
+              />
+            );
           }
         })}
       </div>

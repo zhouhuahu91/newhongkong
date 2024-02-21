@@ -22,7 +22,7 @@ import createItemId from "@/functions/createItemId";
 
 const TableModal = ({ open, setOpen, table, date }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
-  const [tableName, setTableName] = useState(`Tafel ${tableNumber}`);
+  const [tableName, setTableName] = useState(`TAFEL ${tableNumber}`);
 
   // This the ref of the current table we are dealing with.
   const ref = doc(db, `tables/${table.id}`);
@@ -246,11 +246,17 @@ const TableModal = ({ open, setOpen, table, date }) => {
               className="appearance-none focus:outline-none text-center font-bold text-2xl mt-6 pb-2"
               onChange={(e) => {
                 const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
-                const number = value === "" ? 0 : parseInt(value, 10);
+                const number = value === "" ? 0 : parseInt(value, 10); // If there is no digit at all we use 0
+
+                // We set table to the number
                 setTableNumber(number);
+                // And we display the number with a prefix.
                 setTableName(`TAFEL ${number}`);
               }}
               onBlur={async () => {
+                // We don't need to run this code if nothing changed
+                if (tableNumber === table.number) return;
+                // We get all the tables that are still open
                 const q = query(
                   collection(db, "tables"),
                   where("paid", "==", false),
@@ -260,10 +266,13 @@ const TableModal = ({ open, setOpen, table, date }) => {
                 const snapshot = await getDocs(q);
                 const tables = snapshot.docs.map((doc) => doc.data().number);
 
-                if (tables.includes(tableNumber)) {
+                // If table number already exists or or table doesn't exist at all we give a warning.
+                if (tables.includes(tableNumber) || tableNumber > 11) {
                   setTableNumber(table.number);
                   setTableName(`TAFEL ${table.number}`);
+                  window.alert("TAFEL IS BEZET OF TAFEL BESTAAT NIET");
                 } else {
+                  // Otherwise we update the new table with the new number
                   const ref = doc(db, `tables/${table.id}`);
                   await updateDoc(ref, {
                     number: tableNumber,
