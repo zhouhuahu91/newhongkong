@@ -28,12 +28,10 @@ const ClosedTable = ({ table }) => {
         <IconBtn
           onClick={async (e) => {
             e.stopPropagation();
-
             const q = query(
               collection(db, "tables"),
               where("paid", "==", false)
             );
-
             const snapshot = await getDocs(q);
             const tables = snapshot.docs.map((doc) => doc.data().number);
             if (tables.includes(table.number)) {

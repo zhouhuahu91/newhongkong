@@ -8,7 +8,14 @@ import Receipt from "@/tables/Receipt";
 import CloseIcon from "@/icons/CloseIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { updateDoc, doc } from "firebase/firestore";
+import {
+  updateDoc,
+  doc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 // Function imports
 import createItemDescription from "@/functions/createItemDescription";
 import createItemId from "@/functions/createItemId";
@@ -243,11 +250,24 @@ const TableModal = ({ open, setOpen, table }) => {
                 setTableNumber(number);
                 setTableName(`TAFEL ${number}`);
               }}
-              onBlur={() => {
-                const ref = doc(db, `tables/${table.id}`);
-                updateDoc(ref, {
-                  number: tableNumber,
-                });
+              onBlur={async () => {
+                const q = query(
+                  collection(db, "tables"),
+                  where("paid", "==", false)
+                );
+
+                const snapshot = await getDocs(q);
+                const tables = snapshot.docs.map((doc) => doc.data().number);
+
+                if (tables.includes(tableNumber)) {
+                  setTableNumber(table.number);
+                  setTableName(`TAFEL ${table.number}`);
+                } else {
+                  const ref = doc(db, `tables/${table.id}`);
+                  await updateDoc(ref, {
+                    number: tableNumber,
+                  });
+                }
               }}
             />
           </div>
