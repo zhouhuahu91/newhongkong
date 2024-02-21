@@ -36,13 +36,13 @@ const TableModal = ({ open, setOpen, table }) => {
     const ID = createItemId(dish, optionID, sidesID);
 
     // check if ID is in the food array or not
-    const found = food.find((x) => x.id === dish.id);
+    const found = food.find((x) => x.id === ID);
 
     // If the dish already exists we just modify the existing one
     if (found) {
       updateDoc(ref, {
         food: food.map((x) => {
-          return x.id === dish.id
+          return x.id === ID
             ? {
                 ...x,
                 qwt: x.qwt + 1,
