@@ -88,27 +88,27 @@ const Tables = () => {
     {
       number: 1,
       type: sizes.normal,
-      position: "top-6 right-56",
+      position: "top-6 right-36",
     },
     {
       number: 2,
       type: sizes.normalH,
-      position: "top-[12rem] right-48",
+      position: "top-[12rem] right-32",
     },
     {
       number: 3,
       type: sizes.normalH,
-      position: "top-[19.5rem] right-48",
+      position: "top-[19.5rem] right-32",
     },
     {
       number: 4,
       type: sizes.normalH,
-      position: "top-[27rem] right-48",
+      position: "top-[27rem] right-32",
     },
     {
       number: 5,
       type: sizes.normalH,
-      position: "top-[34.5rem] right-48",
+      position: "top-[34.5rem] right-32",
     },
     {
       number: 6,
@@ -136,8 +136,8 @@ const Tables = () => {
   // We want to show these tables some how.
 
   return (
-    <div className="w-full max-w-[1080px] mx-auto">
-      <div className="w-full border rounded-xl shadow-md bg-white relative h-[770px] mt-5 xl:mt-20">
+    <div className="w-full max-w-[1080px] mx-auto grid grid-cols-12 bg-white border shadow-md mt-5 xl:mt-20 rounded-xl">
+      <div className="w-full relative h-[770px] col-span-10">
         <StoreLayout date={date} setDate={setDate} />
         {physicalTables.map((physicalTable) => (
           <Table
@@ -150,6 +150,7 @@ const Tables = () => {
           />
         ))}
       </div>
+      <div className="col-span-2"></div>
     </div>
   );
 };

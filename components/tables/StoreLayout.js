@@ -9,7 +9,7 @@ const StoreLayout = ({ date, setDate }) => {
   return (
     <>
       {/* ********** WINDOW ********** */}
-      <div className="absolute top-0 w-[36rem] h-2 bg-gray-200 border right-40 rounded-full">
+      <div className="absolute top-0 w-[36rem] h-2 bg-gray-200 border right-28 rounded-full">
         <div className="w-2 h-full bg-gray-100 absolute left-1/3 -translate-x-1/3" />
         <div className="w-2 h-full bg-gray-100 absolute right-1/3 translate-x-1/3" />
       </div>
