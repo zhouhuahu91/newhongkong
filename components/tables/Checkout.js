@@ -2,18 +2,32 @@
 import PrintIcon from "@/icons/PrintIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
 import CashIcon from "@/icons/CashIcon";
+// Firebase imports
+import { db } from "@/firebase/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
   if (mainCategory === "checkout") {
     return (
       <>
         <button
+          onClick={() => {
+            // TO DO: Print the receipt
+            updateDoc(doc(db, `tables/${table.id}`), {
+              printed: true,
+            });
+          }}
           className={`${buttonStyle} col-span-2 flex items-center justify-center gap-2`}
         >
           <PrintIcon />
           afdrukken
         </button>
         <button
+          onClick={() => {
+            updateDoc(doc(db, `tables/${table.id}`), {
+              paymentMethodType: "cash",
+            });
+          }}
           className={`${buttonStyle} flex items-center justify-center gap-2 ${
             table.paymentMethodType === "cash"
               ? "border-main text-main selected"
@@ -28,9 +42,14 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
           contant
         </button>
         <button
+          onClick={() => {
+            updateDoc(doc(db, `tables/${table.id}`), {
+              paymentMethodType: "card",
+            });
+          }}
           className={`${buttonStyle} flex items-center justify-center gap-2 ${
             table.paymentMethodType === "card"
-              ? "borer-main text-main selected"
+              ? "border-main text-main selected"
               : ""
           }`}
         >
@@ -41,6 +60,16 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
           />
           pinnen
         </button>
+        <button
+          onClick={() => {
+            updateDoc(doc(db, `tables/${table.id}`), {
+              paid: !table.paid,
+            });
+          }}
+          className="button col-span-2 bg-main text-white mt-5 uppercase"
+        >
+          {table.paid ? "tafel heropenen" : "tafel op betaald zetten"}
+        </button>
       </>
     );
   }
@@ -50,11 +79,10 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
       <button
         onClick={() => {
           setMainCategory("checkout");
-          // TO DO: set main category to pay mode
-          // in this pay mode we can select the amount the client pays and the tip amount
-          // in this pay mode we can also select payment method
-          // we can also reprint the receipt
-          // TO DO: print receipt
+          // TO DO: Print the receipt
+          updateDoc(doc(db, `tables/${table.id}`), {
+            printed: true,
+          });
         }}
         type="button"
         className={`${buttonStyle} flex items-center justify-center gap-2 col-span-2`}

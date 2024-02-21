@@ -136,7 +136,7 @@ const AllFood = ({
               type="button"
               className={`${buttonStyle} flex flex-col justify-between text-left font-medium ${
                 selectedOptions.some((x) => x.id === option.id)
-                  ? "border-red-200 border-2"
+                  ? "selected border-main"
                   : ""
               }`}
               key={option.id}
@@ -192,7 +192,7 @@ const AllFood = ({
               type="button"
               className={`${buttonStyle} flex flex-col justify-between text-left font-medium ${
                 selectedSides.some((x) => x.id === side.id)
-                  ? "border-red-200 border-2"
+                  ? "selected border-main"
                   : ""
               }`}
               key={side.id}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // Icon imports
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
 import DeleteIcon from "@/icons/DeleteIcon";
@@ -18,6 +18,12 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   const [currentDish, setCurrentDish] = useState(false);
   const [currentDishAllFood, setCurrentDishAllFood] = useState(false);
 
+  useEffect(() => {
+    if (table.printed && mainCategory === false) {
+      setMainCategory("checkout");
+    }
+  }, []);
+
   const buttonStyle =
     "bg-white h-[6.8rem] border p-4 rounded-md shadow-md uppercase font-medium text-lg";
 
@@ -29,6 +35,11 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
           onClick={() => {
             setMainCategory(false);
             setSubCategory(false);
+            if (table.printed) {
+              updateDoc(doc(db, `tables/${table.id}`), {
+                printed: false,
+              });
+            }
           }}
           type="button"
           className={`uppercase text-lg font-medium ${
@@ -68,7 +79,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
       {/* These are the categories we can go in to.  */}
       {/* If mainCategory is false these will return a button which will select their... */}
       {/* category as the main one. */}
-      {table.paid === false && table.printed === false && (
+      {table.paid === false && (
         <>
           <Beverages
             buttonStyle={buttonStyle}
