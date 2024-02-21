@@ -14,12 +14,12 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-const ClosedTable = ({ table }) => {
+const ClosedTable = ({ table, date }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
   const [open, setOpen] = useState(false);
   return (
     <>
-      <TableModal open={open} setOpen={setOpen} table={table} />
+      <TableModal open={open} setOpen={setOpen} table={table} date={date} />
       <button
         onClick={() => setOpen(true)}
         className="border bg-red-100 w-full flex items-center justify-center gap-4 rounded-md p-2 font-medium"
@@ -30,7 +30,8 @@ const ClosedTable = ({ table }) => {
             e.stopPropagation();
             const q = query(
               collection(db, "tables"),
-              where("paid", "==", false)
+              where("paid", "==", false),
+              where("date", "==", date)
             );
             const snapshot = await getDocs(q);
             const tables = snapshot.docs.map((doc) => doc.data().number);

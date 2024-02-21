@@ -43,7 +43,7 @@ const Tables = () => {
   };
 
   useEffect(() => {
-    const q = query(collection(db, "tables"));
+    const q = query(collection(db, "tables"), where("date", "==", date));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map((doc) => {
         return { ...doc.data(), id: doc.id };
@@ -52,7 +52,7 @@ const Tables = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [date]);
 
   // Tables page is only for admin...
   // If no user is not fetched yet we show spinner
@@ -151,6 +151,7 @@ const Tables = () => {
               )}
               physicalTable={physicalTable}
               createNewTable={createNewTable}
+              date={date}
             />
           );
         })}
@@ -161,7 +162,7 @@ const Tables = () => {
         </h1>
         {tables.map((table) => {
           if (table.paid) {
-            return <ClosedTable key={table.id} table={table} />;
+            return <ClosedTable date={date} key={table.id} table={table} />;
           }
         })}
       </div>

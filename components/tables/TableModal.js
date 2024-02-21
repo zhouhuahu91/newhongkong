@@ -20,7 +20,7 @@ import {
 import createItemDescription from "@/functions/createItemDescription";
 import createItemId from "@/functions/createItemId";
 
-const TableModal = ({ open, setOpen, table }) => {
+const TableModal = ({ open, setOpen, table, date }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
   const [tableName, setTableName] = useState(`Tafel ${tableNumber}`);
 
@@ -253,7 +253,8 @@ const TableModal = ({ open, setOpen, table }) => {
               onBlur={async () => {
                 const q = query(
                   collection(db, "tables"),
-                  where("paid", "==", false)
+                  where("paid", "==", false),
+                  where("date", "==", date)
                 );
 
                 const snapshot = await getDocs(q);

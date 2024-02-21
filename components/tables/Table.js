@@ -3,12 +3,14 @@ import TableModal from "@/tables/TableModal";
 
 const tableStyling = "border shadow-md absolute font-medium text-xl";
 
-const Table = ({ table, physicalTable, createNewTable }) => {
+const Table = ({ table, physicalTable, createNewTable, date }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      {table && <TableModal open={open} setOpen={setOpen} table={table} />}
+      {table && (
+        <TableModal open={open} setOpen={setOpen} table={table} date={date} />
+      )}
       <button
         onClick={() => {
           // if there is a table with the same number as the physical table we open the modal
