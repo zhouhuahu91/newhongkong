@@ -35,7 +35,7 @@ const Tables = () => {
       paid: false,
       printed: false,
       paymentMethodType: null,
-      date: currentDate,
+      date: date,
       createdAt: Date.now(),
     };
 
@@ -139,7 +139,6 @@ const Tables = () => {
   return (
     <div className="w-full max-w-[1080px] mx-auto grid grid-cols-12 bg-white border shadow-md mt-5 xl:mt-20 rounded-xl">
       <div className="w-full relative h-[770px] col-span-10">
-        <StoreLayout date={date} setDate={setDate} />
         {physicalTables.map((physicalTable) => {
           return (
             <Table
@@ -155,6 +154,7 @@ const Tables = () => {
             />
           );
         })}
+        <StoreLayout date={date} setDate={setDate} />
       </div>
       <div className="col-span-2 p-4">
         <h1 className="px-2 pb-2 uppercase font-medium text-center text-sm border-b mb-2">
