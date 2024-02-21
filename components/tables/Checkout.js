@@ -20,7 +20,7 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
           className={`${buttonStyle} col-span-2 flex items-center justify-center gap-2`}
         >
           <PrintIcon />
-          afdrukken
+          {table.printed && "opnieuw"} afdrukken
         </button>
         <button
           onClick={() => {
@@ -61,14 +61,17 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
           pinnen
         </button>
         <button
+          disabled={table.paid}
           onClick={() => {
             updateDoc(doc(db, `tables/${table.id}`), {
-              paid: !table.paid,
+              paid: true,
             });
           }}
-          className="button col-span-2 bg-main text-white mt-5 uppercase"
+          className={`button col-span-2 mt-5 uppercase text-white ${
+            table.paid ? "bg-gray-300" : "bg-main"
+          }`}
         >
-          {table.paid ? "tafel heropenen" : "tafel op betaald zetten"}
+          {table.paid ? "is betaald" : "tafel op betaald zetten"}
         </button>
       </>
     );
