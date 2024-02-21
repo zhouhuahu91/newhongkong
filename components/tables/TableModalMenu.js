@@ -2,7 +2,6 @@ import { useState } from "react";
 // Icon imports
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
 import DeleteIcon from "@/icons/DeleteIcon";
-import PrintIcon from "@/icons/PrintIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
@@ -11,6 +10,7 @@ import Beverages from "@/tables/items/Beverages";
 import Food from "@/tables/items/Food";
 import Dessert from "@/tables/items/Dessert";
 import AllFood from "@/tables/items/AllFood";
+import PaymentMenu from "@/tables/PaymentMenu";
 
 const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   const [mainCategory, setMainCategory] = useState(false);
@@ -52,6 +52,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
         )}
         {subCategory && (
           <button
+            // this causes an error
             onClick={() => setResetDish(true)}
             className="flex items-center uppercase text-lg font-medium"
           >
@@ -62,77 +63,66 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
       {/* These are the categories we can go in to.  */}
       {/* If mainCategory is false these will return a button which will select their... */}
       {/* category as the main one. */}
-      <Beverages
-        buttonStyle={buttonStyle}
-        subCategory={subCategory}
-        setSubCategory={setSubCategory}
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-        addBeverageToTable={addBeverageToTable}
-      />
-      <Food
-        buttonStyle={buttonStyle}
-        subCategory={subCategory}
-        setSubCategory={setSubCategory}
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-        addDishToTable={addDishToTable}
-        resetDish={resetDish}
-        setResetDish={setResetDish}
-      />
-      <Dessert
-        buttonStyle={buttonStyle}
-        subCategory={subCategory}
-        setSubCategory={setSubCategory}
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-        addBeverageToTable={addBeverageToTable}
-      />
-      <AllFood
-        buttonStyle={buttonStyle}
-        subCategory={subCategory}
-        setSubCategory={setSubCategory}
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-        addDishToTable={addDishToTable}
-        resetDish={resetDish}
-        setResetDish={setResetDish}
-      />
-      {/* TO DO: move delete to own component. let it return a warning if i acutally want to delete it or not */}
-      {mainCategory === false && (
-        <button
-          onClick={() => {
-            const ref = doc(db, `tables/${table.id}`);
-            deleteDoc(ref);
-          }}
-          type="button"
-          className={`${buttonStyle} flex items-center justify-center gap-2`}
-        >
-          <DeleteIcon />
-          delete
-        </button>
+      {table.paid === false && table.printed === false && (
+        <>
+          <Beverages
+            buttonStyle={buttonStyle}
+            subCategory={subCategory}
+            setSubCategory={setSubCategory}
+            mainCategory={mainCategory}
+            setMainCategory={setMainCategory}
+            addBeverageToTable={addBeverageToTable}
+          />
+          <Food
+            buttonStyle={buttonStyle}
+            subCategory={subCategory}
+            setSubCategory={setSubCategory}
+            mainCategory={mainCategory}
+            setMainCategory={setMainCategory}
+            addDishToTable={addDishToTable}
+            resetDish={resetDish}
+            setResetDish={setResetDish}
+          />
+          <Dessert
+            buttonStyle={buttonStyle}
+            subCategory={subCategory}
+            setSubCategory={setSubCategory}
+            mainCategory={mainCategory}
+            setMainCategory={setMainCategory}
+            addBeverageToTable={addBeverageToTable}
+          />
+          <AllFood
+            buttonStyle={buttonStyle}
+            subCategory={subCategory}
+            setSubCategory={setSubCategory}
+            mainCategory={mainCategory}
+            setMainCategory={setMainCategory}
+            addDishToTable={addDishToTable}
+            resetDish={resetDish}
+            setResetDish={setResetDish}
+          />
+          {/* TO DO: move delete to own component. let it return a warning if i acutally want to delete it or not */}
+          {mainCategory === false && (
+            <button
+              onClick={() => {
+                const ref = doc(db, `tables/${table.id}`);
+                deleteDoc(ref);
+              }}
+              type="button"
+              className={`${buttonStyle} flex items-center justify-center gap-2`}
+            >
+              <DeleteIcon />
+              delete
+            </button>
+          )}
+        </>
       )}
-      {mainCategory === false && (
-        <button
-          onClick={() => {
-            const ref = doc(db, `tables/${table.id}`);
-            // update status of table
-            updateDoc(ref, {
-              printed: true,
-            });
-            // TO DO: set main category to pay mode
-            // in this pay mode we can select the amount the client pays and the tip amount
-            // in this pay mode we can also select payment method
-            // we can also reprint the receipt
-            // TO DO: print receipt
-          }}
-          type="button"
-          className={`${buttonStyle} flex items-center justify-center gap-2`}
-        >
-          <PrintIcon />
-          betalen
-        </button>
-      )}
+      <PaymentMenu
+        buttonStyle={buttonStyle}
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
+        table={table}
+      />
     </div>
   );
 };
