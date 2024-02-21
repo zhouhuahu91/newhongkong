@@ -17,6 +17,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import Spinner from "@/components/Spinner";
 import StoreLayout from "@/tables/StoreLayout";
 import Table from "@/tables/Table";
+import ClosedTable from "@/tables/ClosedTable";
 // import Table from "@/tables/Table";
 
 const Tables = () => {
@@ -139,18 +140,31 @@ const Tables = () => {
     <div className="w-full max-w-[1080px] mx-auto grid grid-cols-12 bg-white border shadow-md mt-5 xl:mt-20 rounded-xl">
       <div className="w-full relative h-[770px] col-span-10">
         <StoreLayout date={date} setDate={setDate} />
-        {physicalTables.map((physicalTable) => (
-          <Table
-            key={physicalTable.number}
-            table={tables.find(
-              (table) => table.number === physicalTable.number
-            )}
-            physicalTable={physicalTable}
-            createNewTable={createNewTable}
-          />
-        ))}
+        {physicalTables.map((physicalTable) => {
+          return (
+            <Table
+              key={physicalTable.number}
+              table={tables.find(
+                (table) =>
+                  // if table is paid we do not want it to be placed in a phsysical table.
+                  table.number === physicalTable.number && table.paid === false
+              )}
+              physicalTable={physicalTable}
+              createNewTable={createNewTable}
+            />
+          );
+        })}
       </div>
-      <div className="col-span-2"></div>
+      <div className="col-span-2 p-4">
+        <h1 className="px-2 pb-2 uppercase font-medium text-center text-sm border-b mb-2">
+          gesloten tafels
+        </h1>
+        {tables.map((table) => {
+          if (table.paid) {
+            return <ClosedTable table={table} />;
+          }
+        })}
+      </div>
     </div>
   );
 };

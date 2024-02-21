@@ -5,6 +5,7 @@ const tableStyling = "border shadow-md absolute font-medium text-xl";
 
 const Table = ({ table, physicalTable, createNewTable }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <>
       {table && <TableModal open={open} setOpen={setOpen} table={table} />}
