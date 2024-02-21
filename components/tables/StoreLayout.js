@@ -15,10 +15,8 @@ const StoreLayout = ({ date, setDate }) => {
       </div>
       {/* ********** WINDOW ********** */}
 
-      <div className="absolute bottom-24 w-full h-72">
-        <div className="absolute w-44 text-xl font-bold h-full left-44 border rounded-lg bg-gray-100 flex justify-center items-center select-none">
-          <ToiletIcon size="36" className="" />
-        </div>
+      <div className="absolute w-44 h-72 text-xl font-bold bottom-24 left-44 border rounded-lg bg-gray-100 flex justify-center items-center select-none">
+        <ToiletIcon size="36" className="" />
       </div>
       <div className="select-none text-xl font-bold absolute bottom-0 rounded-t-full bg-gray-100 w-10/12 h-16 border-t border-x left-1/2 -translate-x-1/2 flex items-center justify-between px-20">
         <Link href="/menu">

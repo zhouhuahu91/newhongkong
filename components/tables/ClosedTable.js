@@ -20,9 +20,9 @@ const ClosedTable = ({ table, date }) => {
   return (
     <>
       <TableModal open={open} setOpen={setOpen} table={table} date={date} />
-      <button
+      <div
         onClick={() => setOpen(true)}
-        className="border bg-red-100 w-full flex items-center justify-center gap-4 rounded-md p-2 font-medium"
+        className="border bg-red-100 w-full flex items-center justify-center gap-4 rounded-md p-2 font-medium cursor-pointer"
         key={table.id}
       >
         <IconBtn
@@ -65,7 +65,7 @@ const ClosedTable = ({ table, date }) => {
           }}
           value={tableNumber}
         />
-      </button>
+      </div>
     </>
   );
 };

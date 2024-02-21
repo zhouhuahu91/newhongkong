@@ -19,7 +19,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   const [currentDishAllFood, setCurrentDishAllFood] = useState(false);
 
   useEffect(() => {
-    if (table.printed && mainCategory === false) {
+    if ((table.paid || table.printed) && mainCategory === false) {
       setMainCategory("checkout");
     }
   }, []);
@@ -79,60 +79,58 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
       {/* These are the categories we can go in to.  */}
       {/* If mainCategory is false these will return a button which will select their... */}
       {/* category as the main one. */}
-      {table.paid === false && (
-        <>
-          <Beverages
-            buttonStyle={buttonStyle}
-            subCategory={subCategory}
-            setSubCategory={setSubCategory}
-            mainCategory={mainCategory}
-            setMainCategory={setMainCategory}
-            addBeverageToTable={addBeverageToTable}
-          />
-          <Food
-            buttonStyle={buttonStyle}
-            subCategory={subCategory}
-            setSubCategory={setSubCategory}
-            mainCategory={mainCategory}
-            setMainCategory={setMainCategory}
-            addDishToTable={addDishToTable}
-            currentDish={currentDish}
-            setCurrentDish={setCurrentDish}
-          />
-          <Dessert
-            buttonStyle={buttonStyle}
-            subCategory={subCategory}
-            setSubCategory={setSubCategory}
-            mainCategory={mainCategory}
-            setMainCategory={setMainCategory}
-            addBeverageToTable={addBeverageToTable}
-          />
-          <AllFood
-            buttonStyle={buttonStyle}
-            subCategory={subCategory}
-            setSubCategory={setSubCategory}
-            mainCategory={mainCategory}
-            setMainCategory={setMainCategory}
-            addDishToTable={addDishToTable}
-            currentDish={currentDishAllFood}
-            setCurrentDish={setCurrentDishAllFood}
-          />
-          {/* TO DO: move delete to own component. let it return a warning if i acutally want to delete it or not */}
-          {mainCategory === false && (
-            <button
-              onClick={() => {
-                const ref = doc(db, `tables/${table.id}`);
-                deleteDoc(ref);
-              }}
-              type="button"
-              className={`${buttonStyle} flex items-center justify-center gap-2`}
-            >
-              <DeleteIcon />
-              delete
-            </button>
-          )}
-        </>
-      )}
+      <>
+        <Beverages
+          buttonStyle={buttonStyle}
+          subCategory={subCategory}
+          setSubCategory={setSubCategory}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+          addBeverageToTable={addBeverageToTable}
+        />
+        <Food
+          buttonStyle={buttonStyle}
+          subCategory={subCategory}
+          setSubCategory={setSubCategory}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+          addDishToTable={addDishToTable}
+          currentDish={currentDish}
+          setCurrentDish={setCurrentDish}
+        />
+        <Dessert
+          buttonStyle={buttonStyle}
+          subCategory={subCategory}
+          setSubCategory={setSubCategory}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+          addBeverageToTable={addBeverageToTable}
+        />
+        <AllFood
+          buttonStyle={buttonStyle}
+          subCategory={subCategory}
+          setSubCategory={setSubCategory}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+          addDishToTable={addDishToTable}
+          currentDish={currentDishAllFood}
+          setCurrentDish={setCurrentDishAllFood}
+        />
+        {/* TO DO: move delete to own component. let it return a warning if i acutally want to delete it or not */}
+        {mainCategory === false && (
+          <button
+            onClick={() => {
+              const ref = doc(db, `tables/${table.id}`);
+              deleteDoc(ref);
+            }}
+            type="button"
+            className={`${buttonStyle} flex items-center justify-center gap-2`}
+          >
+            <DeleteIcon />
+            delete
+          </button>
+        )}
+      </>
       <Checkout
         buttonStyle={buttonStyle}
         mainCategory={mainCategory}
