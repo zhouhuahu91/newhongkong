@@ -161,7 +161,7 @@ const Tables = () => {
         </h1>
         {tables.map((table) => {
           if (table.paid) {
-            return <ClosedTable table={table} />;
+            return <ClosedTable key={table.id} table={table} />;
           }
         })}
       </div>
