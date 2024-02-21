@@ -159,6 +159,7 @@ const Tables = () => {
                   table.number === physicalTable.number && table.paid === false
               )}
               physicalTable={physicalTable}
+              physicalTables={physicalTables}
               createNewTable={createNewTable}
               date={date}
             />

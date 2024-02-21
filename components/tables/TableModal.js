@@ -20,7 +20,7 @@ import {
 import createItemDescription from "@/functions/createItemDescription";
 import createItemId from "@/functions/createItemId";
 
-const TableModal = ({ open, setOpen, table, date }) => {
+const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
   const [tableName, setTableName] = useState(`TAFEL ${tableNumber}`);
 
@@ -267,7 +267,15 @@ const TableModal = ({ open, setOpen, table, date }) => {
                 const tables = snapshot.docs.map((doc) => doc.data().number);
 
                 // If table number already exists or or table doesn't exist at all we give a warning.
-                if (tables.includes(tableNumber) || tableNumber > 11) {
+                const physicalTableNumbers = physicalTables.map(
+                  (x) => x.number
+                );
+                if (
+                  // If the table already exists
+                  tables.includes(tableNumber) ||
+                  // If the table number doesn't exist
+                  !physicalTableNumbers.includes(tableNumber)
+                ) {
                   setTableNumber(table.number);
                   setTableName(`TAFEL ${table.number}`);
                   window.alert("TAFEL IS BEZET OF TAFEL BESTAAT NIET");

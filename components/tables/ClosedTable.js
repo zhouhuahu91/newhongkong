@@ -59,7 +59,8 @@ const ClosedTable = ({ table, date, physicalTables }) => {
           }}
           onBlur={async () => {
             // If physical table doesn't exist we reset the table number
-            if (tableNumber > physicalTables.length || tableNumber < 1) {
+            const physicalTableNumbers = physicalTables.map((x) => x.number);
+            if (!physicalTableNumbers.includes(tableNumber)) {
               setTableNumber(table.number);
               // and return by warning the table doesn't exist
               return window.alert(`TAFEL ${tableNumber} BESTAAT NIET!`);

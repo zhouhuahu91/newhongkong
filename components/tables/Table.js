@@ -3,13 +3,25 @@ import TableModal from "@/tables/TableModal";
 
 const tableStyling = "border shadow-md absolute font-medium text-xl";
 
-const Table = ({ table, physicalTable, createNewTable, date }) => {
+const Table = ({
+  table,
+  physicalTable,
+  createNewTable,
+  date,
+  physicalTables,
+}) => {
   const [open, setOpen] = useState(false);
 
   return (
     <>
       {table && (
-        <TableModal open={open} setOpen={setOpen} table={table} date={date} />
+        <TableModal
+          open={open}
+          setOpen={setOpen}
+          table={table}
+          date={date}
+          physicalTables={physicalTables}
+        />
       )}
       <button
         onClick={() => {
