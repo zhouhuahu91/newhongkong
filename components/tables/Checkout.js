@@ -3,7 +3,7 @@ import PrintIcon from "@/icons/PrintIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
 import CashIcon from "@/icons/CashIcon";
 
-const PaymentMenu = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
+const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
   if (mainCategory === "checkout") {
     return (
       <>
@@ -66,4 +66,4 @@ const PaymentMenu = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
   }
 };
 
-export default PaymentMenu;
+export default Checkout;

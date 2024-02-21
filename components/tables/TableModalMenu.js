@@ -10,7 +10,7 @@ import Beverages from "@/tables/items/Beverages";
 import Food from "@/tables/items/Food";
 import Dessert from "@/tables/items/Dessert";
 import AllFood from "@/tables/items/AllFood";
-import PaymentMenu from "@/tables/PaymentMenu";
+import Checkout from "@/tables/Checkout";
 
 const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   const [mainCategory, setMainCategory] = useState(false);
@@ -122,7 +122,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
           )}
         </>
       )}
-      <PaymentMenu
+      <Checkout
         buttonStyle={buttonStyle}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
