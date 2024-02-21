@@ -15,9 +15,8 @@ import PaymentMenu from "@/tables/PaymentMenu";
 const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   const [mainCategory, setMainCategory] = useState(false);
   const [subCategory, setSubCategory] = useState(false);
-  // We do this just so that we don't have to lift state
-  // We want to be able to reset the options and sides selector from the bread crumb menu
-  const [resetDish, setResetDish] = useState(false);
+  const [currentDish, setCurrentDish] = useState(false);
+  const [currentDishAllFood, setCurrentDishAllFood] = useState(false);
 
   const buttonStyle =
     "bg-white h-[6.8rem] border p-4 rounded-md shadow-md uppercase font-medium text-lg";
@@ -52,8 +51,14 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
         )}
         {subCategory && (
           <button
-            // this causes an error
-            onClick={() => setResetDish(true)}
+            onClick={() => {
+              if (currentDish) {
+                setCurrentDish(false);
+              }
+              if (currentDishAllFood) {
+                setCurrentDishAllFood(false);
+              }
+            }}
             className="flex items-center uppercase text-lg font-medium"
           >
             <ChevronRightIcon /> {subCategory}
@@ -80,8 +85,8 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
             mainCategory={mainCategory}
             setMainCategory={setMainCategory}
             addDishToTable={addDishToTable}
-            resetDish={resetDish}
-            setResetDish={setResetDish}
+            currentDish={currentDish}
+            setCurrentDish={setCurrentDish}
           />
           <Dessert
             buttonStyle={buttonStyle}
@@ -98,8 +103,8 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
             mainCategory={mainCategory}
             setMainCategory={setMainCategory}
             addDishToTable={addDishToTable}
-            resetDish={resetDish}
-            setResetDish={setResetDish}
+            currentDish={currentDishAllFood}
+            setCurrentDish={setCurrentDishAllFood}
           />
           {/* TO DO: move delete to own component. let it return a warning if i acutally want to delete it or not */}
           {mainCategory === false && (

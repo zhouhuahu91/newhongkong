@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMenu } from "@/hooks/useMenu";
 import euro from "@/functions/euro";
 
@@ -9,44 +9,39 @@ const AllFood = ({
   setSubCategory,
   buttonStyle,
   addDishToTable,
-  resetDish,
-  setResetDish,
+  currentDish,
+  setCurrentDish,
 }) => {
   const { data } = useMenu();
-  const [currentDish, setCurrentDish] = useState(false);
   const [sidesNeeded, setSidesNeeded] = useState(false);
   const [selectedSides, setSelectedSides] = useState([]);
   const [optionsNeeded, setOptionsNeeded] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
 
-  const reset = () => {
-    if (currentDish) {
-      setCurrentDish(false);
-    }
-    if (sidesNeeded) {
-      setSidesNeeded(false);
-    }
-    if (selectedSides.length) {
-      setSelectedSides([]);
-    }
-    if (optionsNeeded) {
-      setOptionsNeeded(false);
-    }
-    if (selectedOptions.length) {
-      setSelectedOptions([]);
-    }
-  };
-
-  // if resetDish is true we set reset the current dish and its options and sides
-  if (resetDish) {
-    reset();
-    return setResetDish(false);
-  }
-
   // If user goes out of the sides or options menu before they completed it we reset the values for sides or options.
-  if (mainCategory !== "alle gerechten" || subCategory === false) {
-    reset();
-  }
+  useEffect(() => {
+    if (
+      mainCategory !== "alle gerechten" ||
+      subCategory === false ||
+      currentDish === false
+    ) {
+      if (currentDish) {
+        setCurrentDish(false);
+      }
+      if (sidesNeeded) {
+        setSidesNeeded(false);
+      }
+      if (selectedSides.length) {
+        setSelectedSides([]);
+      }
+      if (optionsNeeded) {
+        setOptionsNeeded(false);
+      }
+      if (selectedOptions.length) {
+        setSelectedOptions([]);
+      }
+    }
+  }, [mainCategory, currentDish, subCategory]);
 
   // If there is no main category selected we just return the button for beverages.
   if (mainCategory === false) {
@@ -87,7 +82,8 @@ const AllFood = ({
   if (
     mainCategory === "alle gerechten" &&
     subCategory !== false &&
-    optionsNeeded === true
+    optionsNeeded === true &&
+    currentDish !== false
   ) {
     return (
       <>
@@ -160,7 +156,8 @@ const AllFood = ({
   if (
     mainCategory === "alle gerechten" &&
     subCategory !== false &&
-    sidesNeeded === true
+    sidesNeeded === true &&
+    currentDish !== false
   ) {
     return (
       <>
