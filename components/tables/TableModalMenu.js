@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 // component imports
 import Beverages from "@/tables/items/Beverages";
 import Food from "@/tables/items/Food";

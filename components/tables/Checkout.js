@@ -63,6 +63,9 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
         <button
           disabled={table.paid}
           onClick={() => {
+            if (!table.paymentMethodType) {
+              return window.alert("selecteer betaalmethode");
+            }
             updateDoc(doc(db, `tables/${table.id}`), {
               paid: true,
             });
