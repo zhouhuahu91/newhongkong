@@ -172,7 +172,7 @@ const Tables = () => {
         <h1 className="px-2 pb-2 uppercase font-medium text-center text-sm border-b mb-2">
           gesloten tafels
         </h1>
-        <div className="gap-2 flex flex-col overflow-scroll">
+        <div className="gap-2 flex flex-col overflow-scroll h-full">
           {tables.map((table) => {
             if (table.paid) {
               return (

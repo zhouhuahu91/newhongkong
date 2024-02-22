@@ -1,6 +1,5 @@
 import { useState } from "react";
 // Component imports
-import IconBtn from "@/components/IconBtn";
 import TableModal from "@/tables/TableModal";
 import UndoIcon from "@/icons/UndoIcon";
 // Firebase imports
@@ -23,10 +22,10 @@ const ClosedTable = ({ table, date, physicalTables }) => {
       <TableModal open={open} setOpen={setOpen} table={table} date={date} />
       <div
         onClick={() => setOpen(true)}
-        className="border bg-red-100 w-full flex items-center justify-center gap-4 rounded-md p-2 font-medium cursor-pointer"
+        className="border bg-white w-full flex justify-center relative rounded-md p-2 font-medium cursor-pointer hover:shadow-md"
         key={table.id}
       >
-        <IconBtn
+        <button
           onClick={async (e) => {
             e.stopPropagation();
             const q = query(
@@ -37,7 +36,7 @@ const ClosedTable = ({ table, date, physicalTables }) => {
             const snapshot = await getDocs(q);
             const tables = snapshot.docs.map((doc) => doc.data().number);
             if (tables.includes(table.number)) {
-              console.log("table already exists");
+              window.alert("TAFEL BESTAAT AL!");
             } else {
               const ref = doc(db, `tables/${table.id}`);
               await updateDoc(ref, {
@@ -48,10 +47,13 @@ const ClosedTable = ({ table, date, physicalTables }) => {
             }
           }}
         >
-          <UndoIcon size="20" />
-        </IconBtn>
+          <UndoIcon
+            size="20"
+            className="absolute top-1/2 -translate-y-1/2 left-5"
+          />
+        </button>
         <input
-          className="appearance-none focus:outline-none text-center font-bold w-8 bg-red-100"
+          className="appearance-none focus:outline-none text-center font-bold w-8 bg-white"
           onClick={(e) => e.stopPropagation()}
           onChange={(e) => {
             const value = e.target.value.replace(/\D/g, ""); // Remove non-digits

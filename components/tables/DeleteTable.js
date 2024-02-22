@@ -31,7 +31,7 @@ const DeleteTable = ({ table, mainCategory, setMainCategory, buttonStyle }) => {
             const ref = doc(db, `tables/${table.id}`);
             deleteDoc(ref);
           }}
-          className={`h-[6.8rem] border p-4 rounded-md hover:shadow-md uppercase font-medium text-lg bg-main text-white flex items-center justify-center`}
+          className={`h-[6.8rem] border p-4 rounded-md hover:shadow-md uppercase font-medium bg-main text-white flex items-center justify-center`}
         >
           <DeleteIcon className="fill-white mr-2" />
           verwijderen

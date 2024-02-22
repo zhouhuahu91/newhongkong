@@ -1,7 +1,8 @@
 import { useState } from "react";
 import TableModal from "@/tables/TableModal";
 
-const tableStyling = "border shadow-md absolute font-medium text-xl";
+const tableStyling =
+  "border hover:shadow-md transition-all absolute font-medium text-xl";
 
 const Table = ({
   table,
