@@ -190,6 +190,7 @@ const prepareItemToAddToCart = (selectedOptions, selectedSides, item, qwt) => {
     optionIsMain: item.optionIsMain ? true : false,
     selectedOptionsForPrinter: options,
     selectedSidesForPrinter: sides,
+    btw: item.btw,
   };
 };
 
@@ -232,7 +233,6 @@ const addItem = (cart, payload) => {
       selectedOptions,
       selectedSides,
       remarks,
-      btw: item.btw,
     };
     // we add the new item to the cart.
     return [...cart, newItem];
