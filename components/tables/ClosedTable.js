@@ -43,6 +43,7 @@ const ClosedTable = ({ table, date, physicalTables }) => {
               await updateDoc(ref, {
                 paid: false,
                 printed: false,
+                wantsToPay: false,
               });
             }
           }}

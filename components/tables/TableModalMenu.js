@@ -35,9 +35,9 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
           onClick={() => {
             setMainCategory(false);
             setSubCategory(false);
-            if (table.printed) {
+            if (table.wantsToPay) {
               updateDoc(doc(db, `tables/${table.id}`), {
-                printed: false,
+                wantsToPay: false,
               });
             }
           }}
