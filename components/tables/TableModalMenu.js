@@ -25,12 +25,12 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   }, []);
 
   const buttonStyle =
-    "h-[6.8rem] border p-4 rounded-md hover:shadow-md uppercase font-medium transition-all hover:bg-red-50";
+    "h-[6.8rem] border p-4 rounded-md hover:shadow-md uppercase font-medium transition-all hover:bg-orange-50";
 
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <>
       {/* Header for the displaying menu */}
-      <div className="col-span-2 flex items-center h-16 font-medium ml-2">
+      <div className="flex items-center h-[97px] border-b font-medium p-8 bg-white w-full absolute right-0 shadow">
         <button
           disabled={mainCategory === false}
           onClick={() => {
@@ -90,55 +90,58 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
       {/* These are the categories we can go in to.  */}
       {/* If mainCategory is false these will return a button which will select their... */}
       {/* category as the main one. */}
-      <Beverages
-        buttonStyle={buttonStyle}
-        subCategory={subCategory}
-        setSubCategory={setSubCategory}
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-        addBeverageToTable={addBeverageToTable}
-      />
-      <Food
-        buttonStyle={buttonStyle}
-        subCategory={subCategory}
-        setSubCategory={setSubCategory}
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-        addDishToTable={addDishToTable}
-        currentDish={currentDish}
-        setCurrentDish={setCurrentDish}
-      />
-      <Dessert
-        buttonStyle={buttonStyle}
-        subCategory={subCategory}
-        setSubCategory={setSubCategory}
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-        addBeverageToTable={addBeverageToTable}
-      />
-      <Checkout
-        buttonStyle={buttonStyle}
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-        table={table}
-      />
-      <AllFood
-        buttonStyle={buttonStyle}
-        subCategory={subCategory}
-        setSubCategory={setSubCategory}
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-        addDishToTable={addDishToTable}
-        currentDish={currentDishAllFood}
-        setCurrentDish={setCurrentDishAllFood}
-      />
-      <DeleteTable
-        table={table}
-        buttonStyle={buttonStyle}
-        mainCategory={mainCategory}
-        setMainCategory={setMainCategory}
-      />
-    </div>
+      {/* css is a pain in the ass need to do mt 97px so that items don't start below menu */}
+      <div className="grid grid-cols-2 px-8 py-4 gap-2 overflow-scroll mt-[97px]">
+        <Beverages
+          buttonStyle={buttonStyle}
+          subCategory={subCategory}
+          setSubCategory={setSubCategory}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+          addBeverageToTable={addBeverageToTable}
+        />
+        <Food
+          buttonStyle={buttonStyle}
+          subCategory={subCategory}
+          setSubCategory={setSubCategory}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+          addDishToTable={addDishToTable}
+          currentDish={currentDish}
+          setCurrentDish={setCurrentDish}
+        />
+        <Dessert
+          buttonStyle={buttonStyle}
+          subCategory={subCategory}
+          setSubCategory={setSubCategory}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+          addBeverageToTable={addBeverageToTable}
+        />
+        <Checkout
+          buttonStyle={buttonStyle}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+          table={table}
+        />
+        <AllFood
+          buttonStyle={buttonStyle}
+          subCategory={subCategory}
+          setSubCategory={setSubCategory}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+          addDishToTable={addDishToTable}
+          currentDish={currentDishAllFood}
+          setCurrentDish={setCurrentDishAllFood}
+        />
+        <DeleteTable
+          table={table}
+          buttonStyle={buttonStyle}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+        />
+      </div>
+    </>
   );
 };
 

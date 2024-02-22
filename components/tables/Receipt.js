@@ -32,7 +32,11 @@ const Receipt = ({
   }
 
   return (
-    <div className="p-4 h-full flex flex-col uppercase gap-4 my-4 overflow-scroll">
+    <div
+      className={`px-8 pb-8 pt-4 h-full flex flex-col uppercase overflow-scroll ${
+        table.food.length ? "gap-4" : ""
+      }`}
+    >
       <div className="">
         {table.food.map((dish) => {
           return (
@@ -75,7 +79,7 @@ const Receipt = ({
           );
         })}
       </div>
-      <div className="text-right border-t pt-2 mt-2 font-bold text-2xl">
+      <div className="text-right border-t pt-4 mt-4 font-medium mb-20">
         totaal: {euro(total)}
       </div>
     </div>

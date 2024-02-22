@@ -231,16 +231,16 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
         <CloseIcon />
       </IconBtn>
       {/* Two containers left and right one is the receipt and the other items that we can add to the receipt */}
-      <div className="grid grid-cols-12 w-full h-full gap-2">
-        <div className="col-span-6 border-r p-4 overflow-scroll">
+      <div className="grid grid-cols-12 w-full h-full gap-1">
+        <div className="col-span-6 relative h-full flex border-r bg-white flex-col overflow-scroll">
           <TableModalMenu
             addBeverageToTable={addBeverageToTable}
             addDishToTable={addDishToTable}
             table={table}
           />
         </div>
-        <div className="col-span-6 h-full flex border-l p-4 bg-white flex-col">
-          <div className="border-b flex justify-center">
+        <div className="col-span-6 h-full flex border-l bg-white flex-col overflow-scroll">
+          <div className="border-b flex justify-center p-4 shadow">
             <input
               value={tableName}
               className="appearance-none focus:outline-none text-center font-bold text-2xl mt-6 pb-2"
