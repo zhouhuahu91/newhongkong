@@ -23,13 +23,15 @@ const DeleteTable = ({ table, mainCategory, setMainCategory, buttonStyle }) => {
   if (mainCategory === "tafel verwijderen") {
     return (
       <>
-        <h1 className="font-medium uppercase col-span-2">Weet je het zeker?</h1>
+        <h1 className="font-medium uppercase col-span-2 text-center text-xl mb-4">
+          Weet je het zeker?
+        </h1>
         <button
           onClick={() => {
             const ref = doc(db, `tables/${table.id}`);
             deleteDoc(ref);
           }}
-          className={`${buttonStyle} bg-main text-white flex items-center justify-center`}
+          className={`h-[6.8rem] border p-4 rounded-md hover:shadow-md uppercase font-medium text-lg bg-main text-white flex items-center justify-center`}
         >
           <DeleteIcon className="fill-white mr-2" />
           verwijderen

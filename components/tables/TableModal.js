@@ -231,15 +231,15 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
         <CloseIcon />
       </IconBtn>
       {/* Two containers left and right one is the receipt and the other items that we can add to the receipt */}
-      <div className="flex flex-row w-full h-full max justify-between gap-2 b-50">
-        <div className="w-full border-r p-4 overflow-scroll">
+      <div className="grid grid-cols-12 w-full h-full gap-2">
+        <div className="col-span-6 border-r p-4 overflow-scroll">
           <TableModalMenu
             addBeverageToTable={addBeverageToTable}
             addDishToTable={addDishToTable}
             table={table}
           />
         </div>
-        <div className="w-full h-full flex border-l p-4 bg-white flex-col">
+        <div className="col-span-6 h-full flex border-l p-4 bg-white flex-col">
           <div className="border-b flex justify-center">
             <input
               value={tableName}
@@ -289,7 +289,6 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
               }}
             />
           </div>
-
           <Receipt
             table={table}
             incrementBeverage={incrementBeverage}

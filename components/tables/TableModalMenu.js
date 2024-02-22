@@ -25,13 +25,14 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   }, []);
 
   const buttonStyle =
-    "h-[6.8rem] border p-4 rounded-md shadow-md uppercase font-medium text-lg";
+    "h-[6.8rem] border p-4 rounded-md hover:shadow-md uppercase font-medium transition-all hover:bg-red-50";
 
   return (
     <div className="grid grid-cols-2 gap-2">
       {/* Header for the displaying menu */}
       <div className="col-span-2 flex items-center h-16 font-medium ml-2">
         <button
+          disabled={mainCategory === false}
           onClick={() => {
             setMainCategory(false);
             setSubCategory(false);
@@ -42,7 +43,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
             }
           }}
           type="button"
-          className={`uppercase text-lg font-medium ${
+          className={`uppercase font-medium ${
             mainCategory !== false ? "text-main" : ""
           }`}
         >
@@ -50,10 +51,11 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
         </button>
         {mainCategory && (
           <button
+            disabled={subCategory === false}
             onClick={() => {
               setSubCategory(false);
             }}
-            className={`flex items-center uppercase text-lg font-medium ${
+            className={`flex items-center uppercase font-medium ${
               subCategory !== false ? "text-main" : ""
             }`}
           >
@@ -62,6 +64,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
         )}
         {subCategory && (
           <button
+            disabled={currentDish === false && currentDishAllFood === false}
             onClick={() => {
               if (currentDish) {
                 setCurrentDish(false);
@@ -70,10 +73,18 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
                 setCurrentDishAllFood(false);
               }
             }}
-            className="flex items-center uppercase text-lg font-medium"
+            className={`flex items-center uppercase font-medium ${
+              currentDish || currentDishAllFood ? "text-main" : ""
+            }`}
           >
             <ChevronRightIcon /> {subCategory}
           </button>
+        )}
+        {(currentDish || currentDishAllFood) && (
+          <div className={`flex items-center uppercase font-medium`}>
+            <ChevronRightIcon />{" "}
+            {currentDish ? currentDish.name.nl : currentDishAllFood.name.nl}
+          </div>
         )}
       </div>
       {/* These are the categories we can go in to.  */}

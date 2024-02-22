@@ -32,12 +32,12 @@ const Receipt = ({
   }
 
   return (
-    <div className="p-4 h-full flex flex-col uppercase text-lg gap-4 my-4 overflow-scroll">
+    <div className="p-4 h-full flex flex-col uppercase gap-4 my-4 overflow-scroll">
       <div className="">
         {table.food.map((dish) => {
           return (
             <div className="grid grid-cols-12" key={dish.id}>
-              <div className="col-span-2 min-w-[5rem] flex items-center justify-between pr-2">
+              <div className="col-span-2 max-w-[4.5rem] flex items-center justify-between pr-2">
                 <IconBtn onClick={() => decrementDish(dish)}>
                   <MinusIcon size="18" className="fill-main" />
                 </IconBtn>
@@ -46,12 +46,10 @@ const Receipt = ({
                   <PlusIcon size="18" className="fill-main" />
                 </IconBtn>
               </div>
-              <div className="col-span-7 ml-1">{dish.name.nl}</div>
+              <div className="col-span-7 font-medium">{dish.name.nl}</div>
               <div className="col-span-3 text-right">{euro(dish.price)}</div>
               <div className="col-span-2" />
-              <div className="col-span-7 ml-1 -mt-2 text-xs">
-                {dish.description}
-              </div>
+              <div className="col-span-7 -mt-1 text-xs">{dish.description}</div>
             </div>
           );
         })}
@@ -60,16 +58,16 @@ const Receipt = ({
         {table.beverages.map((beverage) => {
           return (
             <div className="grid grid-cols-12" key={beverage.id}>
-              <div className="col-span-2 min-w-[5rem] flex items-center justify-between pr-2">
+              <div className="col-span-2 max-w-[4.5rem] flex items-center justify-between pr-2">
                 <IconBtn onClick={() => decrementBeverage(beverage)}>
                   <MinusIcon size="18" className="fill-main" />
                 </IconBtn>
-                <div className="mx-2">{beverage.qwt}</div>
+                <div className="">{beverage.qwt}</div>
                 <IconBtn onClick={() => incrementBeverage(beverage)}>
                   <PlusIcon size="18" className="fill-main" />
                 </IconBtn>
               </div>
-              <div className="col-span-7 ml-1">{beverage.name}</div>
+              <div className="col-span-7 font-medium">{beverage.name}</div>
               <div className="col-span-3 text-right">
                 {euro(beverage.price)}
               </div>
