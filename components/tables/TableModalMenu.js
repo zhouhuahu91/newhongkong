@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 // Icon imports
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
-import DeleteIcon from "@/icons/DeleteIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
@@ -11,6 +10,7 @@ import Food from "@/tables/items/Food";
 import Dessert from "@/tables/items/Dessert";
 import AllFood from "@/tables/items/AllFood";
 import Checkout from "@/tables/Checkout";
+import DeleteTable from "@/tables/DeleteTable";
 
 const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   const [mainCategory, setMainCategory] = useState(false);
@@ -25,7 +25,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   }, []);
 
   const buttonStyle =
-    "bg-white h-[6.8rem] border p-4 rounded-md shadow-md uppercase font-medium text-lg";
+    "h-[6.8rem] border p-4 rounded-md shadow-md uppercase font-medium text-lg";
 
   return (
     <div className="grid grid-cols-2 gap-2">
@@ -79,63 +79,53 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
       {/* These are the categories we can go in to.  */}
       {/* If mainCategory is false these will return a button which will select their... */}
       {/* category as the main one. */}
-      <>
-        <Beverages
-          buttonStyle={buttonStyle}
-          subCategory={subCategory}
-          setSubCategory={setSubCategory}
-          mainCategory={mainCategory}
-          setMainCategory={setMainCategory}
-          addBeverageToTable={addBeverageToTable}
-        />
-        <Food
-          buttonStyle={buttonStyle}
-          subCategory={subCategory}
-          setSubCategory={setSubCategory}
-          mainCategory={mainCategory}
-          setMainCategory={setMainCategory}
-          addDishToTable={addDishToTable}
-          currentDish={currentDish}
-          setCurrentDish={setCurrentDish}
-        />
-        <Dessert
-          buttonStyle={buttonStyle}
-          subCategory={subCategory}
-          setSubCategory={setSubCategory}
-          mainCategory={mainCategory}
-          setMainCategory={setMainCategory}
-          addBeverageToTable={addBeverageToTable}
-        />
-        <AllFood
-          buttonStyle={buttonStyle}
-          subCategory={subCategory}
-          setSubCategory={setSubCategory}
-          mainCategory={mainCategory}
-          setMainCategory={setMainCategory}
-          addDishToTable={addDishToTable}
-          currentDish={currentDishAllFood}
-          setCurrentDish={setCurrentDishAllFood}
-        />
-        {/* TO DO: move delete to own component. let it return a warning if i acutally want to delete it or not */}
-        {mainCategory === false && (
-          <button
-            onClick={() => {
-              const ref = doc(db, `tables/${table.id}`);
-              deleteDoc(ref);
-            }}
-            type="button"
-            className={`${buttonStyle} flex items-center justify-center gap-2`}
-          >
-            <DeleteIcon />
-            delete
-          </button>
-        )}
-      </>
+      <Beverages
+        buttonStyle={buttonStyle}
+        subCategory={subCategory}
+        setSubCategory={setSubCategory}
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
+        addBeverageToTable={addBeverageToTable}
+      />
+      <Food
+        buttonStyle={buttonStyle}
+        subCategory={subCategory}
+        setSubCategory={setSubCategory}
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
+        addDishToTable={addDishToTable}
+        currentDish={currentDish}
+        setCurrentDish={setCurrentDish}
+      />
+      <Dessert
+        buttonStyle={buttonStyle}
+        subCategory={subCategory}
+        setSubCategory={setSubCategory}
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
+        addBeverageToTable={addBeverageToTable}
+      />
       <Checkout
         buttonStyle={buttonStyle}
         mainCategory={mainCategory}
         setMainCategory={setMainCategory}
         table={table}
+      />
+      <AllFood
+        buttonStyle={buttonStyle}
+        subCategory={subCategory}
+        setSubCategory={setSubCategory}
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
+        addDishToTable={addDishToTable}
+        currentDish={currentDishAllFood}
+        setCurrentDish={setCurrentDishAllFood}
+      />
+      <DeleteTable
+        table={table}
+        buttonStyle={buttonStyle}
+        mainCategory={mainCategory}
+        setMainCategory={setMainCategory}
       />
     </div>
   );
