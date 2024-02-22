@@ -147,8 +147,8 @@ const Tables = () => {
   // We want to show these tables some how.
 
   return (
-    <div className="w-full max-w-[1080px] mx-auto grid grid-cols-12 bg-white border shadow-md mt-5 xl:mt-20 rounded-xl">
-      <div className="w-full relative h-[770px] col-span-9">
+    <div className="w-full max-w-[1080px] mx-auto grid grid-cols-10 bg-white border shadow-md mt-5 xl:mt-20 rounded-xl">
+      <div className="w-full relative h-[770px] col-span-8">
         {physicalTables.map((physicalTable) => {
           return (
             <Table
@@ -167,22 +167,24 @@ const Tables = () => {
         })}
         <StoreLayout date={date} setDate={setDate} />
       </div>
-      <div className="col-span-3 p-4 border-l shadow-inner bg-neutral-50 rounded-md">
+      <div className="col-span-2 p-4 border-l shadow-inner bg-neutral-50 rounded-md">
         <h1 className="px-2 pb-2 uppercase font-medium text-center text-sm border-b mb-2">
           gesloten tafels
         </h1>
-        {tables.map((table) => {
-          if (table.paid) {
-            return (
-              <ClosedTable
-                physicalTables={physicalTables}
-                date={date}
-                key={table.id}
-                table={table}
-              />
-            );
-          }
-        })}
+        <div className="gap-2 flex flex-col overflow-scroll">
+          {tables.map((table) => {
+            if (table.paid) {
+              return (
+                <ClosedTable
+                  physicalTables={physicalTables}
+                  date={date}
+                  key={table.id}
+                  table={table}
+                />
+              );
+            }
+          })}
+        </div>
       </div>
     </div>
   );
