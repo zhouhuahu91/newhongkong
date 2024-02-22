@@ -4,7 +4,16 @@ import euro from "@/functions/euro";
 
 import DishIcon from "@/icons/DishIcon";
 
-const getCustomFoodMenu = (data) => {
+const getCustomFoodMenu = (rawData) => {
+  // replace the price of data with dine in price if there is dine in price
+  const data = rawData.map((category) => ({
+    ...category,
+    items: category.items.map((item) => ({
+      ...item,
+      price: item.dineInPrice ? item.dineInPrice : item.price,
+    })),
+  }));
+
   const soupID = ["1", "2", "3", "6", "7"];
   const sidesID = ["14", "8", "9", "10", "11", "12", "16", "18", "17"];
   const mainID = [

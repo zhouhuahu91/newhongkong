@@ -18,6 +18,15 @@ const AllFood = ({
   const [optionsNeeded, setOptionsNeeded] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
 
+  // We loop over every item in the menu and set the price to the dineInPrice.
+  const ajustedData = data.map((category) => ({
+    ...category,
+    items: category.items.map((item) => ({
+      ...item,
+      price: item.dineInPrice ? item.dineInPrice : item.price,
+    })),
+  }));
+
   // If user goes out of the sides or options menu before they completed it we reset the values for sides or options.
   useEffect(() => {
     if (
@@ -60,7 +69,7 @@ const AllFood = ({
   if (mainCategory === "alle gerechten" && subCategory === false) {
     return (
       <>
-        {data.map((type) => {
+        {ajustedData.map((type) => {
           return (
             <button
               onClick={() => {
@@ -213,7 +222,7 @@ const AllFood = ({
   if (mainCategory === "alle gerechten" && subCategory !== false) {
     return (
       <>
-        {data.map((type) => {
+        {ajustedData.map((type) => {
           if (type.category.nl === subCategory) {
             return type.items.map((item) => {
               return (

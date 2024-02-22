@@ -25,6 +25,7 @@ export default {
         zh: "",
       },
       price: 1660,
+      dineInPrice: 1990,
       qtyPlastic: 2,
       sides: sidesOptions,
       btw: btw.laag,
