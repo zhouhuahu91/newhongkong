@@ -87,7 +87,7 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
           setMainCategory("checkout");
           // TO DO: Print the receipt
           updateDoc(doc(db, `tables/${table.id}`), {
-            printed: true,
+            wantsToPay: true,
           });
         }}
         type="button"

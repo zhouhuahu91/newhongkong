@@ -32,6 +32,7 @@ const Tables = () => {
       number,
       beverages: [],
       food: [],
+      wantsToPay: false,
       paid: false,
       printed: false,
       paymentMethodType: null,

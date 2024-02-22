@@ -39,7 +39,7 @@ const Table = ({
         } 
           ${
             table
-              ? table?.printed && !table.paid
+              ? table.wantsToPay && !table.paid
                 ? "bg-red-100"
                 : "bg-green-100"
               : ""

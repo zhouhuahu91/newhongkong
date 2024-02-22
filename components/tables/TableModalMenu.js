@@ -19,7 +19,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   const [currentDishAllFood, setCurrentDishAllFood] = useState(false);
 
   useEffect(() => {
-    if ((table.paid || table.printed) && mainCategory === false) {
+    if ((table.paid || table.wantsToPay) && mainCategory === false) {
       setMainCategory("checkout");
     }
   }, []);
