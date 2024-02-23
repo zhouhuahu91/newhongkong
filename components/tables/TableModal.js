@@ -53,7 +53,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
             ? {
                 ...x,
                 qwt: x.qwt + 1,
-                price: (x.price / x.qwt) * x.qwt + 1,
+                price: (x.price / x.qwt) * (x.qwt + 1),
               }
             : x;
         }),
