@@ -93,7 +93,7 @@ const Receipt = ({
             onChange={(e) => {
               const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
               const number = value === "" ? 0 : parseInt(value, 10);
-              setFormattedTip(`TIP ${euro(number)}`);
+              setFormattedTip(`TIP: ${euro(number)}`);
               setTip(number);
             }}
             className="text-right appearance-none focus:outline-none"
