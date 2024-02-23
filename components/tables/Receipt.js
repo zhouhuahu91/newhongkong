@@ -1,3 +1,4 @@
+import { useState } from "react";
 // Function imports
 import euro from "@/functions/euro";
 // Component imports
@@ -5,6 +6,9 @@ import IconBtn from "@/components/IconBtn";
 // Icon imports
 import MinusIcon from "@/icons/MinusIcon";
 import PlusIcon from "@/icons/PlusIcon";
+// Firebase imports
+import { db } from "@/firebase/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 const calculateTotal = (table) => {
   let price = 0;
@@ -21,6 +25,8 @@ const Receipt = ({
   incrementDish,
   decrementDish,
 }) => {
+  const [tip, setTip] = useState(table.tip);
+  const [formattedTip, setFormattedTip] = useState(`TIP: ${euro(table.tip)}`);
   const total = calculateTotal(table);
 
   if (table.food.length === 0 && table.beverages.length === 0) {
@@ -79,8 +85,29 @@ const Receipt = ({
           );
         })}
       </div>
-      <div className="text-right border-t pt-4 mt-4 font-medium mb-20">
-        totaal: {euro(total)}
+      <div className="text-right border-t pt-4 mt-4">
+        <div className="">subtotaal: {euro(total)}</div>
+        <div className="">
+          <input
+            value={formattedTip}
+            onChange={(e) => {
+              const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
+              const number = value === "" ? 0 : parseInt(value, 10);
+              setFormattedTip(`TIP ${euro(number)}`);
+              setTip(number);
+            }}
+            className="text-right appearance-none focus:outline-none"
+            onBlur={() => {
+              const ref = doc(db, `tables/${table.id}`);
+              updateDoc(ref, {
+                tip: tip,
+              });
+            }}
+          />
+        </div>
+      </div>
+      <div className="text-right border-t pt-4 mt-4 mb-20">
+        <div className="font-medium">totaal: {euro(total + table.tip)}</div>
       </div>
     </div>
   );
