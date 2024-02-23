@@ -24,6 +24,7 @@ export default {
         zh: "",
       },
       price: 1890,
+      dineInPrice: 2270,
       qtyPlastic: 2,
       options: [
         {
@@ -85,6 +86,7 @@ export default {
         zh: "",
       },
       price: 1810,
+      dineInPrice: 2170,
       qtyPlastic: 2,
       sides: sidesOptions,
       btw: btw.laag,
@@ -104,6 +106,7 @@ export default {
         zh: "",
       },
       price: 1920,
+      dineInPrice: 2420,
       qtyPlastic: 2,
       sides: sidesOptions,
       btw: btw.laag,
@@ -124,6 +127,7 @@ export default {
       },
 
       price: 2120,
+      dineInPrice: 2540,
       qtyPlastic: 2,
       sides: sidesOptions,
       btw: btw.laag,
@@ -143,6 +147,7 @@ export default {
         zh: "",
       },
       price: 2120,
+      dineInPrice: 2540,
       qtyPlastic: 2,
       sides: sidesOptions,
       btw: btw.laag,
