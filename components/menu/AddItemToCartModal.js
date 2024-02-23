@@ -47,7 +47,6 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
         window.scrollTo({
           top: 0, // Scroll to the top of the document
           left: 0,
-          behavior: "smooth", // Smooth scroll
         });
         searchInputRef.current.focus();
       }
