@@ -24,6 +24,7 @@ export default {
         zh: "",
       },
       price: 710,
+      dineInPrice: 850,
       qtyPlastic: 1,
       options: [
         {
@@ -85,6 +86,7 @@ export default {
         zh: "",
       },
       price: 530,
+      dineInPrice: 330,
       qtyPlastic: 1,
       options: [
         {
@@ -146,6 +148,7 @@ export default {
         zh: "",
       },
       price: 1210,
+      dineInPrice: 1550,
       qtyPlastic: 2,
       options: [
         {
@@ -187,6 +190,7 @@ export default {
         zh: "",
       },
       price: 1210,
+      dineInPrice: 1550,
       qtyPlastic: 2,
       options: [
         {
@@ -228,6 +232,7 @@ export default {
         zh: "",
       },
       price: 1290,
+      dineInPrice: 1550,
       qtyPlastic: 2,
       options: [
         {
@@ -270,6 +275,7 @@ export default {
       },
 
       price: 1810,
+      dineInPrice: 2170,
       qtyPlastic: 2,
       options: [
         {
@@ -311,6 +317,7 @@ export default {
         zh: "",
       },
       price: 1290,
+      dineInPrice: 1550,
       qtyPlastic: 2,
       options: [
         {
@@ -352,6 +359,7 @@ export default {
         zh: "",
       },
       price: 1290,
+      dineInPrice: 1550,
       qtyPlastic: 2,
       options: [
         {
@@ -393,6 +401,7 @@ export default {
         zh: "",
       },
       price: 1680,
+      dineInPrice: 1990,
       qtyPlastic: 2,
       options: [
         {
@@ -434,6 +443,7 @@ export default {
         zh: "",
       },
       price: 1680,
+      dineInPrice: 1990,
       qtyPlastic: 2,
       options: [
         {
@@ -475,6 +485,7 @@ export default {
         zh: "",
       },
       price: 1620,
+      dineInPrice: 1940,
       qtyPlastic: 1,
       btw: btw.laag,
     },

@@ -24,6 +24,7 @@ export default {
         zh: "",
       },
       price: 2010,
+      dineInPrice: 2410,
       qtyPlastic: 3,
       options: [
         {
@@ -65,6 +66,7 @@ export default {
         zh: "",
       },
       price: 1380,
+      dineInPrice: 1660,
       qtyPlastic: 1,
       options: [
         {
@@ -106,6 +108,7 @@ export default {
         zh: "",
       },
       price: 1380,
+      dineInPrice: 1660,
       qtyPlastic: 1,
       options: [
         {
@@ -147,6 +150,7 @@ export default {
         zh: "",
       },
       price: 1470,
+      dineInPrice: 1760,
       qtyPlastic: 1,
       options: [
         {
@@ -188,6 +192,7 @@ export default {
         zh: "",
       },
       price: 1660,
+      dineInPrice: 1990,
       qtyPlastic: 1,
       options: [
         {
@@ -229,6 +234,7 @@ export default {
         zh: "",
       },
       price: 1660,
+      dineInPrice: 1990,
       qtyPlastic: 1,
       options: [
         {
@@ -270,6 +276,7 @@ export default {
         zh: "",
       },
       price: 1720,
+      dineInPrice: 2060,
       qtyPlastic: 1,
       btw: btw.laag,
     },
@@ -288,6 +295,7 @@ export default {
         zh: "叉烧炒面",
       },
       price: 1480,
+      dineInPrice: 1780,
       qtyPlastic: 1,
       btw: btw.laag,
     },
