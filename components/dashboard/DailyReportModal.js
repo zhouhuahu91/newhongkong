@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import receiptline from "receiptline";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { setDoc, doc } from "firebase/firestore";
+import {
+  setDoc,
+  doc,
+  getDocs,
+  query,
+  collection,
+  where,
+} from "firebase/firestore";
 // Icon imports
 import ReportIcon from "@/icons/ReportIcon";
-import LoadingIcon from "@/icons/LoadingIcon";
 import PrintIcon from "@/icons/PrintIcon";
 import CloseIcon from "@/icons/CloseIcon";
 // Component imports
@@ -13,11 +19,71 @@ import IconBtn from "@/components/IconBtn";
 import Modal from "@/components/Modal";
 // Function Imports
 import calculateVat from "@/functions/calculateVat";
+import calculateTableVat from "@/functions/calculateTableVat";
 import euro from "@/functions/euro";
 
 const DailyReportModal = ({ date, printJobs, orders }) => {
   // State for opening and closing the modal
   const [open, setOpen] = useState(false);
+  const [tables, setTables] = useState([]);
+
+  // // This useEffect fetches all tables from firestore
+  useEffect(() => {
+    const fetchTables = async () => {
+      const q = query(
+        collection(db, "tables"),
+        where("paid", "==", true),
+        where("date", "==", date)
+      );
+      const snapshot = await getDocs(q);
+      const raw = snapshot.docs.map((doc) => doc.data());
+      const data = raw.map((table) => {
+        const foodTotal = table.food.reduce((x, y) => x + y.price, 0);
+        const beveragesTotal = table.beverages.reduce((x, y) => x + y.price, 0);
+        return {
+          ...table,
+          total: foodTotal + beveragesTotal + table.tip,
+        };
+      });
+      setTables(data);
+    };
+    if (open) {
+      fetchTables();
+    }
+  }, [open]);
+
+  //  ********** CALCULATIONS FOR TABLES *********
+
+  const revenueTables = tables.reduce((x, y) => x + y.total, 0);
+
+  const cardPaymentsTables = tables.reduce(
+    (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
+    0
+  );
+
+  const cashPaymentsTables = tables.reduce(
+    (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
+    0
+  );
+
+  const tablesVat = tables.reduce(
+    (x, y) => {
+      // z returns the vat of the current table
+      const z = calculateTableVat(y);
+      // We add the vat of current order with the vat that is store in x.
+      return {
+        low: x.low + z.low,
+        high: x.high + z.high,
+        zero: x.zero + z.zero,
+      };
+    },
+    { low: 0, high: 0, zero: 0 }
+  );
+
+  const lowBTWTables = Math.round((tablesVat.low / 109) * 9);
+  const highBTWTables = Math.round((tablesVat.high / 121) * 21);
+
+  // ********** BELOW ARE CALCULATIONS FOR TAKE AWAY ************
 
   // Total revenue
   const revenue = orders.reduce((x, y) => x + y.total, 0);
@@ -88,23 +154,25 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
     "           | "${euro(revenue)}|  "${euro(lowBTW + highBTW)}
 
     "restaurant | "omzet|             "btw  
-    laag 9%     | €~~~~~~~~~|        €~~~~~~~~~|         
-    hoog 21%    | €~~~~~~~~~|        €~~~~~~~~~|           
-    geen 0%     | €~~~~~~~~~|        ${euro(0)}   
+    laag 9%     | ${euro(tablesVat.low)}|    ${euro(lowBTWTables)}         
+    hoog 21%    | ${euro(tablesVat.high)}|   ${euro(highBTWTables)}           
+    geen 0%     | ${euro(tablesVat.zero)}|   ${euro(0)}   
     ------------------------------------------------
-    "           | "€~~~~~~~~~|       "€~~~~~~~~~|
+    "           | "${euro(revenueTables)}|   "${euro(
+    lowBTWTables + highBTWTables
+  )}|
 
     
                     ^^totaal afhaal ${euro(revenue)}|
-                ^^totaal restaurant  €~~~~~~~~~~~~~~|
+                ^^totaal restaurant ${euro(revenueTables)}|
     -------------------------------------------------
-                     ^^"totale omzet €~~~~~~~~~~~~~~| 
+                     ^^"totale omzet ${euro(revenue + revenueTables)}| 
 
 
 
     |"betaalwijze | "afhaal|                "restaurant
-    |cash         | ${euro(cashPayments)}|  €~~~~~~~~~|
-    |pinnen       | ${euro(cardPayments)}|  €~~~~~~~~~|
+    |cash         | ${euro(cashPayments)}|  ${euro(cashPaymentsTables)}|
+    |pinnen       | ${euro(cardPayments)}|  ${euro(cardPaymentsTables)}|
 `;
 
   for (const type in onlinePayments) {
