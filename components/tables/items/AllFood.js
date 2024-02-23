@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useMenu } from "@/hooks/useMenu";
 import euro from "@/functions/euro";
+import { data } from "@/data/data";
 
 const AllFood = ({
   mainCategory,
@@ -12,7 +12,6 @@ const AllFood = ({
   currentDish,
   setCurrentDish,
 }) => {
-  const { data } = useMenu();
   const [sidesNeeded, setSidesNeeded] = useState(false);
   const [selectedSides, setSelectedSides] = useState([]);
   const [optionsNeeded, setOptionsNeeded] = useState(false);

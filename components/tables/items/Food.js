@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { useMenu } from "@/hooks/useMenu";
 import euro from "@/functions/euro";
-
+import { data } from "@/data/data";
 import DishIcon from "@/icons/DishIcon";
 
 const getCustomFoodMenu = (rawData) => {
@@ -109,7 +108,6 @@ const Food = ({
   currentDish,
   setCurrentDish,
 }) => {
-  const { data } = useMenu();
   const food = getCustomFoodMenu(data);
   const [sidesNeeded, setSidesNeeded] = useState(false);
   const [selectedSides, setSelectedSides] = useState([]);
