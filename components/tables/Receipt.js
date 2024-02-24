@@ -1,6 +1,7 @@
 import { useState } from "react";
 // Function imports
 import euro from "@/functions/euro";
+import calculateTableTotal from "@/functions/calculateTableTotal";
 // Component imports
 import IconBtn from "@/components/IconBtn";
 // Icon imports
@@ -9,14 +10,6 @@ import PlusIcon from "@/icons/PlusIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-
-const calculateTotal = (table) => {
-  let price = 0;
-  price += table.food.reduce((x, y) => x + y.price, 0);
-  price += table.beverages.reduce((x, y) => x + y.price, 0);
-
-  return price;
-};
 
 const Receipt = ({
   table,
@@ -27,7 +20,7 @@ const Receipt = ({
 }) => {
   const [tip, setTip] = useState(table.tip);
   const [formattedTip, setFormattedTip] = useState(`TIP: ${euro(table.tip)}`);
-  const total = calculateTotal(table);
+  const total = calculateTableTotal(table);
 
   if (table.food.length === 0 && table.beverages.length === 0) {
     return (
