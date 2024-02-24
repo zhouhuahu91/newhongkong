@@ -79,7 +79,7 @@ const Receipt = ({
         })}
       </div>
       <div className="text-right border-t pt-4 mt-4">
-        <div className="">subtotaal: {euro(total)}</div>
+        <div className="">subtotaal: {euro(total - table.tip)}</div>
         <div className="">
           <input
             value={formattedTip}
@@ -100,7 +100,7 @@ const Receipt = ({
         </div>
       </div>
       <div className="text-right border-t pt-4 mt-4 mb-20">
-        <div className="font-medium">totaal: {euro(total + table.tip)}</div>
+        <div className="font-medium">totaal: {euro(total)}</div>
       </div>
     </div>
   );
