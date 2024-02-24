@@ -7,6 +7,7 @@ import IconBtn from "@/components/IconBtn";
 // Icon imports
 import MinusIcon from "@/icons/MinusIcon";
 import PlusIcon from "@/icons/PlusIcon";
+import PrintIcon from "@/icons/PrintIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, updateDoc } from "firebase/firestore";
@@ -21,6 +22,15 @@ const Receipt = ({
   const [tip, setTip] = useState(table.tip);
   const [formattedTip, setFormattedTip] = useState(`TIP: ${euro(table.tip)}`);
   const total = calculateTableTotal(table);
+
+  // I need an array of items in food that needs to be printed
+  const needsToBePrinted = table.food.map((item) => {
+    if (!item.printed) {
+      return item;
+    }
+  });
+
+  console.log(needsToBePrinted);
 
   if (table.food.length === 0 && table.beverages.length === 0) {
     return (
@@ -99,9 +109,15 @@ const Receipt = ({
           />
         </div>
       </div>
-      <div className="text-right border-t pt-4 mt-4 mb-20">
+      <div className="text-right border-t pt-4 mt-4">
         <div className="font-medium">totaal: {euro(total)}</div>
       </div>
+      {needsToBePrinted.length > 0 && (
+        <button className="button border mt-4 uppercase gap-2">
+          <PrintIcon />
+          eten afdrukken
+        </button>
+      )}
     </div>
   );
 };

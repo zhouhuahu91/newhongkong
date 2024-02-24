@@ -84,6 +84,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
           {
             ...dish,
             price: totalPrice,
+            printed: false,
             name,
             qwt: 1,
             id: ID,
