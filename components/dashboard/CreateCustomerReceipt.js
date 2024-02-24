@@ -33,7 +33,6 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     )}
 
     -
-    
 `;
 
     order.cart.forEach((item) => {
@@ -102,7 +101,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
 
     markup += `
 
-    
+
     "^^^BEDANKT EN TOT ZIENS!`;
 
     const report = receiptline.transform(markup, {

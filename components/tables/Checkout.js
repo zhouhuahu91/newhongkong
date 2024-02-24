@@ -37,8 +37,7 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
     ^^${table.date} | ^^tafel ${table.number}
 
     -
-
-    `;
+`;
 
     table.food.forEach((item) => {
       markup += `{w:*,10}
