@@ -18,14 +18,13 @@ import euro from "@/functions/euro";
 import createStoreLogo from "@/functions/createStoreLogo";
 import calculateTableTotal from "@/functions/calculateTableTotal";
 import calculateTableVat from "@/functions/calculateTableVat";
-import getDigitalTime from "@/functions/getDigitalTime";
-import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 
 const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
   const printReceipt = async () => {
     // We need to create markup for the receipt
     let markup = `
     "^^^^New Hong Kong
+
 
     ${createStoreLogo()}
 
@@ -35,7 +34,7 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
     info@newhongkong.nl
 
     -
-    ^^${table.date} | ^^${getDigitalTime(getCurrentTimeInSeconds())}
+    ^^${table.date} | ^^tafel ${table.number}
 
     -
 
@@ -89,6 +88,7 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
     markup += `{w:auto}`;
 
     markup += `
+
 
     "^^^BEDANKT EN TOT ZIENS!`;
 

@@ -9,6 +9,7 @@ import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 import calculateVat from "@/functions/calculateVat";
+import createStoreLogo from "@/functions/createStoreLogo";
 
 import receiptline from "receiptline";
 
@@ -17,6 +18,9 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     // We create the markup
     let markup = `
     "^^^^New Hong Kong
+
+
+    ${createStoreLogo()}
 
     Havenstraat 13
     2211EE Noordwijkerhout
@@ -98,6 +102,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
 
     markup += `
 
+    
     "^^^BEDANKT EN TOT ZIENS!`;
 
     const report = receiptline.transform(markup, {
