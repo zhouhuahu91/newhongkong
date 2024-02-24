@@ -45,6 +45,8 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
     // check if ID is in the food array or not
     const found = food.find((x) => x.id === ID);
 
+    console.log(dish);
+
     // If the dish already exists we just modify the existing one
     if (found) {
       updateDoc(ref, {

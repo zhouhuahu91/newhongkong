@@ -30,7 +30,75 @@ const Receipt = ({
     }
   });
 
-  console.log(needsToBePrinted);
+  const printFood = () => {
+    let markup = `
+    ^^^^^餐楼
+
+    -
+    ^^TAFEL ${table.number}
+
+    _
+    `;
+
+    table.food.forEach((item) => {
+      markup += `
+
+      |^^^^${item.qwt} ${item.name?.zh}`;
+
+      // template to hold sides
+      const sidesCount = {};
+      // This part prints the sides after the item name if there are sides.
+      if (item.selectedSides?.length > 0) {
+        item.selectedSides.forEach((side) => {
+          // Check if name is in template
+          if (sidesCount[side.name.zh]) {
+            // If name is in template we add 1
+            sidesCount[side.name.zh]++;
+          } else {
+            // If not we set the name to one
+            sidesCount[side.name.zh] = 1;
+          }
+        });
+        // If there are sides we add this after the main item
+        markup += ",";
+        // We print the sides next to it.
+        // Sides gets multiplied by the main item.
+        for (const side in sidesCount) {
+          const sideQwt = sidesCount[side] * item.qwt;
+          // if there is only one side no need to show 1.
+          if (sideQwt > 1) {
+            markup += ` ${sideQwt}`;
+          }
+          markup += ` ${side}`;
+        }
+      }
+
+      // This part prints the options on it's own line
+      // If the option is main we don't need to prin the options
+      if (item.selectedOptions?.length > 0 && !item.optionIsMain) {
+        // template to hold options
+        const optionsCount = {};
+        item.selectedOptions.forEach((option) => {
+          // Check if name is in template
+          if (optionsCount[option.name.zh]) {
+            // If name is in template we add 1
+            optionsCount[option.name.zh]++;
+          } else {
+            // If not we set the name to one
+            optionsCount[option.name.zh] = 1;
+          }
+        });
+        // We print the options.
+        // Options gets multiplied by the main item.
+        for (const option in optionsCount) {
+          markup += `
+        |^^^^${optionsCount[option] * item.qwt} (${option})`;
+        }
+      }
+    });
+
+    console.log(markup);
+  };
 
   if (table.food.length === 0 && table.beverages.length === 0) {
     return (
@@ -113,7 +181,12 @@ const Receipt = ({
         <div className="font-medium">totaal: {euro(total)}</div>
       </div>
       {needsToBePrinted.length > 0 && (
-        <button className="button border mt-4 uppercase gap-2">
+        <button
+          onClick={() => {
+            printFood();
+          }}
+          className="button border mt-4 uppercase gap-2"
+        >
           <PrintIcon />
           eten afdrukken
         </button>
