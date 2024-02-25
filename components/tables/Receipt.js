@@ -32,20 +32,17 @@ const Receipt = ({
   const total = calculateTableTotal(table);
 
   // I need an array of items in food that needs to be printed
-  const needsToBePrinted = table.food.map((item) => {
-    if (!item.printed) {
-      return item;
-    }
-  });
+  const needsToBePrinted = table.food.filter((item) => !item.printed);
 
   const printFood = async () => {
     let markup = `
     ^^^^^餐楼
 
     -
-    ^^TAFEL ${table.number}
+    ^^^^TAFEL ${table.number}
 
     _
+
     `;
 
     needsToBePrinted.forEach((item) => {
