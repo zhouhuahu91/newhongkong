@@ -14,6 +14,7 @@ import {
 import ReportIcon from "@/icons/ReportIcon";
 import PrintIcon from "@/icons/PrintIcon";
 import CloseIcon from "@/icons/CloseIcon";
+import LoadingIcon from "@/icons/LoadingIcon";
 // Component imports
 import IconBtn from "@/components/IconBtn";
 import Modal from "@/components/Modal";
@@ -199,24 +200,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
         className="bg-white max-w-2xl rounded-lg text-sm mx-2 overflow-scroll"
       >
         <div className="flex items-center justify-between p-4 shadow border-b">
-          <div className="flex items-center gap-2">
-            <h2 className="text-lg font-normal">Daily Report</h2>
-            <IconBtn
-              onClick={async () => {
-                // Check if printer is busy
-                if (printJobs.length > 0) return;
-                // We cant' send the svg so we convert it to a base 64 string
-                const buffer = Buffer.from(report);
-                const base64String = buffer.toString("base64");
-                await setDoc(doc(db, "printer", date), {
-                  type: "dailyReport",
-                  printContent: base64String,
-                });
-              }}
-            >
-              <PrintIcon />
-            </IconBtn>
-          </div>
+          <h2 className="text-lg font-medium">Dagrapport</h2>
           <IconBtn
             onClick={() => {
               setOpen(false);
@@ -226,9 +210,33 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
           </IconBtn>
         </div>
         <div
-          className="flex bg-neutral-50 w-full justify-center p-10 max-w-[440px] max-h-[900px] overflow-hidden"
+          style={{ maxHeight: "calc(100vh - 265px)" }}
+          className="flex bg-neutral-50 w-full justify-center p-10 max-w-md overflow-scroll"
           dangerouslySetInnerHTML={{ __html: report }}
         />
+        <div className="w-full bg-white p-4 border-t">
+          <button
+            onClick={async () => {
+              // Check if printer is busy
+              if (printJobs.length > 0) return;
+              // We cant' send the svg so we convert it to a base 64 string
+              const buffer = Buffer.from(report);
+              const base64String = buffer.toString("base64");
+              await setDoc(doc(db, "printer", date), {
+                type: "dailyReport",
+                printContent: base64String,
+              });
+            }}
+            className="button w-full border gap-2"
+          >
+            afdrukken
+            {printJobs.length > 0 ? (
+              <LoadingIcon className="animate-spin " />
+            ) : (
+              <PrintIcon className="" />
+            )}
+          </button>
+        </div>
       </Modal>
     </>
   );

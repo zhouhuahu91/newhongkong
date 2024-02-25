@@ -125,7 +125,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     <button
       type="button"
       disabled={printerBusy}
-      className="button w-40 border gap-4 text-sm hover:shadow-lg"
+      className="button w-40 border gap-2 text-sm hover:shadow-lg"
       onClick={() => printReceipt()}
     >
       bonnetje{" "}
