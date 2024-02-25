@@ -83,16 +83,18 @@ const Dashboard = () => {
   }, [lastSelectedOrder, chatModal, orders]);
 
   useEffect(() => {
+    // We only need to sounds the audio when there are orders that are not printed
+    const newOrders = orders.filter((order) => !order.printed);
     // If the current orders count is bigger than the length of orders
-    if (ordersLength > orders.length) {
-      return setOrdersLength(orders.length);
+    if (ordersLength > newOrders.length) {
+      return setOrdersLength(newOrders.length);
     }
     // If this is true we play the audio and set the new orders counts.
-    if (orders.length > ordersLength && audio) {
+    if (newOrders.length > ordersLength && audio) {
       audio.play();
-      setOrdersLength(orders.length);
+      setOrdersLength(newOrders);
     }
-  }, [audio, ordersLength, orders.length]);
+  }, [audio, ordersLength, orders]);
 
   useEffect(() => {
     setAudio(new Audio("/bell.mp3"));
