@@ -92,7 +92,7 @@ const Dashboard = () => {
     // If this is true we play the audio and set the new orders counts.
     if (newOrders.length > ordersLength && audio) {
       audio.play();
-      setOrdersLength(newOrders);
+      setOrdersLength(newOrders.length);
     }
   }, [audio, ordersLength, orders]);
 
