@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
 import { useMenu } from "@/hooks/useMenu";
+import { useAuth } from "@/hooks/useAuth";
 // Component Imports
 import Modal from "@/components/Modal";
 import ItemModalContent from "../ItemModalContent";
@@ -29,6 +30,8 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
   const { searchInputRef, setSearchInput } = useMenu();
   // Current time out, we store it in a ref so we can clear it on unmount.
   const setTimeOutRef = useRef(null);
+  // we reset search only if user is admin
+  const { user } = useAuth();
 
   // We put this in a seperate function so we can clear the time out when we unmount.
   const setFocusToInPut = () => {
@@ -182,7 +185,8 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
               return setOpenDeliveryOrPickUp(true);
             }
             addItemToCart();
-            if (searchInputRef.current) {
+            if (!user) return;
+            if (searchInputRef.current && user.admin) {
               setFocusToInPut();
             }
           }}
