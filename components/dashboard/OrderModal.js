@@ -166,7 +166,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
         <div className="mt-4">
           <div className="flex flex-col mt-2">
             <label htmlFor="remarks" className={`text-sm text-gray-500`}>
-              Remarks
+              Opmerkingen
             </label>
             <textarea
               className={`h-20 appearance-none my-0.5 border rounded-lg w-full text-sm py-2 px-3 focus:outline-none red-focus-ring`}
@@ -178,7 +178,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
             />
           </div>
           <label htmlFor="time" className="text-gray-500 text-sm">
-            Time
+            Tijd
           </label>
           <input
             className="appearance-none my-0.5 border rounded-md w-full text-sm focus:outline-none red-focus-ring py-2 px-3"
@@ -187,7 +187,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
             onChange={(e) => setTime(e.target.value)}
             onBlur={() => updateDoc(ref, { time: time })}
           />
-          <span className="text-gray-500 text-sm">Date</span>
+          <span className="text-gray-500 text-sm">Datum</span>
           <DatePicker
             className="appearance-none focus:outline-none red-focus-ring border w-full my-0.5 py-2 px-3 text-sm rounded-md"
             dateFormat="dd-MM-yyyy"
@@ -202,7 +202,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
             inline
           />
           <label htmlFor="tel" className="text-gray-500 text-sm">
-            Telephone
+            Telefoonnummer
           </label>
           <input
             className="appearance-none my-0.5 border rounded-md w-full text-sm focus:outline-none red-focus-ring py-2 px-3"
@@ -214,7 +214,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
           <h1 className="text-sm text-gray-500">Vaste gegevens</h1>
           <div className="bg-white p-3 border rounded-md">
             <div className="flex flex-col">
-              <span className="text-sm text-gray-500">Time ordered:</span>
+              <span className="text-sm text-gray-500">Besteltijd:</span>
               <span className="text-sm">
                 {getDigitalTime(
                   getCurrentTimeInSeconds(new Date(order.createdAt))
@@ -223,7 +223,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
             </div>
             {order.delivery && (
               <div className="flex flex-col mt-2">
-                <span className="text-sm text-gray-500">Address:</span>
+                <span className="text-sm text-gray-500">Adres:</span>
                 <span className="text-sm">
                   {order.address.street} {order.address.houseNumber}
                   {order.addition}
@@ -261,7 +261,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
             }}
           />
           <label className="cursor-pointer text-sm" htmlFor="printed">
-            printed
+            geprint
           </label>
         </div>
         <div className="flex items-center space-x-1">
@@ -277,7 +277,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
             }}
           />
           <label className="cursor-pointer text-sm" htmlFor="ready">
-            ready
+            klaar
           </label>
         </div>
         <CreateCustomerReceipt order={order} printerBusy={printerBusy} />

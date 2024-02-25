@@ -168,13 +168,13 @@ const Dashboard = () => {
         printJobs={printJobs}
         orders={orders}
       />
-      <div className="p-4 mt-8 select-none">
+      <div className="p-4 mt-4 select-none">
         <div className="grid grid-cols-12">
           {/* ***** START FIRST COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <div className="mb-4 border-b flex justify-center items-center">
-              <h1 className="text-2xl font-semibold text-center mr-4">NEW</h1>
+              <h1 className="text-xl font-medium text-center mr-4">Nieuw</h1>
               <IconBtn
                 // disable the button if there are no print jobs.
                 disabled={printJobs.length < 1}
@@ -212,7 +212,6 @@ const Dashboard = () => {
                       firstInLine={firstInLine}
                       key={order.id}
                       order={order}
-                      atNew={true}
                       // We use this to disable print if there is already an order printing.
                       printerBusy={printJobs.length > 0}
                       // We want to show a spinner if current order is printing.
@@ -232,8 +231,8 @@ const Dashboard = () => {
           {/* ***** START SECOND COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <h1 className="text-2xl mb-4 font-semibold text-center border-b">
-              KITCHEN
+            <h1 className="text-xl font-medium mb-4 text-center border-b">
+              Keuken
             </h1>
             <div className="grid gap-4">
               {/* these are the orders that are in the kitchen. */}
@@ -261,8 +260,8 @@ const Dashboard = () => {
           {/* ***** START THIRD COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <h1 className="text-2xl mb-4 font-semibold text-center border-b">
-              PICK UP
+            <h1 className="text-xl font-medium mb-4 text-center border-b">
+              Afhaal
             </h1>
             <div className="grid gap-4">
               {/* These are orders that are printed and ready for pickup. */}
@@ -292,8 +291,8 @@ const Dashboard = () => {
           {/* ***** START FOURTH COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <div className="text-2xl mb-4 font-semibold text-center border-b flex justify-center items-center">
-              <h1 className="mr-2">DELIVERY</h1>
+            <div className="text-xl font-medium mb-4 text-center border-b flex justify-center items-center">
+              <h1 className="mr-2">Bezorgen</h1>
               <ToolTip
                 tip={`total tips: ${euro(totalTips)} ${
                   totalTips > 0 ? "🥳" : "😭"
