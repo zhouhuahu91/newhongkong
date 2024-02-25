@@ -63,10 +63,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
         style={{ maxHeight: "calc(100vh - 265px)" }}
         className="p-4 overflow-y-scroll bg-neutral-50"
       >
-        <div
-          style={{ maxHeight: "calc(100vh - 265px)" }}
-          className="p-4 overflow-y-scroll bg-gray-50"
-        >
+        <div className="p-4 bg-white rounded-lg border">
           {order.cart.map((item) => {
             return (
               <Fragment key={item.id}>
@@ -166,7 +163,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
         </div>
 
         {/* THE FORM TO ALTER USER DATA STARTS HERE */}
-        <div className="p-4">
+        <div className="mt-4">
           <div className="flex flex-col mt-2">
             <label htmlFor="remarks" className={`text-sm text-gray-500`}>
               Remarks
