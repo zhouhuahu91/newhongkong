@@ -1,3 +1,5 @@
+import receiptline from "receiptline";
+
 import { useState } from "react";
 // Function imports
 import euro from "@/functions/euro";
@@ -10,7 +12,13 @@ import PlusIcon from "@/icons/PlusIcon";
 import PrintIcon from "@/icons/PrintIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  setDoc,
+  collection,
+  getDocs,
+} from "firebase/firestore";
 
 const Receipt = ({
   table,
@@ -30,7 +38,7 @@ const Receipt = ({
     }
   });
 
-  const printFood = () => {
+  const printFood = async () => {
     let markup = `
     ^^^^^餐楼
 
@@ -40,7 +48,7 @@ const Receipt = ({
     _
     `;
 
-    table.food.forEach((item) => {
+    needsToBePrinted.forEach((item) => {
       markup += `
 
       |^^^^${item.qwt} ${item.name?.zh}`;
@@ -97,7 +105,20 @@ const Receipt = ({
       }
     });
 
-    console.log(markup);
+    const report = receiptline.transform(markup, {
+      cpl: 46,
+      encoding: "cp936",
+      spacing: true,
+    });
+
+    // We cant' send the svg so we convert it to a base 64 string
+    const buffer = Buffer.from(report);
+    const base64String = buffer.toString("base64");
+    // We need to check if printer is busy or not
+    await setDoc(doc(db, "printer", table.id), {
+      type: "tableOrder",
+      printContent: base64String,
+    });
   };
 
   if (table.food.length === 0 && table.beverages.length === 0) {
@@ -182,7 +203,14 @@ const Receipt = ({
       </div>
       {needsToBePrinted.length > 0 && (
         <button
-          onClick={() => {
+          onClick={async () => {
+            // We first check if the printer is busy
+            const ref = collection(db, "printer");
+            const snapshot = await getDocs(ref);
+            const printJobs = snapshot.docs.map((doc) => doc.data());
+            if (printJobs.length > 0) {
+              return window.alert("printer busy try again later");
+            }
             printFood();
           }}
           className="button border mt-4 uppercase gap-2"
