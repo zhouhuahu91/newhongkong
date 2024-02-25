@@ -25,18 +25,16 @@ const ChangeItemRemarks = ({ item, order }) => {
 
   return (
     <>
-      <div className="col-span-5" />
-      <div className="col-span-7">
-        <textarea
-          onBlur={() => upDateItemRemarks()}
-          onChange={(e) => setRemarks(e.target.value)}
-          className="appearance-none bg-white my-0.5 border rounded-md w-full text-sm focus:outline-none bg-inherit red-focus-ring p-2"
-          id="itemRemarks"
-          value={remarks}
-          type="text"
-          rows="1"
-        />
-      </div>
+      <textarea
+        onBlur={() => upDateItemRemarks()}
+        onChange={(e) => setRemarks(e.target.value)}
+        className="ml-[13.5px] appearance-none my-0.5 w-full text-xs focus:outline-none p-2 bg-inherit"
+        id="itemRemarks"
+        value={remarks}
+        type="text"
+        rows="1"
+        placeholder="opmerkingen"
+      />
     </>
   );
 };

@@ -125,14 +125,14 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     <button
       type="button"
       disabled={printerBusy}
-      className="button w-40 border gap-4 bg-main text-white"
+      className="button w-40 border gap-4 text-sm hover:shadow-lg"
       onClick={() => printReceipt()}
     >
-      Bonnetje{" "}
+      bonnetje{" "}
       {printerBusy ? (
-        <LoadingIcon className="fill-gray-100 animate-spin" />
+        <LoadingIcon className="animate-spin" />
       ) : (
-        <PrintIcon className="fill-gray-100" />
+        <PrintIcon className="" />
       )}
     </button>
   );
