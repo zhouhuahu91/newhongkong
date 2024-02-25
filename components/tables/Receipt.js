@@ -41,8 +41,7 @@ const Receipt = ({
     -
     ^^^^TAFEL ${table.number}
 
-    _
-
+    -
     `;
 
     needsToBePrinted.forEach((item) => {
@@ -146,7 +145,23 @@ const Receipt = ({
                   <PlusIcon size="18" className="fill-main" />
                 </IconBtn>
               </div>
-              <div className="col-span-7 font-medium">{dish.name.nl}</div>
+              <div
+                onClick={() => {
+                  const ref = doc(db, `tables/${table.id}`);
+                  updateDoc(ref, {
+                    food: table.food.map((item) => {
+                      return item.id === dish.id
+                        ? { ...item, printed: !dish.printed }
+                        : item;
+                    }),
+                  });
+                }}
+                className={`col-span-7 font-medium cursor-pointer ${
+                  !dish.printed ? "text-main" : ""
+                }`}
+              >
+                {dish.name.nl}
+              </div>
               <div className="col-span-3 text-right">{euro(dish.price)}</div>
               <div className="col-span-2" />
               <div className="col-span-7 -mt-1 text-xs">{dish.description}</div>
@@ -196,7 +211,7 @@ const Receipt = ({
           />
         </div>
       </div>
-      <div className="text-right border-t pt-4 mt-4">
+      <div className="text-right border-t pt-4">
         <div className="font-medium">totaal: {euro(total)}</div>
       </div>
       {needsToBePrinted.length > 0 && (
