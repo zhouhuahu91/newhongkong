@@ -190,7 +190,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
 
   return (
     <>
-      <IconBtn onClick={() => setOpen((prev) => !prev)}>
+      <IconBtn className="mx-2" onClick={() => setOpen((prev) => !prev)}>
         <ReportIcon />
       </IconBtn>
       <Modal

@@ -120,7 +120,7 @@ const TablesModal = ({ date }) => {
   return (
     <>
       <IconBtn
-        className="mr-2"
+        className="mx-2"
         onClick={() => {
           setOpen((prev) => !prev);
         }}
