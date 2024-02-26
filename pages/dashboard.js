@@ -52,6 +52,23 @@ const Dashboard = () => {
 
   const totalTips = orders.reduce((x, y) => (y.delivery ? x + y.tip : x), 0);
 
+  // After 5 min we reset the current date to the current date.
+  // Usefull because sometimes we look for a order in the past but forget to reset the date
+  // Back to the current date and miss now incoming orders.
+  useEffect(() => {
+    let timer = null;
+    if (currentDate !== date) {
+      timer = setTimeout(() => {
+        setDate(currentDate);
+      }, 300000);
+    }
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [currentDate, date]);
+
   // listen for enter key with useEffect
   useEffect(() => {
     // listen for enter key

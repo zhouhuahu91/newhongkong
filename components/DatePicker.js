@@ -13,7 +13,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import CalendarIcon from "@/icons/CalendarIcon";
 
 const DatePickerComponent = ({ setDate, className, date, top }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // Split the string into parts
+  const parts = date.split("-");
+  // Rearrange the parts to match "yyyy-mm-dd" format
+  const rearrangedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+  const [selectedDate, setSelectedDate] = useState(new Date(rearrangedDate));
   const [show, setShow] = useState(false);
   // This is a reference to the div surrounding this component.
   const ref = useRef();
