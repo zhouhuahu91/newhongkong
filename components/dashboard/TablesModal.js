@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import router from "next/router";
-import Head from "next/head";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -12,20 +10,19 @@ import {
 } from "firebase/firestore";
 // Hook imports
 import { useStoreInfo } from "@/hooks/useStoreInfo";
-import { useAuth } from "@/hooks/useAuth";
-import useWindowSize from "@/hooks/useWindowSize";
 // Component imports
-import Spinner from "@/components/Spinner";
 import StoreLayout from "@/tables/StoreLayout";
 import Table from "@/tables/Table";
 import ClosedTable from "@/tables/ClosedTable";
-// import Table from "@/tables/Table";
+import Modal from "@/components/Modal";
+import IconBtn from "@/components/IconBtn";
+// Icon imports
+import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
 
-const Tables = () => {
-  const { currentDate } = useStoreInfo();
-  const { user } = useAuth();
-  const { width, height } = useWindowSize();
+const TablesModal = () => {
+  const [open, setOpen] = useState(false);
   const [tables, setTables] = useState([]);
+  const { currentDate } = useStoreInfo();
   const [date, setDate] = useState(currentDate);
 
   const createNewTable = (number) => {
@@ -56,28 +53,6 @@ const Tables = () => {
 
     return () => unsubscribe();
   }, [date]);
-
-  // Tables page is only for admin...
-  // If no user is not fetched yet we show spinner
-  // If there is no user we redirect to log in
-  // If there is a user but not an admin we redirect to home page.
-  if (user === null) {
-    return <Spinner />;
-  } else if (user === false) {
-    router.push("/sign_in");
-    return <Spinner />;
-  } else if (!user?.admin) {
-    router.push("/");
-    return <Spinner />;
-  }
-
-  if (width < 1080) {
-    return (
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-4xl font-semibold">
-        You need a bigger screen for tables.
-      </div>
-    );
-  }
 
   const sizes = {
     round: "aspect-square w-28 rounded-full",
@@ -146,16 +121,24 @@ const Tables = () => {
     },
   ];
 
-  // TO DO create a list a tables that are closed. that means paid and printed
-  // We want to show these tables some how.
-
   return (
     <>
-      <Head>
-        <title>Restaurant - NHK</title>
-      </Head>
-      <div className="w-full max-w-[1080px] mx-auto grid grid-cols-10 bg-white border shadow-md mt-5 xl:mt-20 rounded-xl">
-        <div className="w-full relative h-[770px] col-span-8">
+      <IconBtn
+        className="mr-2"
+        onClick={() => {
+          setOpen((prev) => !prev);
+        }}
+      >
+        <ForkAndSpoonIcon />
+      </IconBtn>
+      <Modal
+        toggle={open}
+        close={() => {
+          setOpen(false);
+        }}
+        className="w-full max-w-[1080px] grid grid-cols-10 border shadow-md rounded-xl p-2 bg-white gap-2"
+      >
+        <div className="w-full relative h-[770px] col-span-8 border bg-white rounded">
           {physicalTables.map((physicalTable) => {
             return (
               <Table
@@ -173,7 +156,7 @@ const Tables = () => {
               />
             );
           })}
-          <StoreLayout date={date} setDate={setDate} />
+          <StoreLayout date={date} setDate={setDate} setOpen={setOpen} />
         </div>
         <div className="col-span-2 p-4 border-l shadow-inner bg-neutral-50 rounded-md">
           <h1 className="px-2 pb-2 uppercase font-medium text-center text-sm border-b mb-2">
@@ -194,9 +177,9 @@ const Tables = () => {
             })}
           </div>
         </div>
-      </div>
+      </Modal>
     </>
   );
 };
 
-export default Tables;
+export default TablesModal;

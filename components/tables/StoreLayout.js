@@ -4,8 +4,9 @@ import DashboardIcon from "@/icons/DashboardIcon";
 import ToiletIcon from "@/icons/ToiletIcon";
 // Component imports
 import DatePicker from "@/components/DatePicker";
+import IconBtn from "@/components/IconBtn";
 
-const StoreLayout = ({ date, setDate }) => {
+const StoreLayout = ({ date, setDate, setOpen }) => {
   return (
     <>
       {/* ********** WINDOW ********** */}
@@ -29,18 +30,9 @@ const StoreLayout = ({ date, setDate }) => {
         </Link>
         <div className="flex items-center text-xl">
           <DatePicker top date={date} setDate={setDate} />
-          <Link href="/dashboard">
-            <a className="red-focus-ring rounded">
-              <DashboardIcon />
-            </a>
-          </Link>
-          {/* <button
-            onClick={() => createNewTable()}
-            type="button"
-            className="button bg-main ml-4 text-white w-40 gap-2"
-          >
-            Nieuwe Tafel <ForkAndSpoonIcon className="fill-white mb-0.5" />
-          </button> */}
+          <IconBtn onClick={() => setOpen(false)}>
+            <DashboardIcon />
+          </IconBtn>
         </div>
       </div>
     </>
