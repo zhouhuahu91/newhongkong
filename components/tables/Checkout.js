@@ -1,5 +1,7 @@
 import receiptline from "receiptline";
-
+import { useState } from "react";
+// Import components
+import Snackbar from "@/components/Snackbar";
 // Icon imports
 import PrintIcon from "@/icons/PrintIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
@@ -20,6 +22,8 @@ import calculateTableTotal from "@/functions/calculateTableTotal";
 import calculateTableVat from "@/functions/calculateTableVat";
 
 const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
+  const [snackbar, setSnackbar] = useState(false);
+
   const printReceipt = async () => {
     // We need to create markup for the receipt
     let markup = `
@@ -110,6 +114,7 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
   if (mainCategory === "checkout") {
     return (
       <>
+        <Snackbar snackbar={snackbar} setSnackbar={setSnackbar} />
         <button
           onClick={async () => {
             // We first check if the printer is busy
@@ -117,7 +122,7 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
             const snapshot = await getDocs(ref);
             const printJobs = snapshot.docs.map((doc) => doc.data());
             if (printJobs.length > 0) {
-              return window.alert("printer busy try again later");
+              return setSnackbar("Printer is bezet probeer later nogmaals.");
             }
             printReceipt();
           }}
@@ -168,7 +173,7 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
           disabled={table.paid}
           onClick={() => {
             if (!table.paymentMethodType) {
-              return window.alert("selecteer betaalmethode");
+              return setSnackbar("Selecteer een betaalmethode.");
             }
             updateDoc(doc(db, `tables/${table.id}`), {
               paid: true,

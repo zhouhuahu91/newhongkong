@@ -235,7 +235,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
         deleteTableIfEmpty();
       }}
     >
-      <Snackbar open={snackbar} setOpen={setSnackbar} message={snackbar} />
+      <Snackbar snackbar={snackbar} setSnackbar={setSnackbar} />
       <IconBtn
         onClick={() => {
           setOpen(false);
