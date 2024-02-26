@@ -20,6 +20,7 @@ import IconBtn from "@/components/IconBtn";
 import Modal from "@/components/Modal";
 // Function Imports
 import calculateVat from "@/functions/calculateVat";
+import calculateTableTotal from "@/functions/calculateTableTotal";
 import calculateTableVat from "@/functions/calculateTableVat";
 import euro from "@/functions/euro";
 
@@ -39,11 +40,9 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
       const snapshot = await getDocs(q);
       const raw = snapshot.docs.map((doc) => doc.data());
       const data = raw.map((table) => {
-        const foodTotal = table.food.reduce((x, y) => x + y.price, 0);
-        const beveragesTotal = table.beverages.reduce((x, y) => x + y.price, 0);
         return {
           ...table,
-          total: foodTotal + beveragesTotal + table.tip,
+          total: calculateTableTotal(table),
         };
       });
       setTables(data);
@@ -154,7 +153,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
     ------------------------------------------------
     "           | "${euro(revenue)}|  "${euro(lowBTW + highBTW)}
 
-    "restaurant | "omzet|             "btw  
+    "restaurant | "omzet|                    "btw  
     laag 9%     | ${euro(tablesVat.low)}|    ${euro(lowBTWTables)}         
     hoog 21%    | ${euro(tablesVat.high)}|   ${euro(highBTWTables)}           
     geen 0%     | ${euro(tablesVat.zero)}|   ${euro(0)}   
@@ -165,9 +164,9 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
 
     
                     ^^totaal afhaal ${euro(revenue)}|
-                ^^totaal restaurant ${euro(revenueTables)}|
+                    ^^totaal restaurant ${euro(revenueTables)}|
     -------------------------------------------------
-                     ^^"totale omzet ${euro(revenue + revenueTables)}| 
+                    ^^"totale omzet ${euro(revenue + revenueTables)}| 
 
 
 
@@ -216,6 +215,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
         />
         <div className="w-full bg-white p-4 border-t">
           <button
+            disabled={printJobs.length > 0}
             onClick={async () => {
               // Check if printer is busy
               if (printJobs.length > 0) return;
