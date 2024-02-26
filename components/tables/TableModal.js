@@ -28,15 +28,13 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
   // This the ref of the current table we are dealing with.
   const ref = doc(db, `tables/${table.id}`);
 
-  // We want to remove the table if we close the modal and there are no food and beverages added to the table.
-  useEffect(() => {
-    // if modal is open we do nothing
-    if (open) return;
+  const deleteTableIfEmpty = () => {
+    // We want to remove the table if we close the modal and there are no food and beverages added to the table.
     if (table.food.length > 0) return;
     if (table.beverages.length > 0) return;
     // delete table if there are no food or beverages
     deleteDoc(ref);
-  }, [open]);
+  };
 
   // ********** THESE ARE THE FUNCTIONS FOR FOOD ***********
   const food = table.food;
@@ -232,11 +230,13 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
       toggle={open}
       close={() => {
         setOpen(false);
+        deleteTableIfEmpty();
       }}
     >
       <IconBtn
         onClick={() => {
           setOpen(false);
+          deleteTableIfEmpty();
         }}
         className="absolute right-4 top-4"
       >
