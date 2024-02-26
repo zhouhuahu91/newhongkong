@@ -2,6 +2,7 @@ import { useState } from "react";
 // Component imports
 import TableModal from "@/tables/TableModal";
 import UndoIcon from "@/icons/UndoIcon";
+import Snackbar from "@/components/Snackbar";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -16,10 +17,12 @@ import {
 const ClosedTable = ({ table, date, physicalTables }) => {
   const [tableNumber, setTableNumber] = useState(table.number);
   const [open, setOpen] = useState(false);
+  const [snackbar, setSnackbar] = useState(false);
 
   return (
     <>
       <TableModal open={open} setOpen={setOpen} table={table} date={date} />
+      <Snackbar snackbar={snackbar} setSnackbar={setSnackbar} />
       <div
         onClick={() => setOpen(true)}
         className="border bg-white w-full flex justify-center relative rounded-md p-2 font-medium cursor-pointer hover:shadow-md"
@@ -36,7 +39,7 @@ const ClosedTable = ({ table, date, physicalTables }) => {
             const snapshot = await getDocs(q);
             const tables = snapshot.docs.map((doc) => doc.data().number);
             if (tables.includes(table.number)) {
-              window.alert("TAFEL BESTAAT AL!");
+              setSnackbar(`Tafel ${table.number} is momenteel bezet.`);
             } else {
               const ref = doc(db, `tables/${table.id}`);
               await updateDoc(ref, {
@@ -66,7 +69,7 @@ const ClosedTable = ({ table, date, physicalTables }) => {
             if (!physicalTableNumbers.includes(tableNumber)) {
               setTableNumber(table.number);
               // and return by warning the table doesn't exist
-              return window.alert(`TAFEL ${tableNumber} BESTAAT NIET!`);
+              return setSnackbar(`Tafel ${tableNumber} is bestaat niet.`);
             }
             const ref = doc(db, `tables/${table.id}`);
             await updateDoc(ref, {
