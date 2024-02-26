@@ -47,7 +47,6 @@ const DashboardHeader = ({
           />
           <TablesModal date={date} />
           <DailyReportModal date={date} printJobs={printJobs} orders={orders} />
-          <AddTimeSlotModal />
           <StoreSettings />
         </div>
       </div>
