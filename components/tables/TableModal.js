@@ -4,6 +4,7 @@ import TableModalMenu from "@/tables/TableModalMenu";
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
 import Receipt from "@/tables/Receipt";
+import Snackbar from "@/components/Snackbar";
 // Icon imports
 import CloseIcon from "@/icons/CloseIcon";
 // Firebase imports
@@ -22,6 +23,7 @@ import createItemDescription from "@/functions/createItemDescription";
 import createItemId from "@/functions/createItemId";
 
 const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
+  const [snackbar, setSnackbar] = useState(false);
   const [tableNumber, setTableNumber] = useState(table.number);
   const [tableName, setTableName] = useState(`TAFEL ${tableNumber}`);
 
@@ -233,6 +235,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
         deleteTableIfEmpty();
       }}
     >
+      <Snackbar open={snackbar} setOpen={setSnackbar} message={snackbar} />
       <IconBtn
         onClick={() => {
           setOpen(false);
@@ -282,22 +285,24 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
                 const physicalTableNumbers = physicalTables.map(
                   (x) => x.number
                 );
-                if (
-                  // If the table already exists
-                  tables.includes(tableNumber) ||
-                  // If the table number doesn't exist
-                  !physicalTableNumbers.includes(tableNumber)
-                ) {
+
+                // If the table already exists
+                if (tables.includes(tableNumber)) {
                   setTableNumber(table.number);
                   setTableName(`TAFEL ${table.number}`);
-                  window.alert("TAFEL IS BEZET OF TAFEL BESTAAT NIET");
-                } else {
-                  // Otherwise we update the new table with the new number
-                  const ref = doc(db, `tables/${table.id}`);
-                  await updateDoc(ref, {
-                    number: tableNumber,
-                  });
+                  return setSnackbar("Tafel is bezet.");
                 }
+                // If the table number doesn't exist
+                if (!physicalTableNumbers.includes(tableNumber)) {
+                  setTableNumber(table.number);
+                  setTableName(`TAFEL ${table.number}`);
+                  return setSnackbar("Tafel bestaat niet.");
+                }
+                // Otherwise we update the new table with the new number
+                const ref = doc(db, `tables/${table.id}`);
+                await updateDoc(ref, {
+                  number: tableNumber,
+                });
               }}
             />
           </div>
