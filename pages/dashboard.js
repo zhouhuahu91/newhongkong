@@ -1,4 +1,5 @@
 // React imports
+import Head from "next/head";
 import { useState, useEffect } from "react";
 // Hook imports
 import { useStoreInfo } from "@/hooks/useStoreInfo";
@@ -162,6 +163,9 @@ const Dashboard = () => {
 
   return (
     <div>
+      <Head>
+        <title>Dashboard - NHK</title>
+      </Head>
       <Header
         date={date}
         setDate={setDate}
