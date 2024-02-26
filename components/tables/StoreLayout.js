@@ -3,10 +3,9 @@ import Link from "next/link";
 import DashboardIcon from "@/icons/DashboardIcon";
 import ToiletIcon from "@/icons/ToiletIcon";
 // Component imports
-import DatePicker from "@/components/DatePicker";
 import IconBtn from "@/components/IconBtn";
 
-const StoreLayout = ({ date, setDate, setOpen }) => {
+const StoreLayout = ({ setOpen }) => {
   return (
     <>
       {/* ********** WINDOW ********** */}
@@ -29,7 +28,6 @@ const StoreLayout = ({ date, setDate, setOpen }) => {
           </a>
         </Link>
         <div className="flex items-center text-xl">
-          <DatePicker top date={date} setDate={setDate} />
           <IconBtn onClick={() => setOpen(false)}>
             <DashboardIcon />
           </IconBtn>

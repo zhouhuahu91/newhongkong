@@ -8,8 +8,6 @@ import {
   where,
   onSnapshot,
 } from "firebase/firestore";
-// Hook imports
-import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Component imports
 import StoreLayout from "@/tables/StoreLayout";
 import Table from "@/tables/Table";
@@ -19,11 +17,9 @@ import IconBtn from "@/components/IconBtn";
 // Icon imports
 import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
 
-const TablesModal = () => {
+const TablesModal = ({ date }) => {
   const [open, setOpen] = useState(false);
   const [tables, setTables] = useState([]);
-  const { currentDate } = useStoreInfo();
-  const [date, setDate] = useState(currentDate);
 
   const createNewTable = (number) => {
     const table = {
@@ -156,7 +152,7 @@ const TablesModal = () => {
               />
             );
           })}
-          <StoreLayout date={date} setDate={setDate} setOpen={setOpen} />
+          <StoreLayout setOpen={setOpen} />
         </div>
         <div className="col-span-2 p-4 border-l shadow-inner bg-neutral-50 rounded-md">
           <h1 className="px-2 pb-2 uppercase font-medium text-center text-sm border-b mb-2">

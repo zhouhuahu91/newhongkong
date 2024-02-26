@@ -45,7 +45,7 @@ const DashboardHeader = ({
             toggle={showCompleted}
             onClick={() => setShowCompleted((prev) => !prev)}
           />
-          <TablesModal />
+          <TablesModal date={date} />
           <DailyReportModal date={date} printJobs={printJobs} orders={orders} />
           <AddEmployeeRoll />
           <AddTimeSlotModal />
