@@ -7,8 +7,6 @@ import DatePicker from "@/components/DatePicker";
 import Switch from "@/components/Switch";
 import StoreSettings from "@/components/dashboard/StoreSettings";
 import BurgerMenu from "@/components/header/BurgerMenu";
-import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
-import AddTimeSlotModal from "@/components/dashboard/AddTimeSlotModal";
 import DailyReportModal from "@/components/dashboard/DailyReportModal";
 import TablesModal from "@/components/dashboard/TablesModal";
 
