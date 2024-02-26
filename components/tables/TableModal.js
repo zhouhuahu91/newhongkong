@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // Component imports
 import TableModalMenu from "@/tables/TableModalMenu";
 import Modal from "@/components/Modal";
