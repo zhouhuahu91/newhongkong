@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // Component imports
 import TableModalMenu from "@/tables/TableModalMenu";
 import Modal from "@/components/Modal";
@@ -15,6 +15,7 @@ import {
   query,
   where,
   getDocs,
+  deleteDoc,
 } from "firebase/firestore";
 // Function imports
 import createItemDescription from "@/functions/createItemDescription";
@@ -26,6 +27,16 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
 
   // This the ref of the current table we are dealing with.
   const ref = doc(db, `tables/${table.id}`);
+
+  // We want to remove the table if we close the modal and there are no food and beverages added to the table.
+  useEffect(() => {
+    // if modal is open we do nothing
+    if (open) return;
+    if (table.food.length > 0) return;
+    if (table.beverages.length > 0) return;
+    // delete table if there are no food or beverages
+    deleteDoc(ref);
+  }, [open]);
 
   // ********** THESE ARE THE FUNCTIONS FOR FOOD ***********
   const food = table.food;
@@ -44,8 +55,6 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
 
     // check if ID is in the food array or not
     const found = food.find((x) => x.id === ID);
-
-    console.log(dish);
 
     // If the dish already exists we just modify the existing one
     if (found) {
