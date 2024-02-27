@@ -13,7 +13,6 @@ import { useAuth } from "@/hooks/useAuth";
 import DashboardIcon from "@/icons/DashboardIcon";
 import ChartIcon from "@/icons/ChartIcon";
 import PedalBikeIcon from "@/icons/PedalBikeIcon";
-import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
 
 const Header = () => {
   // This hook provides translations for the different languages.
@@ -88,18 +87,11 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {/* Dashboard menu for admins. */}
             {user?.admin && (
-              <>
-                <Link href="/dashboard">
-                  <a className="red-focus-ring rounded">
-                    <DashboardIcon className={`${atHome && "fill-white"}`} />
-                  </a>
-                </Link>
-                <Link href="/tables">
-                  <a className="red-focus-ring rounded">
-                    <ForkAndSpoonIcon className={`${atHome && "fill-white"}`} />
-                  </a>
-                </Link>
-              </>
+              <Link href="/dashboard">
+                <a className="red-focus-ring rounded">
+                  <DashboardIcon className={`${atHome && "fill-white"}`} />
+                </a>
+              </Link>
             )}
             {/* Graph of all orders per month. */}
             {(user?.admin || user?.accountant) &&

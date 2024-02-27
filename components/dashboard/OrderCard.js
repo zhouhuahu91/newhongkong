@@ -36,13 +36,11 @@ const OrderCard = ({
   order,
   setLastSelectedOrder,
   lastSelectedOrder,
-  atNew,
   isPrinting,
   printerBusy,
   firstInLine,
 }) => {
   const [open, setOpen] = useState(false);
-  const [openedBefore, setOpenedBefore] = useState(false);
   const [openDeleteOrderModal, setOpenDeleteOrderModal] = useState(false);
   const { user } = useAuth();
   const { atDashboard } = usePath();
@@ -120,10 +118,7 @@ const OrderCard = ({
           transition: { duration: 0.2, type: "spring", delay: 0.2 },
         }}
         // We want the order to bounce if the order is at New and we haven't intereacted with it
-        className={`border ${
-          // If the order is at the section new and it hasn't but openened before we show the card in red.
-          !openedBefore && atNew ? "bg-red-100" : "bg-white"
-        } rounded-xl col-span-12 sm:col-span-6 xl:col-span-4 space-y-1 overflow-hidden ${
+        className={`border bg-white rounded-xl col-span-12 sm:col-span-6 xl:col-span-4 space-y-1 overflow-hidden ${
           order.id === lastSelectedOrder?.id
             ? "selected border-main"
             : "hover:shadow"
@@ -137,7 +132,6 @@ const OrderCard = ({
           if (atDashboard) {
             setLastSelectedOrder(order);
           }
-          if (!openedBefore) setOpenedBefore(true);
           setOpen(true);
         }}
       >
@@ -155,8 +149,7 @@ const OrderCard = ({
               </h3>
               {/* We do not want to delete orders where the payment method is online. */}
               {!(order.paymentMethod === "online" && order.paid) &&
-                user?.admin &&
-                openedBefore && (
+                user?.admin && (
                   <IconBtn
                     onClick={(e) => {
                       e.stopPropagation();

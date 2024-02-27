@@ -10,6 +10,8 @@ import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import SettingsIcon from "@/icons/SettingsIcon";
 import Modal from "@/components/Modal";
 import Switch from "@/components/Switch";
+import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
+import AddTimeSlotModal from "@/components/dashboard/AddTimeSlotModal";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -79,7 +81,11 @@ const StoreSettings = () => {
         className="bg-white max-w-md w-full rounded-lg overflow-hidden text-sm mx-2"
       >
         <div className="flex items-center justify-between p-4 shadow border-b">
-          <h2 className="text-lg font-normal">Store Settings</h2>
+          <div className="flex items-center">
+            <h2 className="text-lg font-normal mr-2">Store Settings</h2>
+            <AddEmployeeRoll />
+            <AddTimeSlotModal />
+          </div>
           <IconBtn
             onClick={() => {
               fetchSettings();

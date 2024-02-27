@@ -6,6 +6,7 @@ import { db } from "@/firebase/firebase";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 // Function imports
 import euro from "@/functions/euro";
+import calculateTableTotal from "@/functions/calculateTableTotal";
 // Hook imports
 import { useAuth } from "@/hooks/useAuth";
 // Component imports
@@ -14,17 +15,104 @@ import MonthPicker from "@/components/MonthPicker";
 
 const MonthlyOverview = () => {
   const [date, setDate] = useState(new Date());
+  // Data for orders
   const [dailyData, setDailyData] = useState([]);
   const [monthlyData, setMonthlyData] = useState({});
+  // Data for tables
+  const [tableData, setTableData] = useState([]);
+  const [monthlyTableData, setMonthlyTableData] = useState({});
 
   const { user } = useAuth();
   const router = useRouter();
 
-  // Is the day that we use the website to store all orders.
+  // Is the day that we use the website to store all take away orders.
   const midnightFeb5_2024 = new Date("2024-02-05T00:00:00").getTime();
+  const midnightFeb23_2024 = new Date("2024-02-23T00:00:00").getTime();
 
   const tdStyling = "py-2 px-4 text-center";
   const thStyling = "p-4 text-center font-medium";
+
+  const sortDocsByDate = (documents) => {
+    // We check on what days there are  in that month.
+    const datesInArray = [];
+    // The array that we later loop over.
+    const documentsByDate = [];
+    // We push in every unique date.
+    documents.forEach((doc) => {
+      if (!datesInArray.includes(doc.date)) datesInArray.push(doc.date);
+    });
+    // We sort the date by day.
+    datesInArray.sort((a, b) => {
+      return a.slice(0, 2) - b.slice(0, 2);
+    });
+    // And for each date we push in the availeble documents.
+    datesInArray.forEach((date) =>
+      documentsByDate.push(documents.filter((item) => item.date === date))
+    );
+
+    return documentsByDate;
+  };
+
+  // We need to merge dailies from tables and take aways
+  const mergeDailies = () => {
+    // Combine the arrays
+    const combined = dailyData.concat(tableData);
+
+    combined.sort((a, b) => {
+      return a.date.slice(0, 2) - b.date.slice(0, 2);
+    });
+
+    // Create an object to hold the sums of totals for each id
+    const sums = {};
+
+    // Iterate through the combined array
+    combined.forEach((item) => {
+      if (sums[item.date]) {
+        // If the id exists, add the total
+        if (item.total && !item.table) {
+          sums[item.date].total += item.total;
+        }
+        if (item.total && item.table) {
+          sums[item.date].totalTables += item.total;
+        }
+
+        if (item.cash) {
+          sums[item.date].cash += item.cash;
+        }
+        if (item.card) {
+          sums[item.date].card += item.card;
+        }
+        if (item.online) {
+          sums[item.date].online += item.online;
+        }
+      } else {
+        // Otherwise, create a new entry with the id and total
+        sums[item.date] = {
+          total: item.total && !item.table ? item.total : 0,
+          totalTables: item.total && item.table ? item.total : 0,
+          cash: item.cash ? item.cash : 0,
+          card: item.card ? item.card : 0,
+          online: item.online ? item.online : 0,
+          createdAt: item.createdAt,
+        };
+      }
+    });
+
+    // Convert the sums object back into an array of objects
+    const result = Object.keys(sums).map((date) => ({
+      date: date,
+      total: sums[date].total,
+      cash: sums[date].cash,
+      card: sums[date].card,
+      online: sums[date].online,
+      totalTables: sums[date].totalTables,
+      createdAt: sums[date].createdAt,
+    }));
+
+    return result;
+  };
+
+  const all = mergeDailies();
 
   useEffect(() => {
     const y = date.getFullYear();
@@ -34,6 +122,64 @@ const MonthlyOverview = () => {
     // This is the last day in the selected month.
     const lastDay = new Date(y, m + 1).getTime();
 
+    const qTables = query(
+      collection(db, "tables"),
+      where("createdAt", ">", firstDay),
+      where("createdAt", "<", lastDay)
+    );
+
+    const unsubscribeTables = onSnapshot(qTables, (snapshot) => {
+      const documents = snapshot.docs.map((doc) => doc.data());
+      const documentsWithTotal = documents.map((doc) => {
+        return {
+          ...doc,
+          total: calculateTableTotal(doc),
+        };
+      });
+      const data = sortDocsByDate(documentsWithTotal);
+
+      const dailySummaryTables = data.map((day) => {
+        const total = day.reduce((x, y) => x + y.total, 0);
+
+        const cash = day.reduce(
+          (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
+          0
+        );
+
+        const card = day.reduce(
+          (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
+          0
+        );
+
+        return {
+          table: true,
+          total,
+          cash,
+          card,
+          date: day[0].date,
+          createdAt: day[0].createdAt,
+        };
+      });
+
+      // Besides the daily summary we need a monthly summary.
+      const monthlySummaryTables = {};
+      monthlySummaryTables.total = documentsWithTotal.reduce(
+        (x, y) => x + y.total,
+        0
+      );
+      monthlySummaryTables.cash = documentsWithTotal.reduce(
+        (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
+        0
+      );
+      monthlySummaryTables.card = documentsWithTotal.reduce(
+        (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
+        0
+      );
+
+      setTableData(dailySummaryTables);
+      setMonthlyTableData(monthlySummaryTables);
+    });
+
     // We subscribe to all the documents of the selected month.
     const q = query(
       collection(db, "orders"),
@@ -42,25 +188,11 @@ const MonthlyOverview = () => {
     );
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const documents = snapshot.docs.map((doc) => doc.data());
-      // We check on what days there are orders in that month.
-      const datesInArray = [];
-      // The array that we later loop over.
-      const documentsByDate = [];
-      // We push in every unique date.
-      documents.forEach((doc) => {
-        if (!datesInArray.includes(doc.date)) datesInArray.push(doc.date);
-      });
-      // We sort the date by day.
-      datesInArray.sort((a, b) => {
-        return a.slice(0, 2) - b.slice(0, 2);
-      });
-      // And for each date we push in the availeble documents.
-      datesInArray.forEach((date) =>
-        documentsByDate.push(documents.filter((item) => item.date === date))
-      );
+
+      const data = sortDocsByDate(documents);
 
       // For every date we accumulate the totals.
-      const dailySummary = documentsByDate.map((day) => {
+      const dailySummary = data.map((day) => {
         // This returns total of the day.
         const total = day.reduce((x, y) => x + y.total, 0);
         // This returns total of ideal payments of the day.
@@ -74,21 +206,17 @@ const MonthlyOverview = () => {
           0
         );
         const card = day.reduce(
-          (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
+          (x, y) =>
+            y.paymentMethodType === "card" && y.paymentMethod === "in_person"
+              ? x + y.total
+              : x,
           0
         );
-        // This returns qwt of deliveries of the day.
-        const delivery = day.reduce((x, y) => (y.delivery ? x + 1 : x), 0);
-        // This returns qwt of pickups of the day.
-        const pickup = day.reduce((x, y) => (y.delivery ? x : x + 1), 0);
         return {
           total,
           online,
           cash,
           card,
-          delivery,
-          pickup,
-          qwt: day.length,
           date: day[0].date,
           createdAt: day[0].createdAt,
         };
@@ -111,20 +239,14 @@ const MonthlyOverview = () => {
             : x,
         0
       );
-      monthlySummary.delivery = documents.reduce(
-        (x, y) => (y.delivery ? x + 1 : x),
-        0
-      );
-      monthlySummary.pickup = documents.reduce(
-        (x, y) => (y.delivery ? x : x + 1),
-        0
-      );
-      monthlySummary.qwt = documents.length;
       setDailyData(dailySummary);
       setMonthlyData(monthlySummary);
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribeTables();
+      unsubscribe();
+    };
   }, [date]);
 
   // Overview page is only for admins or accountant
@@ -153,23 +275,19 @@ const MonthlyOverview = () => {
             <th className={thStyling}>
               <MonthPicker setDate={setDate} date={date} />
             </th>
-            <th className={thStyling}>Aantal</th>
-            <th className={thStyling}>Afhaal</th>
-            <th className={thStyling}>Bezorgen</th>
             <th className={thStyling}>Online</th>
-            <th className={thStyling}>Pinnen</th>
+            <th className={thStyling}>Pin</th>
             <th className={thStyling}>Cash</th>
+            <th className={thStyling}>Afhaal</th>
+            <th className={thStyling}>Restaurant</th>
             <th className={thStyling}>Omzet</th>
           </tr>
         </thead>
         <tbody>
-          {dailyData.map((day, idx) => {
+          {all.map((day, idx) => {
             return (
               <tr key={day.date} className={`${idx % 2 && "bg-gray-100"}`}>
                 <td className={tdStyling}>{day.date}</td>
-                <td className={tdStyling}>{day.qwt}</td>
-                <td className={tdStyling}>{day.pickup}</td>
-                <td className={tdStyling}>{day.delivery}</td>
                 <td className={tdStyling}>{euro(day.online)}</td>
                 <td
                   className={`${tdStyling} ${
@@ -198,6 +316,24 @@ const MonthlyOverview = () => {
                 >
                   {euro(day.total)}
                 </td>
+                <td
+                  className={`${tdStyling} ${
+                    midnightFeb23_2024 > day.createdAt
+                      ? "text-red-700 line-through"
+                      : ""
+                  }`}
+                >
+                  {euro(day.totalTables)}
+                </td>
+                <td
+                  className={`${tdStyling} ${
+                    midnightFeb23_2024 > day.createdAt
+                      ? "text-red-700 line-through"
+                      : ""
+                  }`}
+                >
+                  {euro(day.totalTables + day.total)}
+                </td>
               </tr>
             );
           })}
@@ -205,9 +341,6 @@ const MonthlyOverview = () => {
         <thead className="border-t bg-white">
           <tr>
             <th className={thStyling}>Totaal</th>
-            <th className={thStyling}>{monthlyData.qwt}</th>
-            <th className={thStyling}>{monthlyData.pickup}</th>
-            <th className={thStyling}>{monthlyData.delivery}</th>
             <th className={thStyling}>{euro(monthlyData.online)}</th>
             <th
               className={`${thStyling} ${
@@ -216,7 +349,7 @@ const MonthlyOverview = () => {
                   : ""
               }`}
             >
-              {euro(monthlyData.card)}
+              {euro(monthlyData.card + monthlyTableData.card)}
             </th>
             <th
               className={`${thStyling} ${
@@ -225,7 +358,7 @@ const MonthlyOverview = () => {
                   : ""
               }`}
             >
-              {euro(monthlyData.cash)}
+              {euro(monthlyData.cash + monthlyTableData.cash)}
             </th>
             <th
               className={`${thStyling} ${
@@ -235,6 +368,24 @@ const MonthlyOverview = () => {
               }`}
             >
               {euro(monthlyData.total)}
+            </th>
+            <th
+              className={`${thStyling} ${
+                midnightFeb5_2024 + 432000000 > new Date(date).getTime()
+                  ? "text-red-700 line-through"
+                  : ""
+              }`}
+            >
+              {euro(monthlyTableData.total)}
+            </th>
+            <th
+              className={`${thStyling} ${
+                midnightFeb5_2024 + 432000000 > new Date(date).getTime()
+                  ? "text-red-700 line-through"
+                  : ""
+              }`}
+            >
+              {euro(monthlyTableData.total + monthlyData.total)}
             </th>
           </tr>
         </thead>

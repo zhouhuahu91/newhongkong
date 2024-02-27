@@ -1,4 +1,5 @@
 // React imports
+import Head from "next/head";
 import { useState, useEffect } from "react";
 // Hook imports
 import { useStoreInfo } from "@/hooks/useStoreInfo";
@@ -51,6 +52,23 @@ const Dashboard = () => {
 
   const totalTips = orders.reduce((x, y) => (y.delivery ? x + y.tip : x), 0);
 
+  // After 5 min we reset the current date to the current date.
+  // Usefull because sometimes we look for a order in the past but forget to reset the date
+  // Back to the current date and miss now incoming orders.
+  useEffect(() => {
+    let timer = null;
+    if (currentDate !== date) {
+      timer = setTimeout(() => {
+        setDate(currentDate);
+      }, 300000);
+    }
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, [currentDate, date]);
+
   // listen for enter key with useEffect
   useEffect(() => {
     // listen for enter key
@@ -83,16 +101,18 @@ const Dashboard = () => {
   }, [lastSelectedOrder, chatModal, orders]);
 
   useEffect(() => {
+    // We only need to sounds the audio when there are orders that are not printed
+    const newOrders = orders.filter((order) => !order.printed);
     // If the current orders count is bigger than the length of orders
-    if (ordersLength > orders.length) {
-      return setOrdersLength(orders.length);
+    if (ordersLength > newOrders.length) {
+      return setOrdersLength(newOrders.length);
     }
     // If this is true we play the audio and set the new orders counts.
-    if (orders.length > ordersLength && audio) {
+    if (newOrders.length > ordersLength && audio) {
       audio.play();
-      setOrdersLength(orders.length);
+      setOrdersLength(newOrders.length);
     }
-  }, [audio, ordersLength, orders.length]);
+  }, [audio, ordersLength, orders]);
 
   useEffect(() => {
     setAudio(new Audio("/bell.mp3"));
@@ -160,6 +180,9 @@ const Dashboard = () => {
 
   return (
     <div>
+      <Head>
+        <title>Dashboard - NHK</title>
+      </Head>
       <Header
         date={date}
         setDate={setDate}
@@ -168,13 +191,13 @@ const Dashboard = () => {
         printJobs={printJobs}
         orders={orders}
       />
-      <div className="p-4 mt-8 select-none">
+      <div className="p-4 mt-4 select-none">
         <div className="grid grid-cols-12">
           {/* ***** START FIRST COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <div className="mb-4 border-b flex justify-center items-center">
-              <h1 className="text-2xl font-semibold text-center mr-4">NEW</h1>
+              <h1 className="text-xl font-medium text-center mr-4">Nieuw</h1>
               <IconBtn
                 // disable the button if there are no print jobs.
                 disabled={printJobs.length < 1}
@@ -212,7 +235,6 @@ const Dashboard = () => {
                       firstInLine={firstInLine}
                       key={order.id}
                       order={order}
-                      atNew={true}
                       // We use this to disable print if there is already an order printing.
                       printerBusy={printJobs.length > 0}
                       // We want to show a spinner if current order is printing.
@@ -232,8 +254,8 @@ const Dashboard = () => {
           {/* ***** START SECOND COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <h1 className="text-2xl mb-4 font-semibold text-center border-b">
-              KITCHEN
+            <h1 className="text-xl font-medium mb-4 text-center border-b">
+              Keuken
             </h1>
             <div className="grid gap-4">
               {/* these are the orders that are in the kitchen. */}
@@ -261,8 +283,8 @@ const Dashboard = () => {
           {/* ***** START THIRD COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <h1 className="text-2xl mb-4 font-semibold text-center border-b">
-              PICK UP
+            <h1 className="text-xl font-medium mb-4 text-center border-b">
+              Afhaal
             </h1>
             <div className="grid gap-4">
               {/* These are orders that are printed and ready for pickup. */}
@@ -292,8 +314,8 @@ const Dashboard = () => {
           {/* ***** START FOURTH COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <div className="text-2xl mb-4 font-semibold text-center border-b flex justify-center items-center">
-              <h1 className="mr-2">DELIVERY</h1>
+            <div className="text-xl font-medium mb-4 text-center border-b flex justify-center items-center">
+              <h1 className="mr-2">Bezorgen</h1>
               <ToolTip
                 tip={`total tips: ${euro(totalTips)} ${
                   totalTips > 0 ? "🥳" : "😭"

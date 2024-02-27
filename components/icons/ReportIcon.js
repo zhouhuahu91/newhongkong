@@ -7,7 +7,7 @@ const ReportIcon = ({ className, size }) => {
       className={className && className}
       width={size ? size : "24"}
     >
-      <path d="m136-240-56-56 296-298 160 160 208-206H640v-80h240v240h-80v-104L536-320 376-480 136-240Z" />
+      <path d="M526-526v-314q123 15 210.5 103T840-526H526Zm-92 405q-137-17-226-119.5T119-480q0-137 89-239t226-121v719Zm92 0v-313h314q-15 124-103 212.5T526-121Z" />
     </svg>
   );
 };

@@ -14,11 +14,13 @@ import {
 import ReportIcon from "@/icons/ReportIcon";
 import PrintIcon from "@/icons/PrintIcon";
 import CloseIcon from "@/icons/CloseIcon";
+import LoadingIcon from "@/icons/LoadingIcon";
 // Component imports
 import IconBtn from "@/components/IconBtn";
 import Modal from "@/components/Modal";
 // Function Imports
 import calculateVat from "@/functions/calculateVat";
+import calculateTableTotal from "@/functions/calculateTableTotal";
 import calculateTableVat from "@/functions/calculateTableVat";
 import euro from "@/functions/euro";
 
@@ -38,11 +40,9 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
       const snapshot = await getDocs(q);
       const raw = snapshot.docs.map((doc) => doc.data());
       const data = raw.map((table) => {
-        const foodTotal = table.food.reduce((x, y) => x + y.price, 0);
-        const beveragesTotal = table.beverages.reduce((x, y) => x + y.price, 0);
         return {
           ...table,
-          total: foodTotal + beveragesTotal + table.tip,
+          total: calculateTableTotal(table),
         };
       });
       setTables(data);
@@ -153,7 +153,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
     ------------------------------------------------
     "           | "${euro(revenue)}|  "${euro(lowBTW + highBTW)}
 
-    "restaurant | "omzet|             "btw  
+    "restaurant | "omzet|                    "btw  
     laag 9%     | ${euro(tablesVat.low)}|    ${euro(lowBTWTables)}         
     hoog 21%    | ${euro(tablesVat.high)}|   ${euro(highBTWTables)}           
     geen 0%     | ${euro(tablesVat.zero)}|   ${euro(0)}   
@@ -164,9 +164,9 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
 
     
                     ^^totaal afhaal ${euro(revenue)}|
-                ^^totaal restaurant ${euro(revenueTables)}|
+                    ^^totaal restaurant ${euro(revenueTables)}|
     -------------------------------------------------
-                     ^^"totale omzet ${euro(revenue + revenueTables)}| 
+                    ^^"totale omzet ${euro(revenue + revenueTables)}| 
 
 
 
@@ -190,7 +190,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
 
   return (
     <>
-      <IconBtn onClick={() => setOpen((prev) => !prev)}>
+      <IconBtn className="mx-2" onClick={() => setOpen((prev) => !prev)}>
         <ReportIcon />
       </IconBtn>
       <Modal
@@ -199,24 +199,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
         className="bg-white max-w-2xl rounded-lg text-sm mx-2 overflow-scroll"
       >
         <div className="flex items-center justify-between p-4 shadow border-b">
-          <div className="flex items-center gap-2">
-            <h2 className="text-lg font-normal">Daily Report</h2>
-            <IconBtn
-              onClick={async () => {
-                // Check if printer is busy
-                if (printJobs.length > 0) return;
-                // We cant' send the svg so we convert it to a base 64 string
-                const buffer = Buffer.from(report);
-                const base64String = buffer.toString("base64");
-                await setDoc(doc(db, "printer", date), {
-                  type: "dailyReport",
-                  printContent: base64String,
-                });
-              }}
-            >
-              <PrintIcon />
-            </IconBtn>
-          </div>
+          <h2 className="text-lg font-medium">Dagrapport</h2>
           <IconBtn
             onClick={() => {
               setOpen(false);
@@ -226,9 +209,34 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
           </IconBtn>
         </div>
         <div
-          className="flex bg-neutral-50 w-full justify-center p-10 max-w-[440px] max-h-[900px] overflow-hidden"
+          style={{ maxHeight: "calc(100vh - 265px)" }}
+          className="flex bg-neutral-50 w-full justify-center p-10 max-w-md overflow-scroll"
           dangerouslySetInnerHTML={{ __html: report }}
         />
+        <div className="w-full bg-white p-4 border-t">
+          <button
+            disabled={printJobs.length > 0}
+            onClick={async () => {
+              // Check if printer is busy
+              if (printJobs.length > 0) return;
+              // We cant' send the svg so we convert it to a base 64 string
+              const buffer = Buffer.from(report);
+              const base64String = buffer.toString("base64");
+              await setDoc(doc(db, "printer", date), {
+                type: "dailyReport",
+                printContent: base64String,
+              });
+            }}
+            className="button w-full border gap-2"
+          >
+            afdrukken
+            {printJobs.length > 0 ? (
+              <LoadingIcon className="animate-spin " />
+            ) : (
+              <PrintIcon className="" />
+            )}
+          </button>
+        </div>
       </Modal>
     </>
   );

@@ -9,6 +9,7 @@ import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 import calculateVat from "@/functions/calculateVat";
+import createStoreLogo from "@/functions/createStoreLogo";
 
 import receiptline from "receiptline";
 
@@ -17,6 +18,9 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     // We create the markup
     let markup = `
     "^^^^New Hong Kong
+
+
+    ${createStoreLogo()}
 
     Havenstraat 13
     2211EE Noordwijkerhout
@@ -29,7 +33,6 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     )}
 
     -
-    
 `;
 
     order.cart.forEach((item) => {
@@ -98,6 +101,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
 
     markup += `
 
+
     "^^^BEDANKT EN TOT ZIENS!`;
 
     const report = receiptline.transform(markup, {
@@ -121,14 +125,14 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
     <button
       type="button"
       disabled={printerBusy}
-      className="button w-40 border gap-4 bg-main text-white"
+      className="button w-40 border gap-2 text-sm hover:shadow-lg"
       onClick={() => printReceipt()}
     >
-      Bonnetje{" "}
+      bonnetje{" "}
       {printerBusy ? (
-        <LoadingIcon className="fill-gray-100 animate-spin" />
+        <LoadingIcon className="animate-spin" />
       ) : (
-        <PrintIcon className="fill-gray-100" />
+        <PrintIcon className="" />
       )}
     </button>
   );

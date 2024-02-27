@@ -4,6 +4,7 @@ import TableModalMenu from "@/tables/TableModalMenu";
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
 import Receipt from "@/tables/Receipt";
+import Snackbar from "@/components/Snackbar";
 // Icon imports
 import CloseIcon from "@/icons/CloseIcon";
 // Firebase imports
@@ -15,17 +16,27 @@ import {
   query,
   where,
   getDocs,
+  deleteDoc,
 } from "firebase/firestore";
 // Function imports
 import createItemDescription from "@/functions/createItemDescription";
 import createItemId from "@/functions/createItemId";
 
 const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
+  const [snackbar, setSnackbar] = useState(false);
   const [tableNumber, setTableNumber] = useState(table.number);
   const [tableName, setTableName] = useState(`TAFEL ${tableNumber}`);
 
   // This the ref of the current table we are dealing with.
   const ref = doc(db, `tables/${table.id}`);
+
+  const deleteTableIfEmpty = () => {
+    // We want to remove the table if we close the modal and there are no food and beverages added to the table.
+    if (table.food.length > 0) return;
+    if (table.beverages.length > 0) return;
+    // delete table if there are no food or beverages
+    deleteDoc(ref);
+  };
 
   // ********** THESE ARE THE FUNCTIONS FOR FOOD ***********
   const food = table.food;
@@ -84,6 +95,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
           {
             ...dish,
             price: totalPrice,
+            printed: false,
             name,
             qwt: 1,
             id: ID,
@@ -220,11 +232,14 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
       toggle={open}
       close={() => {
         setOpen(false);
+        deleteTableIfEmpty();
       }}
     >
+      <Snackbar snackbar={snackbar} setSnackbar={setSnackbar} />
       <IconBtn
         onClick={() => {
           setOpen(false);
+          deleteTableIfEmpty();
         }}
         className="absolute right-4 top-4"
       >
@@ -270,22 +285,24 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
                 const physicalTableNumbers = physicalTables.map(
                   (x) => x.number
                 );
-                if (
-                  // If the table already exists
-                  tables.includes(tableNumber) ||
-                  // If the table number doesn't exist
-                  !physicalTableNumbers.includes(tableNumber)
-                ) {
+
+                // If the table already exists
+                if (tables.includes(tableNumber)) {
                   setTableNumber(table.number);
                   setTableName(`TAFEL ${table.number}`);
-                  window.alert("TAFEL IS BEZET OF TAFEL BESTAAT NIET");
-                } else {
-                  // Otherwise we update the new table with the new number
-                  const ref = doc(db, `tables/${table.id}`);
-                  await updateDoc(ref, {
-                    number: tableNumber,
-                  });
+                  return setSnackbar("Tafel is bezet.");
                 }
+                // If the table number doesn't exist
+                if (!physicalTableNumbers.includes(tableNumber)) {
+                  setTableNumber(table.number);
+                  setTableName(`TAFEL ${table.number}`);
+                  return setSnackbar("Tafel bestaat niet.");
+                }
+                // Otherwise we update the new table with the new number
+                const ref = doc(db, `tables/${table.id}`);
+                await updateDoc(ref, {
+                  number: tableNumber,
+                });
               }}
             />
           </div>

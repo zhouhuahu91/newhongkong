@@ -7,9 +7,8 @@ import DatePicker from "@/components/DatePicker";
 import Switch from "@/components/Switch";
 import StoreSettings from "@/components/dashboard/StoreSettings";
 import BurgerMenu from "@/components/header/BurgerMenu";
-import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
-import AddTimeSlotModal from "@/components/dashboard/AddTimeSlotModal";
 import DailyReportModal from "@/components/dashboard/DailyReportModal";
+import TablesModal from "@/components/dashboard/TablesModal";
 
 const DashboardHeader = ({
   date,
@@ -44,9 +43,8 @@ const DashboardHeader = ({
             toggle={showCompleted}
             onClick={() => setShowCompleted((prev) => !prev)}
           />
+          <TablesModal date={date} />
           <DailyReportModal date={date} printJobs={printJobs} orders={orders} />
-          <AddEmployeeRoll />
-          <AddTimeSlotModal />
           <StoreSettings />
         </div>
       </div>
