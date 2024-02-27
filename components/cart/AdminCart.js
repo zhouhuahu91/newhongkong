@@ -5,11 +5,14 @@ import Cart from "@/components/cart/Cart";
 import AdminCheckoutModal from "@/components/checkout/AdminCheckoutModal";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
+import useI18n from "@/hooks/useI18n";
 
 const AdminCart = ({}) => {
   const [checkOutModal, setCheckOutModal] = useState(false);
   const router = useRouter();
   const { cartState, dispatch } = useCart();
+  // t translates the text.
+  const t = useI18n();
 
   const cartIsEmpty = cartState.cart.length === 0;
 
@@ -58,6 +61,18 @@ const AdminCart = ({}) => {
             </button>
           </div>
           <Cart />
+        </div>
+
+        <div className="mx-auto max-w-sm w-full px-2">
+          <button
+            onClick={() => {
+              dispatch({ type: "SET_DELIVERY", payload: !cartState.delivery });
+            }}
+            type="button"
+            className="text-xs text-gray-500 text-right w-full red-focus-text"
+          >
+            {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
+          </button>
         </div>
       </div>
     </>
