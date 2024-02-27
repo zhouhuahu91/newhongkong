@@ -125,6 +125,7 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
               return setSnackbar("Printer is bezet probeer later nogmaals.");
             }
             printReceipt();
+            setSnackbar("Bonnetje wordt afgedrukt.");
           }}
           className={`${buttonStyle} col-span-2 flex items-center justify-center gap-2`}
         >

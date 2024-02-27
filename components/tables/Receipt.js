@@ -231,6 +231,7 @@ const Receipt = ({
                 return setSnackbar("Printer is bezig probeer later nogmaals.");
               }
               printFood();
+              setSnackbar("Eten wordt afgedrukt.");
             }}
             className="button border mt-4 uppercase gap-2"
           >
