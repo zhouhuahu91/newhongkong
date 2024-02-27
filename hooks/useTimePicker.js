@@ -7,19 +7,20 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { useCart } from "@/hooks/useCart";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 import useI18n from "@/hooks/useI18n";
+// Function imports
+import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
 
 const useTimePicker = () => {
-  const {
-    cartState: { delivery },
-  } = useCart(); // Returns delivery state from cart.
-
+  const { cartState } = useCart(); // Returns state from cart.
   const {
     currentTimeInSeconds,
     closed,
+    storeFees,
     storeInfo: { openingTime, closingTime, startTimeDelivery, endTimeDelivery },
     currentDate,
   } = useStoreInfo();
-
+  // We need to know if timepicker is for delivery or takeaway
+  const { delivery, cart } = cartState;
   // t is used to translate asap.
   const t = useI18n();
   // All the options are stored in this state.
@@ -29,6 +30,9 @@ const useTimePicker = () => {
   const [takenSlots, setTakenSlots] = useState({});
   // StartTime is just the current hour.
   const startTime = Math.floor(currentTimeInSeconds / 3600) * 3600;
+  // We use the totalCartPrice to calculate the min waiting time for orders.
+  // storefees are actually not relevant for calculating the total price for min waiting time.
+  const totalCartPrice = cart.reduce((x, y) => x + y.price, 0);
 
   // This functions returns second param 16:00 => 16:30.
   const addThirtyMinutes = (hour, min) => {
@@ -109,9 +113,23 @@ const useTimePicker = () => {
       // The interval for every pickup slot is 5 minutes.
       const interval = 5 * 60;
 
-      // Minumum waiting time is 15 minutes.
-      let minWaitingTime = 15 * 60;
+      const waitingTimeRules = [
+        { threshold: 10000, time: 30 }, // For more than 100 euros
+        { threshold: 7500, time: 25 }, // For more than 75 euros
+        { threshold: 5000, time: 20 }, // For more than 50 euros
+        { threshold: 2500, time: 15 }, // For more than 25 euros
+      ];
 
+      // Default minimum waiting time is 10 minutes
+      let minWaitingTime = 10 * 60;
+
+      // Loop through the rules in descending order of threshold
+      for (const rule of waitingTimeRules) {
+        if (totalCartPrice > rule.threshold) {
+          minWaitingTime = rule.time * 60;
+          break;
+        }
+      }
       // With minimum waiting time people can't order 15 minutes before closing time.
       // We set the minimum waiting time to 0 minutes when it is 15 min before closing.
       if (currentTimeInSeconds >= closingTime - 15 * 60) {
@@ -189,6 +207,7 @@ const useTimePicker = () => {
     closed,
     startTimeDelivery,
     endTimeDelivery,
+    totalCartPrice,
     currentTimeInSeconds, // This refreshes every 60 seconds this means this will render every 60 seconds minimum.
   ]);
 
