@@ -5,6 +5,7 @@ import IconBtn from "@/components/IconBtn";
 import CloseIcon from "@/icons/CloseIcon";
 import CashIcon from "@/icons/CashIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
+import Cart from "@/components/cart/Cart";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
@@ -88,7 +89,11 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
           <CloseIcon />
         </IconBtn>
       </div>
-      <div className="bg-neutral-50 p-4">
+      <div
+        style={{ maxHeight: "calc(100vh - 265px)" }}
+        className="p-4 overflow-scroll"
+      >
+        <Cart />
         <div>
           <label htmlFor="name" className="text-gray-500 text-sm">
             Naam
