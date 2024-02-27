@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 // Hook imports
 import useLockBodyScroll from "@/hooks/useLockBodyScroll";
 // Third party libraries imports
@@ -9,13 +10,21 @@ const backdropVariant = {
   visible: { opacity: 1 },
 };
 
-const modalVariant = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { opacity: 1, scale: 1 },
-};
-
 const Modal = ({ toggle, children, close, className }) => {
   useLockBodyScroll(toggle);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && toggle) {
+        close();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  });
+
   return (
     <AnimatePresence>
       {toggle && (
