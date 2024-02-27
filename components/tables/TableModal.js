@@ -255,7 +255,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
           />
         </div>
         <div className="col-span-6 h-full flex border-l bg-white flex-col overflow-scroll">
-          <div className="border-b flex justify-center p-4 shadow">
+          <div className="border-b h-full max-h-24 flex justify-center p-4 shadow">
             <input
               value={tableName}
               className="appearance-none focus:outline-none text-center font-bold text-2xl mt-6 pb-2"

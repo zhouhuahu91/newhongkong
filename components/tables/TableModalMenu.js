@@ -30,7 +30,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   return (
     <>
       {/* Header for the displaying menu */}
-      <div className="flex items-center h-[97px] border-b font-medium p-8 bg-white w-full absolute right-0 shadow">
+      <div className="flex items-center h-full max-h-24 border-b font-medium p-8 bg-white w-full absolute right-0 shadow">
         <button
           disabled={mainCategory === false}
           onClick={() => {
