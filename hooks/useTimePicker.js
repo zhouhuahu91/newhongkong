@@ -8,14 +8,12 @@ import { useCart } from "@/hooks/useCart";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 import useI18n from "@/hooks/useI18n";
 // Function imports
-import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
 
 const useTimePicker = () => {
   const { cartState } = useCart(); // Returns state from cart.
   const {
     currentTimeInSeconds,
     closed,
-    storeFees,
     storeInfo: { openingTime, closingTime, startTimeDelivery, endTimeDelivery },
     currentDate,
   } = useStoreInfo();
