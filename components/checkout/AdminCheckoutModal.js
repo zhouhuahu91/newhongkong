@@ -26,7 +26,6 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
   const [processing, setProcessing] = useState(false);
   const [name, setName] = useState("");
   const [remarks, setRemarks] = useState("");
-  const [paymentMethodType, setPaymentMethodType] = useState("card");
   const [errors, setErrors] = useState({});
 
   const ref = useRef();
@@ -37,7 +36,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
     }
   }, [open]);
 
-  const onSubmit = async (paid) => {
+  const onSubmit = async (paid, paymentMethodType) => {
     setProcessing(true);
     const order = {
       ...cartState,
@@ -73,7 +72,6 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
       // If it is a succes we reset every state
       setName("");
       setRemarks("");
-      setPaymentMethodType("card");
       setProcessing(false);
       setErrors({});
       // We clear the cart and close the modal
@@ -130,77 +128,31 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
             onChange={(e) => setRemarks(e.target.value)}
           />
         </div>
-        <div>
-          <span className="text-sm text-gray-500">Betaalmethode</span>
-          <div className="flex space-x-2">
-            <button
-              onClick={() => setPaymentMethodType("card")}
-              type="button"
-              className={`pick-up-deliver ${
-                paymentMethodType === "card"
-                  ? "border-main selected text-main"
-                  : "text-gray-500"
-              }`}
-            >
-              <div className="flex items-center space-x-1 text-inherit">
-                <CreditCardIcon
-                  size="18"
-                  className={`${
-                    paymentMethodType === "card" ? "fill-main" : "fill-gray-500"
-                  }`}
-                />
-              </div>
-              Pinnen
-            </button>
-            <button
-              onClick={() => setPaymentMethodType("cash")}
-              type="button"
-              className={`pick-up-deliver ${
-                paymentMethodType === "cash"
-                  ? "border-main selected text-main"
-                  : "text-gray-500"
-              }`}
-            >
-              <div className="flex items-center space-x-1 text-inherit">
-                <CashIcon
-                  size="18"
-                  className={`${
-                    paymentMethodType === "cash" ? "fill-main" : "fill-gray-500"
-                  }`}
-                />
-              </div>
-              Contant
-            </button>
-          </div>
-          <label htmlFor="name" className="text-red-400 text-sm">
-            {errors.paymentMethodType}
-          </label>
-        </div>
       </div>
       <div className="flex bg-white p-4 border-t gap-2 shadow">
         <button
           disabled={processing}
-          onClick={() => {
-            if (paymentMethodType === null) {
-              return setErrors((prev) => ({
-                ...prev,
-                paymentMethodType: "Is verplicht",
-              }));
-            }
-            onSubmit(true);
-          }}
+          onClick={() => onSubmit(true, "card")}
           type="button"
-          className="button bg-main text-white w-3/5"
+          className="button bg-main text-white w-full gap-2"
         >
-          Direct afrekenen {euro(calculateTotalCartPrice(cartState, storeFees))}
+          <CreditCardIcon size="18" className="fill-white" /> Pinnen
         </button>
         <button
           disabled={processing}
-          onClick={() => onSubmit(false)}
+          onClick={() => onSubmit(true, "cash")}
           type="button"
-          className="button border w-2/5"
+          className="button border w-full gap-2"
         >
-          Straks afrekenen
+          <CashIcon size="18" className="fill-green-800" /> Contant
+        </button>
+        <button
+          disabled={processing}
+          onClick={() => onSubmit(false, null)}
+          type="button"
+          className="button border w-full"
+        >
+          Niet betaald
         </button>
       </div>
     </Modal>
