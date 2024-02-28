@@ -10,6 +10,7 @@ import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import SettingsIcon from "@/icons/SettingsIcon";
 import Modal from "@/components/Modal";
 import Switch from "@/components/Switch";
+import BoltIcon from "@/icons/BoltIcon";
 import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
 // Firebase imports
 import { db } from "@/firebase/firebase";
@@ -77,7 +78,7 @@ const StoreSettings = () => {
           fetchSettings();
           setOpen(false);
         }}
-        className="bg-white max-w-md w-full rounded-lg overflow-hidden text-sm mx-2"
+        className="bg-white max-w-lg w-full rounded-lg overflow-hidden text-sm mx-2"
       >
         <div className="flex items-center justify-between p-4 shadow border-b">
           <div className="flex items-center">
@@ -111,6 +112,9 @@ const StoreSettings = () => {
               <PedalBikeIcon />
             </div>
             <div className="w-full p-0.5 flex justify-center items-center">
+              <BoltIcon />
+            </div>
+            <div className="w-full p-0.5 flex justify-center items-center">
               <ClockIcon />
             </div>
             <div className="w-full p-0.5 flex justify-center items-center">
@@ -129,7 +133,9 @@ const StoreSettings = () => {
                     : "border-gray-50"
                 }`}
               >
+                {/* ******** SHOWS THE DAY OF THE WEEK ******** */}
                 <div className="w-full p-0.5 text-center">{day.name}</div>
+                {/* ******** LETS YOU OPEN OR CLOSE FOR THAT DAY ******** */}
                 <div className="w-full flex justify-center items-center">
                   <Switch
                     toggle={day.open}
@@ -144,6 +150,7 @@ const StoreSettings = () => {
                     }
                   />
                 </div>
+                {/* ******** LETS YOU SELECT THE OPENING HOUR ******** */}
                 <div className="w-full p-0.5 text-center">
                   <select
                     value={day.openingTime}
@@ -177,6 +184,7 @@ const StoreSettings = () => {
                     })}
                   </select>
                 </div>
+                {/* ******** LETS YOU SELECT THE CLOSING TIME ******** */}
                 <div className="w-full p-0.5 text-center">
                   <select
                     value={day.closingTime}
@@ -210,6 +218,7 @@ const StoreSettings = () => {
                     })}
                   </select>
                 </div>
+                {/* ******** LETS YOU TURN ON OR OFF DELIVERY  ******** */}
                 <div className="w-full flex justify-center items-center">
                   <Switch
                     toggle={day.openForDelivery}
@@ -224,6 +233,22 @@ const StoreSettings = () => {
                     }
                   />
                 </div>
+                {/* ******** LETS YOU TURN ON OR OFF ASAP  ******** */}
+                <div className="w-full flex justify-center items-center">
+                  <Switch
+                    toggle={day.asap}
+                    onClick={() =>
+                      setSettings((prev) =>
+                        prev.map((x) => {
+                          return x.name === day.name
+                            ? { ...x, asap: !x.asap }
+                            : x;
+                        })
+                      )
+                    }
+                  />
+                </div>
+                {/* ******** LETS YOU SELECT WHEN YOU START DELIVERY  ******** */}
                 <div className="w-full p-0.5 text-center">
                   <select
                     value={day.startTimeDelivery}
@@ -250,6 +275,7 @@ const StoreSettings = () => {
                     })}
                   </select>
                 </div>
+                {/* ******** LETS YOU SELECT WHEN YOU STOP DELIVERY ******** */}
                 <div className="w-full p-0.5 text-center">
                   <select
                     value={day.endTimeDelivery}
