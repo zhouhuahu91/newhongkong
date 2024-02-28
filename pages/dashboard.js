@@ -10,6 +10,7 @@ import Header from "@/components/dashboard/DashboardHeader";
 import OrderCard from "@/components/dashboard/OrderCard";
 import Spinner from "@/components/Spinner";
 import DashboardChat from "@/components/dashboard/DashboardChat";
+import DeleteTimeSlotModal from "@/components/dashboard/DeleteTimeSlotModal";
 import ToolTip from "@/components/ToolTip";
 import PrintIcon from "@/icons/PrintIcon";
 import IconBtn from "@/components/IconBtn";
@@ -196,8 +197,8 @@ const Dashboard = () => {
           {/* ***** START FIRST COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <div className="mb-4 border-b flex justify-center items-center">
-              <h1 className="text-xl font-medium text-center mr-4">Nieuw</h1>
+            <div className="mb-4 border-b flex justify-center items-center gap-2">
+              <DeleteTimeSlotModal />
               <IconBtn
                 // disable the button if there are no print jobs.
                 disabled={printJobs.length < 1}

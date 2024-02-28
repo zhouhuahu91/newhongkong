@@ -11,7 +11,6 @@ import SettingsIcon from "@/icons/SettingsIcon";
 import Modal from "@/components/Modal";
 import Switch from "@/components/Switch";
 import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
-import AddTimeSlotModal from "@/components/dashboard/AddTimeSlotModal";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -84,7 +83,6 @@ const StoreSettings = () => {
           <div className="flex items-center">
             <h2 className="text-lg font-normal mr-2">Store Settings</h2>
             <AddEmployeeRoll />
-            <AddTimeSlotModal />
           </div>
           <IconBtn
             onClick={() => {

@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 // Component imports
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
-import TimeSettingsIcon from "@/icons/TimeSettingsIcon";
 import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import StoreIcon from "@/icons/StoreIcon";
 import CloseIcon from "@/icons/CloseIcon";
@@ -17,7 +16,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 
-const AddTimeSlotModal = () => {
+const DeleteTimeSlotModal = () => {
   const [open, setOpen] = useState(false);
   const timeSlots = useTimePicker();
   const t = useI18n();
@@ -28,21 +27,24 @@ const AddTimeSlotModal = () => {
 
   // When we open this modal we want to set delivery to false.
   useEffect(() => {
-    if (delivery) dispatch({ type: "SET_DELIVERY", payload: false });
+    if (delivery && open) dispatch({ type: "SET_DELIVERY", payload: false });
   }, [open]);
 
   return (
     <>
-      <IconBtn className="mx-2" onClick={() => setOpen(true)}>
-        <TimeSettingsIcon />
-      </IconBtn>
+      <button
+        onClick={() => setOpen(true)}
+        className="text-xl font-medium text-center"
+      >
+        Nieuw
+      </button>
       <Modal
         className="max-w-sm w-full mx-2 bg-white rounded-lg overflow-hidden"
         toggle={open}
         close={() => setOpen(false)}
       >
         <div className="flex p-4 justify-between items-center border-b shadow">
-          <h1 className="font-semibold text-lg">Delete Time Slots</h1>
+          <h1 className="font-semibold text-lg">Beschikbare tijden</h1>
           <IconBtn onClick={() => setOpen(false)}>
             <CloseIcon />
           </IconBtn>
@@ -85,43 +87,42 @@ const AddTimeSlotModal = () => {
               {t.delivery}
             </button>
           </div>
-          <div
-            className={`grid gap-2 ${
-              delivery === true ? "grid-cols-2" : "grid-cols-5"
-            }`}
-          >
-            {timeSlots.map((timeSlot) => (
-              <button
-                className="border p-1 rounded bg-white shadow-sm text-base font-normal"
-                key={timeSlot}
-                type="button"
-                onClick={async () => {
-                  try {
-                    let existingSlots = [];
-                    const ref = doc(
-                      db,
-                      `timeSlots${
-                        delivery === true ? "Delivery" : "PickUp"
-                      }/${getCurrentDate()}`
-                    );
+          <div className={`grid gap-2 grid-cols-2 h-full max-h-40`}>
+            {timeSlots.map((timeSlot) => {
+              if (!timeSlot.includes(":")) return;
+              return (
+                <button
+                  className={`border p-1 rounded bg-white shadow-sm text-base font-normal`}
+                  key={timeSlot}
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      let existingSlots = [];
+                      const ref = doc(
+                        db,
+                        `timeSlots${
+                          delivery === true ? "Delivery" : "PickUp"
+                        }/${getCurrentDate()}`
+                      );
 
-                    const snapshot = await getDoc(ref);
-                    if (snapshot.exists()) {
-                      existingSlots = snapshot.data().slots;
+                      const snapshot = await getDoc(ref);
+                      if (snapshot.exists()) {
+                        existingSlots = snapshot.data().slots;
+                      }
+                      // We set the time slot twice removing it from the option.
+                      // Max time slot per day is 2.
+                      await setDoc(ref, {
+                        slots: [...existingSlots, timeSlot, timeSlot],
+                      });
+                    } catch (e) {
+                      console.log(e);
                     }
-                    // We set the time slot twice removing it from the option.
-                    // Max time slot per day is 2.
-                    await setDoc(ref, {
-                      slots: [...existingSlots, timeSlot, timeSlot],
-                    });
-                  } catch (e) {
-                    console.log(e);
-                  }
-                }}
-              >
-                {timeSlot}
-              </button>
-            ))}
+                  }}
+                >
+                  {timeSlot}
+                </button>
+              );
+            })}
           </div>
         </div>
       </Modal>
@@ -129,4 +130,4 @@ const AddTimeSlotModal = () => {
   );
 };
 
-export default AddTimeSlotModal;
+export default DeleteTimeSlotModal;
