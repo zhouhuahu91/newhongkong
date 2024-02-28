@@ -14,7 +14,13 @@ const useTimePicker = () => {
   const {
     currentTimeInSeconds,
     closed,
-    storeInfo: { openingTime, closingTime, startTimeDelivery, endTimeDelivery },
+    storeInfo: {
+      openingTime,
+      closingTime,
+      startTimeDelivery,
+      endTimeDelivery,
+      asap,
+    },
     currentDate,
   } = useStoreInfo();
   // We need to know if timepicker is for delivery or takeaway
@@ -73,7 +79,8 @@ const useTimePicker = () => {
       if (
         currentTimeInSeconds >= startTimeDelivery &&
         currentTimeInSeconds <= endTimeDelivery &&
-        open
+        open &&
+        asap
       ) {
         temp.push(t.asap);
       }
@@ -197,6 +204,7 @@ const useTimePicker = () => {
   useEffect(() => {
     getTimeSlots();
   }, [
+    asap,
     delivery,
     currentDate,
     takenSlots,

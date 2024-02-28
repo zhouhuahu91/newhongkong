@@ -30,12 +30,14 @@ const useStoreProvider = () => {
     open: true,
     // True if we are open for Delivery. Defaults to true.
     openForDelivery: true,
+    // True if asap is available.
+    asap: true,
     // The time that the store opens. Defaults to "16:00".
     openingTime: 16 * 3600,
     // The time that the store closes. Defaults to "21:00".
     closingTime: 21 * 3600,
     // The time we start to deliver. Defaults to "17:00".
-    startTimeDelivery: 16 * 3600,
+    startTimeDelivery: 17 * 3600,
     // The time we stop to deliver. Defaults to "21:00".
     endTimeDelivery: 21 * 3600,
   });

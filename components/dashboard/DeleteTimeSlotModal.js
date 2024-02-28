@@ -6,13 +6,15 @@ import IconBtn from "@/components/IconBtn";
 import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import StoreIcon from "@/icons/StoreIcon";
 import CloseIcon from "@/icons/CloseIcon";
+import Switch from "@/components/Switch";
 // Hook imports
 import useTimePicker from "@/hooks/useTimePicker";
 import { useCart } from "@/hooks/useCart";
 import useI18n from "@/hooks/useI18n";
+import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
 
@@ -20,10 +22,9 @@ const DeleteTimeSlotModal = () => {
   const [open, setOpen] = useState(false);
   const timeSlots = useTimePicker();
   const t = useI18n();
-  const {
-    cartState: { delivery },
-    dispatch,
-  } = useCart();
+  const { cartState, dispatch } = useCart();
+  const { delivery } = cartState;
+  const { storeInfo } = useStoreInfo();
 
   // When we open this modal we want to set delivery to false.
   useEffect(() => {
@@ -34,8 +35,11 @@ const DeleteTimeSlotModal = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-xl font-medium text-center"
+        className={`text-xl font-medium text-center ${
+          storeInfo.asap ? "" : "text-main"
+        }`}
       >
+        {/* If this text is red aka main than it means the asap for delivery is off. */}
         Nieuw
       </button>
       <Modal
@@ -84,12 +88,36 @@ const DeleteTimeSlotModal = () => {
                   delivery === true ? "fill-main" : "fill-gray-500"
                 }`}
               />
-              {t.delivery}
+              <div className="flex items-center justify-between w-full text-inherit font-medium">
+                {t.delivery}
+                {/* This switch turns of the option asap for customers. */}
+                <Switch
+                  toggle={storeInfo.asap}
+                  onClick={async (e) => {
+                    e.stopPropagation();
+                    // opening hours is an array with 7 objects. index 0 is sunday 1 is monday etc...
+                    const today = new Date().getDay();
+                    const ref = doc(db, "general/settings");
+                    const snapshot = await getDoc(ref);
+                    if (snapshot.exists()) {
+                      const { openingHours } = snapshot.data();
+                      // This creates a new array with exactly the same object except for asap of today
+                      // We invert that.
+                      const data = openingHours.map((info, day) =>
+                        day === today ? { ...info, asap: !info.asap } : info
+                      );
+                      // We update the doc.
+                      updateDoc(ref, {
+                        openingHours: data,
+                      });
+                    }
+                  }}
+                />
+              </div>
             </button>
           </div>
           <div className={`grid gap-2 grid-cols-2 h-full max-h-40`}>
             {timeSlots.map((timeSlot) => {
-              if (!timeSlot.includes(":")) return;
               return (
                 <button
                   className={`border p-1 rounded bg-white shadow-sm text-base font-normal`}
