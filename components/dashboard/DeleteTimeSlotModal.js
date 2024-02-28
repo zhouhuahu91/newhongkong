@@ -6,6 +6,7 @@ import IconBtn from "@/components/IconBtn";
 import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import StoreIcon from "@/icons/StoreIcon";
 import CloseIcon from "@/icons/CloseIcon";
+import BoltIcon from "@/icons/BoltIcon";
 import Switch from "@/components/Switch";
 // Hook imports
 import useTimePicker from "@/hooks/useTimePicker";
@@ -67,9 +68,9 @@ const DeleteTimeSlotModal = () => {
               }`}
             >
               <StoreIcon
-                size="18"
+                size="22"
                 className={`${
-                  delivery === false ? "fill-main" : "fill-gray-500"
+                  delivery === false ? "fill-main" : "fill-gray-600"
                 }`}
               />
               {t.pick_up}
@@ -82,38 +83,46 @@ const DeleteTimeSlotModal = () => {
                 delivery === true && "border-main selected text-main"
               }`}
             >
-              <PedalBikeIcon
-                size="18"
-                className={`${
-                  delivery === true ? "fill-main" : "fill-gray-500"
-                }`}
-              />
-              <div className="flex items-center justify-between w-full text-inherit font-medium">
-                {t.delivery}
-                {/* This switch turns of the option asap for customers. */}
-                <Switch
-                  toggle={storeInfo.asap}
-                  onClick={async (e) => {
-                    e.stopPropagation();
-                    // opening hours is an array with 7 objects. index 0 is sunday 1 is monday etc...
-                    const today = new Date().getDay();
-                    const ref = doc(db, "general/settings");
-                    const snapshot = await getDoc(ref);
-                    if (snapshot.exists()) {
-                      const { openingHours } = snapshot.data();
-                      // This creates a new array with exactly the same object except for asap of today
-                      // We invert that.
-                      const data = openingHours.map((info, day) =>
-                        day === today ? { ...info, asap: !info.asap } : info
-                      );
-                      // We update the doc.
-                      updateDoc(ref, {
-                        openingHours: data,
-                      });
-                    }
-                  }}
+              <div className="flex items-center w-full justify-between">
+                <PedalBikeIcon
+                  size="22"
+                  className={`${
+                    delivery === true ? "fill-main" : "fill-gray-600"
+                  }`}
                 />
+                <div className="flex items-center">
+                  <BoltIcon
+                    className={`${
+                      storeInfo.asap === true ? "fill-main" : "fill-gray-600"
+                    }`}
+                    size="22"
+                  />
+                  {/* This switch turns of the option asap for customers. */}
+                  <Switch
+                    toggle={storeInfo.asap}
+                    onClick={async (e) => {
+                      e.stopPropagation();
+                      // opening hours is an array with 7 objects. index 0 is sunday 1 is monday etc...
+                      const today = new Date().getDay();
+                      const ref = doc(db, "general/settings");
+                      const snapshot = await getDoc(ref);
+                      if (snapshot.exists()) {
+                        const { openingHours } = snapshot.data();
+                        // This creates a new array with exactly the same object except for asap of today
+                        // We invert that.
+                        const data = openingHours.map((info, day) =>
+                          day === today ? { ...info, asap: !info.asap } : info
+                        );
+                        // We update the doc.
+                        updateDoc(ref, {
+                          openingHours: data,
+                        });
+                      }
+                    }}
+                  />
+                </div>
               </div>
+              {t.delivery}
             </button>
           </div>
           <div className={`grid gap-2 grid-cols-2 h-full max-h-40`}>
