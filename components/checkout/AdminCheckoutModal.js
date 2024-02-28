@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 // Component imports
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
@@ -28,6 +28,14 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
   const [remarks, setRemarks] = useState("");
   const [paymentMethodType, setPaymentMethodType] = useState("card");
   const [errors, setErrors] = useState({});
+
+  const ref = useRef();
+
+  useEffect(() => {
+    if (open && ref.current) {
+      ref.current.scrollIntoView();
+    }
+  }, [open]);
 
   const onSubmit = async (paid) => {
     setProcessing(true);
@@ -83,7 +91,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
       close={() => setOpen(false)}
       className="bg-white w-full max-w-md rounded-lg mx-2 overflow-hidden"
     >
-      <div className="flex p-4 justify-between items-center border-b">
+      <div className="flex p-4 justify-between items-center border-b shadow">
         <h1 className="font-semibold text-lg">Afhaal</h1>
         <IconBtn onClick={() => setOpen(false)}>
           <CloseIcon />
@@ -91,10 +99,10 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
       </div>
       <div
         style={{ maxHeight: "calc(100vh - 265px)" }}
-        className="p-4 overflow-scroll"
+        className="p-4 overflow-scroll bg-neutral-50"
       >
         <Cart />
-        <div>
+        <div ref={ref}>
           <label htmlFor="name" className="text-gray-500 text-sm">
             Naam
           </label>
@@ -169,7 +177,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
           </label>
         </div>
       </div>
-      <div className="flex bg-white p-4 border-t gap-2">
+      <div className="flex bg-white p-4 border-t gap-2 shadow">
         <button
           disabled={processing}
           onClick={() => {
