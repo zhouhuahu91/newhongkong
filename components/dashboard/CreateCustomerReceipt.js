@@ -1,5 +1,5 @@
 // Icon imports
-import PrintIcon from "@/icons/PrintIcon";
+import ReceiptIcon from "@/icons/ReceiptIcon";
 import LoadingIcon from "@/icons/LoadingIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
@@ -132,7 +132,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
       {printerBusy ? (
         <LoadingIcon className="animate-spin" />
       ) : (
-        <PrintIcon className="" />
+        <ReceiptIcon className="" />
       )}
     </button>
   );
