@@ -37,36 +37,37 @@ const useMenuProvider = () => {
   const searchInputRef = useRef();
   const [favoritesID, setFavoritesID] = useState([]);
   const [favoriteMenuItems, setFavoriteMenuItems] = useState([]);
-  const [popularMenuItems, setPopularMenuItems] = useState([]);
+  // these are the id's of dishes that are popular
+  const popularID = [
+    "8",
+    "10",
+    "11",
+    "12",
+    "14",
+    "16",
+    "43",
+    "49",
+    "58",
+    "60",
+    "64",
+    "67",
+  ];
 
-  useEffect(() => {
-    const tempPopularMenuItemsArray = [];
-    const popularID = [
-      "8",
-      "10",
-      "11",
-      "12",
-      "14",
-      "16",
-      "43",
-      "49",
-      "58",
-      "60",
-      "64",
-      "67",
-    ];
-    // We loop the state for every category.
+  const getPopularItems = () => {
+    const tempArray = [];
     data.forEach((category) => {
       // Of every category we loop the items
       category.items.forEach((item) => {
         // If the item id is in the favorites array we push the item in the...
         // temparory array.
-        if (popularID.includes(item.id)) tempPopularMenuItemsArray.push(item);
+        if (popularID.includes(item.id)) tempArray.push(item);
       });
     });
+    return tempArray;
+  };
 
-    setPopularMenuItems(tempPopularMenuItemsArray);
-  }, [data]);
+  // Get's the popular items.
+  const popularMenuItems = getPopularItems();
 
   const { locale } = useI18n();
   const { user } = useAuth();
