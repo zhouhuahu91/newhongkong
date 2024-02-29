@@ -7,6 +7,8 @@ import euro from "@/functions/euro";
 // Component imports
 import AddItemToCartModal from "@/components/menu/AddItemToCartModal";
 
+import { motion } from "framer-motion";
+
 const Card = ({ item, setOpenDeliveryOrPickUp }) => {
   // This state holds the open or closed modal for ItemModal.
   const [open, setOpen] = useState(false);
@@ -22,7 +24,10 @@ const Card = ({ item, setOpenDeliveryOrPickUp }) => {
         open={open}
         setOpen={setOpen}
       />
-      <button
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         onClick={() => {
           setOpen((prev) => !prev);
         }}
@@ -33,7 +38,7 @@ const Card = ({ item, setOpenDeliveryOrPickUp }) => {
           {item.description[t.locale]}
         </span>
         <span className="font-medium">{euro(item.price)}</span>
-      </button>
+      </motion.button>
     </>
   );
 };

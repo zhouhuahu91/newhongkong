@@ -62,11 +62,11 @@ const Search = () => {
             // Animate will override max width so we check width of screen and if it is bigger than 384 + 16 padding...
             // ...search width is than screen width minues padding which is 16px
             animate={{
-              width: width < 400 ? width - 16 : 384,
+              width: "100%",
               opacity: 1,
               transition: { duration: 0.3 },
             }}
-            exit={{ width: 44, transition: { duration: 0.1 } }}
+            exit={{ width: 0, transition: { duration: 0.2 } }}
             className={`absolute bg-white z-10 border h-11 rounded-full flex items-center justify-center ${
               inputFocus && "border-red-200 ring ring-red-100"
             }`}
@@ -102,7 +102,7 @@ const Search = () => {
         onClick={() => setOpen((prev) => !prev)}
         roundedFull
         className={`${
-          open ? "shadow" : "border"
+          open ? "shadow" : "border bg-white hover:shadow"
         } relative red-focus-ring transition-shadow w-11 h-11 flex items-center justify-center px-2 z-10`}
       >
         <SearchIcon />
