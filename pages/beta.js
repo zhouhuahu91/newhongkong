@@ -151,7 +151,7 @@ const Menu = () => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       onClick={() => setSelectedCategory(category.category)}
-                      className="card cursor-pointer h-16 flex items-center justify-center hover:text-main hover:fill-main"
+                      className="card cursor-pointer h-16 flex items-center justify-center hover:text-main hover:fill-main hover:gap-1"
                       key={category.id}
                     >
                       {category.category[t.locale]}{" "}
