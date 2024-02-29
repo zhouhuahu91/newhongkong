@@ -151,10 +151,11 @@ const Menu = () => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       onClick={() => setSelectedCategory(category.category)}
-                      className="h-16 card"
+                      className="card cursor-pointer h-16 flex items-center justify-center hover:text-main hover:fill-main"
                       key={category.id}
                     >
-                      {category.category[t.locale]}
+                      {category.category[t.locale]}{" "}
+                      <ChevronRightIcon className="fill-inherit" />
                     </motion.button>
                   );
                 }

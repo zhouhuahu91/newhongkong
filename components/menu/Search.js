@@ -66,8 +66,8 @@ const Search = () => {
               opacity: 1,
               transition: { duration: 0.3 },
             }}
-            exit={{ width: 0, transition: { duration: 0.2 } }}
-            className={`absolute bg-white z-10 border h-11 rounded-full flex items-center justify-center ${
+            exit={{ width: 44, transition: { duration: 0.1 } }}
+            className={`absolute bg-white z-10 border max-w-sm h-11 rounded-full flex items-center justify-center ${
               inputFocus && "border-red-200 ring ring-red-100"
             }`}
           >
