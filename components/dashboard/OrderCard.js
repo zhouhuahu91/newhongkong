@@ -20,7 +20,7 @@ import DeliveryOrderModal from "@/components/dashboard/DeliveryOrderModal";
 import DeleteOrderModal from "@/components/dashboard/DeleteOrderModal";
 import IconBtn from "@/components/IconBtn";
 import PrintIcon from "@/icons/PrintIcon";
-import ReceiptIcon from "@/icons/ReceiptIcon";
+import CheckIcon from "@/icons/CheckIcon";
 import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import DeleteIcon from "@/icons/DeleteIcon";
 import CloseIcon from "@/icons/CloseIcon";
@@ -202,7 +202,7 @@ const OrderCard = ({
                   });
                 }}
               >
-                <ReceiptIcon />
+                <CheckIcon className="fill-green-700" />
               </IconBtn>
             )}
             {/* If the order is ready and paid for but not yet completed we show... */}
@@ -220,7 +220,7 @@ const OrderCard = ({
                   });
                 }}
               >
-                <CloseIcon className="hover:fill-main" />
+                <CloseIcon className="fill-main" />
               </IconBtn>
             )}
             {/* If the order is completed we show the icon that can remove the order from being completed. */}
