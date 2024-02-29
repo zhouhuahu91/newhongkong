@@ -1,5 +1,7 @@
 //React imports
 import { useState, useRef, useEffect, Fragment } from "react";
+// Animation imports
+import { motion } from "framer-motion";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -8,22 +10,15 @@ import { useAuth } from "@/hooks/useAuth";
 // Icon imports
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
 // Components imports
+import DesktopCart from "@/components/cart/DesktopCart";
+import MobileCart from "@/components/cart/MobileCart";
+import AdminCart from "@/components/cart/AdminCart";
+import Card from "@/components/menu/Card";
+import Spinner from "@/components/Spinner";
 import Search from "@/components/menu/Search";
 import SpecialDishModal from "@/components/menu/SpecialDishModal";
 
-// Component imports
-import DessertIcon from "@/icons/DessertIcon";
-import FavoriteIcon from "@/icons/FavoriteIcon";
-import Card from "@/components/menu/Card";
-import DesktopCart from "@/components/cart/DesktopCart";
-import MobileCart from "@/components/cart/MobileCart";
-import CategoryHeader from "@/components/menu/CategoryHeader";
 import PickUpOrDeliveryModal from "@/components/menu/PickUpOrDeliveryModal";
-import Spinner from "@/components/Spinner";
-import AdminCart from "@/components/cart/AdminCart";
-import SettingsIcon from "@/icons/SettingsIcon";
-import IconBtn from "@/components/IconBtn";
-import { motion } from "framer-motion";
 
 // Upload new menu to firestore if needed.
 // import uploadData from "../data/uploadData";
@@ -39,10 +34,19 @@ const Menu = () => {
   // This state holds the open or closed modal for PickUpOrDeliveryModal.
   const [open, setOpen] = useState(false);
   // This return the products that the restaurant sells in an array of objects.
-  const { filteredData, data, searchInput, favoriteMenuItems } = useMenu();
+  const {
+    filteredData,
+    data,
+    searchInput,
+    favoriteMenuItems,
+    popularMenuItems,
+  } = useMenu();
   const { user } = useAuth();
   // t is to translate the text.
   const t = useI18n();
+
+  const cardStyling =
+    "card cursor-pointer h-20 flex items-center gap-0.5 justify-center hover:text-main hover:fill-main hover:border-2 hover:border-main hover:gap-1";
 
   if (!data.length) {
     return <Spinner />;
@@ -91,7 +95,10 @@ const Menu = () => {
               {!searchInput &&
                 selectedCategory === false &&
                 favoriteMenuItems.length > 0 && (
-                  <button
+                  <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.2 }}
                     onClick={() =>
                       // On Click we set the selected category to all available languages.
                       setSelectedCategory({
@@ -100,11 +107,11 @@ const Menu = () => {
                         en: "Favorites",
                       })
                     }
-                    className="card cursor-pointer h-20 flex items-center gap-1 justify-center hover:text-main hover:fill-main hover:border-2 hover:border-main"
+                    className={`${cardStyling}`}
                   >
                     {t.favorites}
                     <ChevronRightIcon className="fill-inherit" />
-                  </button>
+                  </motion.button>
                 )}
               {/* If there is no search input and the selected category is favorites we show all favorites. */}
               {!searchInput &&
@@ -118,6 +125,39 @@ const Menu = () => {
                     />
                   );
                 })}
+
+              {!searchInput && selectedCategory === false && (
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() =>
+                    // On Click we set the selected category to all available languages.
+                    setSelectedCategory({
+                      nl: "Populair",
+                      de: "Beliept",
+                      en: "Popular",
+                    })
+                  }
+                  className={`${cardStyling}`}
+                >
+                  {t.popular}
+                  <ChevronRightIcon className="fill-inherit" />
+                </motion.button>
+              )}
+
+              {!searchInput &&
+                selectedCategory[t.locale] === t.popular &&
+                popularMenuItems.map((item) => {
+                  return (
+                    <Card
+                      key={item.id}
+                      item={item}
+                      setOpenDeliveryOrPickUp={setOpen}
+                    />
+                  );
+                })}
+
               {/* Here we render all items in the filtered data */}
               {filteredData.map((category) => {
                 // If the category is only for admins and the user is not an admin we return
@@ -151,7 +191,7 @@ const Menu = () => {
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.2 }}
                       onClick={() => setSelectedCategory(category.category)}
-                      className="card cursor-pointer h-20 flex items-center justify-center hover:text-main hover:fill-main gap-1 hover:border-2 hover:border-main"
+                      className={`${cardStyling}`}
                       key={category.id}
                     >
                       {category.category[t.locale]}{" "}
