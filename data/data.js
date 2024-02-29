@@ -27,7 +27,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.9 added tax to pangsit, skipped
 // version 0.0.10 changed maandmenu
 // version 0.0.11 no chinese for number 5
-export const version = "0.0.11";
+// version 0.0.12 added dineInPrice
+export const version = "0.0.12";
 
 export const data = [
   menus,
