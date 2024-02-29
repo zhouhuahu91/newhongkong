@@ -1,5 +1,5 @@
 //React imports
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Fragment } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -128,7 +128,7 @@ const Menu = () => {
                   searchInput
                 ) {
                   return (
-                    <>
+                    <Fragment key={category.id}>
                       {category.items.map((item) => {
                         return (
                           <Card
@@ -138,15 +138,15 @@ const Menu = () => {
                           />
                         );
                       })}
-                    </>
+                    </Fragment>
                   );
                 }
                 // If selected category is false and there is no search input we render all categories that are available.
                 if (selectedCategory === false && !searchInput) {
                   return (
                     <motion.button
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
                       transition={{ duration: 0.2 }}
                       onClick={() => setSelectedCategory(category.category)}
                       className="card cursor-pointer h-20 flex items-center justify-center hover:text-main hover:fill-main gap-1 hover:border-2 hover:border-main"
