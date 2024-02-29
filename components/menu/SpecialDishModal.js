@@ -3,7 +3,7 @@ import { useState } from "react";
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
 import Switch from "@/components/Switch";
-import EditIcon from "@/icons/EditIcon";
+import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
 // Icons imports
 import CloseIcon from "@/icons/CloseIcon";
 import MinusIcon from "@/icons/MinusIcon";
@@ -103,7 +103,7 @@ const SpecialDishModal = () => {
   return (
     <>
       <IconBtn onClick={() => setOpen(true)}>
-        <EditIcon />
+        <ForkAndSpoonIcon className="fill-gray-200 hover:fill-main" />
       </IconBtn>
       <Modal
         toggle={open}

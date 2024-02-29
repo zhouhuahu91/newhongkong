@@ -9,6 +9,7 @@ import { useAuth } from "@/hooks/useAuth";
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
 // Components imports
 import Search from "@/components/menu/Search";
+import SpecialDishModal from "@/components/menu/SpecialDishModal";
 
 // Component imports
 import DessertIcon from "@/icons/DessertIcon";
@@ -20,7 +21,6 @@ import CategoryHeader from "@/components/menu/CategoryHeader";
 import PickUpOrDeliveryModal from "@/components/menu/PickUpOrDeliveryModal";
 import Spinner from "@/components/Spinner";
 import AdminCart from "@/components/cart/AdminCart";
-import SpecialDishModal from "@/components/menu/SpecialDishModal";
 import SettingsIcon from "@/icons/SettingsIcon";
 import IconBtn from "@/components/IconBtn";
 import { motion } from "framer-motion";
@@ -63,7 +63,7 @@ const Menu = () => {
           {/* This is the container where all the cards are.*/}
           <div className="col-span-12 md:col-span-6 lg:col-span-7 w-full mt-4">
             {/* This div contains the title of where we are and the search. */}
-            <div className="flex items-center text-lg gap-2 mb-5 relative">
+            <div className="flex items-center text-lg gap-3 mb-5 relative">
               {/* This return the search */}
               <Search />
               {/* This buttons brings the user back to categories. */}
@@ -83,7 +83,9 @@ const Menu = () => {
                   </span>
                 </>
               )}
+              {user && user?.admin && <SpecialDishModal />}
             </div>
+
             <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
               {/* If there is no searchInput and selected category === false and there are favorites selected we show the favorites category button */}
               {!searchInput &&
