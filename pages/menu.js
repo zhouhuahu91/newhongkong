@@ -16,8 +16,6 @@ import PickUpOrDeliveryModal from "@/components/menu/PickUpOrDeliveryModal";
 import Spinner from "@/components/Spinner";
 import AdminCart from "@/components/cart/AdminCart";
 import SpecialDishModal from "@/components/menu/SpecialDishModal";
-import SettingsIcon from "@/icons/SettingsIcon";
-import IconBtn from "@/components/IconBtn";
 
 // Upload new menu to firestore if needed.
 // import uploadData from "../data/uploadData";
@@ -30,8 +28,6 @@ const Menu = () => {
   const [delivery, setDelivery] = useState(cartState.delivery);
   // This state holds the open or closed modal for PickUpOrDeliveryModal.
   const [open, setOpen] = useState(false);
-  // State for handling special dish
-  const [specialDishModal, setSpecialDishModal] = useState(false);
   // This return the products that the restaurant sells in an array of objects.
   const {
     filteredData,
@@ -63,7 +59,6 @@ const Menu = () => {
         delivery={delivery}
         setDelivery={setDelivery}
       />
-      <SpecialDishModal open={specialDishModal} setOpen={setSpecialDishModal} />
       <CategoryHeader data={data} categoryRef={categoryRef} />
       {/* // Menu page is mainly devided in three sections top side where the title */}
       {/* and the search bar is, */}
@@ -101,14 +96,7 @@ const Menu = () => {
                   <h2 className="font-semibold text-2xl capitalize ">
                     {t.popular}
                   </h2>
-                  {user && user?.admin && (
-                    <IconBtn
-                      className="ml-2"
-                      onClick={() => setSpecialDishModal(true)}
-                    >
-                      <SettingsIcon />
-                    </IconBtn>
-                  )}
+                  {user && user?.admin && <SpecialDishModal />}
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
                   {popularMenuItems.map((item) => {
