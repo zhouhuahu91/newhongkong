@@ -15,6 +15,7 @@ export default {
   sign_out: "Sign out",
   signed_in_as: "Signed in as",
   monthly_overview: "Monthly Overview",
+  categories: "Categories",
 
   // ******** HEADER ********
 

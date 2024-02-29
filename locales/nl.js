@@ -15,6 +15,7 @@ export default {
   sign_out: "Uitloggen",
   signed_in_as: "Ingelogd als",
   monthly_overview: "Maandelijkse Overzicht",
+  categories: "Categorieën",
 
   // ******** HEADER ********
 

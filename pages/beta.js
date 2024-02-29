@@ -11,6 +11,7 @@ import ChevronRightIcon from "@/icons/ChevronRightIcon";
 import Search from "@/components/menu/Search";
 
 // Component imports
+import DessertIcon from "@/icons/DessertIcon";
 import FavoriteIcon from "@/icons/FavoriteIcon";
 import Card from "@/components/menu/Card";
 import DesktopCart from "@/components/cart/DesktopCart";
@@ -69,11 +70,9 @@ const Menu = () => {
               <button
                 disabled={!selectedCategory}
                 onClick={() => setSelectedCategory(false)}
-                className={`font-medium capitalize ${
-                  selectedCategory ? "text-main" : ""
-                }`}
+                className="font-medium capitalize text-main disabled:text-gray-700 disabled:no-underline hover:underline"
               >
-                Categoriën
+                {t.categories}
               </button>
               {/* This shows in what category the user is. */}
               {selectedCategory !== false && (
@@ -88,7 +87,7 @@ const Menu = () => {
             <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
               {/* If there is no searchInput and selected category === false and there are favorites selected we show the favorites category button */}
               {!searchInput &&
-                selectedCategory == false &&
+                selectedCategory === false &&
                 favoriteMenuItems.length > 0 && (
                   <button
                     onClick={() =>
@@ -99,10 +98,10 @@ const Menu = () => {
                         en: "Favorites",
                       })
                     }
-                    className="flex items-center justify-center gap-2 h-16 card"
+                    className="card cursor-pointer h-20 flex items-center gap-1 justify-center hover:text-main hover:fill-main hover:border-2 hover:border-main"
                   >
-                    <FavoriteIcon filled className="fill-main" />
                     {t.favorites}
+                    <ChevronRightIcon className="fill-inherit" />
                   </button>
                 )}
               {/* If there is no search input and the selected category is favorites we show all favorites. */}
@@ -121,7 +120,6 @@ const Menu = () => {
               {filteredData.map((category) => {
                 // If the category is only for admins and the user is not an admin we return
                 if (category.adminOnly && !user?.admin) return;
-
                 // We hard code one language instead.
                 // This prevents matching when user switches language when already selected a category.
                 if (
@@ -147,11 +145,11 @@ const Menu = () => {
                 if (selectedCategory === false && !searchInput) {
                   return (
                     <motion.button
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.2 }}
                       onClick={() => setSelectedCategory(category.category)}
-                      className="card cursor-pointer h-16 flex items-center justify-center hover:text-main hover:fill-main hover:gap-1"
+                      className="card cursor-pointer h-20 flex items-center justify-center hover:text-main hover:fill-main gap-1 hover:border-2 hover:border-main"
                       key={category.id}
                     >
                       {category.category[t.locale]}{" "}
