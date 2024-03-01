@@ -9,6 +9,7 @@ import { useMenu } from "@/hooks/useMenu";
 import { useAuth } from "@/hooks/useAuth";
 // Icon imports
 import ChevronRightIcon from "@/icons/ChevronRightIcon";
+import ChevronLeftIcon from "@/icons/ChevronLeftIcon";
 // Components imports
 import DesktopCart from "@/components/cart/DesktopCart";
 import MobileCart from "@/components/cart/MobileCart";
@@ -67,27 +68,26 @@ const Menu = () => {
           {/* This is the container where all the cards are.*/}
           <div className="col-span-12 md:col-span-6 lg:col-span-7 w-full mt-4">
             {/* This div contains the title of where we are and the search. */}
-            <div className="flex items-center text-lg gap-3 mb-5 relative">
+            <div className="flex items-center text-lg gap-1 mb-5 relative">
               {/* This return the search */}
               <Search />
               {/* This buttons brings the user back to categories. */}
-              <button
-                disabled={!selectedCategory}
-                onClick={() => setSelectedCategory(false)}
-                className="font-medium capitalize text-main disabled:text-gray-700 disabled:no-underline hover:underline"
-              >
-                {t.categories}
-              </button>
+              {selectedCategory === false && (
+                <h2 className="font-medium capitalize ml-2">{t.categories}</h2>
+              )}
               {/* This shows in what category the user is. */}
               {selectedCategory !== false && (
-                <>
-                  <ChevronRightIcon />
-                  <span className="font-medium capitalize flex items-center">
+                <button
+                  onClick={() => setSelectedCategory(false)}
+                  className="flex items-center gap-1 hover:text-main hover:fill-main"
+                >
+                  <ChevronLeftIcon className="fill-inherit" />
+                  <span className="font-medium capitalize text-inherit">
                     {selectedCategory[t.locale]}
                   </span>
-                </>
+                </button>
               )}
-              {user && user?.admin && <SpecialDishModal />}
+              {/* {user && user?.admin && <SpecialDishModal />} */}
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
@@ -169,19 +169,17 @@ const Menu = () => {
                   //   If there is a search input we by pass everything and just render everything that matches that search input.
                   searchInput
                 ) {
-                  return (
-                    <Fragment key={category.id}>
-                      {category.items.map((item) => {
-                        return (
-                          <Card
-                            key={item.id}
-                            item={item}
-                            setOpenDeliveryOrPickUp={setOpen}
-                          />
-                        );
-                      })}
-                    </Fragment>
-                  );
+                  {
+                    return category.items.map((item) => {
+                      return (
+                        <Card
+                          key={item.id}
+                          item={item}
+                          setOpenDeliveryOrPickUp={setOpen}
+                        />
+                      );
+                    });
+                  }
                 }
                 // If selected category is false and there is no search input we render all categories that are available.
                 if (selectedCategory === false && !searchInput) {
