@@ -92,8 +92,8 @@ const Menu = () => {
             )}
             {!searchInput.length && (
               <div className="">
-                <div className="flex items-center mt-8 mb-4">
-                  <h2 className="font-semibold text-2xl capitalize ">
+                <div className="flex items-center mt-8 mb-4 gap-2">
+                  <h2 className="font-semibold text-2xl capitalize">
                     {t.popular}
                   </h2>
                   {user && user?.admin && <SpecialDishModal />}
