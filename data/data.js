@@ -29,7 +29,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.11 no chinese for number 5
 // version 0.0.12 added dineInPrice
 // version 0.0.13 renamed some categories and fixed some typos
-export const version = "0.0.13";
+// version 0.0.14 chagned maandmenu
+export const version = "0.0.14";
 
 export const data = [
   menus,

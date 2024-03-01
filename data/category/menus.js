@@ -62,15 +62,15 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "tippan kipfilet",
-        en: "tippan chicken",
-        de: "Tippan Hühnerfleisch",
-        zh: "",
+        nl: "pikante kip",
+        en: "spicy chicken",
+        de: "Hähnchen scharf",
+        zh: "辣鸡",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in oestersaus",
-        en: "stir fried chicken with vegetables in oystersauce",
-        de: "gebratenes Hühnerfleisch mit Gemüse in einer Soße aus Austernsauce",
+        nl: "roergebakken kipfilet met groenten in een licht pikante saus",
+        en: "stir fried chicken with vegetables in a mild spicy sauce",
+        de: "gebratener Hühnerfleisch mit Gemüse in leicht scharfer Soße",
         zh: "",
       },
     },
