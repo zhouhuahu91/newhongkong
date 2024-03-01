@@ -1,7 +1,7 @@
 //React imports
-import { useState, useRef, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 // Animation imports
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
@@ -72,45 +72,40 @@ const Menu = () => {
               {/* This return the search */}
               <Search />
               {/* This buttons brings the user back to categories. */}
-              <AnimatePresence>
-                {selectedCategory === false && (
-                  <motion.h2
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.2, ease: "linear" }}
-                    className="font-medium capitalize ml-2"
-                  >
-                    {t.categories}
-                  </motion.h2>
-                )}
-              </AnimatePresence>
+              {selectedCategory === false && (
+                <motion.h2
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.2, ease: "linear" }}
+                  className="font-medium capitalize ml-2"
+                >
+                  {t.categories}
+                </motion.h2>
+              )}
 
               {/* This shows in what category the user is. */}
-              <AnimatePresence>
-                {selectedCategory !== false && (
-                  <motion.button
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.2, ease: "linear" }}
-                    onClick={() => {
-                      window.scrollTo({
-                        top: 0,
-                        behavior: "smooth",
-                      });
+              {selectedCategory !== false && (
+                <motion.button
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.2, ease: "linear" }}
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "smooth",
+                    });
 
-                      setSelectedCategory(false);
-                    }}
-                    className="flex items-center gap-1 hover:text-main hover:fill-main"
-                  >
-                    <ChevronLeftIcon className="fill-inherit" />
-                    <span className="font-medium capitalize text-inherit">
-                      {selectedCategory[t.locale]}
-                    </span>
-                  </motion.button>
-                )}
-              </AnimatePresence>
-
-              {/* {user && user?.admin && <SpecialDishModal />} */}
+                    setSelectedCategory(false);
+                  }}
+                  className="flex items-center gap-1 hover:text-main hover:fill-main"
+                >
+                  <ChevronLeftIcon className="fill-inherit" />
+                  <span className="font-medium capitalize text-inherit">
+                    {selectedCategory[t.locale]}
+                  </span>
+                </motion.button>
+              )}
+              {user && user?.admin && <SpecialDishModal />}
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
