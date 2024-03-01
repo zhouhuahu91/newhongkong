@@ -3,7 +3,7 @@ import btw from "../options/btw";
 
 export default {
   category: {
-    nl: "specialteiten uit Mongolië",
+    nl: "specialiteiten uit Mongolië",
     en: "Mongolian specialties",
     de: "Mongolische Spezialitäten",
     zh: "",

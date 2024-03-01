@@ -3,7 +3,7 @@ import btw from "../options/btw";
 
 export default {
   category: {
-    nl: "specialteiten uit Sie Sheun",
+    nl: "specialiteiten uit Sie Sheun",
     en: "Sie Sheun specialties",
     de: "Sie Sheun Spezialitäten",
     zh: "",

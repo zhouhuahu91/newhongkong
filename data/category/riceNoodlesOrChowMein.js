@@ -2,9 +2,9 @@ import btw from "../options/btw";
 
 export default {
   category: {
-    nl: "mihoen of Chinese bami gerechten",
-    en: "rice noodles or chow mein dishes",
-    de: "Reisnudeln oder Chow Mein Gerichte",
+    nl: "mihoen of Chinese bami",
+    en: "rice noodles or chow mein",
+    de: "Reisnudeln oder Chow Mein",
     zh: "",
   },
   id: 11,

@@ -2,9 +2,9 @@ import btw from "../options/btw";
 
 export default {
   category: {
-    nl: "nasi of bami gerechten",
-    en: "fried rice or noodle dishes",
-    de: "gebratener Reis und Nudel Gerichte",
+    nl: "nasi of bami",
+    en: "fried rice or noodle",
+    de: "gebratener Reis oder Nudel",
     zh: "",
   },
   id: 12,
