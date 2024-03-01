@@ -78,7 +78,14 @@ const Menu = () => {
               {/* This shows in what category the user is. */}
               {selectedCategory !== false && (
                 <button
-                  onClick={() => setSelectedCategory(false)}
+                  onClick={() => {
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "smooth",
+                    });
+
+                    setSelectedCategory(false);
+                  }}
                   className="flex items-center gap-1 hover:text-main hover:fill-main"
                 >
                   <ChevronLeftIcon className="fill-inherit" />
@@ -99,14 +106,18 @@ const Menu = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.2 }}
-                    onClick={() =>
+                    onClick={() => {
                       // On Click we set the selected category to all available languages.
                       setSelectedCategory({
                         nl: "Favorieten",
                         de: "Favouriten",
                         en: "Favorites",
-                      })
-                    }
+                      });
+                      window.scrollTo({
+                        top: 0,
+                        behavior: "smooth",
+                      });
+                    }}
                     className={`${cardStyling}`}
                   >
                     {t.favorites}
@@ -131,14 +142,18 @@ const Menu = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
-                  onClick={() =>
+                  onClick={() => {
                     // On Click we set the selected category to all available languages.
                     setSelectedCategory({
                       nl: "Populair",
                       de: "Beliept",
                       en: "Popular",
-                    })
-                  }
+                    });
+                    window.scrollTo({
+                      top: 0,
+                      behavior: "smooth",
+                    });
+                  }}
                   className={`${cardStyling}`}
                 >
                   {t.popular}
@@ -188,7 +203,13 @@ const Menu = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.2 }}
-                      onClick={() => setSelectedCategory(category.category)}
+                      onClick={() => {
+                        setSelectedCategory(category.category);
+                        window.scrollTo({
+                          top: 0,
+                          behavior: "smooth",
+                        });
+                      }}
                       className={`${cardStyling}`}
                       key={category.id}
                     >
