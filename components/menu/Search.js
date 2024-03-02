@@ -27,8 +27,6 @@ const Search = () => {
       setOpen(false);
     }
   });
-  // This doesn't work it closes the search and clears input before we can open the item.
-  const { width } = useWindowSize();
 
   // If search is closed we clear input and reset the filter.
   useEffect(() => {
@@ -38,9 +36,25 @@ const Search = () => {
   }, [open]);
 
   const handleKeyDown = (e) => {
-    // If user presses shit enter open or close the search.
-    if (e.key === "Enter" && e.shiftKey) {
-      setOpen((prev) => !prev);
+    // If user starts typing 0-9 or a-z we open the search.
+    if (/^[0-9a-zA-Z]$/.test(e.key)) {
+      if (open === false) {
+        setOpen(true);
+      }
+      if (searchInputRef.current) {
+        searchInputRef.current.focus();
+      }
+    }
+    // If user presses backspace and search is open
+    if (e.key === "Backspace" && open) {
+      if (searchInputRef.current) {
+        searchInputRef.current.focus();
+      }
+    }
+
+    // If user presses escape we close the search
+    if (e.key === "Escape" && open) {
+      setOpen(false);
     }
   };
   // listen for enter key with useEffect

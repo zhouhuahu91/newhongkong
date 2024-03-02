@@ -1,10 +1,9 @@
 // React imports
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
-import { useMenu } from "@/hooks/useMenu";
-import { useAuth } from "@/hooks/useAuth";
+
 // Component Imports
 import Modal from "@/components/Modal";
 import ItemModalContent from "../ItemModalContent";
@@ -26,44 +25,6 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   // This state holds the remarks for the item
   const [remarks, setRemarks] = useState("");
-  // Returns the input ref.
-  const { searchInputRef, setSearchInput } = useMenu();
-  // Current time out, we store it in a ref so we can clear it on unmount.
-  const setTimeOutRef = useRef(null);
-  // we reset search only if user is admin
-  const { user } = useAuth();
-
-  // We put this in a seperate function so we can clear the time out when we unmount.
-  const setFocusToInPut = () => {
-    // Clear any existing timeout to avoid memory leaks
-    if (setTimeOutRef.current) {
-      clearTimeout(setTimeOutRef.current);
-    }
-
-    setSearchInput("");
-
-    // Set a new timeout and store its ID
-    setTimeOutRef.current = setTimeout(() => {
-      if (searchInputRef.current) {
-        // We scroll back to the top.
-        // If clear search and we do not scroll back to top it will scroll to the item we last added.
-        window.scrollTo({
-          top: 0, // Scroll to the top of the document
-          left: 0,
-        });
-        searchInputRef.current.focus();
-      }
-    }, 600);
-  };
-
-  useEffect(() => {
-    // We clear the set time out on unmount here.
-    return () => {
-      if (setTimeOutRef.current) {
-        clearTimeout(setTimeOutRef.current);
-      }
-    };
-  }, []);
 
   // When we close modal we want to reset all the values.
   useEffect(() => {
@@ -185,10 +146,6 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
               return setOpenDeliveryOrPickUp(true);
             }
             addItemToCart();
-            if (!user) return;
-            if (searchInputRef.current && user.admin) {
-              setFocusToInPut();
-            }
           }}
           type="button"
           className="bg-main text-white button col-span-7"
