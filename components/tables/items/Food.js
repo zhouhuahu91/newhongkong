@@ -14,7 +14,7 @@ const getCustomFoodMenu = (rawData) => {
   }));
 
   const soupID = ["1", "2", "3", "6", "7"];
-  const sidesID = ["14", "8", "9", "10", "11", "12", "16", "18", "17"];
+  const sidesID = ["14", "8", "9", "10", "11", "12", "16", "18", "17", "19"];
   const mainID = [
     "43",
     "49",
