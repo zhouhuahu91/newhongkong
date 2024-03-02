@@ -25,12 +25,12 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   }, []);
 
   const buttonStyle =
-    "h-[6.8rem] border p-4 rounded-md hover:shadow-md uppercase font-medium transition-all hover:bg-orange-50";
+    "h-[6.8rem] border p-4 rounded-md text-base hover:shadow-md capitalize font-medium transition-all hover:bg-orange-50";
 
   return (
     <>
       {/* Header for the displaying menu */}
-      <div className="flex items-center h-full max-h-24 border-b font-medium p-8 bg-white w-full absolute right-0 shadow">
+      <div className="flex text-base items-center h-full max-h-24 border-b font-medium p-8 bg-white w-full absolute right-0 shadow">
         <button
           disabled={mainCategory === false}
           onClick={() => {
@@ -43,8 +43,8 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
             }
           }}
           type="button"
-          className={`uppercase font-medium ${
-            mainCategory !== false ? "text-main" : ""
+          className={`capitalize font-medium ${
+            mainCategory !== false ? "hover:text-main" : ""
           }`}
         >
           menu
@@ -55,8 +55,8 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
             onClick={() => {
               setSubCategory(false);
             }}
-            className={`flex items-center uppercase font-medium ${
-              subCategory !== false ? "text-main" : ""
+            className={`flex items-center capitalize font-medium ${
+              subCategory !== false ? "hover:text-main" : ""
             }`}
           >
             <ChevronRightIcon /> {mainCategory}
@@ -73,19 +73,19 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
                 setCurrentDishAllFood(false);
               }
             }}
-            className={`flex items-center uppercase font-medium ${
-              currentDish || currentDishAllFood ? "text-main" : ""
+            className={`flex items-center capitalize font-medium ${
+              currentDish || currentDishAllFood ? "hover:text-main" : ""
             }`}
           >
             <ChevronRightIcon /> {subCategory}
           </button>
         )}
-        {(currentDish || currentDishAllFood) && (
-          <div className={`flex items-center uppercase font-medium`}>
+        {/* {(currentDish || currentDishAllFood) && (
+          <div className={`absolute flex items-center capitalize font-medium`}>
             <ChevronRightIcon />{" "}
             {currentDish ? currentDish.name.nl : currentDishAllFood.name.nl}
           </div>
-        )}
+        )} */}
       </div>
       {/* These are the categories we can go in to.  */}
       {/* If mainCategory is false these will return a button which will select their... */}

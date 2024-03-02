@@ -122,7 +122,7 @@ const Receipt = ({
 
   if (table.food.length === 0 && table.beverages.length === 0) {
     return (
-      <div className="w-full h-full flex justify-center mt-40 uppercase font-medium">
+      <div className="w-full h-full flex justify-center mt-40 text-base capitalize font-medium">
         nog niks besteld.
       </div>
     );
@@ -132,11 +132,11 @@ const Receipt = ({
     <>
       <Snackbar snackbar={snackbar} setSnackbar={setSnackbar} />
       <div
-        className={`px-8 pb-8 pt-4 h-full flex flex-col uppercase overflow-scroll ${
+        className={`px-8 pb-8 pt-4 h-full flex flex-col capitalize overflow-scroll ${
           table.food.length ? "gap-4" : ""
         }`}
       >
-        <div className="">
+        <div className="text-base">
           {table.food.map((dish) => {
             return (
               <div className="grid grid-cols-12" key={dish.id}>
@@ -175,7 +175,7 @@ const Receipt = ({
             );
           })}
         </div>
-        <div className="">
+        <div className="text-base">
           {table.beverages.map((beverage) => {
             return (
               <div className="grid grid-cols-12" key={beverage.id}>
@@ -196,7 +196,7 @@ const Receipt = ({
             );
           })}
         </div>
-        <div className="text-right border-t pt-4 mt-4">
+        <div className="text-right border-t pt-4 mt-4 text-base">
           <div className="">subtotaal: {euro(total - table.tip)}</div>
           <div className="">
             <input
@@ -217,7 +217,7 @@ const Receipt = ({
             />
           </div>
         </div>
-        <div className="text-right border-t pt-4">
+        <div className="text-right border-t pt-4 text-base">
           <div className="font-medium">totaal: {euro(total)}</div>
         </div>
         {needsToBePrinted.length > 0 && (
@@ -233,7 +233,7 @@ const Receipt = ({
               printFood();
               setSnackbar("Eten wordt afgedrukt.");
             }}
-            className="button border mt-4 uppercase gap-2"
+            className="button border mt-4 capitalize gap-2"
           >
             <PrintIcon />
             eten afdrukken
