@@ -31,7 +31,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.13 renamed some categories and fixed some typos
 // version 0.0.14 chagned maandmenu
 // version 0.0.15 added big sides
-export const version = "0.0.15";
+// version 0.0.16 added vegetarian options to menus
+export const version = "0.0.16";
 
 export const data = [
   menus,

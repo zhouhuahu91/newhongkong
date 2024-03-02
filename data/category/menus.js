@@ -141,6 +141,22 @@ export default {
           price: 0,
         },
         {
+          id: "VB",
+          name: {
+            nl: "foe yong hai vegetarisch",
+            en: "egg foo young vegetarian",
+            de: "egg foo young vegetarisch",
+            zh: "素夫下",
+          },
+          description: {
+            nl: "omelet zondervlees in een zoete tomatensaus",
+            en: "omelet without meat in a sweet tomato sauce",
+            de: "Omelett ohne Fleisch in einer süßen Tomatensoße",
+            zh: "",
+          },
+          price: 0,
+        },
+        {
           id: "C",
           name: {
             nl: "tjap tjoy kip",
@@ -152,6 +168,22 @@ export default {
             nl: "roergebakken taugé, paprika, uien, champignons, bamboestrips en prei met kipfilet",
             en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek with chicken",
             de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Hähnchen",
+            zh: "",
+          },
+          price: 0,
+        },
+        {
+          id: "VC",
+          name: {
+            nl: "tjap tjoy vegetarisch",
+            en: "tjap tjoy vegetarian",
+            de: "tjap tjoy vegetarisch",
+            zh: "素什菜",
+          },
+          description: {
+            nl: "roergebakken taugé, paprika, uien, champignons, bamboestrips en prei",
+            en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek",
+            de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch",
             zh: "",
           },
           price: 0,
@@ -291,6 +323,22 @@ export default {
           price: 0,
         },
         {
+          id: "VB",
+          name: {
+            nl: "foe yong hai vegetarisch",
+            en: "egg foo young vegetarian",
+            de: "egg foo young vegetarisch",
+            zh: "素夫下",
+          },
+          description: {
+            nl: "omelet zondervlees in een zoete tomatensaus",
+            en: "omelet without meat in a sweet tomato sauce",
+            de: "Omelett ohne Fleisch in einer süßen Tomatensoße",
+            zh: "",
+          },
+          price: 0,
+        },
+        {
           id: "C",
           name: {
             nl: "tjap tjoy kip",
@@ -302,6 +350,22 @@ export default {
             nl: "roergebakken taugé, paprika, uien, champignons, bamboestrips en prei met kipfilet",
             en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek with chicken",
             de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Hähnchen",
+            zh: "",
+          },
+          price: 0,
+        },
+        {
+          id: "VC",
+          name: {
+            nl: "tjap tjoy vegetarisch",
+            en: "tjap tjoy vegetarian",
+            de: "tjap tjoy vegetarisch",
+            zh: "素什菜",
+          },
+          description: {
+            nl: "roergebakken taugé, paprika, uien, champignons, bamboestrips en prei",
+            en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek",
+            de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch",
             zh: "",
           },
           price: 0,
@@ -544,6 +608,22 @@ export default {
           price: 0,
         },
         {
+          id: "VB",
+          name: {
+            nl: "foe yong hai vegetarisch",
+            en: "egg foo young vegetarian",
+            de: "egg foo young vegetarisch",
+            zh: "素夫下",
+          },
+          description: {
+            nl: "omelet zondervlees in een zoete tomatensaus",
+            en: "omelet without meat in a sweet tomato sauce",
+            de: "Omelett ohne Fleisch in einer süßen Tomatensoße",
+            zh: "",
+          },
+          price: 0,
+        },
+        {
           id: "C",
           name: {
             nl: "tjap tjoy kip",
@@ -555,6 +635,22 @@ export default {
             nl: "roergebakken taugé, paprika, uien, champignons, bamboestrips en prei met kipfilet",
             en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek with chicken",
             de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch mit Hähnchen",
+            zh: "",
+          },
+          price: 0,
+        },
+        {
+          id: "VC",
+          name: {
+            nl: "tjap tjoy vegetarisch",
+            en: "tjap tjoy vegetarian",
+            de: "tjap tjoy vegetarisch",
+            zh: "素什菜",
+          },
+          description: {
+            nl: "roergebakken taugé, paprika, uien, champignons, bamboestrips en prei",
+            en: "stir fried beansprout, paprika, onion, mushrooms, bamboo shoots and leek",
+            de: "Gebratene Sojasprossen, Paprika, Zwiebeln, Champignons, Bambussprossen und Lauch",
             zh: "",
           },
           price: 0,
