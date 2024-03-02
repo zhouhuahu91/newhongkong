@@ -7,6 +7,8 @@ import usePath from "@/hooks/usePath";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Component imports
 import Cart from "@/components/cart/Cart";
+// Icon imports
+import CartIcon from "@/icons/CartIcon";
 
 const DesktopCart = ({ setOpen, setDelivery }) => {
   // t translates the text.
@@ -64,9 +66,7 @@ const DesktopCart = ({ setOpen, setDelivery }) => {
           <Cart />
         ) : (
           <div className="flex justify-center items-center h-52 pb-6">
-            <span className="text-gray-300 text-sm">
-              {t.your_cart_is_empty}
-            </span>
+            <CartIcon size="38" className="fill-gray-300" />
           </div>
         )}
       </div>

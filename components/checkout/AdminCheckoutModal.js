@@ -90,7 +90,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
       className="bg-white w-full max-w-md rounded-lg mx-2 overflow-hidden"
     >
       <div className="flex p-4 justify-between items-center border-b shadow">
-        <h1 className="font-semibold text-lg">Afhaal</h1>
+        <h1 className="font-semibold text-lg">Afrekenen</h1>
         <IconBtn onClick={() => setOpen(false)}>
           <CloseIcon />
         </IconBtn>

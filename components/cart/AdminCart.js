@@ -6,6 +6,8 @@ import AdminCheckoutModal from "@/components/checkout/AdminCheckoutModal";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import useI18n from "@/hooks/useI18n";
+// Icon imports
+import CartIcon from "@/icons/CartIcon";
 
 const AdminCart = ({}) => {
   const [checkOutModal, setCheckOutModal] = useState(false);
@@ -44,7 +46,7 @@ const AdminCart = ({}) => {
                 }
                 setCheckOutModal(true);
               }}
-              className={`button w-1/3 text-white ${
+              className={`button w-2/3 text-white ${
                 cartIsEmpty ? "bg-gray-300" : "bg-main"
               }`}
             >
@@ -53,27 +55,39 @@ const AdminCart = ({}) => {
             <button
               disabled={cartIsEmpty}
               onClick={() => router.push("/checkout")}
-              className={`button w-2/3 border ${
+              className={`button w-1/3 border ${
                 cartIsEmpty ? "bg-gray-300 text-white" : ""
               }`}
             >
-              Naar bestellen
+              Bestellen
             </button>
           </div>
-          <Cart />
+          {/* If there are no cart items we show a empty basket div. */}
+          {!cartIsEmpty ? (
+            <Cart />
+          ) : (
+            <div className="flex justify-center items-center h-52 pb-4">
+              <CartIcon size="38" className="fill-gray-300" />
+            </div>
+          )}
         </div>
 
-        <div className="mx-auto max-w-sm w-full px-2">
-          <button
-            onClick={() => {
-              dispatch({ type: "SET_DELIVERY", payload: !cartState.delivery });
-            }}
-            type="button"
-            className="text-xs text-gray-500 text-right w-full red-focus-text"
-          >
-            {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
-          </button>
-        </div>
+        {!cartIsEmpty && (
+          <div className="mx-auto max-w-sm w-full px-2">
+            <button
+              onClick={() => {
+                dispatch({
+                  type: "SET_DELIVERY",
+                  payload: !cartState.delivery,
+                });
+              }}
+              type="button"
+              className="text-xs text-gray-500 text-right w-full red-focus-text"
+            >
+              {cartState.delivery ? t.rather_pick_up : t.rather_deliver}
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
