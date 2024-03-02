@@ -14,7 +14,6 @@ const Card = ({ item }) => {
   const [open, setOpen] = useState(false);
   // t is to translate the text.
   const t = useI18n();
-  // Returns the state of the cart and cart methods with dispatch.
 
   return (
     <>
@@ -28,7 +27,7 @@ const Card = ({ item }) => {
         }}
         className="p-3 text-left flex flex-col rounded-lg bg-white hover:shadow hover:scale-[1.04] red-focus-ring transition-all ease-in border cursor-pointer"
       >
-        <h3 className="font-medium capitalize">{item.name[t.locale]}</h3>
+        <h3 className="font-medium capitalize">{item.name[t.locale]} </h3>
         <span className="text-xs text-gray-500 block my-2 flex-grow line-clamp-2">
           {item.description[t.locale]}
         </span>

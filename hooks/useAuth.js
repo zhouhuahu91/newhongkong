@@ -27,6 +27,9 @@ const useAuthProvider = () => {
   const [user, setUser] = useState(null);
   const [userUID, setUserUID] = useState(null);
 
+  // easier acces to admin token
+  const isAdmin = user ? user.admin : false;
+
   // This functions signs in the user.
   const signIn = async (email, password) => {
     try {
@@ -221,6 +224,7 @@ const useAuthProvider = () => {
     resetPassword,
     updateUser,
     user,
+    isAdmin,
   };
 };
 
