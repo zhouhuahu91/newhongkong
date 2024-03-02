@@ -131,7 +131,7 @@ const useStoreProvider = () => {
   // If we are not closed but we are closed for delivery and currently delivery is selected we need to revert it to "undecided".
   useEffect(() => {
     if (!closed && !storeInfo.openForDelivery && cartState.delivery === true) {
-      dispatch({ type: "SET_DELIVERY", payload: "undecided" });
+      dispatch({ type: "SET_DELIVERY", payload: false });
     }
   }, [closed, storeInfo.openForDelivery, cartState.delivery, dispatch]);
 

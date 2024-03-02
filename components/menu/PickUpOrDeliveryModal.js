@@ -131,40 +131,12 @@ const PickUpOrDeliveryModal = ({ open, setOpen, delivery, setDelivery }) => {
       return setOpen(false);
     }
   };
-  // If user already selected delivery but we close for delivery we need to switch it back to undecided.
+  // If user already selected delivery but we close for delivery we need to switch it back to false.
   useEffect(() => {
     if (delivery === true && openForDelivery === false) {
       setDelivery(false);
     }
   }, [openForDelivery]);
-
-  // Opens the modal when nothing is selected.
-  useEffect(() => {
-    const localCartState = JSON.parse(localStorage.getItem("localCartState"));
-    if (
-      // No need to open when we are closed.
-      !closed &&
-      // When it is admin we auto set delivery to false...
-      // so we do not need to open the modal.
-      !user?.admin &&
-      (localCartState?.delivery === "undecided" ||
-        !localCartState ||
-        // If user select delivery in checkout and the minimum is not matched the user gets redirect to menu page...
-        // Problem is that delivery is than set to true but there is no address input. Thats why we need to open this modal...
-        // ... so that the user is required to fill in address.
-        (localCartState.delivery === true && !localCartState.address.street))
-    ) {
-      setOpen(true);
-    }
-  }, []);
-
-  // If user is admin we automatically set delivery to false.
-  useEffect(() => {
-    if (user?.admin && cartState.delivery === "undecided") {
-      dispatch({ type: "SET_DELIVERY", payload: false });
-      setDelivery(false);
-    }
-  }, [user, cartState, setDelivery, dispatch]);
 
   // This useEffect fetches the address from an API if the postalcode and house number are valid.
   useEffect(() => {
