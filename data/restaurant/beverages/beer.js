@@ -2,34 +2,34 @@ import btw from "../../options/btw";
 
 export default {
   name: "bier",
-  id: "1100",
+  id: "11000",
   items: [
     {
-      id: "1101",
+      id: "11001",
       name: "heineken fluitje",
       price: 320,
       btw: btw.hoog,
     },
     {
-      id: "1102",
+      id: "11002",
       name: "heineken pull",
       price: 640,
       btw: btw.hoog,
     },
     {
-      id: "1103",
+      id: "11003",
       name: "heineken fles",
       price: 350,
       btw: btw.hoog,
     },
     {
-      id: "1104",
+      id: "11004",
       name: "heineken fles 0.0",
       price: 350,
       btw: btw.hoog,
     },
     {
-      id: "1105",
+      id: "11005",
       name: "amstel radler 0.0",
       price: 350,
       btw: btw.hoog,
