@@ -122,7 +122,7 @@ const Receipt = ({
 
   if (table.food.length === 0 && table.beverages.length === 0) {
     return (
-      <div className="w-full h-full flex justify-center mt-40 text-base capitalize font-medium">
+      <div className="w-full h-full flex justify-center mt-40 text-xs text-gray-400">
         nog niks besteld.
       </div>
     );

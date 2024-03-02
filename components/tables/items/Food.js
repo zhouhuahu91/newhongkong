@@ -147,7 +147,8 @@ const Food = ({
         type="button"
         className={`${buttonStyle} col-span-2 flex items-center justify-center gap-2`}
       >
-        <DishIcon size="28" /> <span className="font-medium">gerechten</span>
+        <DishIcon className="fill-inherit" />{" "}
+        <span className="font-medium text-inherit">gerechten</span>
       </button>
     );
   }

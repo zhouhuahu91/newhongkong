@@ -25,7 +25,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   }, []);
 
   const buttonStyle =
-    "h-[6.8rem] border p-4 rounded-md text-base hover:shadow-md capitalize font-medium transition-all hover:bg-orange-50";
+    "min-h-20 border p-4 rounded-md text-base shadow-md capitalize font-medium transition-all hover:text-main hover:border-2 hover:border-main hover:fill-main";
 
   return (
     <>

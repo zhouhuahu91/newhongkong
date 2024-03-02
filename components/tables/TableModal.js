@@ -258,7 +258,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
           <div className="border-b h-full max-h-24 flex justify-center p-4 shadow">
             <input
               value={tableName}
-              className="appearance-none focus:outline-none text-center font-bold text-2xl mt-6 pb-2"
+              className="appearance-none focus:outline-none text-center font-bold text-xl mt-6 pb-2"
               onChange={(e) => {
                 const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
                 const number = value === "" ? 0 : parseInt(value, 10); // If there is no digit at all we use 0

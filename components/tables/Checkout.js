@@ -202,7 +202,7 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
         type="button"
         className={`${buttonStyle} flex items-center justify-center gap-2 col-span-2`}
       >
-        <CashIcon />
+        <CashIcon size="20" className="fill-inherit" />
         naar betalen
       </button>
     );
