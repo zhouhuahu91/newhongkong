@@ -42,6 +42,7 @@ const CheckOut = () => {
   // Returns dispatch and cartState from cart provider.
   const {
     cartState,
+    dispatch,
     cartState: { delivery, paymentMethod, cart, tip },
   } = useCart();
   // We store stripe payment Intent here.
@@ -238,6 +239,8 @@ const CheckOut = () => {
       if (paymentMethod === "in_person") {
         // If user is admin we don't need to show the succes page.
         if (user?.admin) {
+          // We also need to reset the cart.
+          dispatch({ type: "RESET_CART" });
           return router.push("/menu");
         }
         // If user pays in person we send mail and add time slot on the server.
