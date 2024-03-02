@@ -80,4 +80,24 @@ export default [
     },
     price: 220,
   },
+  {
+    id: "B9",
+    name: {
+      nl: "grote nasi goreng",
+      en: "big fried rice",
+      de: "großer gebratener Reis",
+      zh: "大饭",
+    },
+    price: 200,
+  },
+  {
+    id: "B10",
+    name: {
+      nl: "grote bami goreng",
+      en: "big fried noodles",
+      de: "großer gebratener Nudeln",
+      zh: "大面",
+    },
+    price: 200,
+  },
 ];
