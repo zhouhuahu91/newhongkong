@@ -218,7 +218,6 @@ const useMenuProvider = () => {
       const filteredMenu = menus.filter((x) => x.id !== "config");
       const [config] = menus.filter((x) => x.id === "config");
       if (config.version !== version) {
-        console.log("updating version...");
         setData(filteredMenu);
         setFilteredData(filteredMenu);
       }
