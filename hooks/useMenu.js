@@ -33,8 +33,6 @@ const useMenuProvider = () => {
   // We need searchInput in different components.
   // Thats why I moved it in the context.
   const [searchInput, setSearchInput] = useState("");
-  // Ref for the search input
-  const searchInputRef = useRef();
   const [favoritesID, setFavoritesID] = useState([]);
   const [favoriteMenuItems, setFavoriteMenuItems] = useState([]);
   // these are the id's of dishes that are popular
@@ -233,7 +231,6 @@ const useMenuProvider = () => {
     resetFilter,
     searchInput,
     setSearchInput,
-    searchInputRef,
     favoritesID,
     favoriteMenuItems,
     toggleFavorite,
