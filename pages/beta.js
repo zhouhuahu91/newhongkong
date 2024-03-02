@@ -74,9 +74,8 @@ const Menu = () => {
               {/* This buttons brings the user back to categories. */}
               {selectedCategory === false && (
                 <motion.h2
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.2, ease: "linear" }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   className="font-medium capitalize ml-2"
                 >
                   {t.categories}
@@ -86,9 +85,8 @@ const Menu = () => {
               {/* This shows in what category the user is. */}
               {selectedCategory !== false && (
                 <motion.button
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.2, ease: "linear" }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   onClick={() => {
                     window.scrollTo({
                       top: 0,
