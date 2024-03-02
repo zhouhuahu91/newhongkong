@@ -32,7 +32,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.14 chagned maandmenu
 // version 0.0.15 added big sides
 // version 0.0.16 added vegetarian options to menus
-export const version = "0.0.16";
+// version 0.0.17 added the pinda suace to description of sauces.
+export const version = "0.0.17";
 
 export const data = [
   menus,

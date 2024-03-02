@@ -260,9 +260,9 @@ export default {
         zh: "酱",
       },
       description: {
-        nl: "± 250ml",
-        en: "± 250ml",
-        de: "± 250ml",
+        nl: "± 250ml bv. pindasaus",
+        en: "± 250ml e.g. peanut sauce",
+        de: "± 250ml z.B. Erdnusssoße",
         zh: "",
       },
       price: 280,
