@@ -123,10 +123,11 @@ const useTimePicker = () => {
         { threshold: 7500, time: 25 }, // For more than 75 euros
         { threshold: 5000, time: 20 }, // For more than 50 euros
         { threshold: 2500, time: 15 }, // For more than 25 euros
+        { threshold: 1000, time: 10 }, // For more than 25 euros
       ];
 
       // Default minimum waiting time is 10 minutes
-      let minWaitingTime = 10 * 60;
+      let minWaitingTime = 5 * 60;
 
       // Loop through the rules in descending order of threshold
       for (const rule of waitingTimeRules) {
