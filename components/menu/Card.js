@@ -9,7 +9,7 @@ import AddItemToCartModal from "@/components/menu/AddItemToCartModal";
 
 import { motion } from "framer-motion";
 
-const Card = ({ item, setOpenDeliveryOrPickUp }) => {
+const Card = ({ item }) => {
   // This state holds the open or closed modal for ItemModal.
   const [open, setOpen] = useState(false);
   // t is to translate the text.
@@ -18,12 +18,7 @@ const Card = ({ item, setOpenDeliveryOrPickUp }) => {
 
   return (
     <>
-      <AddItemToCartModal
-        setOpenDeliveryOrPickUp={setOpenDeliveryOrPickUp}
-        item={item}
-        open={open}
-        setOpen={setOpen}
-      />
+      <AddItemToCartModal item={item} open={open} setOpen={setOpen} />
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

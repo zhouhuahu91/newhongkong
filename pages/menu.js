@@ -100,13 +100,7 @@ const Menu = () => {
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
                   {popularMenuItems.map((item) => {
-                    return (
-                      <Card
-                        item={item}
-                        key={item.id}
-                        setOpenDeliveryOrPickUp={setOpen}
-                      />
-                    );
+                    return <Card item={item} key={item.id} />;
                   })}
                 </div>
               </div>
@@ -126,13 +120,7 @@ const Menu = () => {
                   </h2>
                   <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
                     {category.items.map((item) => {
-                      return (
-                        <Card
-                          key={item.id}
-                          item={item}
-                          setOpenDeliveryOrPickUp={setOpen}
-                        />
-                      );
+                      return <Card key={item.id} item={item} />;
                     })}
                   </div>
                 </div>

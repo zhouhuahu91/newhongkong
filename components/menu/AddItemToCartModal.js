@@ -10,7 +10,7 @@ import ItemModalContent from "../ItemModalContent";
 // Function imports
 import euro from "@/functions/euro";
 
-const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
+const NewItemModal = ({ item, open, setOpen }) => {
   // t is used to translate the text.
   const t = useI18n();
   // This hook is to acces cart dispatch
@@ -140,11 +140,6 @@ const NewItemModal = ({ item, open, setOpen, setOpenDeliveryOrPickUp }) => {
         </button>
         <button
           onClick={() => {
-            // If the user hasn't selected delivery or pick up, we open the modal for them to pick one.
-            if (cartState.delivery === "undecided") {
-              setOpen(false);
-              return setOpenDeliveryOrPickUp(true);
-            }
             addItemToCart();
           }}
           type="button"
