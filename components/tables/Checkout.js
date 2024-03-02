@@ -129,31 +129,13 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
           }}
           className={`${buttonStyle} col-span-2 flex items-center justify-center gap-2`}
         >
-          <PrintIcon />
+          <PrintIcon className="fill-inherit" />
           {table.printed && "opnieuw"} afdrukken
         </button>
         <button
           onClick={() => {
             updateDoc(doc(db, `tables/${table.id}`), {
-              paymentMethodType: "cash",
-            });
-          }}
-          className={`${buttonStyle} flex items-center justify-center gap-2 ${
-            table.paymentMethodType === "cash"
-              ? "border-main text-main selected"
-              : ""
-          }`}
-        >
-          <CashIcon
-            className={`${
-              table.paymentMethodType === "cash" ? "fill-main" : ""
-            }`}
-          />
-          contant
-        </button>
-        <button
-          onClick={() => {
-            updateDoc(doc(db, `tables/${table.id}`), {
+              paid: true,
               paymentMethodType: "card",
             });
           }}
@@ -164,27 +146,33 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
           }`}
         >
           <CreditCardIcon
-            className={`${
+            size="20"
+            className={`fill-inherit ${
               table.paymentMethodType === "card" ? "fill-main" : ""
             }`}
           />
           pinnen
         </button>
         <button
-          disabled={table.paid}
           onClick={() => {
-            if (!table.paymentMethodType) {
-              return setSnackbar("Selecteer een betaalmethode.");
-            }
             updateDoc(doc(db, `tables/${table.id}`), {
               paid: true,
+              paymentMethodType: "cash",
             });
           }}
-          className={`button col-span-2 mt-5 uppercase text-white ${
-            table.paid ? "bg-gray-300" : "bg-main"
+          className={`${buttonStyle} flex items-center justify-center gap-2 ${
+            table.paymentMethodType === "cash"
+              ? "border-main text-main selected"
+              : ""
           }`}
         >
-          {table.paid ? "is betaald" : "tafel op betaald zetten"}
+          <CashIcon
+            size="20"
+            className={`fill-inherit ${
+              table.paymentMethodType === "cash" ? "fill-main" : ""
+            }`}
+          />
+          contant
         </button>
       </>
     );
