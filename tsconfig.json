@@ -14,7 +14,6 @@
       // "@/dashboard/*": ["components/dashboard/*"],
       // "@/cart/*": ["components/cart/*"],
       // "@/menu/*": ["components/menu/*"],
-      // "@/chat/*": ["components/chat/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

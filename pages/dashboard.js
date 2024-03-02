@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import Header from "@/components/dashboard/DashboardHeader";
 import OrderCard from "@/components/dashboard/OrderCard";
 import Spinner from "@/components/Spinner";
-import DashboardChat from "@/components/dashboard/DashboardChat";
 import DeleteTimeSlotModal from "@/components/dashboard/DeleteTimeSlotModal";
 import ToolTip from "@/components/ToolTip";
 import PrintIcon from "@/icons/PrintIcon";
@@ -47,9 +46,6 @@ const Dashboard = () => {
   // The job currently in the printer.
   // Should never be more than one.
   const [printJobs, setPrintJobs] = useState([]);
-  // We need the toggle for the chat modal here because when chat is open...
-  // ... we need to disable the enter click event.
-  const [chatModal, setChatModal] = useState(false);
 
   const totalTips = orders.reduce((x, y) => (y.delivery ? x + y.tip : x), 0);
 
@@ -74,8 +70,7 @@ const Dashboard = () => {
   useEffect(() => {
     // listen for enter key
     const handleKeyDown = async (e) => {
-      // chatModal has it's own enter key listener.
-      if (e.key === "Enter" && lastSelectedOrder && !chatModal) {
+      if (e.key === "Enter" && lastSelectedOrder) {
         const ref = doc(db, `orders/${lastSelectedOrder.id}`);
         const [order] = orders.filter((x) => x.id === lastSelectedOrder.id);
         // If there is no order we return.
@@ -99,7 +94,7 @@ const Dashboard = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [lastSelectedOrder, chatModal, orders]);
+  }, [lastSelectedOrder, orders]);
 
   useEffect(() => {
     // We only need to sounds the audio when there are orders that are not printed
@@ -350,7 +345,6 @@ const Dashboard = () => {
           {/* ***** END FOURTH COLUMN ****** */}
         </div>
       </div>
-      <DashboardChat open={chatModal} setOpen={setChatModal} />
     </div>
   );
 };
