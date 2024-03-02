@@ -17,10 +17,11 @@ const Search = () => {
   // Holds state for focus on input to change styling for parent div.
   const [inputFocus, setInputFocus] = useState(false);
   // This returns functions to filter the data.
-  const { searchInput, setSearchInput, searchInputRef } = useMenu();
+  const { searchInput, setSearchInput } = useMenu();
   // We need the input ref to focus it when we clear the input.
 
   const searchContainerRef = useRef();
+  const searchInputRef = useRef();
 
   useOnClickOutside(searchContainerRef, () => {
     if (searchInput === "") {
