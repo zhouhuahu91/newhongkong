@@ -68,20 +68,30 @@ const Menu = () => {
           {/* This is the container where all the cards are.*/}
           <div className="col-span-12 md:col-span-6 lg:col-span-7 w-full mt-4">
             {/* This div contains the title of where we are and the search. */}
-            <div className="flex items-center text-lg gap-1 mb-5 relative">
+            <div className="flex items-center text-lg gap-2 mb-5 relative">
               {/* This return the search */}
               <Search />
               {/* This buttons brings the user back to categories. */}
-              {selectedCategory === false && (
-                <motion.h2
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="font-medium capitalize ml-2"
-                >
-                  {t.categories}
-                </motion.h2>
-              )}
+              <motion.button
+                disabled={!selectedCategory}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                onClick={() => {
+                  window.scrollTo({
+                    top: 0,
+                    behavior: "smooth",
+                  });
 
+                  setSelectedCategory(false);
+                }}
+                className={`${
+                  selectedCategory === false
+                    ? ""
+                    : "hidden sm:block md:hidden lg:block"
+                } font-medium capitalize ml-2 hover:text-main disabled:hover:text-gray-700`}
+              >
+                {t.categories}
+              </motion.button>
               {/* This shows in what category the user is. */}
               {selectedCategory !== false && (
                 <motion.button
@@ -97,7 +107,8 @@ const Menu = () => {
                   }}
                   className="flex items-center gap-1 hover:text-main hover:fill-main"
                 >
-                  <ChevronLeftIcon className="fill-inherit" />
+                  <ChevronLeftIcon className="fill-inherit block sm:hidden md:block lg:hidden" />
+                  <ChevronRightIcon className="hidden sm:block md:hidden lg:block" />
                   <span className="font-medium capitalize text-inherit">
                     {selectedCategory[t.locale]}
                   </span>
