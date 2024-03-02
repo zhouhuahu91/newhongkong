@@ -236,6 +236,10 @@ const CheckOut = () => {
       // 1. User pays in person.
       // 2. User pays online.
       if (paymentMethod === "in_person") {
+        // If user is admin we don't need to show the succes page.
+        if (user?.admin) {
+          return router.push("/menu");
+        }
         // If user pays in person we send mail and add time slot on the server.
         router.push(`/succes?redirect_status=succeeded&id=${id}`);
       } else if (paymentMethod === "online") {
