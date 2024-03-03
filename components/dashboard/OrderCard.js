@@ -50,10 +50,10 @@ const OrderCard = ({
   // If it already tried we don't want it to do it again to prevent infinite looping when printer is offline.
   const [autoPrint, setAutoPrint] = useState(true);
   // We want to show a cookie Icon if orders has kroepoek. ID of kroepoek
-  const kroepoek = ["15", "1500"];
-  const orderHasKroepoek = order.cart.filter((item) =>
-    kroepoek.includes(item.id)
-  );
+  const kroepoek = ["14", "15", "1500"];
+  const orderHasKroepoek = order.cart
+    .filter((item) => kroepoek.includes(item.id))
+    .map((item) => item.id);
 
   const destination = `${order.address.street}+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
@@ -145,15 +145,21 @@ const OrderCard = ({
           <div className="flex items-center space-x-3 justify-between">
             {/* ***** THIS PART SHOWS THE NAME AND DELETE ICON ***** */}
 
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center gap-2">
               <div
                 className={`font-semibold text-2xl capitalize flex items-center gap-2 ${
                   order.canceled && "line-through"
                 }`}
               >
                 {order.name}
-                {!!orderHasKroepoek.length && (
-                  <CookieIcon className="fill-main" />
+                {orderHasKroepoek.some((id) => kroepoek.includes(id)) && (
+                  <CookieIcon
+                    className={`${
+                      orderHasKroepoek.includes("15")
+                        ? "fill-main"
+                        : "fill-yellow-500"
+                    }`}
+                  />
                 )}
               </div>
               {/* We do not want to delete orders where the payment method is online. */}
