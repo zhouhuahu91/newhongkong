@@ -25,6 +25,7 @@ import PedalBikeIcon from "@/icons/PedalBikeIcon";
 import DeleteIcon from "@/icons/DeleteIcon";
 import CloseIcon from "@/icons/CloseIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
+import CookieIcon from "@/icons/CookieIcon";
 import CashIcon from "@/icons/CashIcon";
 import UndoIcon from "@/icons/UndoIcon";
 import WarningIcon from "@/icons/WarningIcon";
@@ -48,6 +49,11 @@ const OrderCard = ({
   // This bolean shows if the order are already tried auto printing or not.
   // If it already tried we don't want it to do it again to prevent infinite looping when printer is offline.
   const [autoPrint, setAutoPrint] = useState(true);
+  // We want to show a cookie Icon if orders has kroepoek. ID of kroepoek
+  const kroepoek = ["15", "1500"];
+  const orderHasKroepoek = order.cart.filter((item) =>
+    kroepoek.includes(item.id)
+  );
 
   const destination = `${order.address.street}+${order.address.houseNumber}${
     order.address.addition ? `+${order.address.addition}` : ""
@@ -140,13 +146,16 @@ const OrderCard = ({
             {/* ***** THIS PART SHOWS THE NAME AND DELETE ICON ***** */}
 
             <div className="flex items-center space-x-3">
-              <h3
-                className={`font-semibold text-2xl capitalize ${
+              <div
+                className={`font-semibold text-2xl capitalize flex items-center gap-2 ${
                   order.canceled && "line-through"
                 }`}
               >
                 {order.name}
-              </h3>
+                {!!orderHasKroepoek.length && (
+                  <CookieIcon className="fill-main" />
+                )}
+              </div>
               {/* We do not want to delete orders where the payment method is online. */}
               {!(order.paymentMethod === "online" && order.paid) &&
                 user?.admin && (
