@@ -152,15 +152,6 @@ const OrderCard = ({
                 }`}
               >
                 {order.name}
-                {orderHasKroepoek.some((id) => kroepoek.includes(id)) && (
-                  <CookieIcon
-                    className={`${
-                      orderHasKroepoek.includes("15")
-                        ? "fill-main"
-                        : "fill-yellow-500"
-                    }`}
-                  />
-                )}
               </div>
               {/* We do not want to delete orders where the payment method is online. */}
               {!(order.paymentMethod === "online" && order.paid) &&
@@ -259,7 +250,7 @@ const OrderCard = ({
 
           {/* ***** END OF PRINT, RECEIPT, CLOSE AND UNDO ICON ***** */}
 
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-end">
             <div>
               <div className="flex items-center space-x-2">
                 <span className="text-xl font-semibold">
@@ -288,7 +279,17 @@ const OrderCard = ({
                   </a>
                 )}
                 {!order.delivery && !order.bag && (
-                  <NoBagIcon className="fill-main mb-0.5" />
+                  <NoBagIcon size="20" className="fill-main mb-0.5" />
+                )}
+                {orderHasKroepoek.some((id) => kroepoek.includes(id)) && (
+                  <CookieIcon
+                    size="22"
+                    className={`${
+                      orderHasKroepoek.includes("15")
+                        ? "fill-main"
+                        : "fill-yellow-500"
+                    }`}
+                  />
                 )}
               </div>
               {order.delivery && (
@@ -303,11 +304,11 @@ const OrderCard = ({
                   {order.address.addition
                     ? `-${order.address.addition}`
                     : ""}{" "}
-                  <MapIcon size="16" className="mb-0.5 ml-1" />
+                  {/* <MapIcon size="20" className="mb-0.5 ml-1" /> */}
                 </span>
               )}
             </div>
-            <div className="flex items-center">
+            <div className="flex h-full items-center">
               <span className="text-xl font-semibold mr-3">
                 {euro(order.total)}
               </span>
