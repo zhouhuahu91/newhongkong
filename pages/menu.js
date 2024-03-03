@@ -36,7 +36,7 @@ const Menu = () => {
     favoriteMenuItems,
     popularMenuItems,
   } = useMenu();
-  const { user } = useAuth();
+  const { isAdmin } = useAuth();
   // t is to translate the text.
   const t = useI18n();
   // This ref holds all the category divs. We need it for category header...
@@ -71,12 +71,12 @@ const Menu = () => {
             {/* If there are not favorite items or the user is searching we remove favorites. */}
             {!!favoriteMenuItems.length && !searchInput.length && (
               <div className="">
-                <h2 className="font-semibold text-2xl capitalize mt-8 mb-4 flex items-center">
+                <div className="font-semibold text-2xl capitalize mt-8 mb-4 flex items-center">
                   {t.favorites}{" "}
                   <span className="ml-2">
                     <FavoriteIcon className="fill-main" filled={true} />
                   </span>
-                </h2>
+                </div>
                 <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
                   {favoriteMenuItems.map((item) => {
                     return (
@@ -96,7 +96,7 @@ const Menu = () => {
                   <h2 className="font-semibold text-2xl capitalize">
                     {t.popular}
                   </h2>
-                  {user && user?.admin && <SpecialDishModal />}
+                  {isAdmin && <SpecialDishModal />}
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
                   {popularMenuItems.map((item) => {
@@ -106,9 +106,8 @@ const Menu = () => {
               </div>
             )}
             {filteredData.map((category, idx) => {
-              if (category.adminOnly) {
-                if (!user?.admin) return;
-              }
+              // If category is only for admin but user is not admin we return
+              if (category.adminOnly && !isAdmin) return;
               return (
                 <div
                   ref={(e) => (categoryRef.current[idx] = e)}
@@ -132,7 +131,7 @@ const Menu = () => {
             {/* This span is needed so that the desktop starts on the same height as the menu without title. */}
             {/* <DesktopCart setOpen={setOpen} setDelivery={setDelivery} /> */}
 
-            {user && user?.admin === true ? (
+            {isAdmin === true ? (
               <AdminCart />
             ) : (
               <DesktopCart setOpen={setOpen} setDelivery={setDelivery} />
