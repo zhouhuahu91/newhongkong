@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 // Hook imports
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 import { useMenu } from "@/hooks/useMenu";
-import useWindowSize from "@/hooks/useWindowSize";
 // Component imports
 import IconBtn from "@/components/IconBtn";
 import CloseIcon from "@/icons/CloseIcon";
@@ -37,14 +36,9 @@ const Search = () => {
   }, [open]);
 
   const handleKeyDown = (e) => {
-    // If user starts typing 0-9 or a-z we open the search.
-    if (/^[0-9a-zA-Z]$/.test(e.key)) {
-      if (open === false) {
-        setOpen(true);
-      }
-      if (searchInputRef.current) {
-        searchInputRef.current.focus();
-      }
+    // if user presses shift enter we open or close chat
+    if (e.key === "Enter" && e.shiftKey) {
+      setOpen((prev) => !prev);
     }
     // If user presses backspace and search is open
     if (e.key === "Backspace" && open) {
@@ -52,7 +46,6 @@ const Search = () => {
         searchInputRef.current.focus();
       }
     }
-
     // If user presses escape we close the search
     if (e.key === "Escape" && open) {
       setOpen(false);
