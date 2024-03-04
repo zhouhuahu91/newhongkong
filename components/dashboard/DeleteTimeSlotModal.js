@@ -21,6 +21,7 @@ import getCurrentDate from "@/functions/getCurrentDate";
 
 const DeleteTimeSlotModal = () => {
   const [open, setOpen] = useState(false);
+  const [buttonText, setButtonText] = useState("Afhaal");
   const timeSlots = useTimePicker();
   const t = useI18n();
   const { cartState, dispatch } = useCart();
@@ -35,13 +36,17 @@ const DeleteTimeSlotModal = () => {
   return (
     <>
       <button
+        onMouseEnter={() =>
+          timeSlots.length > 0 ? setButtonText(timeSlots[0]) : null
+        }
+        onMouseLeave={() => setButtonText("Afhaal")}
         onClick={() => setOpen(true)}
         className={`text-xl font-medium text-center ${
           storeInfo.asap ? "" : "text-main"
         }`}
       >
         {/* If this text is red aka main than it means the asap for delivery is off. */}
-        Nieuw
+        {buttonText}
       </button>
       <Modal
         className="max-w-sm w-full mx-2 bg-white rounded-lg overflow-hidden"
