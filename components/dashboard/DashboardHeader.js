@@ -32,10 +32,10 @@ const DashboardHeader = ({
           </Link>
         </div>
         <BurgerMenu />
+        <h1 className="hidden sm:block text-3xl font-semibold absolute right-1/2 translate-x-1/2">
+          {digitalCurrentTime}
+        </h1>
         <div className="flex items-center text-xl">
-          <span className="mt-1 hidden sm:block font-medium -mr-0.5">
-            {digitalCurrentTime}
-          </span>
           <DatePicker date={date} setDate={setDate} />
           <Switch
             className="mr-3 ml-1"

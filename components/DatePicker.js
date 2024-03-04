@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 // Function imports
 import getCurrentDate from "@/functions/getCurrentDate";
+import getFullDate from "@/functions/getFullDate";
 // Date Picker imports
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -30,14 +31,16 @@ const DatePickerComponent = ({ setDate, className, date, top }) => {
           setShow((prev) => !prev);
         }}
         type="button"
-        className="flex items-center red-focus-ring px-1 rounded-md"
+        className={`flex items-center red-focus-ring px-1 rounded-md ${
+          getCurrentDate() !== date ? "fill-main text-main" : ""
+        }`}
       >
-        <span className={`mt-1 mr-2 font-medium hidden sm:block mb-0.5`}>
-          {date}
+        <span
+          className={`mt-1 mr-2 font-medium hidden sm:block mb-0.5 text-inherit`}
+        >
+          {getFullDate(selectedDate)}
         </span>
-        <CalendarIcon
-          className={`${getCurrentDate() !== date && "fill-main"}`}
-        />
+        <CalendarIcon className="fill-inherit" />
       </button>
       <AnimatePresence>
         {show && (
