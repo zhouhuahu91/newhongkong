@@ -134,7 +134,7 @@ const TablesModal = ({ date }) => {
         }}
         className="w-full max-w-[1080px] grid grid-cols-10 border shadow-md rounded-xl bg-white gap-2 overflow-hidden"
       >
-        <div className="w-full relative h-[770px] col-span-8 border bg-white">
+        <div className="w-full relative h-[770px] col-span-8 border bg-white text-base">
           {physicalTables.map((physicalTable) => {
             return (
               <Table
