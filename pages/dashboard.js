@@ -13,6 +13,7 @@ import DeleteTimeSlotModal from "@/components/dashboard/DeleteTimeSlotModal";
 import ToolTip from "@/components/ToolTip";
 import PrintIcon from "@/icons/PrintIcon";
 import IconBtn from "@/components/IconBtn";
+import Switch from "@/components/Switch";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -38,7 +39,8 @@ const Dashboard = () => {
   // Audio will be stored here
   const [audio, setAudio] = useState(null);
   // Show orders that are completed or not.
-  const [showCompleted, setShowCompleted] = useState(false);
+  const [showCompletedTakeAway, setShowCompletedTakeAway] = useState(false);
+  const [showCompletedDelivery, setShowCompletedDelivery] = useState(false);
   // Dashboard displays the orders made on this date.
   const [date, setDate] = useState(currentDate);
   // This state holds the id of the last selected order.
@@ -182,8 +184,6 @@ const Dashboard = () => {
       <Header
         date={date}
         setDate={setDate}
-        showCompleted={showCompleted}
-        setShowCompleted={setShowCompleted}
         printJobs={printJobs}
         orders={orders}
       />
@@ -279,14 +279,18 @@ const Dashboard = () => {
           {/* ***** START THIRD COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <h1 className="text-xl font-medium mb-4 text-center border-b">
-              Afhaal
-            </h1>
+            <div className="flex items-center gap-2 justify-center mb-4 border-b">
+              <span className="text-xl font-medium">Afhaal</span>
+              <Switch
+                toggle={showCompletedTakeAway}
+                onClick={() => setShowCompletedTakeAway((prev) => !prev)}
+              />
+            </div>
             <div className="grid gap-4">
               {/* These are orders that are printed and ready for pickup. */}
               {orders.map((order) => {
                 // If order is already completed and show order is false we return
-                if (order.completed && showCompleted === false) return;
+                if (order.completed && showCompletedTakeAway === false) return;
                 if (order.printed && order.ready && !order.delivery)
                   return (
                     <OrderCard
@@ -310,20 +314,24 @@ const Dashboard = () => {
           {/* ***** START FOURTH COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <div className="text-xl font-medium mb-4 text-center border-b flex justify-center items-center">
-              <h1 className="mr-2">Bezorgen</h1>
+            <div className="mb-4 border-b flex justify-center items-center gap-2">
+              <span className="text-xl font-medium">Bezorgen</span>
               <ToolTip
                 tip={`total tips: ${euro(totalTips)} ${
                   totalTips > 0 ? "🥳" : "😭"
                 }`}
                 size="big"
               />
+              <Switch
+                toggle={showCompletedDelivery}
+                onClick={() => setShowCompletedDelivery((prev) => !prev)}
+              />
             </div>
             <div className="grid gap-4">
               {/* These are orders that are on the way */}
               {orders.map((order) => {
                 // If order is already completed and show order is false we return
-                if (order.completed && showCompleted === false) return;
+                if (order.completed && showCompletedDelivery === false) return;
                 if (order.printed && order.ready && order.delivery)
                   return (
                     <OrderCard

@@ -9,14 +9,7 @@ import StoreSettings from "@/components/dashboard/StoreSettings";
 import BurgerMenu from "@/components/header/BurgerMenu";
 import TablesModal from "@/components/dashboard/TablesModal";
 
-const DashboardHeader = ({
-  date,
-  setDate,
-  showCompleted,
-  setShowCompleted,
-  orders,
-  printJobs,
-}) => {
+const DashboardHeader = ({ date, setDate, orders, printJobs }) => {
   const { digitalCurrentTime } = useStoreInfo();
 
   return (
@@ -37,11 +30,6 @@ const DashboardHeader = ({
         </h1>
         <div className="flex items-center text-xl">
           <DatePicker date={date} setDate={setDate} />
-          <Switch
-            className="mr-3 ml-1"
-            toggle={showCompleted}
-            onClick={() => setShowCompleted((prev) => !prev)}
-          />
           <TablesModal date={date} />
           <StoreSettings date={date} orders={orders} printJobs={printJobs} />
         </div>
