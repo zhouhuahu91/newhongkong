@@ -65,7 +65,7 @@ const Beverages = ({
                   className={`${buttonStyle} flex flex-col justify-between text-left`}
                 >
                   <span className="text-inherit font-medium">{item.name}</span>
-                  <span className="text-sm">{euro(item.price)}</span>
+                  <span className="text-xs">{euro(item.price)}</span>
                 </button>
               );
             });

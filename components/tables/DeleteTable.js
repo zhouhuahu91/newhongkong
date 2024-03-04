@@ -31,7 +31,7 @@ const DeleteTable = ({ table, mainCategory, setMainCategory, buttonStyle }) => {
             const ref = doc(db, `tables/${table.id}`);
             deleteDoc(ref);
           }}
-          className={`h-20 border text-base p-4 rounded-md hover:shadow-md font-medium bg-main text-white flex items-center justify-center`}
+          className={`h-20 border text-base p-4 rounded-md font-medium bg-main text-white flex items-center justify-center hover:shadow hover:scale-[1.04] red-focus-ring`}
         >
           <DeleteIcon className="fill-white mr-2" />
           Verwijderen

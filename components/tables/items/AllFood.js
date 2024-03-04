@@ -150,7 +150,7 @@ const AllFood = ({
               key={option.id}
             >
               <span className="text-inherit font-medium">{option.name.nl}</span>
-              <span className="text-sm">
+              <span className="text-xs">
                 {option.price > 0 ? euro(option.price) : "gratis"}
               </span>
             </button>
@@ -206,7 +206,7 @@ const AllFood = ({
               key={side.id}
             >
               <span className="text-inherit font-medium">{side.name.nl}</span>
-              <span className="text-sm">
+              <span className="text-xs">
                 {side.price > 0 ? euro(side.price) : "gratis"}
               </span>
             </button>
@@ -254,7 +254,7 @@ const AllFood = ({
                   <span className="text-inherit font-medium">
                     {item.name?.nl}
                   </span>
-                  <span className="text-sm">{euro(item.price)}</span>
+                  <span className="text-xs">{euro(item.price)}</span>
                 </button>
               );
             });

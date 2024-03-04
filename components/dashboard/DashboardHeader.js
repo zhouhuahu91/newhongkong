@@ -7,7 +7,6 @@ import DatePicker from "@/components/DatePicker";
 import Switch from "@/components/Switch";
 import StoreSettings from "@/components/dashboard/StoreSettings";
 import BurgerMenu from "@/components/header/BurgerMenu";
-import DailyReportModal from "@/components/dashboard/DailyReportModal";
 import TablesModal from "@/components/dashboard/TablesModal";
 
 const DashboardHeader = ({
@@ -15,8 +14,8 @@ const DashboardHeader = ({
   setDate,
   showCompleted,
   setShowCompleted,
-  printJobs,
   orders,
+  printJobs,
 }) => {
   const { digitalCurrentTime } = useStoreInfo();
 
@@ -44,8 +43,7 @@ const DashboardHeader = ({
             onClick={() => setShowCompleted((prev) => !prev)}
           />
           <TablesModal date={date} />
-          <DailyReportModal date={date} printJobs={printJobs} orders={orders} />
-          <StoreSettings />
+          <StoreSettings date={date} orders={orders} printJobs={printJobs} />
         </div>
       </div>
     </header>

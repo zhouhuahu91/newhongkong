@@ -12,13 +12,14 @@ import Modal from "@/components/Modal";
 import Switch from "@/components/Switch";
 import BoltIcon from "@/icons/BoltIcon";
 import AddEmployeeRoll from "@/components/dashboard/AddEmployeeRoll";
+import DailyReportModal from "@/components/dashboard/DailyReportModal";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 // Function imports
 import getDigitalTime from "@/functions/getDigitalTime";
 
-const StoreSettings = () => {
+const StoreSettings = ({ date, printJobs, orders }) => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [settings, setSettings] = useState([]);
@@ -84,6 +85,11 @@ const StoreSettings = () => {
           <div className="flex items-center">
             <h2 className="text-lg font-normal mr-2">Store Settings</h2>
             <AddEmployeeRoll />
+            <DailyReportModal
+              date={date}
+              printJobs={printJobs}
+              orders={orders}
+            />
           </div>
           <IconBtn
             onClick={() => {

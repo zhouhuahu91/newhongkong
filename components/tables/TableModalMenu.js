@@ -25,7 +25,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   }, []);
 
   const buttonStyle =
-    "min-h-20 border p-4 rounded-md text-base shadow-md capitalize font-medium transition-all hover:text-main hover:border-2 hover:border-main hover:fill-main";
+    "min-h-20 border p-4 rounded-md text-base capitalize font-medium transition-all hover:shadow hover:scale-[1.04] red-focus-ring";
 
   return (
     <>
@@ -91,7 +91,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
       {/* If mainCategory is false these will return a button which will select their... */}
       {/* category as the main one. */}
       {/* css is a pain in the ass need to do mt 97px so that items don't start below menu */}
-      <div className="grid grid-cols-2 px-8 py-4 gap-2 overflow-scroll mt-[97px]">
+      <div className="grid grid-cols-2 px-8 py-4 gap-3 overflow-scroll mt-[97px]">
         <Beverages
           buttonStyle={buttonStyle}
           subCategory={subCategory}
