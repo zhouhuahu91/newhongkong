@@ -14,6 +14,7 @@ import ToolTip from "@/components/ToolTip";
 import PrintIcon from "@/icons/PrintIcon";
 import IconBtn from "@/components/IconBtn";
 import Switch from "@/components/Switch";
+import AlarmIcon from "@/icons/AlarmIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -38,6 +39,8 @@ const Dashboard = () => {
   const [ordersLength, setOrdersLength] = useState(0);
   // Audio will be stored here
   const [audio, setAudio] = useState(null);
+  // State turns on and off the notifications
+  const [notifications, setNotifications] = useState(false);
   // Show orders that are completed or not.
   const [showCompletedTakeAway, setShowCompletedTakeAway] = useState(false);
   const [showCompletedDelivery, setShowCompletedDelivery] = useState(false);
@@ -107,7 +110,9 @@ const Dashboard = () => {
     }
     // If this is true we play the audio and set the new orders counts.
     if (newOrders.length > ordersLength && audio) {
-      audio.play();
+      if (notifications) {
+        audio.play();
+      }
       setOrdersLength(newOrders.length);
     }
   }, [audio, ordersLength, orders]);
@@ -194,18 +199,10 @@ const Dashboard = () => {
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <div className="mb-4 border-b flex justify-center items-center gap-2">
               <DeleteTimeSlotModal />
-              <IconBtn
-                // disable the button if there are no print jobs.
-                disabled={printJobs.length < 1}
-                onClick={() =>
-                  printJobs.forEach(async (job) => {
-                    const ref = doc(db, `printer/${job.id}`);
-                    await deleteDoc(ref);
-                  })
-                }
-              >
-                <PrintIcon
-                  className={printJobs.length > 0 ? "animate-bounce" : ""}
+              <IconBtn onClick={() => setNotifications((prev) => !prev)}>
+                <AlarmIcon
+                  className={`${notifications ? "" : "fill-main"}`}
+                  on={notifications}
                 />
               </IconBtn>
             </div>
@@ -250,9 +247,23 @@ const Dashboard = () => {
           {/* ***** START SECOND COLUMN ****** */}
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
-            <h1 className="text-xl font-medium mb-4 text-center border-b">
-              Keuken
-            </h1>
+            <div className="mb-4 flex items-center justify-center gap-2 border-b">
+              <span className="text-xl font-medium">Keuken</span>
+              <IconBtn
+                // disable the button if there are no print jobs.
+                disabled={printJobs.length < 1}
+                onClick={() =>
+                  printJobs.forEach(async (job) => {
+                    const ref = doc(db, `printer/${job.id}`);
+                    await deleteDoc(ref);
+                  })
+                }
+              >
+                <PrintIcon
+                  className={printJobs.length > 0 ? "animate-bounce" : ""}
+                />
+              </IconBtn>
+            </div>
             <div className="grid gap-4">
               {/* these are the orders that are in the kitchen. */}
               {orders.map((order) => {
