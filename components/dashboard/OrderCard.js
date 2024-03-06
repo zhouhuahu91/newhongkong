@@ -40,6 +40,7 @@ const OrderCard = ({
   isPrinting,
   printerBusy,
   firstInLine,
+  printer,
 }) => {
   const [open, setOpen] = useState(false);
   const [openDeleteOrderModal, setOpenDeleteOrderModal] = useState(false);
@@ -63,6 +64,8 @@ const OrderCard = ({
 
   // Check if this order is at the printer
   const sendOrderToPrinter = async (order) => {
+    // If printer is offline we retunr
+    if (!printer) return;
     // If printer already has this order inside it means it is printing it already.
     if (isPrinting) return;
     // If printer is printing different order.
@@ -77,6 +80,7 @@ const OrderCard = ({
 
   // There are a lot of reasons not to auto print an order.
   const autoPrintOrder = async (order) => {
+    if (!printer) return; // If printer is offline we don't need to auto print
     if (isPrinting) return; // If order is already in process of being printed.
     if (printerBusy) return; // Printer is already in printing different order.
     if (order.delivery) return; // If order is for delivery

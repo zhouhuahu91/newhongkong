@@ -51,6 +51,8 @@ const Dashboard = () => {
   // The job currently in the printer.
   // Should never be more than one.
   const [printJobs, setPrintJobs] = useState([]);
+  // State for autoprints
+  const [printer, setPrinter] = useState(false);
 
   const totalTips = orders.reduce((x, y) => (y.delivery ? x + y.tip : x), 0);
 
@@ -225,6 +227,7 @@ const Dashboard = () => {
                   });
                   return (
                     <OrderCard
+                      printer={printer}
                       firstInLine={firstInLine}
                       key={order.id}
                       order={order}
@@ -250,17 +253,21 @@ const Dashboard = () => {
             <div className="mb-4 flex items-center justify-center gap-2 border-b">
               <span className="text-xl font-medium">Keuken</span>
               <IconBtn
-                // disable the button if there are no print jobs.
-                disabled={printJobs.length < 1}
-                onClick={() =>
-                  printJobs.forEach(async (job) => {
-                    const ref = doc(db, `printer/${job.id}`);
-                    await deleteDoc(ref);
-                  })
-                }
+                onClick={() => {
+                  if (printJobs.length > 0) {
+                    return printJobs.forEach(async (job) => {
+                      const ref = doc(db, `printer/${job.id}`);
+                      await deleteDoc(ref);
+                    });
+                  }
+                  setPrinter((prev) => !prev);
+                }}
               >
                 <PrintIcon
-                  className={printJobs.length > 0 ? "animate-bounce" : ""}
+                  off={!printer}
+                  className={`${printJobs.length > 0 ? "animate-bounce" : ""} ${
+                    printer ? "" : "fill-main"
+                  }`}
                 />
               </IconBtn>
             </div>
@@ -270,6 +277,7 @@ const Dashboard = () => {
                 if (order.printed && !order.ready)
                   return (
                     <OrderCard
+                      printer={printer}
                       key={order.id}
                       order={order}
                       // We use this to disable print if there is already an order printing.
@@ -306,6 +314,7 @@ const Dashboard = () => {
                   return (
                     <OrderCard
                       key={order.id}
+                      printer={printer}
                       order={order}
                       // We use this to disable print if there is already an order printing.
                       printerBusy={printJobs.length > 0}
@@ -347,6 +356,7 @@ const Dashboard = () => {
                   return (
                     <OrderCard
                       key={order.id}
+                      printer={printer}
                       order={order}
                       // We use this to disable print if there is already an order printing.
                       printerBusy={printJobs.length > 0}
