@@ -8,8 +8,6 @@ import useWindowSize from "@/hooks/useWindowSize";
 import useI18n from "@/hooks/useI18n";
 // Icon imports
 import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
-// Third party library imports
-import { motion, AnimatePresence } from "framer-motion";
 
 const Home = () => {
   // This state is used to change between titles on home page, true for chinese and false for english.
@@ -26,57 +24,38 @@ const Home = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setChinese((prev) => !prev);
-      // Every 8 seconds we switch from new hong kong => 新香港酒楼
-    }, 6000);
+      // Every 5 seconds we switch from new hong kong => 新香港酒楼
+    }, 5000);
     return () => clearInterval(interval); // We clear the interval.
   }, []);
 
   return (
     <div className="bg-main flex items-center justify-center">
       {/* We make sure that animations finsihes before we start the next one. */}
-      <AnimatePresence exitBeforeEnter>
-        {chinese && (
-          <motion.div
-            key="chinese"
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: 1,
-              transition: { duration: 2, type: "tween" },
-            }}
-            exit={{ opacity: 0, transition: { duration: 2, type: "tween" } }}
-            className="absolute top-40 sm:top-28 md:top-36"
-          >
-            {width && (
-              // This time we use an svg this way we do not have to import a font just for the index title.
-              <Image
-                src="/title_chinese.svg"
-                width={width > 768 ? 320 : width > 640 ? 256 : 192}
-                height={width > 768 ? 480 : width > 640 ? 384 : 288}
-                alt="new hong kong in chinese"
-                priority={true}
-              />
-            )}
-          </motion.div>
+      <div
+        className={`absolute top-40 sm:top-28 md:top-36 transition-opacity duration-[3000ms] ${
+          chinese ? "opacity-100 delay-[1600ms]" : "opacity-0"
+        }`}
+      >
+        {width && (
+          // This time we use an svg this way we do not have to import a font just for the index title.
+          <Image
+            src="/title_chinese.svg"
+            width={width > 768 ? 320 : width > 640 ? 256 : 192}
+            height={width > 768 ? 480 : width > 640 ? 384 : 288}
+            alt="new hong kong in chinese"
+          />
         )}
-        {!chinese && (
-          // We do not need a svg for this because we already use this font for the whole website.
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: 1,
-              transition: { duration: 2, type: "tween" },
-            }}
-            exit={{ opacity: 0, transition: { duration: 2, type: "tween" } }}
-            key="english"
-            className="text-white font-bold text-7xl md:text-9xl
-            cursor-pointer absolute top-44"
-          >
-            NEW
-            <br /> HONG
-            <br /> KONG
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </div>
+      <div
+        className={`text-white font-bold text-7xl md:text-9xl absolute top-44 transition-opacity duration-[3000ms] ${
+          chinese ? "opacity-0" : "opacity-100 delay-[1600ms]"
+        }`}
+      >
+        NEW
+        <br /> HONG
+        <br /> KONG
+      </div>
       {/* This button is pushes to the menu where users can order. */}
       <Link href="/menu">
         <a
