@@ -51,6 +51,8 @@ const useStoreProvider = () => {
     // Plastic bag fee. Defaults to 10 cents.
     plasticBagFee: 10,
   });
+  const [notifications, setNotifications] = useState(false);
+  const [printer, setPrinter] = useState(true);
   const [currentDate, setCurrentDate] = useState(getCurrentDate());
   const [currentDay, setCurrentDay] = useState(new Date().getDay());
   const [currentTimeInSeconds, setCurrentTimeInSeconds] = useState(
@@ -180,6 +182,10 @@ const useStoreProvider = () => {
     digitalCurrentTime,
     currentDay,
     currentDate,
+    notifications,
+    setNotifications,
+    printer,
+    setPrinter,
   };
 };
 

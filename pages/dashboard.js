@@ -31,7 +31,8 @@ import euro from "@/functions/euro";
 
 const Dashboard = () => {
   const router = useRouter();
-  const { currentDate } = useStoreInfo();
+  const { currentDate, notifications, setNotifications, printer, setPrinter } =
+    useStoreInfo();
   const { user } = useAuth();
   // We store all orders here
   const [orders, setOrders] = useState([]);
@@ -39,8 +40,7 @@ const Dashboard = () => {
   const [ordersLength, setOrdersLength] = useState(0);
   // Audio will be stored here
   const [audio, setAudio] = useState(null);
-  // State turns on and off the notifications
-  const [notifications, setNotifications] = useState(false);
+
   // Show orders that are completed or not.
   const [showCompletedTakeAway, setShowCompletedTakeAway] = useState(false);
   const [showCompletedDelivery, setShowCompletedDelivery] = useState(false);
@@ -51,8 +51,6 @@ const Dashboard = () => {
   // The job currently in the printer.
   // Should never be more than one.
   const [printJobs, setPrintJobs] = useState([]);
-  // State for autoprints
-  const [printer, setPrinter] = useState(false);
 
   const totalTips = orders.reduce((x, y) => (y.delivery ? x + y.tip : x), 0);
 
