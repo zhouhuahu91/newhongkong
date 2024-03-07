@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
         <meta
           name="viewport"
           // This makes sure that the viewport is responsive and doesn't zoom in on mobile devices.
-          content="initial-scale=1, maximum-scale=1, width=device-width"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
         />
         {/* Main color of the website witch is red. */}
         <meta name="theme-color" content="#E76F51" />

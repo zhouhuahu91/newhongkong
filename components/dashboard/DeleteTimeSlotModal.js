@@ -31,7 +31,7 @@ const DeleteTimeSlotModal = () => {
   // When we open this modal we want to set delivery to false.
   useEffect(() => {
     if (delivery && open) dispatch({ type: "SET_DELIVERY", payload: false });
-  }, [open]);
+  }, [open, delivery, dispatch]);
 
   return (
     <>

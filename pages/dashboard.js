@@ -115,7 +115,7 @@ const Dashboard = () => {
       }
       setOrdersLength(newOrders.length);
     }
-  }, [audio, ordersLength, orders]);
+  }, [audio, ordersLength, orders, notifications]);
 
   useEffect(() => {
     setAudio(new Audio("/bell.mp3"));

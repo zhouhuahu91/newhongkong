@@ -50,7 +50,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
     if (open) {
       fetchTables();
     }
-  }, [open]);
+  }, [open, date]);
 
   //  ********** CALCULATIONS FOR TABLES *********
 
