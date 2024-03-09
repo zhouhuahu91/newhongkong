@@ -286,7 +286,7 @@ export default {
         nl: "tsa siu chow ming",
         en: "cha siu chow mein",
         de: "cha siu chow mein",
-        zh: "",
+        zh: "叉烧炒面",
       },
       description: {
         nl: "Chinese bami gewokt met tsa siu",

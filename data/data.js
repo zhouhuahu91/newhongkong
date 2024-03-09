@@ -33,7 +33,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.15 added big sides
 // version 0.0.16 added vegetarian options to menus
 // version 0.0.17 added the pinda suace to description of sauces.
-export const version = "0.0.17";
+// version 0.0.18 forgot to add chinese for dish 81
+export const version = "0.0.18";
 
 export const data = [
   menus,
