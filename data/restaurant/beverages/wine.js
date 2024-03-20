@@ -40,5 +40,11 @@ export default {
       price: 480,
       btw: btw.hoog,
     },
+    {
+      id: "12007",
+      name: "fles wijn",
+      price: 2180,
+      btw: btw.hoog,
+    },
   ],
 };
