@@ -20,15 +20,15 @@ const maandmenu = {
   menuList: [
     {
       name: {
-        nl: "pisang goreng",
-        en: "pisang goreng",
-        de: "pisang goreng",
-        zh: "炸香蕉",
+        nl: "mini loempia's",
+        en: "mini rolls",
+        de: "Minifrühlingsrolle",
+        zh: "小卷",
       },
       description: {
-        nl: "4 gebakken bananen, zoet",
-        de: "4 fritierte Bananen, süß",
-        en: "4 fried bananas, sweet",
+        nl: "4 vegetarische mini loempias",
+        en: "4 vegetarian mini rolls",
+        de: "4 vegetarische Minifrühlingsrollen",
         zh: "",
       },
     },

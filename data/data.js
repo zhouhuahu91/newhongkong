@@ -35,7 +35,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.17 added the pinda suace to description of sauces.
 // version 0.0.18 forgot to add chinese for dish 81
 // version 0.0.19 maandmenu is now with pisang goreng
-export const version = "0.0.19";
+// version 0.0.20 back to mini loempia's
+export const version = "0.0.20";
 
 export const data = [
   menus,
