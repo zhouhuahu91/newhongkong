@@ -267,7 +267,8 @@ const Food = ({
                   // that means if there are no selected sides after clicking this button there is 1.
                   if (
                     selectedSides.length + 1 ===
-                    (currentDish.totalSides || 1)
+                    // use to be two sides but we  just need one because all menu's are seperated now
+                    1
                   ) {
                     // If there is enough of the selected sides required we reset the values
                     setCurrentDish(false);
