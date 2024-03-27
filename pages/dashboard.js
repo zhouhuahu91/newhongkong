@@ -118,7 +118,7 @@ const Dashboard = () => {
   }, [audio, ordersLength, orders, notifications]);
 
   useEffect(() => {
-    setAudio(new Audio("/bell.mp3"));
+    setAudio(new Audio("/handoff.mp3"));
   }, []);
 
   // Gets all the id's of printer jobs
