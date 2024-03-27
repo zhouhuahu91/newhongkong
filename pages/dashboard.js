@@ -184,7 +184,7 @@ const Dashboard = () => {
   return (
     <div>
       <Head>
-        <title>Dashboard - NHK</title>
+        <title>Dashboard {notifications ? "" : "🔕"}</title>
       </Head>
       <Header
         date={date}
