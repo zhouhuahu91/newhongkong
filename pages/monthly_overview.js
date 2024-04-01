@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 // Function imports
 import euro from "@/functions/euro";
 import calculateTableTotal from "@/functions/calculateTableTotal";
@@ -16,18 +16,32 @@ import MonthPicker from "@/components/MonthPicker";
 const MonthlyOverview = () => {
   const [date, setDate] = useState(new Date());
   // Data for orders
-  const [dailyData, setDailyData] = useState([]);
-  const [monthlyData, setMonthlyData] = useState({});
+  const [dailyData, setDailyData] = useState(null);
+  const [monthlyData, setMonthlyData] = useState({
+    total: 0,
+    cash: 0,
+    card: 0,
+    online: 0,
+  });
   // Data for tables
-  const [tableData, setTableData] = useState([]);
-  const [monthlyTableData, setMonthlyTableData] = useState({});
+  const [tableData, setTableData] = useState(null);
+  const [monthlyTableData, setMonthlyTableData] = useState({
+    total: 0,
+    cash: 0,
+    card: 0,
+  });
+  // Combined data
+  const [combined, setCombined] = useState([]);
 
   const { user } = useAuth();
   const router = useRouter();
 
-  // Is the day that we use the website to store all take away orders.
-  const midnightFeb5_2024 = new Date("2024-02-05T00:00:00").getTime();
-  const midnightFeb23_2024 = new Date("2024-02-23T00:00:00").getTime();
+  const y = date.getFullYear();
+  const m = date.getMonth();
+  // This is the first day in the selected month.
+  const firstDay = new Date(y, m, 1).getTime();
+  // This is the last day in the selected month.
+  const lastDay = new Date(y, m + 1).getTime();
 
   const tdStyling = "py-2 px-4 text-center";
   const thStyling = "p-4 text-center font-medium";
@@ -112,148 +126,144 @@ const MonthlyOverview = () => {
     return result;
   };
 
-  const all = mergeDailies();
-
-  useEffect(() => {
-    const y = date.getFullYear();
-    const m = date.getMonth();
-    // This is the first day in the selected month.
-    const firstDay = new Date(y, m, 1).getTime();
-    // This is the last day in the selected month.
-    const lastDay = new Date(y, m + 1).getTime();
-
-    const qTables = query(
-      collection(db, "tables"),
-      where("createdAt", ">", firstDay),
-      where("createdAt", "<", lastDay)
-    );
-
-    const unsubscribeTables = onSnapshot(qTables, (snapshot) => {
-      const documents = snapshot.docs.map((doc) => doc.data());
-      const documentsWithTotal = documents.map((doc) => {
-        return {
-          ...doc,
-          total: calculateTableTotal(doc),
-        };
-      });
-      const data = sortDocsByDate(documentsWithTotal);
-
-      const dailySummaryTables = data.map((day) => {
-        const total = day.reduce((x, y) => x + y.total, 0);
-
-        const cash = day.reduce(
-          (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
-          0
-        );
-
-        const card = day.reduce(
-          (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
-          0
-        );
-
-        return {
-          table: true,
-          total,
-          cash,
-          card,
-          date: day[0].date,
-          createdAt: day[0].createdAt,
-        };
-      });
-
-      // Besides the daily summary we need a monthly summary.
-      const monthlySummaryTables = {};
-      monthlySummaryTables.total = documentsWithTotal.reduce(
-        (x, y) => x + y.total,
-        0
-      );
-      monthlySummaryTables.cash = documentsWithTotal.reduce(
-        (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
-        0
-      );
-      monthlySummaryTables.card = documentsWithTotal.reduce(
-        (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
-        0
-      );
-
-      setTableData(dailySummaryTables);
-      setMonthlyTableData(monthlySummaryTables);
-    });
-
+  const fetchOrders = async () => {
     // We subscribe to all the documents of the selected month.
     const q = query(
       collection(db, "orders"),
       where("createdAt", ">", firstDay),
       where("createdAt", "<", lastDay)
     );
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const documents = snapshot.docs.map((doc) => doc.data());
 
-      const data = sortDocsByDate(documents);
+    const snapshot = await getDocs(q);
+    const raw = snapshot.docs.map((doc) => doc.data());
+    const data = sortDocsByDate(raw);
 
-      // For every date we accumulate the totals.
-      const dailySummary = data.map((day) => {
-        // This returns total of the day.
-        const total = day.reduce((x, y) => x + y.total, 0);
-        // This returns total of ideal payments of the day.
-        const online = day.reduce(
-          (x, y) => (y.paymentMethod === "online" ? x + y.total : x),
-          0
-        );
-        // This returns total of cahs payments of the day.
-        const cash = day.reduce(
-          (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
-          0
-        );
-        const card = day.reduce(
-          (x, y) =>
-            y.paymentMethodType === "card" && y.paymentMethod === "in_person"
-              ? x + y.total
-              : x,
-          0
-        );
-        return {
-          total,
-          online,
-          cash,
-          card,
-          date: day[0].date,
-          createdAt: day[0].createdAt,
-        };
-      });
-      // Besides the daily summary we need a monthly summary.
-      const monthlySummary = {};
-      monthlySummary.total = documents.reduce((x, y) => x + y.total, 0);
-      monthlySummary.online = documents.reduce(
+    // For every date we accumulate the totals.
+    const dailySummary = data.map((day) => {
+      // This returns total of the day.
+      const total = day.reduce((x, y) => x + y.total, 0);
+      // This returns total of ideal payments of the day.
+      const online = day.reduce(
         (x, y) => (y.paymentMethod === "online" ? x + y.total : x),
         0
       );
-      monthlySummary.cash = documents.reduce(
+      // This returns total of cahs payments of the day.
+      const cash = day.reduce(
         (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
         0
       );
-      monthlySummary.card = documents.reduce(
+      const card = day.reduce(
         (x, y) =>
           y.paymentMethodType === "card" && y.paymentMethod === "in_person"
             ? x + y.total
             : x,
         0
       );
-      setDailyData(dailySummary);
-      setMonthlyData(monthlySummary);
+      return {
+        total,
+        online,
+        cash,
+        card,
+        date: day[0].date,
+        createdAt: day[0].createdAt,
+      };
+    });
+    // Besides the daily summary we need a monthly summary.
+    const monthlySummary = {};
+    monthlySummary.total = raw.reduce((x, y) => x + y.total, 0);
+    monthlySummary.online = raw.reduce(
+      (x, y) => (y.paymentMethod === "online" ? x + y.total : x),
+      0
+    );
+    monthlySummary.cash = raw.reduce(
+      (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
+      0
+    );
+    monthlySummary.card = raw.reduce(
+      (x, y) =>
+        y.paymentMethodType === "card" && y.paymentMethod === "in_person"
+          ? x + y.total
+          : x,
+      0
+    );
+    setDailyData(dailySummary);
+    setMonthlyData(monthlySummary);
+  };
+
+  const fetchTables = async () => {
+    const q = query(
+      collection(db, "tables"),
+      where("createdAt", ">", firstDay),
+      where("createdAt", "<", lastDay)
+    );
+    const snapshot = await getDocs(q);
+    const raw = snapshot.docs.map((doc) => doc.data());
+    // this returns all the tables of that month but we want it per day.
+    const unsortedData = raw.map((table) => ({
+      ...table,
+      total: calculateTableTotal(table),
+    }));
+
+    const data = sortDocsByDate(unsortedData);
+
+    const dailySummaryTables = data.map((day) => {
+      const total = day.reduce((x, y) => x + y.total, 0);
+
+      const cash = day.reduce(
+        (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
+        0
+      );
+
+      const card = day.reduce(
+        (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
+        0
+      );
+
+      return {
+        table: true,
+        total,
+        cash,
+        card,
+        date: day[0].date,
+        createdAt: day[0].createdAt,
+      };
     });
 
-    return () => {
-      unsubscribeTables();
-      unsubscribe();
-    };
+    // Besides the daily summary we need a monthly summary.
+    const monthlySummaryTables = {};
+    monthlySummaryTables.total = unsortedData.reduce((x, y) => x + y.total, 0);
+    monthlySummaryTables.cash = unsortedData.reduce(
+      (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
+      0
+    );
+    monthlySummaryTables.card = unsortedData.reduce(
+      (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
+      0
+    );
+
+    setTableData(dailySummaryTables);
+    setMonthlyTableData(monthlySummaryTables);
+  };
+
+  useEffect(() => {
+    setDailyData(null);
+    setMonthlyData({ total: 0, cash: 0, card: 0, online: 0 });
+    setTableData(null);
+    setMonthlyTableData({ total: 0, cash: 0, card: 0 });
+    setCombined(null);
+    fetchTables();
+    fetchOrders();
   }, [date]);
+
+  useEffect(() => {
+    if (dailyData === null || tableData === null) return;
+    setCombined(mergeDailies());
+  }, [dailyData, tableData]);
 
   // Overview page is only for admins or accountant
   // If user not fetched we show spinner
   // If there is no user we rerout to sign in
   // if there is a user but not an admin or accountant we rerout to home page.
-
   if (user === null) {
     return <Spinner />;
   } else if (user === false) {
@@ -273,7 +283,14 @@ const MonthlyOverview = () => {
         <thead className="border-b bg-white">
           <tr>
             <th className={thStyling}>
-              <MonthPicker setDate={setDate} date={date} />
+              <div className="flex items-center">
+                <MonthPicker setDate={setDate} date={date} />
+                {combined === null && (
+                  <div
+                    className={`rounded-full border-white border-t-main border-2 animate-spin w-5 h-5`}
+                  />
+                )}
+              </div>
             </th>
             <th className={thStyling}>Online</th>
             <th className={thStyling}>Pin</th>
@@ -283,108 +300,42 @@ const MonthlyOverview = () => {
             <th className={thStyling}>Omzet</th>
           </tr>
         </thead>
-        <tbody>
-          {all.map((day, idx) => {
-            return (
-              <tr key={day.date} className={`${idx % 2 && "bg-gray-100"}`}>
-                <td className={tdStyling}>{day.date}</td>
-                <td className={tdStyling}>{euro(day.online)}</td>
-                <td
-                  className={`${tdStyling} ${
-                    midnightFeb5_2024 > day.createdAt
-                      ? "text-red-700 line-through"
-                      : ""
-                  }`}
-                >
-                  {euro(day.card)}
-                </td>
-                <td
-                  className={`${tdStyling} ${
-                    midnightFeb5_2024 > day.createdAt
-                      ? "text-red-700 line-through"
-                      : ""
-                  }`}
-                >
-                  {euro(day.cash)}
-                </td>
-                <td
-                  className={`${tdStyling} ${
-                    midnightFeb5_2024 > day.createdAt
-                      ? "text-red-700 line-through"
-                      : ""
-                  }`}
-                >
-                  {euro(day.total)}
-                </td>
-                <td
-                  className={`${tdStyling} ${
-                    midnightFeb23_2024 > day.createdAt
-                      ? "text-red-700 line-through"
-                      : ""
-                  }`}
-                >
-                  {euro(day.totalTables)}
-                </td>
-                <td
-                  className={`${tdStyling} ${
-                    midnightFeb23_2024 > day.createdAt
-                      ? "text-red-700 line-through"
-                      : ""
-                  }`}
-                >
-                  {euro(day.totalTables + day.total)}
-                </td>
-              </tr>
-            );
-          })}
+        <tbody className="min-h-40">
+          {combined !== null ? (
+            combined.map((day, idx) => {
+              return (
+                <tr key={day.date} className={`${idx % 2 && "bg-gray-100"}`}>
+                  <td className={tdStyling}>{day.date}</td>
+                  <td className={tdStyling}>{euro(day.online)}</td>
+                  <td className={`${tdStyling}`}>{euro(day.card)}</td>
+                  <td className={`${tdStyling}`}>{euro(day.cash)}</td>
+                  <td className={`${tdStyling}`}>{euro(day.total)}</td>
+                  <td className={`${tdStyling}`}>{euro(day.totalTables)}</td>
+                  <td className={`${tdStyling}`}>
+                    {euro(day.totalTables + day.total)}
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr className="">
+              <td className="h-16" />
+            </tr>
+          )}
         </tbody>
         <thead className="border-t bg-white">
           <tr>
             <th className={thStyling}>Totaal</th>
             <th className={thStyling}>{euro(monthlyData.online)}</th>
-            <th
-              className={`${thStyling} ${
-                midnightFeb5_2024 + 432000000 > new Date(date).getTime()
-                  ? "text-red-700 line-through"
-                  : ""
-              }`}
-            >
+            <th className={`${thStyling}`}>
               {euro(monthlyData.card + monthlyTableData.card)}
             </th>
-            <th
-              className={`${thStyling} ${
-                midnightFeb5_2024 + 432000000 > new Date(date).getTime()
-                  ? "text-red-700 line-through"
-                  : ""
-              }`}
-            >
+            <th className={`${thStyling}`}>
               {euro(monthlyData.cash + monthlyTableData.cash)}
             </th>
-            <th
-              className={`${thStyling} ${
-                midnightFeb5_2024 + 432000000 > new Date(date).getTime()
-                  ? "text-red-700 line-through"
-                  : ""
-              }`}
-            >
-              {euro(monthlyData.total)}
-            </th>
-            <th
-              className={`${thStyling} ${
-                midnightFeb5_2024 + 432000000 > new Date(date).getTime()
-                  ? "text-red-700 line-through"
-                  : ""
-              }`}
-            >
-              {euro(monthlyTableData.total)}
-            </th>
-            <th
-              className={`${thStyling} ${
-                midnightFeb5_2024 + 432000000 > new Date(date).getTime()
-                  ? "text-red-700 line-through"
-                  : ""
-              }`}
-            >
+            <th className={`${thStyling}`}>{euro(monthlyData.total)}</th>
+            <th className={`${thStyling}`}>{euro(monthlyTableData.total)}</th>
+            <th className={`${thStyling}`}>
               {euro(monthlyTableData.total + monthlyData.total)}
             </th>
           </tr>
