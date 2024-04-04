@@ -36,7 +36,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.18 forgot to add chinese for dish 81
 // version 0.0.19 maandmenu is now with pisang goreng
 // version 0.0.20 back to mini loempia's
-export const version = "0.0.20";
+// version 0.0.21 updated maandmenu
+export const version = "0.0.21";
 
 export const data = [
   menus,
