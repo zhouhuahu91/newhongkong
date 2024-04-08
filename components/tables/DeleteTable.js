@@ -1,4 +1,5 @@
 import DeleteIcon from "@/icons/DeleteIcon";
+import IconBtn from "@/components/IconBtn";
 
 // Firebase imports
 import { db } from "@/firebase/firebase";
@@ -7,16 +8,14 @@ import { doc, deleteDoc } from "firebase/firestore";
 const DeleteTable = ({ table, mainCategory, setMainCategory, buttonStyle }) => {
   if (mainCategory === false) {
     return (
-      <button
+      <IconBtn
+        className="hover:fill-main fill-gray-50 ml-2"
         onClick={() => {
           setMainCategory("tafel verwijderen");
         }}
-        type="button"
-        className={`${buttonStyle} flex items-center justify-center gap-2`}
       >
         <DeleteIcon size="20" className="fill-inherit" />
-        verwijderen
-      </button>
+      </IconBtn>
     );
   }
 

@@ -81,12 +81,12 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
             <ChevronRightIcon /> {subCategory}
           </button>
         )}
-        {/* {(currentDish || currentDishAllFood) && (
-          <div className={`absolute flex items-center capitalize font-medium`}>
-            <ChevronRightIcon />{" "}
-            {currentDish ? currentDish.name.nl : currentDishAllFood.name.nl}
-          </div>
-        )} */}
+        <DeleteTable
+          table={table}
+          setMainCategory={setMainCategory}
+          mainCategory={mainCategory}
+          buttonStyle={buttonStyle}
+        />
       </div>
       {/* These are the categories we can go in to.  */}
       {/* If mainCategory is false these will return a button which will select their... */}
@@ -125,6 +125,12 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
           setMainCategory={setMainCategory}
           table={table}
         />
+        <CustomDish
+          buttonStyle={buttonStyle}
+          mainCategory={mainCategory}
+          setMainCategory={setMainCategory}
+          table={table}
+        />
         <AllFood
           buttonStyle={buttonStyle}
           subCategory={subCategory}
@@ -134,12 +140,6 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
           addDishToTable={addDishToTable}
           currentDish={currentDishAllFood}
           setCurrentDish={setCurrentDishAllFood}
-        />
-        <CustomDish
-          buttonStyle={buttonStyle}
-          mainCategory={mainCategory}
-          setMainCategory={setMainCategory}
-          table={table}
         />
       </div>
     </>
