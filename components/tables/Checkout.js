@@ -1,11 +1,11 @@
 import receiptline from "receiptline";
-import { useState } from "react";
-// Import components
-import Snackbar from "@/components/Snackbar";
+import { useState, useEffect } from "react";
 // Icon imports
 import PrintIcon from "@/icons/PrintIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
 import CashIcon from "@/icons/CashIcon";
+import LoadingIcon from "@/icons/LoadingIcon";
+
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -13,7 +13,7 @@ import {
   updateDoc,
   setDoc,
   collection,
-  getDocs,
+  onSnapshot,
 } from "firebase/firestore";
 // Function imports
 import euro from "@/functions/euro";
@@ -22,7 +22,20 @@ import calculateTableTotal from "@/functions/calculateTableTotal";
 import calculateTableVat from "@/functions/calculateTableVat";
 
 const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
-  const [snackbar, setSnackbar] = useState(false);
+  const [printJobs, setPrintJobs] = useState([]);
+
+  // Gets all the id's of printer jobs
+  useEffect(() => {
+    const printerRef = collection(db, "printer");
+    const unsubscribe = onSnapshot(printerRef, (snapshot) => {
+      const data = snapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      });
+      setPrintJobs(data);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const printReceipt = async () => {
     // We need to create markup for the receipt
@@ -114,23 +127,17 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
   if (mainCategory === "checkout") {
     return (
       <>
-        <Snackbar snackbar={snackbar} setSnackbar={setSnackbar} />
         <button
-          onClick={async () => {
-            // We first check if the printer is busy
-            const ref = collection(db, "printer");
-            const snapshot = await getDocs(ref);
-            const printJobs = snapshot.docs.map((doc) => doc.data());
-            if (printJobs.length > 0) {
-              return setSnackbar("Printer is bezet probeer later nogmaals.");
-            }
-            printReceipt();
-            setSnackbar("Bonnetje wordt afgedrukt.");
-          }}
+          disabled={printJobs.length}
+          onClick={() => printReceipt()}
           className={`${buttonStyle} col-span-2 flex items-center justify-center gap-2`}
         >
-          <PrintIcon className="fill-inherit" />
           {table.printed && "opnieuw"} afdrukken
+          {printJobs.length ? (
+            <LoadingIcon className="animate-spin fill-main" />
+          ) : (
+            <PrintIcon className="fill-inherit" />
+          )}
         </button>
         <button
           onClick={() => {
