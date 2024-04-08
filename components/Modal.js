@@ -5,11 +5,6 @@ import useLockBodyScroll from "@/hooks/useLockBodyScroll";
 import { motion, AnimatePresence } from "framer-motion";
 import FocusTrap from "focus-trap-react";
 
-const backdropVariant = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
-
 const Modal = ({ toggle, children, close, className }) => {
   useLockBodyScroll(toggle);
 
@@ -30,10 +25,9 @@ const Modal = ({ toggle, children, close, className }) => {
       {toggle && (
         <FocusTrap>
           <motion.div
-            variants={backdropVariant}
-            animate="visible"
-            initial="hidden"
-            exit="hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             className="fixed inset-0 w-full bg-slate-900/20 backdrop-blur h-full flex justify-center items-center"
             style={{ zIndex: "100" }}
             onClick={(e) => {
