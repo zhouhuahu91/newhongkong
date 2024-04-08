@@ -61,7 +61,7 @@ const SpecialDishModal = () => {
     if (!user.admin) return setOpen(false);
 
     // Now we check if name and kitchen name is populated
-    if (name.length < 0) return setMsg("Naam is verplicht");
+    if (name.length < 1) return setMsg("Naam is verplicht");
     if (kitchenName.length < 1) {
       return setMsg("Keuken omschrijving is verplicht");
     }

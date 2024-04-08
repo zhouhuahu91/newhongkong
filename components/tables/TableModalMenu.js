@@ -10,6 +10,7 @@ import Food from "@/tables/items/Food";
 import Dessert from "@/tables/items/Dessert";
 import AllFood from "@/tables/items/AllFood";
 import Checkout from "@/tables/Checkout";
+import CustomDish from "@/tables/items/CustomDish";
 import DeleteTable from "@/tables/DeleteTable";
 
 const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
@@ -134,11 +135,11 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
           currentDish={currentDishAllFood}
           setCurrentDish={setCurrentDishAllFood}
         />
-        <DeleteTable
-          table={table}
+        <CustomDish
           buttonStyle={buttonStyle}
           mainCategory={mainCategory}
           setMainCategory={setMainCategory}
+          table={table}
         />
       </div>
     </>
