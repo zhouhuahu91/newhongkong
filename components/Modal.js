@@ -34,7 +34,7 @@ const Modal = ({ toggle, children, close, className }) => {
             animate="visible"
             initial="hidden"
             exit="hidden"
-            className="fixed inset-0 w-full bg-opacity-50 bg-black h-full flex justify-center items-center"
+            className="fixed inset-0 w-full bg-slate-900/20 backdrop-blur h-full flex justify-center items-center"
             style={{ zIndex: "100" }}
             onClick={(e) => {
               close();
@@ -44,10 +44,9 @@ const Modal = ({ toggle, children, close, className }) => {
             <motion.div
               className={className}
               onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1, transition: { delay: 0.25 } }}
-              transition={{ type: "spring", damping: 20, stiffness: 300 }}
-              exit={{ opacity: 0, scale: 0.85 }}
+              initial={{ scale: 0, rotate: "12.5deg" }}
+              animate={{ scale: 1, rotate: "0deg" }}
+              exit={{ scale: 0, rotate: "0deg" }}
             >
               {children}
             </motion.div>
