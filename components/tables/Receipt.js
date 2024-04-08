@@ -19,7 +19,6 @@ import {
   setDoc,
   collection,
   onSnapshot,
-  getDocs,
 } from "firebase/firestore";
 
 const Receipt = ({
