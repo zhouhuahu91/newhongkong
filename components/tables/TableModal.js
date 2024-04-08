@@ -25,7 +25,7 @@ import createItemId from "@/functions/createItemId";
 const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
   const [snackbar, setSnackbar] = useState(false);
   const [tableNumber, setTableNumber] = useState(table.number);
-  const [tableName, setTableName] = useState(`Tafel ${tableNumber}`);
+  const [tableName, setTableName] = useState(`tafel ${tableNumber}`);
 
   // This the ref of the current table we are dealing with.
   const ref = doc(db, `tables/${table.id}`);
@@ -266,7 +266,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
                 // We set table to the number
                 setTableNumber(number);
                 // And we display the number with a prefix.
-                setTableName(`Tafel ${number}`);
+                setTableName(`tafel ${number}`);
               }}
               onBlur={async () => {
                 // We don't need to run this code if nothing changed

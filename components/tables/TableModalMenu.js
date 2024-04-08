@@ -25,7 +25,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   }, []);
 
   const buttonStyle =
-    "min-h-20 border p-4 rounded-md text-base capitalize font-medium transition-all hover:shadow hover:scale-[1.04] red-focus-ring";
+    "min-h-20 border p-4 rounded-md text-bases font-medium transition-all hover:shadow hover:scale-[1.04] red-focus-ring";
 
   return (
     <>
@@ -43,7 +43,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
             }
           }}
           type="button"
-          className={`capitalize font-medium ${
+          className={`font-medium ${
             mainCategory !== false ? "hover:text-main" : ""
           }`}
         >
@@ -55,7 +55,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
             onClick={() => {
               setSubCategory(false);
             }}
-            className={`flex items-center capitalize font-medium ${
+            className={`flex items-center font-medium ${
               subCategory !== false ? "hover:text-main" : ""
             }`}
           >
@@ -73,7 +73,7 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
                 setCurrentDishAllFood(false);
               }
             }}
-            className={`flex items-center capitalize font-medium ${
+            className={`flex items-center font-medium ${
               currentDish || currentDishAllFood ? "hover:text-main" : ""
             }`}
           >

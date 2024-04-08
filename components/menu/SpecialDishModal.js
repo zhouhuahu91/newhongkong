@@ -118,7 +118,7 @@ const SpecialDishModal = () => {
           <div className="flex items-center">
             <h1
               tabIndex="0"
-              className="text-lg capitalize font-semibold mr-2 focus:outline-none"
+              className="text-lg font-semibold mr-2 focus:outline-none"
             >
               Stel samen
             </h1>

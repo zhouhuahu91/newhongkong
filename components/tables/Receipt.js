@@ -10,6 +10,7 @@ import IconBtn from "@/components/IconBtn";
 import MinusIcon from "@/icons/MinusIcon";
 import PlusIcon from "@/icons/PlusIcon";
 import LoadingIcon from "@/icons/LoadingIcon";
+import ReceiptIcon from "@/icons/ReceiptIcon";
 import PrintIcon from "@/icons/PrintIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
@@ -143,7 +144,7 @@ const Receipt = ({
 
   return (
     <div
-      className={`px-8 pb-8 pt-4 h-full flex flex-col capitalize overflow-scroll ${
+      className={`px-8 pb-8 pt-4 h-full flex flex-col overflow-scroll ${
         table.food.length ? "gap-4" : ""
       }`}
     >
@@ -155,7 +156,7 @@ const Receipt = ({
                 <IconBtn onClick={() => decrementDish(dish)}>
                   <MinusIcon size="18" className="fill-main" />
                 </IconBtn>
-                <div className="">{dish.qwt}</div>
+                <div className="font-medium">{dish.qwt}</div>
                 <IconBtn onClick={() => incrementDish(dish)}>
                   <PlusIcon size="18" className="fill-main" />
                 </IconBtn>
@@ -171,11 +172,14 @@ const Receipt = ({
                     }),
                   });
                 }}
-                className={`col-span-7 font-medium cursor-pointer ${
-                  !dish.printed ? "text-main" : ""
-                }`}
+                className={`col-span-7 flex items-center gap-2 font-medium cursor-pointer`}
               >
-                {dish.name.nl}
+                {dish.name.nl}{" "}
+                {dish.printed ? (
+                  <ReceiptIcon className="fill-green-700" size="20" />
+                ) : (
+                  <PrintIcon size="20" />
+                )}
               </div>
               <div className="col-span-3 text-right">{euro(dish.price)}</div>
               <div className="col-span-2" />
@@ -235,7 +239,7 @@ const Receipt = ({
           onClick={async () => {
             printFood();
           }}
-          className="button border mt-4 capitalize gap-2 flex items-center"
+          className="button border mt-4 gap-2 flex items-center"
         >
           eten afdrukken
           {printJobs.length ? (
