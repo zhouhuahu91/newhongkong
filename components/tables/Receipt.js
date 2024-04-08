@@ -30,7 +30,7 @@ const Receipt = ({
 }) => {
   const [tip, setTip] = useState(table.tip);
   const [snackbar, setSnackbar] = useState(false);
-  const [formattedTip, setFormattedTip] = useState(`TIP: ${euro(table.tip)}`);
+  const [formattedTip, setFormattedTip] = useState(`Tip: ${euro(table.tip)}`);
   const total = calculateTableTotal(table);
 
   // I need an array of items in food that needs to be printed
@@ -196,7 +196,7 @@ const Receipt = ({
             );
           })}
         </div>
-        <div className="text-right border-t pt-4 mt-4 text-base">
+        <div className="text-right border-t py-4 mt-4 text-base">
           <div className="">subtotaal: {euro(total - table.tip)}</div>
           <div className="">
             <input
@@ -204,7 +204,7 @@ const Receipt = ({
               onChange={(e) => {
                 const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
                 const number = value === "" ? 0 : parseInt(value, 10);
-                setFormattedTip(`TIP: ${euro(number)}`);
+                setFormattedTip(`Tip: ${euro(number)}`);
                 setTip(number);
               }}
               className="text-right appearance-none focus:outline-none"
