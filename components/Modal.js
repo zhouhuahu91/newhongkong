@@ -38,9 +38,10 @@ const Modal = ({ toggle, children, close, className }) => {
             <motion.div
               className={className}
               onClick={(e) => e.stopPropagation()}
-              initial={{ scale: 0, rotate: "12.5deg" }}
-              animate={{ scale: 1, rotate: "0deg" }}
-              exit={{ scale: 0, rotate: "0deg" }}
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1, transition: { delay: 0.25 } }}
+              transition={{ type: "spring", damping: 20, stiffness: 300 }}
+              exit={{ opacity: 0, scale: 0.85 }}
             >
               {children}
             </motion.div>
