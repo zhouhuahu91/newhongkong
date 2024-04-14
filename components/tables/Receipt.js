@@ -196,12 +196,19 @@ const Receipt = ({
                 <IconBtn onClick={() => decrementBeverage(beverage)}>
                   <MinusIcon size="18" className="fill-main" />
                 </IconBtn>
-                <div className="">{beverage.qwt}</div>
+                <div className="font-medium">{beverage.qwt}</div>
                 <IconBtn onClick={() => incrementBeverage(beverage)}>
                   <PlusIcon size="18" className="fill-main" />
                 </IconBtn>
               </div>
-              <div className="col-span-7 font-medium">{beverage.name}</div>
+              <div
+                onClick={() => {
+                  incrementBeverage(beverage);
+                }}
+                className="col-span-7 font-medium"
+              >
+                {beverage.name}
+              </div>
               <div className="col-span-3 text-right">
                 {euro(beverage.price)}
               </div>
