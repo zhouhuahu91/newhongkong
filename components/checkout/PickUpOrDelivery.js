@@ -65,6 +65,11 @@ const PickUpOrDelivery = () => {
           </button>
         )}
       </div>
+      {delivery === false && (
+        <div className="text-sm text-gray-600 col-span-12 mt-2">
+          Havenstraat 13, 2211EE Noordwijkerhout
+        </div>
+      )}
     </>
   );
 };
