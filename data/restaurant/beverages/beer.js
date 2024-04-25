@@ -34,5 +34,11 @@ export default {
       price: 350,
       btw: btw.hoog,
     },
+    {
+      id: "11006",
+      name: "tsingtao",
+      price: 380,
+      btw: btw.hoog,
+    },
   ],
 };
