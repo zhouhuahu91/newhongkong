@@ -38,6 +38,7 @@ const Dashboard = () => {
   const [orders, setOrders] = useState([]);
   // We need to keep score of the orders length to know when we play a new order sound.
   const [ordersLength, setOrdersLength] = useState(0);
+  const openOrders = orders.filter((order) => order.completed === false).length;
   // Audio will be stored here
   const [audio, setAudio] = useState(null);
 
@@ -184,7 +185,10 @@ const Dashboard = () => {
   return (
     <div>
       <Head>
-        <title>Dashboard {notifications ? "" : "🔕"}</title>
+        <title>
+          Dashboard {openOrders > 0 ? `(${openOrders})` : ""}{" "}
+          {notifications ? "" : "🔕"}
+        </title>
       </Head>
       <Header
         date={date}
