@@ -17,7 +17,7 @@ import IconBtn from "@/components/IconBtn";
 // Icon imports
 import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
 
-const TablesModal = ({ date }) => {
+const TablesModal = ({ date, setDate }) => {
   const [open, setOpen] = useState(false);
   const [tables, setTables] = useState([]);
 
@@ -152,7 +152,7 @@ const TablesModal = ({ date }) => {
               />
             );
           })}
-          <StoreLayout setOpen={setOpen} />
+          <StoreLayout setOpen={setOpen} date={date} setDate={setDate} />
         </div>
         <div className="col-span-2 p-4 border-l shadow-inner bg-neutral-50 rounded-md overflow-scroll max-h-[800px]">
           <h1 className="px-2 pb-2 font-medium text-center text-sm border-b mb-2">

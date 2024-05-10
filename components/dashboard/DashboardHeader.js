@@ -44,7 +44,7 @@ const DashboardHeader = ({ date, setDate, orders, printJobs }) => {
         </h1>
         <div className="flex items-center text-xl">
           <DatePicker date={date} setDate={setDate} />
-          <TablesModal date={date} />
+          <TablesModal date={date} setDate={setDate} />
           <StoreSettings date={date} orders={orders} printJobs={printJobs} />
         </div>
       </div>

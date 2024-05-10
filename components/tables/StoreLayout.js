@@ -4,10 +4,9 @@ import DashboardIcon from "@/icons/DashboardIcon";
 import ToiletIcon from "@/icons/ToiletIcon";
 // Component imports
 import IconBtn from "@/components/IconBtn";
-// Function imports
-import getFullDate from "@/functions/getFullDate";
+import DatePicker from "@/components/DatePicker";
 
-const StoreLayout = ({ setOpen }) => {
+const StoreLayout = ({ setOpen, date, setDate }) => {
   return (
     <>
       {/* ********** WINDOW ********** */}
@@ -30,7 +29,7 @@ const StoreLayout = ({ setOpen }) => {
           </a>
         </Link>
         <div className="flex items-center gap-2">
-          <span className="font-medium">{getFullDate()}</span>
+          <DatePicker date={date} setDate={setDate} top={true} />
           <IconBtn onClick={() => setOpen(false)}>
             <DashboardIcon />
           </IconBtn>
