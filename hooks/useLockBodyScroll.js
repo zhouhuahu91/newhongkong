@@ -23,7 +23,10 @@ function getScrollbarWidth() {
 }
 
 const hasScrollbar = () => {
-  return window.innerWidth > document.documentElement.clientWidth;
+  if (typeof window !== "undefined") {
+    return window.innerWidth > document.documentElement.clientWidth;
+  }
+  return false;
 };
 
 // Locks the body when a component is mounted and unlocks it when it is unmounted.
