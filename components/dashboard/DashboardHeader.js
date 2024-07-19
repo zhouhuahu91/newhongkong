@@ -29,7 +29,7 @@ const DashboardHeader = ({ date, setDate, orders, printJobs }) => {
   return (
     <header className="bg-white shadow-sm border-b select-none">
       <div className="mx-auto max-w-screen-xl flex justify-between h-16 items-center px-4">
-        <div className="hidden md:block">
+        <div className="hidden md:block w-60">
           <Link href="/menu">
             <a
               className={`text-2xl font-bold red-focus-ring rounded-md px-1 text-main`}
