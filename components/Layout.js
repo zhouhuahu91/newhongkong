@@ -40,8 +40,8 @@ const Layout = ({ children }) => {
         />
       </Head>
       <div
-        className={`flex flex-col min-h-[100.1vh] ${
-          atHome ? "bg-main" : "bg-neutral-50"
+        className={`flex flex-col ${
+          atHome ? "bg-main min-h-screen" : "bg-neutral-50 min-h-[100.1vh]"
         }`}
       >
         {!atDashboard && !atHome && !atTables && <Banner />}
