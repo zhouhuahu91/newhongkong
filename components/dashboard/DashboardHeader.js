@@ -39,7 +39,7 @@ const DashboardHeader = ({ date, setDate, orders, printJobs }) => {
           </Link>
         </div>
         <BurgerMenu />
-        <h1 className="hidden sm:block text-3xl font-semibold absolute right-1/2 translate-x-1/2 font-mono">
+        <h1 className="hidden sm:block text-3xl font-semibold font-mono">
           {time}
         </h1>
         <div className="flex items-center text-xl">
