@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 // Hook imports
-import useLockBodyScroll from "@/hooks/useLockBodyScroll";
+// import useLockBodyScroll from "@/hooks/useLockBodyScroll";
 // Third party libraries imports
 import { motion, AnimatePresence } from "framer-motion";
 import FocusTrap from "focus-trap-react";
 
 const Modal = ({ toggle, children, close, className }) => {
-  useLockBodyScroll(toggle);
+  // useLockBodyScroll(toggle);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
