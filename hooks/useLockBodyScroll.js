@@ -1,5 +1,4 @@
-// React imports
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 function getScrollbarWidth() {
   // Creating invisible container
@@ -17,37 +16,34 @@ function getScrollbarWidth() {
   const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
 
   // Removing temporary elements from the DOM
-  outer.parentNode.removeChild(outer);
+  outer.remove();
 
   return scrollbarWidth;
 }
 
-const hasScrollbar = () => {
-  if (typeof window !== "undefined") {
-    return window.innerWidth > document.documentElement.clientWidth;
-  }
-  return false;
-};
-
-// Locks the body when a component is mounted and unlocks it when it is unmounted.
 const useLockBodyScroll = (open) => {
-  // We check outside the useEffect if the page has a scrollbar
-  const scrollbar = hasScrollbar();
+  // Memoize the scrollbar width
+  const scrollbarWidth = useMemo(() => getScrollbarWidth(), []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "visible";
-    // When the page has a scroll bar and the modal opens we need to add the width of the scroll bar to the right side of the page
-    // Because the modal removes the scroll bar.
-    if (scrollbar) {
-      const width = getScrollbarWidth();
-      document.body.style.paddingRight = open ? `${width}px` : "0px";
-    }
-    return () => {
-      document.body.style.overflow = "visible";
-      // When we exit we make sure we reset the padding to 0
-      document.body.style.paddingRight = "0px";
+    const originalStyle = {
+      overflow: document.body.style.overflow,
+      paddingRight: document.body.style.paddingRight,
     };
-  }, [open]);
+
+    if (open) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    } else {
+      document.body.style.overflow = originalStyle.overflow;
+      document.body.style.paddingRight = originalStyle.paddingRight;
+    }
+
+    return () => {
+      document.body.style.overflow = originalStyle.overflow;
+      document.body.style.paddingRight = originalStyle.paddingRight;
+    };
+  }, [open, scrollbarWidth]);
 };
 
 export default useLockBodyScroll;
