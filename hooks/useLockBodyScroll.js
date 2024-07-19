@@ -1,6 +1,8 @@
 import { useEffect, useMemo } from "react";
 
 function getScrollbarWidth() {
+  if (typeof window === "undefined") return 0; // Ensure code only runs in the browser
+
   // Creating invisible container
   const outer = document.createElement("div");
   outer.style.visibility = "hidden";
@@ -22,10 +24,15 @@ function getScrollbarWidth() {
 }
 
 const useLockBodyScroll = (open) => {
-  // Memoize the scrollbar width
-  const scrollbarWidth = useMemo(() => getScrollbarWidth(), []);
+  // Memoize the scrollbar width, but ensure code only runs in the browser
+  const scrollbarWidth = useMemo(
+    () => (typeof window !== "undefined" ? getScrollbarWidth() : 0),
+    []
+  );
 
   useEffect(() => {
+    if (typeof window === "undefined") return; // Ensure code only runs in the browser
+
     const originalStyle = {
       overflow: document.body.style.overflow,
       paddingRight: document.body.style.paddingRight,
