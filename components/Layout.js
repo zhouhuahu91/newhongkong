@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
         />
       </Head>
       <div
-        className={`flex flex-col min-h-screen ${
+        className={`flex flex-col min-h-[100.1vh] ${
           atHome ? "bg-main" : "bg-neutral-50"
         }`}
       >
