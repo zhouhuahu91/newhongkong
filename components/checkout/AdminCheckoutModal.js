@@ -40,7 +40,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
     setProcessing(true);
     const order = {
       ...cartState,
-      name: name.length > 0 ? name : "^马上",
+      name: name.length > 0 ? name : "afhaal",
       remarks,
       paid,
       paymentMethodType,

@@ -155,7 +155,7 @@ const OrderCard = ({
                   order.canceled && "line-through"
                 }`}
               >
-                {order.name === "^马上" ? "Afhaal" : order.name}
+                {order.name}
               </div>
               {/* We do not want to delete orders where the payment method is online. */}
               {!(order.paymentMethod === "online" && order.paid) &&
