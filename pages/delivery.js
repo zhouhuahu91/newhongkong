@@ -72,22 +72,30 @@ const Delivery = () => {
         </div>
       )}
       {orders.length > 0 && (
-        <div className="space-y-4">
+        <div className="">
           <h1 className="text-2xl font-semibold text-gray-700 mb-6 text-center border-b">
             {t.delivery}
           </h1>
           {orders.map((order) => {
-            return <OrderCard order={order} key={order.id} />;
+            return (
+              <div key={order.id} className="pb-4">
+                <OrderCard order={order} />
+              </div>
+            );
           })}
         </div>
       )}
       {comingUp.length > 0 && (
-        <div className="space-y-4">
+        <div className="">
           <h1 className="text-2xl font-semibold text-gray-700 mb-6 text-center border-b">
             {t.coming_up}
           </h1>
           {comingUp.map((order) => {
-            return <OrderCard order={order} key={order.id} />;
+            return (
+              <div key={order.id} className="pb-4">
+                <OrderCard order={order} />
+              </div>
+            );
           })}
         </div>
       )}
