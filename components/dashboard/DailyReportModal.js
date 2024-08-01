@@ -190,9 +190,15 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
 
   return (
     <>
-      <IconBtn className="mx-2" onClick={() => setOpen((prev) => !prev)}>
-        <ReportIcon />
-      </IconBtn>
+      <button
+        className="flex items-center px-3 button border bg-main"
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <ReportIcon className="fill-white" />
+        <span className="font-bold ml-2 text-base text-white">
+          {euro(revenue + revenueTables)}
+        </span>
+      </button>
       <Modal
         toggle={open}
         close={() => setOpen(false)}
