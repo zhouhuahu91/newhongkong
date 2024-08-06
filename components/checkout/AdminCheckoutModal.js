@@ -28,14 +28,6 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
   const [remarks, setRemarks] = useState("");
   const [errors, setErrors] = useState({});
 
-  const ref = useRef();
-
-  useEffect(() => {
-    if (open && ref.current) {
-      ref.current.scrollIntoView();
-    }
-  }, [open]);
-
   const onSubmit = async (paid, paymentMethodType) => {
     setProcessing(true);
     const order = {
@@ -100,7 +92,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
         className="p-4 overflow-scroll bg-neutral-50"
       >
         <Cart />
-        <div ref={ref}>
+        <div>
           <label htmlFor="name" className="text-gray-500 text-sm">
             Naam
           </label>
