@@ -53,13 +53,13 @@ const Menu = () => {
 
   return (
     <>
-      <PickUpOrDeliveryModal
+      {/* <PickUpOrDeliveryModal
         open={open}
         setOpen={setOpen}
         delivery={delivery}
         setDelivery={setDelivery}
-      />
-      <CategoryHeader data={data} categoryRef={categoryRef} />
+      /> */}
+      {/* <CategoryHeader data={data} categoryRef={categoryRef} /> */}
       {/* // Menu page is mainly devided in three sections top side where the title */}
       {/* and the search bar is, */}
       {/* // the bottom left is where the menu cards are and the bottom right is where the cart is. */}
@@ -69,7 +69,7 @@ const Menu = () => {
           {/* This is the container where all the cards are.*/}
           <div className="col-span-12 md:col-span-6 lg:col-span-7 place-self-center mb-20 w-full">
             {/* If there are not favorite items or the user is searching we remove favorites. */}
-            {!!favoriteMenuItems.length && !searchInput.length && (
+            {/* {!!favoriteMenuItems.length && !searchInput.length && (
               <div className="">
                 <div className="font-semibold text-2xl capitalize mt-8 mb-4 flex items-center">
                   {t.favorites}{" "}
@@ -89,8 +89,8 @@ const Menu = () => {
                   })}
                 </div>
               </div>
-            )}
-            {!searchInput.length && (
+            )} */}
+            {/* {!searchInput.length && (
               <div className="">
                 <div className="flex items-center mt-8 mb-4 gap-2">
                   <h2 className="font-semibold text-2xl capitalize">
@@ -104,7 +104,7 @@ const Menu = () => {
                   })}
                 </div>
               </div>
-            )}
+            )} */}
             {/* {filteredData.map((category, idx) => {
               // If category is only for admin but user is not admin we return
               if (category.adminOnly && !isAdmin) return;
