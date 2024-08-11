@@ -29,14 +29,14 @@ const Menu = () => {
   // This state holds the open or closed modal for PickUpOrDeliveryModal.
   const [open, setOpen] = useState(false);
   // This return the products that the restaurant sells in an array of objects.
-  const {
-    filteredData,
-    data,
-    searchInput,
-    favoriteMenuItems,
-    popularMenuItems,
-  } = useMenu();
-  const { isAdmin } = useAuth();
+  // const {
+  //   filteredData,
+  //   data,
+  //   searchInput,
+  //   favoriteMenuItems,
+  //   popularMenuItems,
+  // } = useMenu();
+  // const { isAdmin } = useAuth();
   // t is to translate the text.
   const t = useI18n();
   // This ref holds all the category divs. We need it for category header...
@@ -47,9 +47,9 @@ const Menu = () => {
   //   uploadData();
   // }, []);
 
-  if (!data.length) {
-    return <Spinner />;
-  }
+  // if (!data.length) {
+  //   return <Spinner />;
+  // }
 
   return (
     <>
