@@ -206,23 +206,23 @@ const useMenuProvider = () => {
 
   // ******** END FUNCTION FOR SEARCH AND FILTER *********
 
-  // Subscribe to menus on firestore
-  useEffect(() => {
-    const q = query(collection(db, "menu"), orderBy("id", "asc"));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const menus = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-      }));
-      const filteredMenu = menus.filter((x) => x.id !== "config");
-      const [config] = menus.filter((x) => x.id === "config");
-      if (config.version !== version) {
-        console.log(`Updating from ${version} to ${config.version}`);
-        setData(filteredMenu);
-        setFilteredData(filteredMenu);
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+  // // Subscribe to menus on firestore
+  // useEffect(() => {
+  //   const q = query(collection(db, "menu"), orderBy("id", "asc"));
+  //   const unsubscribe = onSnapshot(q, (snapshot) => {
+  //     const menus = snapshot.docs.map((doc) => ({
+  //       ...doc.data(),
+  //     }));
+  //     const filteredMenu = menus.filter((x) => x.id !== "config");
+  //     const [config] = menus.filter((x) => x.id === "config");
+  //     if (config.version !== version) {
+  //       console.log(`Updating from ${version} to ${config.version}`);
+  //       setData(filteredMenu);
+  //       setFilteredData(filteredMenu);
+  //     }
+  //   });
+  //   return () => unsubscribe();
+  // }, []);
 
   return {
     data,
