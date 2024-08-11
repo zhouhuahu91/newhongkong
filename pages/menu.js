@@ -105,7 +105,7 @@ const Menu = () => {
                 </div>
               </div>
             )}
-            {filteredData.map((category, idx) => {
+            {/* {filteredData.map((category, idx) => {
               // If category is only for admin but user is not admin we return
               if (category.adminOnly && !isAdmin) return;
               return (
@@ -124,7 +124,7 @@ const Menu = () => {
                   </div>
                 </div>
               );
-            })}
+            })} */}
           </div>
           {/* This is the container where the desktopcart is. */}
           <div className="col-span-6 lg:col-span-5">
