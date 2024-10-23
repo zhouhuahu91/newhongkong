@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import FocusTrap from "focus-trap-react";
 
 const Modal = ({ toggle, children, close, className }) => {
-  useLockBodyScroll(toggle);
+  // useLockBodyScroll(toggle);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
