@@ -1,7 +1,7 @@
 import sidesOptions from "data/options/sidesOptions";
 import btw from "../options/btw";
 
-// import { christmasA, christmasB } from "./christmas";
+import { christmasA, christmasB } from "./christmas";
 
 const maandmenu = {
   id: "100",
@@ -62,15 +62,15 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "kip kerry",
-        en: "chicken curry",
-        de: "chicken curry",
-        zh: "加里鸡",
+        nl: "tippan 3 sterren",
+        en: "tippan 3 stars",
+        de: "Tippan 3 Sterne",
+        zh: "铁3星",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in kerrie saus",
-        en: "stir fried chicken with vegetables in curry sauce",
-        de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
+        nl: "roergebakken kipfilet, varkensvlees en biefstukjes met groenten in oestersaus",
+        en: "stir fried chicken, pork and beef with vegetables in a oyster sauce",
+        de: "gebratenes Hühnerfleisch, Schweinefleisch und Rindfleisch mit Gemüse in Austernsoße",
         zh: "",
       },
     },
@@ -1150,5 +1150,7 @@ export default {
       totalSides: 2,
       btw: btw.laag,
     },
+    christmasA,
+    christmasB,
   ],
 };
