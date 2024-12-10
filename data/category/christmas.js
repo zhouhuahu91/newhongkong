@@ -50,7 +50,7 @@ export const christmasA = {
     nl: "kerstmenu A",
     en: "christmas menu A",
     de: "Weihnachtsmenü A",
-    zh: "",
+    zh: "圣诞节 A",
   },
   description: {
     nl: "voor ongeveer 2 á 3 personen",
@@ -167,7 +167,7 @@ export const christmasB = {
     nl: "kerstmenu B",
     en: "christmas menu B",
     de: "Weihnachtsmenü B",
-    zh: "",
+    zh: "圣诞节 B",
   },
   description: {
     nl: "voor ongeveer 4 á 5 personen",

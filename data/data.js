@@ -41,7 +41,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.23 updated maandmenu
 // version 0.0.24 updated maandmenu
 // version 0.0.25 updated maandmenu and added kerstmenu's
-export const version = "0.0.25";
+// version 0.0.26 ZH name for christmas menu's
+export const version = "0.0.26";
 
 export const data = [
   menus,
