@@ -1,6 +1,79 @@
 import sidesOptions from "../options/sidesOptions";
 import btw from "../options/btw";
 
+const sidesOptionsB = [
+  {
+    id: "B1",
+    name: {
+      nl: "nasi",
+      en: "fried rice",
+      de: "gebratener Reis",
+      zh: "饭",
+    },
+    price: 0,
+  },
+  {
+    id: "B2",
+    name: {
+      nl: "bami",
+      en: "noodles",
+      de: "gebratene Nudeln",
+      zh: "面",
+    },
+    price: 0,
+  },
+  {
+    id: "B7",
+    name: {
+      nl: "vegetarische nasi",
+      en: "vegetarian fried rice",
+      de: "gebratener Reis (vegetarisch)",
+      zh: "素饭",
+    },
+    price: 0,
+  },
+  {
+    id: "B8",
+    name: {
+      nl: "vegetarische bami",
+      en: "vegetarian noodles",
+      de: "gebratene Nudeln (vegetarisch)",
+      zh: "素面",
+    },
+    price: 0,
+  },
+  {
+    id: "B3",
+    name: {
+      nl: "witte rijst",
+      en: "white rice",
+      de: "weißer Reis",
+      zh: "白饭",
+    },
+    price: 0,
+  },
+  {
+    id: "B4",
+    name: {
+      nl: "mihoen",
+      en: "rice noodles",
+      de: "Glasnudeln",
+      zh: "米分",
+    },
+    price: 440,
+  },
+  {
+    id: "B5",
+    name: {
+      nl: "Chinese bami",
+      en: "chow mein",
+      de: "chow mein",
+      zh: "中面",
+    },
+    price: 440,
+  },
+];
+
 const tippanSauce = [
   {
     id: "S3",
@@ -176,7 +249,7 @@ export const christmasB = {
     zh: "",
   },
   price: 8490,
-  sides: sidesOptions,
+  sides: sidesOptionsB,
   totalSides: 2,
   options: tippanSauce,
   btw: btw.laag,
