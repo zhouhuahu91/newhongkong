@@ -1150,7 +1150,7 @@ export default {
       totalSides: 2,
       btw: btw.laag,
     },
-    christmasA,
-    christmasB,
+    // christmasA,
+    // christmasB,
   ],
 };
