@@ -23,8 +23,8 @@ export default {
         de: "serviert mit Babi Pangang, kou lou kai, ein Hühnerspieß und scharfer Rindfleisch",
         zh: "",
       },
-      price: 2010,
-      dineInPrice: 2410,
+      price: 2170,
+      dineInPrice: 2530,
       qtyPlastic: 3,
       options: [
         {
@@ -65,8 +65,8 @@ export default {
         de: "Reisnudeln oder chow mein mit Hühnerfleisch",
         zh: "",
       },
-      price: 1380,
-      dineInPrice: 1660,
+      price: 1450,
+      dineInPrice: 1740,
       qtyPlastic: 1,
       options: [
         {
@@ -107,8 +107,8 @@ export default {
         de: "Reisnudeln oder chow mein mit Schweinefleisch",
         zh: "",
       },
-      price: 1380,
-      dineInPrice: 1660,
+      price: 1450,
+      dineInPrice: 1740,
       qtyPlastic: 1,
       options: [
         {
@@ -149,8 +149,8 @@ export default {
         de: "Reisnudeln oder chow mein mit Rindfleisch",
         zh: "",
       },
-      price: 1470,
-      dineInPrice: 1760,
+      price: 1540,
+      dineInPrice: 1860,
       qtyPlastic: 1,
       options: [
         {
@@ -191,8 +191,8 @@ export default {
         de: "Reisnudeln oder chow mein mit Schrimps",
         zh: "",
       },
-      price: 1660,
-      dineInPrice: 1990,
+      price: 1740,
+      dineInPrice: 2090,
       qtyPlastic: 1,
       options: [
         {
@@ -233,8 +233,8 @@ export default {
         de: "Reisnudeln oder chow mein mit Krabben-Sticks",
         zh: "",
       },
-      price: 1660,
-      dineInPrice: 1990,
+      price: 1740,
+      dineInPrice: 2090,
       qtyPlastic: 1,
       options: [
         {
@@ -275,8 +275,8 @@ export default {
         de: "Reisnudeln mit Hühnerfleisch, Schweinefleisch und Schrimps in Curry",
         zh: "",
       },
-      price: 1720,
-      dineInPrice: 2060,
+      price: 1810,
+      dineInPrice: 2160,
       qtyPlastic: 1,
       btw: btw.laag,
     },
@@ -294,8 +294,8 @@ export default {
         de: "chow mein mit cha siu",
         zh: "叉烧炒面",
       },
-      price: 1480,
-      dineInPrice: 1780,
+      price: 1550,
+      dineInPrice: 1880,
       qtyPlastic: 1,
       btw: btw.laag,
     },

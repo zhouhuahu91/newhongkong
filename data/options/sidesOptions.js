@@ -58,7 +58,7 @@ export default [
       de: "Glasnudeln",
       zh: "米分",
     },
-    price: 440,
+    price: 460,
   },
   {
     id: "B5",
@@ -68,7 +68,7 @@ export default [
       de: "chow mein",
       zh: "中面",
     },
-    price: 440,
+    price: 460,
   },
   {
     id: "B6",
@@ -78,7 +78,7 @@ export default [
       de: "halb gebratener Reis und halb Nudeln",
       zh: "半放面",
     },
-    price: 220,
+    price: 230,
   },
   {
     id: "B9",
@@ -88,7 +88,7 @@ export default [
       de: "großer gebratener Reis",
       zh: "大饭",
     },
-    price: 200,
+    price: 210,
   },
   {
     id: "B10",
@@ -98,6 +98,6 @@ export default [
       de: "großer gebratener Nudeln",
       zh: "大面",
     },
-    price: 200,
+    price: 210,
   },
 ];

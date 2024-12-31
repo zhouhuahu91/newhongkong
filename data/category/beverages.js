@@ -24,7 +24,7 @@ export default {
         de: "alle niet alcoholhoudende firsdranken",
         zh: "alle niet alcoholhoudende firsdranken",
       },
-      price: 320,
+      price: 340,
       btw: btw.laag,
     },
     {
@@ -41,7 +41,7 @@ export default {
         de: "fluitje, voor groot bier 2x bier aanslaan",
         zh: "fluitje, voor groot bier 2x bier aanslaan",
       },
-      price: 320,
+      price: 340,
       btw: btw.hoog,
     },
     {
@@ -58,7 +58,7 @@ export default {
         de: "alle wijn soorten.",
         zh: "alle wijn soorten.",
       },
-      price: 460,
+      price: 480,
       btw: btw.hoog,
     },
   ],
