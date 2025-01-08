@@ -62,15 +62,15 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "tippan 3 sterren",
-        en: "tippan 3 stars",
-        de: "Tippan 3 Sterne",
-        zh: "铁3星",
+        nl: "kip kerry",
+        en: "chicken curry",
+        de: "chicken curry",
+        zh: "加里鸡",
       },
       description: {
-        nl: "roergebakken kipfilet, varkensvlees en biefstukjes met groenten in oestersaus",
-        en: "stir fried chicken, pork and beef with vegetables in a oyster sauce",
-        de: "gebratenes Hühnerfleisch, Schweinefleisch und Rindfleisch mit Gemüse in Austernsoße",
+        nl: "roergebakken kipfilet met groenten in kerrie saus",
+        en: "stir fried chicken with vegetables in curry sauce",
+        de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
         zh: "",
       },
     },

@@ -44,7 +44,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.26 ZH name for christmas menu's
 // version 0.0.27 Christmas B standard with big sides
 // version 0.0.28 New prices for 2025
-export const version = "0.0.28";
+// version 0.0.29 New Maandmenu
+export const version = "0.0.29";
 
 export const data = [
   menus,
