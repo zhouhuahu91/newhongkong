@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import euro from "@/functions/euro";
 import { data } from "@/data/data";
 import DishIcon from "@/icons/DishIcon";
-import { carnaval } from "@/data/category/carnaval";
+import { carnavalA, carnavalB } from "@/data/category/carnaval";
 
 const getCustomFoodMenu = (rawData) => {
   // replace the price of data with dine in price if there is dine in price
@@ -64,7 +64,7 @@ const getCustomFoodMenu = (rawData) => {
   const rijsttafels = {
     name: "rijsttafels",
     id: "6",
-    items: [carnaval],
+    items: [carnavalA, carnavalB],
   };
 
   data.forEach((category) => {
