@@ -40,5 +40,6 @@ export default {
       price: 410,
       btw: btw.hoog,
     },
+    { id: "11007", name: "heineken pitcher", price: 2390, btw: btw.hoog },
   ],
 };
