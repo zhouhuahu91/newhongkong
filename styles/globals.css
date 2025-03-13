@@ -51,7 +51,7 @@ svg {
 }
 
 .pick-up-deliver {
-  @apply flex flex-col p-3 red-focus-ring rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white;
+  @apply flex flex-col items-start p-3 red-focus-ring rounded-md text-sm focus:outline-none font-medium w-1/2 border bg-white;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
