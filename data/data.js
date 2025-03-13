@@ -45,7 +45,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.27 Christmas B standard with big sides
 // version 0.0.28 New prices for 2025
 // version 0.0.29 New Maandmenu
-export const version = "0.0.29";
+// version 0.0.30 spiegelei toegevoegd
+export const version = "0.0.30";
 
 export const data = [
   menus,

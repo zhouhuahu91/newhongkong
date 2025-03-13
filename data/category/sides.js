@@ -344,5 +344,24 @@ export default {
       optionIsMain: true,
       btw: btw.laag,
     },
+    {
+      id: "107",
+      name: {
+        nl: "spiegelei",
+        en: "fried egg",
+        de: "spiegelei",
+        zh: "鸡蛋",
+      },
+      description: {
+        nl: "Het spiegelei wordt toegevoegd aan de nasi of bami, mits u deze heeft besteld. Anders wordt het apart verpakt.",
+        en: "The fried egg will be added to the fried rice or fried noodles if you have ordered it. Otherwise, it will be packed separately.",
+        de: "Das Spiegelei wird zum gebratenen Reis oder zu den gebratenen Nudeln hinzugefügt, sofern Sie diese bestellt haben. Andernfalls wird es separat verpackt.",
+        zh: "",
+      },
+      price: 80,
+      dineInPrice: 80,
+      qtyPlastic: 1,
+      btw: btw.laag,
+    },
   ],
 };
