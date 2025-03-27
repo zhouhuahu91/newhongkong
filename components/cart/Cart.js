@@ -17,7 +17,7 @@ import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Animation imports
 import { AnimatePresence } from "framer-motion";
 
-const Cart = () => {
+const Cart = ({ makeTotalBig }) => {
   // t translates the text.
   const t = useI18n();
   // Returns information about the store.
@@ -130,8 +130,12 @@ const Cart = () => {
           </div>
         </div>
         <div className="flex justify-between mt-1">
-          <span>{t.total}</span>
-          <span>{euro(calculateTotalCartPrice(cartState, storeFees))}</span>
+          <span className={`${makeTotalBig && "font-semibold text-3xl"}`}>
+            {t.total}
+          </span>
+          <span className={`${makeTotalBig && "font-semibold text-3xl"}`}>
+            {euro(calculateTotalCartPrice(cartState, storeFees))}
+          </span>
         </div>
       </div>
     </>

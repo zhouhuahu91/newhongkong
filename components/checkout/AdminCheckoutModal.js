@@ -91,7 +91,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
         style={{ maxHeight: "calc(100vh - 265px)" }}
         className="p-4 overflow-scroll bg-neutral-50"
       >
-        <Cart />
+        <Cart makeTotalBig />
         <div>
           <label htmlFor="name" className="text-gray-500 text-sm">
             Naam
