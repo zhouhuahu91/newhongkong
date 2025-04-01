@@ -46,7 +46,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.28 New prices for 2025
 // version 0.0.29 New Maandmenu
 // version 0.0.30 spiegelei toegevoegd
-export const version = "0.0.30";
+// version 0.0.31 new Maandmenu
+export const version = "0.0.31";
 
 export const data = [
   menus,
