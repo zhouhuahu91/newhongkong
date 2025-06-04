@@ -23,12 +23,17 @@ const DeleteOrderModal = ({ open, setOpen, order }) => {
     const calcSecondsLeft = () => {
       return Math.floor((order.createdAt + deleteDelay - Date.now()) / 1000);
     };
-    const interval = setInterval(() => {
-      setSecondsLeft(calcSecondsLeft());
-    }, 1000);
 
-    // If order is canceled we clear the interval.
-    // And we also set the secondsLeft to 0.
+    const interval = setInterval(() => {
+      const seconds = calcSecondsLeft();
+
+      if (seconds <= 0) {
+        setSecondsLeft(0);
+        clearInterval(interval); // stop interval when timer hits 0
+      } else {
+        setSecondsLeft(seconds);
+      }
+    }, 1000);
 
     if (order.canceled) {
       clearInterval(interval);
