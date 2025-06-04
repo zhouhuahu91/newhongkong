@@ -243,6 +243,46 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
               </div>
             </div>
           </div>
+          {order.paid === false && (
+            <div className="m-2">
+              <p className="text-sm mb-2 mx-1">
+                De bestelling is nog niet betaald. Als de klant op rekening
+                betaalt, druk dan op de knop hieronder.
+              </p>
+              <button
+                className="button w-full border text-sm hover:shadow-lg bg-white"
+                onClick={() => {
+                  updateDoc(ref, {
+                    paid: true,
+                    paymentMethod: "online",
+                    paymentMethodType: "op rekening",
+                  });
+                }}
+              >
+                Betaald op rekening
+              </button>
+            </div>
+          )}
+          {order.paid === true && order.paymentMethodType === "op rekening" && (
+            <div className="m-2">
+              <p className="text-sm mb-2 mx-1">
+                De klant heeft op rekening betaald. Klopt dat niet, druk dan op
+                de knop hieronder om dit te corrigeren.
+              </p>
+              <button
+                className="button w-full border text-sm hover:shadow-lg bg-white"
+                onClick={() => {
+                  updateDoc(ref, {
+                    paid: false,
+                    paymentMethod: "in_person",
+                    paymentMethodType: null,
+                  });
+                }}
+              >
+                Zet op niet betaald
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
