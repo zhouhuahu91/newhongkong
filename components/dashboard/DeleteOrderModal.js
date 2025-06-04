@@ -13,6 +13,8 @@ import { doc, deleteDoc } from "firebase/firestore";
 // ... we delete orders that we shouldn't delete.
 
 const DeleteOrderModal = ({ open, setOpen, order }) => {
+  const { remarks } = order;
+  const overRide = remarks === "DELETE NOW";
   const [secondsLeft, setSecondsLeft] = useState(1);
 
   // The amount of miliseconds to wait before we can delete the order. Currently it's set to 5 minutes
@@ -58,7 +60,7 @@ const DeleteOrderModal = ({ open, setOpen, order }) => {
         </IconBtn>
       </div>
       <div className="p-4 bg-neutral-50">
-        {secondsLeft > 0 ? (
+        {secondsLeft > 0 && overRide === false ? (
           <div>
             <p>
               You have to wait atleast {deleteDelay / 60000} minutes before you
@@ -89,13 +91,15 @@ const DeleteOrderModal = ({ open, setOpen, order }) => {
             deleteDoc(ref);
             setOpen(false);
           }}
-          disabled={secondsLeft > 0}
+          disabled={secondsLeft > 0 && !overRide}
           type="button"
           className={`button text-white w-7/12 ${
-            secondsLeft > 0 ? "bg-gray-300 pointer-events-none" : "bg-main"
+            secondsLeft > 0 && !overRide
+              ? "bg-gray-300 pointer-events-none"
+              : "bg-main"
           }`}
         >
-          {secondsLeft > 0 ? (
+          {secondsLeft > 0 && !overRide ? (
             <span className="font-medium text-white">
               0{Math.floor(secondsLeft / 60)}:
               {secondsLeft % 60 > 9 ? secondsLeft % 60 : `0${secondsLeft % 60}`}
