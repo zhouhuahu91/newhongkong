@@ -6,6 +6,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
+import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
 import useI18n from "@/hooks/useI18n";
 // Function imports
 
@@ -22,6 +23,7 @@ const useTimePicker = () => {
       asap,
     },
     currentDate,
+    storeFees,
   } = useStoreInfo();
   // We need to know if timepicker is for delivery or takeaway
   const { delivery, cart } = cartState;
@@ -35,8 +37,7 @@ const useTimePicker = () => {
   // StartTime is just the current hour.
   const startTime = Math.floor(currentTimeInSeconds / 3600) * 3600;
   // We use the totalCartPrice to calculate the min waiting time for orders.
-  // storefees are actually not relevant for calculating the total price for min waiting time.
-  const totalCartPrice = cart.reduce((x, y) => x + y.price, 0);
+  const totalCartPrice = calculateTotalCartPrice(cartState, storeFees);
 
   // This functions returns second param 16:00 => 16:30.
   const addThirtyMinutes = (hour, min) => {
@@ -103,9 +104,12 @@ const useTimePicker = () => {
 
         // This is the slot we are going to add to the array
         const slot = `${hour}:${min} - ${secondParam}`;
-
-        // If there are more than 2 of these slots in the existing slots we continue
-        if (takenSlots[slot] >= 2) continue;
+        // We check how many of these already exist in the takenSlots array.
+        const currentCount = takenSlots[slot] || 0;
+        // if there are more than 2 we continue
+        if (currentCount >= 2) continue;
+        // if there is 1 and the totalCartPrice > € 80,00 we also continue
+        if (totalCartPrice > 8000 && currentCount >= 1) continue;
         // We push the first and second parameter to the temp array.
         temp.push(slot);
       }
@@ -157,8 +161,11 @@ const useTimePicker = () => {
         // This is the slot we are going to add to the array.
         const slot = `${hour}:${min}`;
         // We check how many of these already exist in the takenSlots array.
-        // If it is 2 or more we continue
-        if (takenSlots[slot] >= 2) continue;
+        const currentCount = takenSlots[slot] || 0;
+        // if there are more than 2 we continue
+        if (currentCount >= 2) continue;
+        // if there is 1 and the totalCartPrice > € 80,00 we also continue
+        if (totalCartPrice > 8000 && currentCount >= 1) continue;
         // Else we push the slot into temp that we later set as the options.
         temp.push(slot);
       }
