@@ -5,15 +5,15 @@ import IconBtn from "@/components/IconBtn";
 
 const Snackbar = ({ snackbar, setSnackbar, duration }) => {
   useEffect(() => {
-    const x = duration ? duration : 3000;
+    if (!snackbar) return;
+
+    const x = duration || 3000;
     const timer = setTimeout(() => {
       setSnackbar(false);
     }, x);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  });
+    return () => clearTimeout(timer);
+  }, [snackbar, duration, setSnackbar]);
 
   return (
     <AnimatePresence>

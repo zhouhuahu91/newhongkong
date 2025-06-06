@@ -15,6 +15,7 @@ import PrintIcon from "@/icons/PrintIcon";
 import IconBtn from "@/components/IconBtn";
 import Switch from "@/components/Switch";
 import AlarmIcon from "@/icons/AlarmIcon";
+import LastItemAddedToCart from "@/components/dashboard/LastItemAddedToCart";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -190,6 +191,7 @@ const Dashboard = () => {
           {notifications ? "" : "🔕"}
         </title>
       </Head>
+      <LastItemAddedToCart />
       <Header
         date={date}
         setDate={setDate}

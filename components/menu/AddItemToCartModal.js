@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import { useCart } from "@/hooks/useCart";
-
+import { useAuth } from "@/hooks/useAuth";
 // Component Imports
 import Modal from "@/components/Modal";
 import ItemModalContent from "../ItemModalContent";
 // Function imports
 import euro from "@/functions/euro";
+// Firebase imports
+import { db } from "@/firebase/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 const NewItemModal = ({ item, open, setOpen }) => {
   // t is used to translate the text.
@@ -25,6 +28,8 @@ const NewItemModal = ({ item, open, setOpen }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   // This state holds the remarks for the item
   const [remarks, setRemarks] = useState("");
+  // I want the user to see who added a item to a cart
+  const { user } = useAuth();
 
   // When we close modal we want to reset all the values.
   useEffect(() => {
@@ -104,6 +109,15 @@ const NewItemModal = ({ item, open, setOpen }) => {
         remarks,
       },
     });
+
+    if (!user?.admin) {
+      // We log this item to the logItemToCart
+      addDoc(collection(db, "logItemToCart"), {
+        item: item.name,
+        user: user?.name || "anonymous",
+        timeStamp: serverTimestamp(),
+      });
+    }
 
     // We close the modal.
     setOpen(false);
