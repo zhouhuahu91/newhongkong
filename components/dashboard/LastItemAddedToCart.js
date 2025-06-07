@@ -32,7 +32,7 @@ const LastItemAddedToCart = () => {
   }, []);
 
   return (
-    <div className="absolute left-2 bottom-2 space-y-1">
+    <div className="fixed left-2 bottom-2 space-y-1">
       {logs
         .slice(0, 5)
         .reverse()
