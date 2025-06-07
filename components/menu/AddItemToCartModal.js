@@ -111,14 +111,15 @@ const NewItemModal = ({ item, open, setOpen }) => {
     });
 
     if (!user?.admin) {
-      // We log this item to the logItemToCart
+      const guest = JSON.parse(localStorage.getItem("guest"));
+      const userName = user?.name || guest?.name || "anonymous";
+
       addDoc(collection(db, "logItemToCart"), {
         item: item.name,
-        user: user?.name || "anonymous",
+        user: userName,
         timeStamp: serverTimestamp(),
       });
     }
-
     // We close the modal.
     setOpen(false);
   };
