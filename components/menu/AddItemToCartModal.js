@@ -123,7 +123,7 @@ const NewItemModal = ({ item, open, setOpen }) => {
     if (!user?.admin) {
       const guest = JSON.parse(localStorage.getItem("guest"));
       const userName =
-        user?.name || guest?.name || `anon-${getOrCreateUserId()}`;
+        user?.name || guest?.name || `anon[${getOrCreateUserId()}]`;
 
       addDoc(collection(db, "logItemToCart"), {
         item: item.name,
