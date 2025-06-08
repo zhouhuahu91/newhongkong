@@ -91,6 +91,10 @@ const useStoreProvider = () => {
     currentTimeInSeconds < preorderTime ||
     !storeInfo.open;
 
+  // this is when delivery closes before closing time.
+  const deliveryEndedWhileStoreOpen =
+    currentTimeInSeconds > storeInfo.endTimeDelivery;
+
   const digitalClosingTime = getDigitalTime(storeInfo.closingTime);
   const digitalOpeningTime = getDigitalTime(storeInfo.openingTime);
   const digitalCurrentTime = getDigitalTime(currentTimeInSeconds);
@@ -176,6 +180,7 @@ const useStoreProvider = () => {
     closingSoon,
     remainingMinutes,
     closed,
+    deliveryEndedWhileStoreOpen,
     liveMessage,
     digitalClosingTime,
     digitalOpeningTime,

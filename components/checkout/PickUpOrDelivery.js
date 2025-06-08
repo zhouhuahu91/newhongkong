@@ -14,13 +14,14 @@ const PickUpOrDelivery = () => {
   } = useCart();
   const t = useI18n();
   const {
+    deliveryEndedWhileStoreOpen,
     storeInfo: { openForDelivery },
   } = useStoreInfo();
 
   return (
     <>
       <h2 className="text-lg mb-2 font-normal">{t.pickup_delivery}</h2>
-      {!openForDelivery && (
+      {(deliveryEndedWhileStoreOpen || !openForDelivery) && (
         <div className="bg-amber-50 p-2 border text-sm mb-4 flex items-center">
           <span className="w-6 mr-1">
             <InfoIcon className="fill-main" />
@@ -46,7 +47,7 @@ const PickUpOrDelivery = () => {
           {t.pick_up}
         </button>
         {/* This button sets delivery to true which means the order will be delivered. */}
-        {openForDelivery && (
+        {openForDelivery && !deliveryEndedWhileStoreOpen && (
           <button
             onClick={() => dispatch({ type: "SET_DELIVERY", payload: true })}
             type="button"
