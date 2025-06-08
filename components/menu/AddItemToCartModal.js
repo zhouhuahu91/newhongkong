@@ -9,6 +9,7 @@ import Modal from "@/components/Modal";
 import ItemModalContent from "../ItemModalContent";
 // Function imports
 import euro from "@/functions/euro";
+import { nanoid } from "nanoid";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
@@ -41,6 +42,15 @@ const NewItemModal = ({ item, open, setOpen }) => {
       setRemarks("");
     }
   }, [open]);
+
+  const getOrCreateUserId = () => {
+    let id = localStorage.getItem("anonId");
+    if (!id) {
+      id = nanoid(6); // or your preferred ID method
+      localStorage.setItem("anonId", id);
+    }
+    return id;
+  };
 
   // We need the total cost of the item + options & sides to show the user the price.
   const calcTotalItemPriceWithOptionsAndSides = () => {
@@ -112,7 +122,8 @@ const NewItemModal = ({ item, open, setOpen }) => {
 
     if (!user?.admin) {
       const guest = JSON.parse(localStorage.getItem("guest"));
-      const userName = user?.name || guest?.name || "anonymous";
+      const userName =
+        user?.name || guest?.name || `anon-${getOrCreateUserId()}`;
 
       addDoc(collection(db, "logItemToCart"), {
         item: item.name,
