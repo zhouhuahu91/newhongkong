@@ -125,8 +125,20 @@ const NewItemModal = ({ item, open, setOpen }) => {
       const userName =
         user?.name || guest?.name || `anon${getOrCreateUserId()}`;
 
+      let displayName = item.name;
+
+      if (item.optionIsMain) {
+        const options = selectedOptions
+          .map((id) => item.options.find((opt) => opt.id === id))
+          .filter(Boolean);
+
+        if (options.length > 0) {
+          displayName = options[0].name;
+        }
+      }
+
       addDoc(collection(db, "logItemToCart"), {
-        item: item.name,
+        item: displayName,
         user: userName,
         timeStamp: serverTimestamp(),
       });
