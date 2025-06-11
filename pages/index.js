@@ -6,6 +6,7 @@ import Link from "next/link";
 // Hook imports
 import useWindowSize from "@/hooks/useWindowSize";
 import useI18n from "@/hooks/useI18n";
+import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Icon imports
 import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
 
@@ -18,6 +19,8 @@ const Home = () => {
   const { width } = useWindowSize();
   // This hook provides translations for the different languages.
   const t = useI18n();
+  const { closed } = useStoreInfo();
+  console.log(closed);
 
   // In this useEffect we set up an interval to switch between the Chinese...
   // and English for the title New Hong Kong.
@@ -62,8 +65,8 @@ const Home = () => {
           className={`button border-md border-opacity-10 border-white px-6 py-1.5 absolute top-96 mt-40 md:mt-72 right-1/2 translate-x-1/2 bg-white bg-opacity-20 backdrop-blur-sm`}
         >
           <ForkAndSpoonIcon className="fill-white" />
-          <span className="text-white uppercas font-medium uppercase text-sm ml-3">
-            {t.order}
+          <span className="text-white font-medium uppercase text-sm ml-3">
+            {closed ? t.closed : t.order}
           </span>
         </a>
       </Link>
