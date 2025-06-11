@@ -20,7 +20,6 @@ const Home = () => {
   // This hook provides translations for the different languages.
   const t = useI18n();
   const { closed } = useStoreInfo();
-  console.log(closed);
 
   // In this useEffect we set up an interval to switch between the Chinese...
   // and English for the title New Hong Kong.
