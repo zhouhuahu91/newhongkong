@@ -219,14 +219,14 @@ const Dashboard = () => {
                   // We want the first order in line that hasn't been printed yet and doesn't have remarks.
                   const firstInLine = orders.find((order) => {
                     // We also need to check if one of the items in the cart has remarks
-                    const itemsHasRemarks = order.cart.some(
-                      (item) => item.remarks && item.remarks.trim() !== ""
+                    const itemsHasWesternRemarks = order.cart.some((item) =>
+                      /[a-zA-Z]/.test(item.remarks)
                     );
                     if (order.paymentMethod === "online" && !order.paid) return;
                     if (order.remarks.trim()) return;
                     if (order.printed) return;
                     if (order.delivery) return;
-                    if (itemsHasRemarks) return;
+                    if (itemsHasWesternRemarks) return;
                     return order;
                   });
                   return (
