@@ -62,15 +62,15 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "tau sie ky",
-        en: "tau sie ky",
-        de: "tau sie ky",
-        zh: "黑豆鸡",
+        nl: "saté ajam",
+        en: "chicken satay",
+        de: "Hähnchenspieß",
+        zh: "地鸡",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in zwarte bonensaus",
-        en: "stir fried chicken with vegetables in a black bean sauce",
-        de: "gebratenes Hühnerfleisch mit Gemüse in einer Soße aus schwarze Bohnen",
+        nl: "3 stokjes kipsaté in satesaus",
+        en: "3 chicken satay in peanut sauce",
+        de: "3 Hähnchenspieß mit Erdnusssoße",
         zh: "",
       },
     },
