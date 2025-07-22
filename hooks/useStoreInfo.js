@@ -126,10 +126,12 @@ const useStoreProvider = () => {
       }
     };
 
+    fetchCurrentDate();
+
     const fetchDatesInterval = setInterval(() => {
       fetchCurrentDate();
-      // We refetch the dates every minute.
-    }, 60000);
+      // We refetch the dates every 10 minute.
+    }, 600000);
 
     return () => clearInterval(fetchDatesInterval);
   }, []);
