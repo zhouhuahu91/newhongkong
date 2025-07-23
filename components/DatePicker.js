@@ -1,5 +1,5 @@
 // React imports
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 // Hook imports
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 // Function imports
@@ -23,6 +23,14 @@ const DatePickerComponent = ({ setDate, className, date, top }) => {
   // This is a reference to the div surrounding this component.
   const ref = useRef();
   useOnClickOutside(ref, () => setShow(false));
+
+  useEffect(() => {
+    // Split the string into parts
+    const parts = date.split("-");
+    // Rearrange the parts to match "yyyy-mm-dd" format
+    const rearrangedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+    setSelectedDate(new Date(rearrangedDate));
+  }, [date]);
 
   return (
     <div ref={ref} className={`relative mx-2 ${className && className} flex`}>
