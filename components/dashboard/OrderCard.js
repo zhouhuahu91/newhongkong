@@ -129,7 +129,7 @@ const OrderCard = ({
         }}
         // We want the order to bounce if the order is at New and we haven't intereacted with it
         className={`border ${
-          order.paid ? "bg-green-100" : "bg-red-50"
+          order.paid ? "bg-green-50" : "bg-red-50"
         } rounded-xl col-span-12 sm:col-span-6 xl:col-span-4 space-y-1 overflow-hidden ${
           order.id === lastSelectedOrder?.id
             ? "selected border-main"
