@@ -1,8 +1,9 @@
 import { useState } from "react";
 import TableModal from "@/tables/TableModal";
+import useWindowSize from "@/hooks/useWindowSize";
+import calculateTableTotal from "@/functions/calculateTableTotal";
+import euro from "@/functions/euro";
 
-const tableStyling =
-  "border hover:shadow-md transition-all absolute font-medium xt-xl";
 
 const Table = ({
   table,
@@ -12,6 +13,15 @@ const Table = ({
   physicalTables,
 }) => {
   const [open, setOpen] = useState(false);
+  const { width } = useWindowSize();
+
+  const lgTableStyling = `border hover:shadow-md transition-all bg-white absolute font-medium ${physicalTable.position} ${physicalTable.type}`;
+  const tableStyling = `w-full border my-1 h-10 bg-white shadow-sm rounded`;
+
+  let tableTotal = 0;
+  if (table) {
+    tableTotal = calculateTableTotal(table);
+  }
 
   return (
     <>
@@ -35,9 +45,7 @@ const Table = ({
           }
         }}
         type="button"
-        className={`${tableStyling} ${physicalTable.position} ${
-          physicalTable.type
-        } 
+        className={`${width > 1024 ? lgTableStyling : tableStyling} 
           ${
             table
               ? table.wantsToPay && !table.paid
@@ -47,7 +55,11 @@ const Table = ({
           } 
           `}
       >
-        {physicalTable.number}
+        {width > 1024
+          ? physicalTable.number
+          : `Tafel ${physicalTable.number} ${
+              tableTotal > 0 ? `• ${euro(tableTotal)}` : ""
+            }`}
       </button>
     </>
   );

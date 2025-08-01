@@ -14,12 +14,16 @@ import Table from "@/tables/Table";
 import ClosedTable from "@/tables/ClosedTable";
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
+import CloseIcon from "@/icons/CloseIcon";
 // Icon imports
 import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
+// Hook imports
+import useWindowSize from "@/hooks/useWindowSize";
 
 const TablesModal = ({ date, setDate }) => {
   const [open, setOpen] = useState(false);
   const [tables, setTables] = useState([]);
+  const { width } = useWindowSize();
 
   const createNewTable = (number) => {
     const table = {
@@ -132,9 +136,18 @@ const TablesModal = ({ date, setDate }) => {
         close={() => {
           setOpen(false);
         }}
-        className="w-full max-w-[1080px] grid grid-cols-10 border shadow-md rounded-xl bg-white gap-2 overflow-hidden"
+        className="w-full h-full lg:h-[720px] lg:max-w-[1080px] lg:grid lg:grid-cols-10 lg:border lg:shadow-md lg:rounded-xl bg-white lg:gap-2 overflow-hidden"
       >
-        <div className="w-full relative h-[770px] col-span-8 border bg-white text-base">
+        {/* header for small screens */}
+        {width < 1024 && (
+          <div className="border-b p-4 font-bold flex justify-between">
+            <h1>Restaurant</h1>
+            <IconBtn onClick={() => setOpen(false)}>
+              <CloseIcon />
+            </IconBtn>
+          </div>
+        )}
+        <div className="w-full relative h-full lg:h-[770px] lg:col-span-8 lg:border bg-gray-50 text-base p-2 lg:p-0">
           {physicalTables.map((physicalTable) => {
             return (
               <Table
@@ -152,27 +165,31 @@ const TablesModal = ({ date, setDate }) => {
               />
             );
           })}
-          <StoreLayout setOpen={setOpen} date={date} setDate={setDate} />
+          {width > 1024 && (
+            <StoreLayout setOpen={setOpen} date={date} setDate={setDate} />
+          )}
         </div>
-        <div className="col-span-2 p-4 border-l shadow-inner bg-neutral-50 rounded-md overflow-scroll max-h-[800px]">
-          <h1 className="px-2 pb-2 font-medium text-center text-sm border-b mb-2">
-            gesloten tafels
-          </h1>
-          <div className="gap-2 flex flex-col overflow-scroll">
-            {tables.map((table) => {
-              if (table.paid) {
-                return (
-                  <ClosedTable
-                    physicalTables={physicalTables}
-                    date={date}
-                    key={table.id}
-                    table={table}
-                  />
-                );
-              }
-            })}
+        {width > 1024 && (
+          <div className="col-span-2 p-4 border-l shadow-inner bg-neutral-50 rounded-md overflow-scroll max-h-[800px]">
+            <h1 className="px-2 pb-2 font-medium text-center text-sm border-b mb-2">
+              gesloten tafels
+            </h1>
+            <div className="gap-2 flex flex-col overflow-scroll">
+              {tables.map((table) => {
+                if (table.paid) {
+                  return (
+                    <ClosedTable
+                      physicalTables={physicalTables}
+                      date={date}
+                      key={table.id}
+                      table={table}
+                    />
+                  );
+                }
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </Modal>
     </>
   );
