@@ -228,7 +228,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
 
   return (
     <Modal
-      className="w-full h-full max-w-[1080px] max-h-[770px] relative bg-white xl:rounded-xl overflow-hidden"
+      className="w-full h-full max-w-[1080px] lg:max-h-[770px] relative bg-white xl:rounded-xl overflow-hidden"
       toggle={open}
       close={() => {
         setOpen(false);
@@ -253,6 +253,10 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
             addDishToTable={addDishToTable}
             table={table}
             setOpen={setOpen}
+            incrementBeverage={incrementBeverage}
+            decrementBeverage={decrementBeverage}
+            incrementDish={incrementDish}
+            decrementDish={decrementDish}
           />
         </div>
         <div className="col-span-6 h-full hidden lg:flex border-l bg-white flex-col overflow-scroll">

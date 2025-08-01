@@ -11,6 +11,7 @@ import Dessert from "@/tables/items/Dessert";
 import AllFood from "@/tables/items/AllFood";
 import Checkout from "@/tables/Checkout";
 import CustomDish from "@/tables/items/CustomDish";
+import ReceiptModal from "@/tables/ReceiptModal";
 import IconBtn from "@/components/IconBtn";
 import CloseIcon from "@/icons/CloseIcon";
 const TableModalMenu = ({
@@ -18,6 +19,10 @@ const TableModalMenu = ({
   addBeverageToTable,
   addDishToTable,
   setOpen,
+  incrementBeverage,
+  decrementBeverage,
+  incrementDish,
+  decrementDish,
 }) => {
   const [mainCategory, setMainCategory] = useState(false);
   const [subCategory, setSubCategory] = useState(false);
@@ -37,7 +42,7 @@ const TableModalMenu = ({
     <>
       {/* Header for the displaying menu */}
       <div className="flex justify-between text-base items-center h-full max-h-24 border-b font-medium p-8 bg-white w-full absolute right-0 shadow">
-        <div>
+        <div className="flex">
           <button
             disabled={mainCategory === false}
             onClick={() => {
@@ -122,6 +127,14 @@ const TableModalMenu = ({
           mainCategory={mainCategory}
           setMainCategory={setMainCategory}
           addBeverageToTable={addBeverageToTable}
+        />
+        <ReceiptModal
+          table={table}
+          incrementBeverage={incrementBeverage}
+          decrementBeverage={decrementBeverage}
+          incrementDish={incrementDish}
+          decrementDish={decrementDish}
+          buttonStyle={buttonStyle}
         />
         <Checkout
           buttonStyle={buttonStyle}
