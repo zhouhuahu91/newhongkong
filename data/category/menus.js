@@ -62,15 +62,15 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "saté ajam",
-        en: "chicken satay",
-        de: "Hähnchenspieß",
-        zh: "地鸡",
+        nl: "pikante kip",
+        en: "spicy chicken",
+        de: "Hähnchen scharf",
+        zh: "辣鸡",
       },
       description: {
-        nl: "3 stokjes kipsaté in satesaus",
-        en: "3 chicken satay in peanut sauce",
-        de: "3 Hähnchenspieß mit Erdnusssoße",
+        nl: "roergebakken kipfilet met groenten in een licht pikante saus",
+        en: "stir fried chicken with vegetables in a mild spicy sauce",
+        de: "gebratener Hühnerfleisch mit Gemüse in leicht scharfer Soße",
         zh: "",
       },
     },
