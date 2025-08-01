@@ -11,9 +11,14 @@ import Dessert from "@/tables/items/Dessert";
 import AllFood from "@/tables/items/AllFood";
 import Checkout from "@/tables/Checkout";
 import CustomDish from "@/tables/items/CustomDish";
-import DeleteTable from "@/tables/DeleteTable";
-
-const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
+import IconBtn from "@/components/IconBtn";
+import CloseIcon from "@/icons/CloseIcon";
+const TableModalMenu = ({
+  table,
+  addBeverageToTable,
+  addDishToTable,
+  setOpen,
+}) => {
   const [mainCategory, setMainCategory] = useState(false);
   const [subCategory, setSubCategory] = useState(false);
   const [currentDish, setCurrentDish] = useState(false);
@@ -31,62 +36,61 @@ const TableModalMenu = ({ table, addBeverageToTable, addDishToTable }) => {
   return (
     <>
       {/* Header for the displaying menu */}
-      <div className="flex text-base items-center h-full max-h-24 border-b font-medium p-8 bg-white w-full absolute right-0 shadow">
-        <button
-          disabled={mainCategory === false}
-          onClick={() => {
-            setMainCategory(false);
-            setSubCategory(false);
-            if (table.wantsToPay) {
-              updateDoc(doc(db, `tables/${table.id}`), {
-                wantsToPay: false,
-              });
-            }
-          }}
-          type="button"
-          className={`font-medium ${
-            mainCategory !== false ? "hover:text-main" : ""
-          }`}
-        >
-          menu
-        </button>
-        {mainCategory && (
+      <div className="flex justify-between text-base items-center h-full max-h-24 border-b font-medium p-8 bg-white w-full absolute right-0 shadow">
+        <div>
           <button
-            disabled={subCategory === false}
+            disabled={mainCategory === false}
             onClick={() => {
+              setMainCategory(false);
               setSubCategory(false);
-            }}
-            className={`flex items-center font-medium ${
-              subCategory !== false ? "hover:text-main" : ""
-            }`}
-          >
-            <ChevronRightIcon /> {mainCategory}
-          </button>
-        )}
-        {subCategory && (
-          <button
-            disabled={currentDish === false && currentDishAllFood === false}
-            onClick={() => {
-              if (currentDish) {
-                setCurrentDish(false);
-              }
-              if (currentDishAllFood) {
-                setCurrentDishAllFood(false);
+              if (table.wantsToPay) {
+                updateDoc(doc(db, `tables/${table.id}`), {
+                  wantsToPay: false,
+                });
               }
             }}
-            className={`flex items-center font-medium ${
-              currentDish || currentDishAllFood ? "hover:text-main" : ""
+            type="button"
+            className={`font-medium ${
+              mainCategory !== false ? "hover:text-main" : ""
             }`}
           >
-            <ChevronRightIcon /> {subCategory}
+            menu
           </button>
-        )}
-        <DeleteTable
-          table={table}
-          setMainCategory={setMainCategory}
-          mainCategory={mainCategory}
-          buttonStyle={buttonStyle}
-        />
+          {mainCategory && (
+            <button
+              disabled={subCategory === false}
+              onClick={() => {
+                setSubCategory(false);
+              }}
+              className={`flex items-center font-medium ${
+                subCategory !== false ? "hover:text-main" : ""
+              }`}
+            >
+              <ChevronRightIcon /> {mainCategory}
+            </button>
+          )}
+          {subCategory && (
+            <button
+              disabled={currentDish === false && currentDishAllFood === false}
+              onClick={() => {
+                if (currentDish) {
+                  setCurrentDish(false);
+                }
+                if (currentDishAllFood) {
+                  setCurrentDishAllFood(false);
+                }
+              }}
+              className={`flex items-center font-medium ${
+                currentDish || currentDishAllFood ? "hover:text-main" : ""
+              }`}
+            >
+              <ChevronRightIcon /> {subCategory}
+            </button>
+          )}
+        </div>
+        <IconBtn onClick={() => setOpen(false)}>
+          <CloseIcon />
+        </IconBtn>
       </div>
       {/* These are the categories we can go in to.  */}
       {/* If mainCategory is false these will return a button which will select their... */}

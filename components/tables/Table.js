@@ -4,7 +4,6 @@ import useWindowSize from "@/hooks/useWindowSize";
 import calculateTableTotal from "@/functions/calculateTableTotal";
 import euro from "@/functions/euro";
 
-
 const Table = ({
   table,
   physicalTable,
@@ -15,8 +14,8 @@ const Table = ({
   const [open, setOpen] = useState(false);
   const { width } = useWindowSize();
 
-  const lgTableStyling = `border hover:shadow-md transition-all bg-white absolute font-medium ${physicalTable.position} ${physicalTable.type}`;
-  const tableStyling = `w-full border my-1 h-10 bg-white shadow-sm rounded`;
+  const lgTableStyling = `border hover:shadow-md transition-all absolute font-medium ${physicalTable.position} ${physicalTable.type}`;
+  const tableStyling = `w-full border my-1 h-10 shadow-sm rounded`;
 
   let tableTotal = 0;
   if (table) {
@@ -51,7 +50,7 @@ const Table = ({
               ? table.wantsToPay && !table.paid
                 ? "bg-red-100"
                 : "bg-green-100"
-              : ""
+              : "bg-white"
           } 
           `}
       >
