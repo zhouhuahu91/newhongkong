@@ -18,7 +18,7 @@ const ReceiptModal = ({
 
   return (
     <>
-      <div className="fixed bottom-0 w-full p-4 border">
+      <div className="lg:hidden fixed bottom-0 w-full p-4 border">
         <button
           onClick={() => setOpen(true)}
           type="button"
