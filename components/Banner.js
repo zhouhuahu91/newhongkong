@@ -60,7 +60,7 @@ const Banner = () => {
             <span className="w-6 h-6">
               <InfoIcon className="fill-main" />
             </span>
-            <span className="text-sm font-normal">{bannerMessage}</span>
+            <span className="font-normal">{bannerMessage}</span>
           </div>
           <IconBtn onClick={() => setShow(false)}>
             <CloseIcon />
