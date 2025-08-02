@@ -15,7 +15,7 @@ const Table = ({
   const { width } = useWindowSize();
 
   const lgTableStyling = `border hover:shadow-md transition-all absolute font-medium ${physicalTable.position} ${physicalTable.type}`;
-  const tableStyling = `w-full border my-1 h-10 shadow-sm rounded`;
+  const tableStyling = `w-full border my-1 h-14 shadow rounded font-bold`;
 
   let tableTotal = 0;
   if (table) {
