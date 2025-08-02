@@ -4,28 +4,32 @@ import Receipt from "@/tables/Receipt";
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
 import CloseIcon from "@/icons/CloseIcon";
-import ReceiptIcon from "@/icons/ReceiptIcon";
-
+import calculateTableTotal from "@/functions/calculateTableTotal";
+import euro from "@/functions/euro";
 const ReceiptModal = ({
   table,
   incrementBeverage,
   decrementBeverage,
   incrementDish,
   decrementDish,
-  buttonStyle,
 }) => {
   const [open, setOpen] = useState(false);
+  const tableTotal = calculateTableTotal(table);
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        type="button"
-        className={`${buttonStyle} col-span-2 flex items-center justify-center gap-2`}
-      >
-        <ReceiptIcon className="fill-inherit" />{" "}
-        <span className="font-medium text-inherit">Rekening</span>
-      </button>
+      <div className="fixed bottom-0 w-full p-4 border">
+        <button
+          onClick={() => setOpen(true)}
+          type="button"
+          className={`w-full bg-main flex justify-center items-center p-2 rounded shadow`}
+        >
+          <span className="font-medium text-inherit text-white">
+            Rekening {tableTotal > 0 ? euro(tableTotal) : ""}
+          </span>
+        </button>
+      </div>
+
       <Modal
         toggle={open}
         close={() => setOpen(false)}

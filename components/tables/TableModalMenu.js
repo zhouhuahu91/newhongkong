@@ -41,6 +41,13 @@ const TableModalMenu = ({
 
   return (
     <>
+      <ReceiptModal
+        table={table}
+        incrementBeverage={incrementBeverage}
+        decrementBeverage={decrementBeverage}
+        incrementDish={incrementDish}
+        decrementDish={decrementDish}
+      />
       {/* Header for the displaying menu */}
       <div className="flex justify-between text-base items-center h-full max-h-24 border-b font-medium p-8 bg-white w-full absolute right-0 shadow">
         <div className="flex">
@@ -137,16 +144,6 @@ const TableModalMenu = ({
           setMainCategory={setMainCategory}
           addBeverageToTable={addBeverageToTable}
         />
-        {!mainCategory && (
-          <ReceiptModal
-            table={table}
-            incrementBeverage={incrementBeverage}
-            decrementBeverage={decrementBeverage}
-            incrementDish={incrementDish}
-            decrementDish={decrementDish}
-            buttonStyle={buttonStyle}
-          />
-        )}
         <Checkout
           buttonStyle={buttonStyle}
           mainCategory={mainCategory}
