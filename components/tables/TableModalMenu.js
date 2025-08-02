@@ -37,7 +37,7 @@ const TableModalMenu = ({
   }, []);
 
   const buttonStyle =
-    "min-h-20 border p-4 rounded-md text-bases font-medium transition-all hover:shadow hover:scale-[1.04] red-focus-ring";
+    "min-h-20 border p-4 rounded-md text-bases font-medium transition-all hover:shadow hover:scale-[1.04] red-focus-ring shadow";
 
   return (
     <>
@@ -49,7 +49,7 @@ const TableModalMenu = ({
         decrementDish={decrementDish}
       />
       {/* Header for the displaying menu */}
-      <div className="flex justify-between text-base items-center h-full max-h-24 border-b font-medium p-8 bg-white w-full absolute right-0 shadow">
+      <div className="flex justify-between text-base items-center h-full max-h-24 border-b font-medium px-4 lg:px-8 py-8 bg-white w-full absolute right-0 shadow">
         <div className="flex">
           <button
             disabled={mainCategory === false}
@@ -118,7 +118,7 @@ const TableModalMenu = ({
       {/* If mainCategory is false these will return a button which will select their... */}
       {/* category as the main one. */}
       {/* css is a pain in the ass need to do mt 97px so that items don't start below menu */}
-      <div className="grid grid-cols-2 px-2 lg:px-8 py-4 gap-3 overflow-scroll mt-[97px]">
+      <div className="grid grid-cols-2 px-2 lg:px-8 py-4 gap-3 overflow-scroll mt-[97px] bg-white">
         <Beverages
           buttonStyle={buttonStyle}
           subCategory={subCategory}
