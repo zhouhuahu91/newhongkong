@@ -102,6 +102,7 @@ const TableModalMenu = ({
           )}
         </div>
         <IconBtn
+          className="lg:hidden"
           onClick={() => {
             if (mainCategory) {
               return setMainCategory(false);
