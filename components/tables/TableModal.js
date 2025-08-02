@@ -253,6 +253,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
             addDishToTable={addDishToTable}
             table={table}
             setOpen={setOpen}
+            deleteIfEmpty={deleteTableIfEmpty}
             incrementBeverage={incrementBeverage}
             decrementBeverage={decrementBeverage}
             incrementDish={incrementDish}

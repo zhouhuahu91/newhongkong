@@ -23,6 +23,7 @@ const TableModalMenu = ({
   decrementBeverage,
   incrementDish,
   decrementDish,
+  deleteIfEmpty,
 }) => {
   const [mainCategory, setMainCategory] = useState(false);
   const [subCategory, setSubCategory] = useState(false);
@@ -93,7 +94,15 @@ const TableModalMenu = ({
             </button>
           )}
         </div>
-        <IconBtn onClick={() => setOpen(false)}>
+        <IconBtn
+          onClick={() => {
+            if (mainCategory) {
+              return setMainCategory(false);
+            }
+            setOpen(false);
+            deleteIfEmpty();
+          }}
+        >
           <CloseIcon />
         </IconBtn>
       </div>
@@ -128,14 +137,16 @@ const TableModalMenu = ({
           setMainCategory={setMainCategory}
           addBeverageToTable={addBeverageToTable}
         />
-        <ReceiptModal
-          table={table}
-          incrementBeverage={incrementBeverage}
-          decrementBeverage={decrementBeverage}
-          incrementDish={incrementDish}
-          decrementDish={decrementDish}
-          buttonStyle={buttonStyle}
-        />
+        {!mainCategory && (
+          <ReceiptModal
+            table={table}
+            incrementBeverage={incrementBeverage}
+            decrementBeverage={decrementBeverage}
+            incrementDish={incrementDish}
+            decrementDish={decrementDish}
+            buttonStyle={buttonStyle}
+          />
+        )}
         <Checkout
           buttonStyle={buttonStyle}
           mainCategory={mainCategory}
