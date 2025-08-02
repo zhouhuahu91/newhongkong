@@ -136,7 +136,7 @@ const TablesModal = ({ date, setDate }) => {
         close={() => {
           setOpen(false);
         }}
-        className="w-full h-full lg:h-[720px] lg:max-w-[1080px] lg:grid lg:grid-cols-10 lg:border lg:shadow-md lg:rounded-xl bg-white lg:gap-2 overflow-hidden"
+        className="w-full h-full lg:h-[770px] lg:max-w-[1080px] lg:grid lg:grid-cols-10 lg:border lg:shadow-md lg:rounded-xl bg-white lg:gap-2 overflow-hidden"
       >
         {/* header for small screens */}
         {width < 1024 && (
