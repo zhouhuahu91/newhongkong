@@ -106,7 +106,7 @@ const TableModalMenu = ({
           className="lg:hidden"
           onClick={() => {
             if (mainCategory) {
-              return setMainCategory(false);
+              setMainCategory(false);
             }
             setOpen(false);
             deleteIfEmpty();
