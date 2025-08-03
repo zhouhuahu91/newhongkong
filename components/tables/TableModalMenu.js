@@ -46,6 +46,7 @@ const TableModalMenu = ({
         incrementBeverage={incrementBeverage}
         decrementBeverage={decrementBeverage}
         incrementDish={incrementDish}
+        setModalMenu={setOpen}
         decrementDish={decrementDish}
       />
       {/* Header for the displaying menu */}
