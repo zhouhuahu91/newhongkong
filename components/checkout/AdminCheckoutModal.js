@@ -89,7 +89,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
       </div>
       <div
         style={{ maxHeight: "calc(100vh - 265px)" }}
-        className="p-4 overflow-scroll bg-neutral-50"
+        className="p-4 overflow-auto bg-neutral-50"
       >
         <Cart makeTotalBig />
         <div>
