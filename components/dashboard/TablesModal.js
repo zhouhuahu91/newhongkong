@@ -129,7 +129,11 @@ const TablesModal = ({ date, setDate }) => {
           setOpen((prev) => !prev);
         }}
       >
-        <ForkAndSpoonIcon />
+        <ForkAndSpoonIcon
+          className={`${
+            tables.filter((x) => !x.paid).length > 0 ? "fill-main" : ""
+          }`}
+        />
       </IconBtn>
       <Modal
         toggle={open}
