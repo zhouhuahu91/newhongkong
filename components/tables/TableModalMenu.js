@@ -48,6 +48,7 @@ const TableModalMenu = ({
         incrementDish={incrementDish}
         setModalMenu={setOpen}
         decrementDish={decrementDish}
+        setMainCategory={setMainCategory}
       />
       {/* Header for the displaying menu */}
       <div className="flex justify-between text-base items-center h-full max-h-24 border-b font-medium px-4 lg:px-8 py-8 bg-white w-full absolute right-0 shadow">

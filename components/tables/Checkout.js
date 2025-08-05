@@ -5,6 +5,8 @@ import PrintIcon from "@/icons/PrintIcon";
 import CreditCardIcon from "@/icons/CreditCardIcon";
 import CashIcon from "@/icons/CashIcon";
 import LoadingIcon from "@/icons/LoadingIcon";
+import ReceiptIcon from "@/icons/ReceiptIcon";
+import IconBtn from "@/components/IconBtn";
 
 // Firebase imports
 import { db } from "@/firebase/firebase";
@@ -21,7 +23,14 @@ import createStoreLogo from "@/functions/createStoreLogo";
 import calculateTableTotal from "@/functions/calculateTableTotal";
 import calculateTableVat from "@/functions/calculateTableVat";
 
-const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
+const Checkout = ({
+  setMainCategory,
+  mainCategory,
+  table,
+  buttonStyle,
+  justIcon,
+  setOpen,
+}) => {
   const [printJobs, setPrintJobs] = useState([]);
 
   // Gets all the id's of printer jobs
@@ -123,6 +132,28 @@ const Checkout = ({ setMainCategory, mainCategory, table, buttonStyle }) => {
       printContent: base64String,
     });
   };
+
+  if (justIcon) {
+    return (
+      <IconBtn
+        disabled={printJobs.length}
+        onClick={() => {
+          setMainCategory("checkout");
+          updateDoc(doc(db, `tables/${table.id}`), {
+            wantsToPay: true,
+          });
+          printReceipt();
+          setOpen(false);
+        }}
+      >
+        {printJobs.length ? (
+          <LoadingIcon className="animate-spin fill-main" />
+        ) : (
+          <ReceiptIcon className="fill-inherit" />
+        )}
+      </IconBtn>
+    );
+  }
 
   if (mainCategory === "checkout") {
     return (

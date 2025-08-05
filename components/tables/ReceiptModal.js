@@ -7,6 +7,7 @@ import CloseIcon from "@/icons/CloseIcon";
 import calculateTableTotal from "@/functions/calculateTableTotal";
 import euro from "@/functions/euro";
 import useWindowSize from "@/hooks/useWindowSize";
+import Checkout from "@/tables/Checkout";
 const ReceiptModal = ({
   table,
   incrementBeverage,
@@ -14,11 +15,14 @@ const ReceiptModal = ({
   incrementDish,
   decrementDish,
   setModalMenu,
+  setMainCategory,
 }) => {
   const tableTotal = calculateTableTotal(table);
   const { width } = useWindowSize();
 
-  const [open, setOpen] = useState(tableTotal > 0 ? true : false);
+  const [open, setOpen] = useState(
+    tableTotal > 0 && table.wantsToPay === false ? true : false
+  );
 
   return (
     <>
@@ -52,7 +56,15 @@ const ReceiptModal = ({
               </button>
             </div>
             <div className="p-4 font-bold text-lg flex justify-between items-center">
-              <h1>Tafel {table.number}</h1>
+              <div className="flex gap-2">
+                <Checkout
+                  table={table}
+                  justIcon={true}
+                  setMainCategory={setMainCategory}
+                  setOpen={setOpen}
+                />
+                <h1 className="font-bold">Tafel {table.number}</h1>
+              </div>
               <IconBtn
                 onClick={() => {
                   setModalMenu(false);
