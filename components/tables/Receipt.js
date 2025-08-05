@@ -144,7 +144,7 @@ const Receipt = ({
 
   return (
     <div
-      className={`px-2 lg:px-8 pb-8 pt-4 h-full flex flex-col overflow-scroll ${
+      className={`px-2 lg:px-8 pb-8 pt-4 h-full flex flex-col overflow-auto ${
         table.food.length ? "gap-4" : ""
       }`}
     >

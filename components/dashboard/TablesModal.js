@@ -170,11 +170,11 @@ const TablesModal = ({ date, setDate }) => {
           )}
         </div>
         {width > 1024 && (
-          <div className="col-span-2 p-4 border-l shadow-inner bg-neutral-50 rounded-md overflow-scroll max-h-[800px]">
+          <div className="col-span-2 p-4 border-l overflow-auto shadow-inner bg-neutral-50 rounded-md max-h-[800px]">
             <h1 className="px-2 pb-2 font-medium text-center text-sm border-b mb-2">
               gesloten tafels
             </h1>
-            <div className="gap-2 flex flex-col overflow-scroll">
+            <div className="gap-2 flex flex-col">
               {tables.map((table) => {
                 if (table.paid) {
                   return (

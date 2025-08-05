@@ -119,7 +119,7 @@ const TableModalMenu = ({
       {/* If mainCategory is false these will return a button which will select their... */}
       {/* category as the main one. */}
       {/* css is a pain in the ass need to do mt 97px so that items don't start below menu */}
-      <div className="grid grid-cols-2 px-2 lg:px-8 py-4 gap-3 overflow-scroll mt-[97px] bg-white">
+      <div className="grid grid-cols-2 px-2 lg:px-8 py-4 gap-3 overflow-auto mt-[97px] bg-white">
         <Beverages
           buttonStyle={buttonStyle}
           subCategory={subCategory}
