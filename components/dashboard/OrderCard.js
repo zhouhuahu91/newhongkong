@@ -190,7 +190,7 @@ const OrderCard = ({
                   sendOrderToPrinter(order);
                 }}
               >
-                <PrintIcon className="hover:scale-125 transition-transform" />
+                <PrintIcon />
               </IconBtn>
             )}
             {/* If order is printing we show a spinner. */}
@@ -214,7 +214,7 @@ const OrderCard = ({
                   });
                 }}
               >
-                <CheckIcon className="fill-green-700 hover:scale-125 transition-transform" />
+                <CheckIcon className="fill-green-700" />
               </IconBtn>
             )}
             {/* If the order is ready and paid for but not yet completed we show... */}
@@ -232,7 +232,7 @@ const OrderCard = ({
                   });
                 }}
               >
-                <CloseIcon className="fill-main hover:scale-125 transition-transform" />
+                <CloseIcon className="fill-main" />
               </IconBtn>
             )}
             {/* If the order is completed we show the icon that can remove the order from being completed. */}
@@ -249,7 +249,7 @@ const OrderCard = ({
                   });
                 }}
               >
-                <UndoIcon className="hover:scale-125 transition-transform" />
+                <UndoIcon />
               </span>
             )}
           </div>
@@ -281,7 +281,7 @@ const OrderCard = ({
                     onClick={(e) => e.stopPropagation()}
                     className="flex red-focus-ring rounded"
                   >
-                    <PedalBikeIcon className="hover:scale-125 transition-transform" />
+                    <PedalBikeIcon />
                   </a>
                 )}
                 {!order.delivery && !order.bag && (
@@ -368,7 +368,7 @@ const OrderCard = ({
                     >
                       <CashIcon
                         off={!order.paid}
-                        className={`hover:scale-125 transition-transform ${
+                        className={`${
                           order.paid ? "fill-green-700" : "fill-main"
                         }`}
                       />
@@ -410,7 +410,7 @@ const OrderCard = ({
                       >
                         <CreditCardIcon
                           off={!order.paid}
-                          className={`hover:scale-125 transition-transform ${
+                          className={`${
                             order.paid ? "fill-green-700" : "fill-main"
                           }`}
                         />

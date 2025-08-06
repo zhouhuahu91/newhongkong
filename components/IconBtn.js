@@ -8,9 +8,9 @@ const IconBtn = ({ children, className, onClick, roundedFull, disabled }) => {
           onClick(e);
         }
       }}
-      className={`red-focus-ring ${roundedFull ? "rounded-full" : "rounded"}  ${
-        className && className
-      }`}
+      className={`hover:scale-125 transition-transform red-focus-ring ${
+        roundedFull ? "rounded-full" : "rounded"
+      }  ${className && className}`}
     >
       {children}
     </button>
