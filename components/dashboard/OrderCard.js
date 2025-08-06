@@ -281,7 +281,7 @@ const OrderCard = ({
                     onClick={(e) => e.stopPropagation()}
                     className="flex red-focus-ring rounded"
                   >
-                    <PedalBikeIcon />
+                    <PedalBikeIcon className="hover:scale-125 transition-transform" />
                   </a>
                 )}
                 {!order.delivery && !order.bag && (
