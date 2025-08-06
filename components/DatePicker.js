@@ -48,7 +48,7 @@ const DatePickerComponent = ({ setDate, className, date, top }) => {
         >
           {getFullDate(selectedDate)}
         </span>
-        <CalendarIcon className="fill-inherit" />
+        <CalendarIcon className="fill-inherit hover:scale-125 transition-transform" />
       </button>
       <AnimatePresence>
         {show && (

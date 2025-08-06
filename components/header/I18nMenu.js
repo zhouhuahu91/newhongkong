@@ -57,7 +57,11 @@ const I18nMenu = () => {
         type="button"
         onClick={() => setI18nMenu((prev) => !prev)}
       >
-        <LanguageIcon className={`${atHome && "fill-white"}`} />
+        <LanguageIcon
+          className={`${
+            atHome && "fill-white"
+          } hover:scale-125 transition-transform`}
+        />
       </button>
       {/* ******** LOCALE BUTTON ******** */}
       {/* ******** LOCALE MENU ******** */}

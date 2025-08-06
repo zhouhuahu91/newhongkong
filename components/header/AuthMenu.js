@@ -37,7 +37,11 @@ const AuthMenu = () => {
           type="button"
           onClick={() => setAuthMenu((prev) => !prev)}
         >
-          <AccountIcon className={`${atHome && "fill-white"}`} />
+          <AccountIcon
+            className={`${
+              atHome && "fill-white"
+            } hover:scale-125 transition-transform`}
+          />
         </button>
       ) : (
         <Link href="/sign_in">
@@ -75,7 +79,7 @@ const AuthMenu = () => {
             >
               {t.sign_out}
               <span className="ml-8">
-                <LogoutIcon />
+                <LogoutIcon className="hover:scale-125 transition-transform" />
               </span>
             </button>
           </motion.div>

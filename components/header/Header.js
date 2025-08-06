@@ -89,7 +89,11 @@ const Header = () => {
             {user?.admin && (
               <Link href="/dashboard">
                 <a className="red-focus-ring rounded">
-                  <DashboardIcon className={`${atHome && "fill-white"}`} />
+                  <DashboardIcon
+                    className={`${
+                      atHome && "fill-white"
+                    } hover:scale-125 transition-transform`}
+                  />
                 </a>
               </Link>
             )}
@@ -98,7 +102,11 @@ const Header = () => {
               !(user?.admin && width < 768) && (
                 <Link href="/monthly_overview">
                   <a className="red-focus-ring rounded">
-                    <ChartIcon className={`${atHome && "fill-white"}`} />
+                    <ChartIcon
+                      className={`${
+                        atHome && "fill-white"
+                      } hover:scale-125 transition-transform`}
+                    />
                   </a>
                 </Link>
               )}
@@ -107,7 +115,11 @@ const Header = () => {
               !(user?.admin && width < 768) && (
                 <Link href="/delivery">
                   <a className="red-focus-ring rounded">
-                    <PedalBikeIcon className={`${atHome && "fill-white"}`} />
+                    <PedalBikeIcon
+                      className={`${
+                        atHome && "fill-white"
+                      } hover:scale-125 transition-transform`}
+                    />
                   </a>
                 </Link>
               )}
