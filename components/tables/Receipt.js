@@ -49,6 +49,10 @@ const Receipt = ({
 
   // I need an array of items in food that needs to be printed
   const needsToBePrinted = table.food.filter((item) => !item.printed);
+  const notServedBeverages = table.beverages.reduce(
+    (acc, curr) => acc + curr.notServed,
+    0
+  );
 
   const printFood = async () => {
     let markup = `
@@ -248,7 +252,7 @@ const Receipt = ({
         <div className="font-medium">totaal: {euro(total)}</div>
       </div>
       <div className="flex w-full gap-2">
-        {
+        {notServedBeverages > 0 && (
           <button
             onClick={async () => {
               const ref = doc(db, `tables/${table.id}`);
@@ -263,7 +267,7 @@ const Receipt = ({
             drank geserveerd
             <BeverageIcon />
           </button>
-        }
+        )}
         {needsToBePrinted.length > 0 && (
           <button
             disabled={printJobs.length}
