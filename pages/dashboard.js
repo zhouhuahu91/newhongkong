@@ -341,31 +341,34 @@ const Dashboard = () => {
             {orders.filter(
               (order) => order.printed && !order.ready && order.delivery
             ).length > 0 && (
-              <div className="mb-4 border-b flex justify-center items-center gap-2">
-                <span className="text-xl font-medium">Keuken</span>
-              </div>
+              <>
+                <div className="mb-4 border-b flex justify-center items-center gap-2">
+                  <span className="text-xl font-medium">Keuken</span>
+                </div>
+                <div className="grid gap-4 pb-2">
+                  {/* these are the orders that are in the kitchen. */}
+                  {orders.map((order) => {
+                    if (order.printed && !order.ready && order.delivery)
+                      return (
+                        <OrderCard
+                          printer={printer}
+                          key={order.id}
+                          order={order}
+                          // We use this to disable print if there is already an order printing.
+                          printerBusy={printJobs.length > 0}
+                          // We want to show a spinner if current order is printing.
+                          isPrinting={printJobs
+                            .map((job) => job.id)
+                            .includes(order.id)}
+                          lastSelectedOrder={lastSelectedOrder}
+                          setLastSelectedOrder={setLastSelectedOrder}
+                        />
+                      );
+                  })}
+                </div>
+              </>
             )}
-            <div className="grid gap-4 pb-2">
-              {/* these are the orders that are in the kitchen. */}
-              {orders.map((order) => {
-                if (order.printed && !order.ready && order.delivery)
-                  return (
-                    <OrderCard
-                      printer={printer}
-                      key={order.id}
-                      order={order}
-                      // We use this to disable print if there is already an order printing.
-                      printerBusy={printJobs.length > 0}
-                      // We want to show a spinner if current order is printing.
-                      isPrinting={printJobs
-                        .map((job) => job.id)
-                        .includes(order.id)}
-                      lastSelectedOrder={lastSelectedOrder}
-                      setLastSelectedOrder={setLastSelectedOrder}
-                    />
-                  );
-              })}
-            </div>
+
             <div className="mb-4 border-b flex justify-center items-center gap-2">
               <span className="text-xl font-medium">Bezorgen</span>
               <ToolTip
