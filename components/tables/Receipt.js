@@ -12,6 +12,7 @@ import PlusIcon from "@/icons/PlusIcon";
 import LoadingIcon from "@/icons/LoadingIcon";
 import ReceiptIcon from "@/icons/ReceiptIcon";
 import PrintIcon from "@/icons/PrintIcon";
+import BeverageIcon from "@/icons/BeverageIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import {
@@ -33,7 +34,6 @@ const Receipt = ({
   const [printJobs, setPrintJobs] = useState([]);
   const [formattedTip, setFormattedTip] = useState(`Tip: ${euro(table.tip)}`);
   const total = calculateTableTotal(table);
-
   // Gets all the id's of printer jobs
   useEffect(() => {
     const printerRef = collection(db, "printer");
@@ -207,6 +207,13 @@ const Receipt = ({
                 }}
                 className="col-span-7 font-medium"
               >
+                {beverage.notServed > 0 ? (
+                  <span className="mr-2 text-main font-bold">
+                    {beverage.notServed}
+                  </span>
+                ) : (
+                  ""
+                )}
                 {beverage.name}
               </div>
               <div className="col-span-3 text-right">
@@ -240,22 +247,40 @@ const Receipt = ({
       <div className="text-right border-t pt-4 text-base">
         <div className="font-medium">totaal: {euro(total)}</div>
       </div>
-      {needsToBePrinted.length > 0 && (
-        <button
-          disabled={printJobs.length}
-          onClick={async () => {
-            printFood();
-          }}
-          className="button border mt-4 gap-2 flex items-center"
-        >
-          eten afdrukken
-          {printJobs.length ? (
-            <LoadingIcon className="animate-spin fill-main" />
-          ) : (
-            <PrintIcon />
-          )}
-        </button>
-      )}
+      <div className="flex w-full gap-2">
+        {
+          <button
+            onClick={async () => {
+              const ref = doc(db, `tables/${table.id}`);
+              updateDoc(ref, {
+                beverages: table.beverages.map((beverage) => {
+                  return { ...beverage, notServed: 0 };
+                }),
+              });
+            }}
+            className="button border mt-4 gap-2 flex items-center w-1/2"
+          >
+            drank geserveerd
+            <BeverageIcon />
+          </button>
+        }
+        {needsToBePrinted.length > 0 && (
+          <button
+            disabled={printJobs.length}
+            onClick={async () => {
+              printFood();
+            }}
+            className="button border mt-4 gap-2 flex items-center w-1/2"
+          >
+            eten afdrukken
+            {printJobs.length ? (
+              <LoadingIcon className="animate-spin fill-main" />
+            ) : (
+              <PrintIcon />
+            )}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

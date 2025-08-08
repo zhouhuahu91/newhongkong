@@ -166,6 +166,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
                 ...beverage,
                 qwt: beverage.qwt + 1,
                 price: beverage.price + beverageToAdd.price,
+                notServed: beverage.notServed + 1,
               }
             : beverage;
         }),
@@ -178,6 +179,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
           {
             ...beverageToAdd,
             qwt: 1,
+            notServed: 1,
           },
         ],
       });
@@ -191,6 +193,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
             ...beverage,
             qwt: beverage.qwt + 1,
             price: (beverage.price / beverage.qwt) * (beverage.qwt + 1),
+            notServed: beverage.notServed + 1,
           }
         : beverage;
     });
@@ -216,6 +219,7 @@ const TableModal = ({ open, setOpen, table, date, physicalTables }) => {
               ...beverage,
               qwt: beverage.qwt - 1,
               price: (beverage.price / beverage.qwt) * (beverage.qwt - 1),
+              notServed: beverage.notServed >= 1 ? beverage.notServed - 1 : 0,
             }
           : beverage;
       });
