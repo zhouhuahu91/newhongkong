@@ -255,7 +255,7 @@ const Dashboard = () => {
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <div className="mb-4 flex items-center justify-center gap-2 border-b">
-              <span className="text-xl font-medium">Keuken</span>
+              <span className="text-xl font-medium">Afhaal • Keuken</span>
               <IconBtn
                 onClick={() => {
                   if (printJobs.length > 0) {
@@ -303,7 +303,7 @@ const Dashboard = () => {
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             <div className="flex items-center gap-2 justify-center mb-4 border-b">
-              <span className="text-xl font-medium">Afhaal</span>
+              <span className="text-xl font-medium">Afhaal • Gereed</span>
               <Switch
                 toggle={showCompletedTakeAway}
                 onClick={() => setShowCompletedTakeAway((prev) => !prev)}
@@ -343,7 +343,7 @@ const Dashboard = () => {
             ).length > 0 && (
               <>
                 <div className="mb-4 border-b flex justify-center items-center gap-2">
-                  <span className="text-xl font-medium">Keuken</span>
+                  <span className="text-xl font-medium">Bezorgen • Keuken</span>
                 </div>
                 <div className="grid gap-4 pb-2">
                   {/* these are the orders that are in the kitchen. */}
