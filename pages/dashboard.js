@@ -345,7 +345,7 @@ const Dashboard = () => {
                 <span className="text-xl font-medium">Keuken</span>
               </div>
             )}
-            <div className="grid gap-4">
+            <div className="grid gap-4 pb-2">
               {/* these are the orders that are in the kitchen. */}
               {orders.map((order) => {
                 if (order.printed && !order.ready && order.delivery)
