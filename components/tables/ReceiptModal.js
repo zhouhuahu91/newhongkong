@@ -33,7 +33,7 @@ const ReceiptModal = ({
           className={`w-full bg-main flex justify-center items-center p-2 rounded shadow`}
         >
           <span className="font-medium text-inherit text-white">
-            Rekening {tableTotal > 0 ? euro(tableTotal) : ""}
+            Tafel {table.number} • {tableTotal > 0 ? euro(tableTotal) : ""}
           </span>
         </button>
       </div>
