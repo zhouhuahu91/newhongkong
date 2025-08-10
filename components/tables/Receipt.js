@@ -148,7 +148,7 @@ const Receipt = ({
 
   return (
     <div
-      className={`px-2 lg:px-8 pb-8 pt-4 h-full flex flex-col overflow-auto ${
+      className={`px-2 lg:px-8 pb-20 pt-4 h-full flex flex-col ${
         table.food.length ? "gap-4" : ""
       }`}
     >
@@ -262,7 +262,7 @@ const Receipt = ({
                 }),
               });
             }}
-            className="button border mt-4 gap-2 flex items-center w-1/2"
+            className="button border mt-4 gap-2 flex items-center w-full"
           >
             drank geserveerd
             <BeverageIcon />
@@ -274,7 +274,7 @@ const Receipt = ({
             onClick={async () => {
               printFood();
             }}
-            className="button border mt-4 gap-2 flex items-center w-1/2"
+            className="button border mt-4 gap-2 flex items-center w-full"
           >
             eten afdrukken
             {printJobs.length ? (

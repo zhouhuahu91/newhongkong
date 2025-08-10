@@ -41,7 +41,7 @@ const ReceiptModal = ({
         <Modal
           toggle={open}
           close={() => setOpen(false)}
-          className="w-full h-full bg-white lg:hidden"
+          className="w-full h-full bg-white lg:hidden overflow-auto"
         >
           <>
             <div className="fixed bottom-0 w-full px-4 pt-4 pb-8 bg-white border shadow">
