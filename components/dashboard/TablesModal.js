@@ -151,7 +151,7 @@ const TablesModal = ({ date, setDate }) => {
             </IconBtn>
           </div>
         )}
-        <div className="w-full relative h-full lg:h-[770px] lg:col-span-8 lg:border bg-gray-50 text-base p-2 lg:p-0">
+        <div className="w-full relative h-full lg:h-[770px] overflow-auto lg:col-span-8 lg:border bg-gray-50 text-base p-2 pb-20 lg:p-0 ">
           {physicalTables.map((physicalTable) => {
             return (
               <Table
