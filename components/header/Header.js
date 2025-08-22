@@ -87,7 +87,7 @@ const Header = () => {
               </a>
             </Link>
           </nav>
-          <div className="flex items-center sm:space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Dashboard menu for admins. */}
             {user?.admin && (
               <Link href="/dashboard">
@@ -127,11 +127,13 @@ const Header = () => {
                 </Link>
               )}
             {(user?.admin || user?.employee) && width < 640 && (
-              <TablesModal
-                date={currentDate}
-                atHomePage={true}
-                setCurrentDate={() => console.log("go to dashboard")}
-              />
+              <div className="flex items-center">
+                <TablesModal
+                  date={currentDate}
+                  atHomePage={true}
+                  setCurrentDate={() => console.log("go to dashboard")}
+                />
+              </div>
             )}
             {user !== null && (
               <>
