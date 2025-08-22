@@ -4,6 +4,7 @@ import Link from "next/link";
 import BurgerMenu from "@/components/header/BurgerMenu";
 import I18nMenu from "@/components/header/I18nMenu";
 import AuthMenu from "@/components/header/AuthMenu";
+import TablesModal from "@/components/dashboard/TablesModal";
 // Hook imports
 import useI18n from "@/hooks/useI18n";
 import usePath from "@/hooks/usePath";
@@ -13,6 +14,7 @@ import { useAuth } from "@/hooks/useAuth";
 import DashboardIcon from "@/icons/DashboardIcon";
 import ChartIcon from "@/icons/ChartIcon";
 import PedalBikeIcon from "@/icons/PedalBikeIcon";
+import getCurrentDate from "@/functions/getCurrentDate";
 
 const Header = () => {
   // This hook provides translations for the different languages.
@@ -22,6 +24,7 @@ const Header = () => {
   // Returns the current user that is logged in.
   const { user } = useAuth();
   const { width } = useWindowSize();
+  const currentDate = getCurrentDate();
 
   return (
     <>
@@ -123,6 +126,13 @@ const Header = () => {
                   </a>
                 </Link>
               )}
+            {(user?.admin || user?.employee) && width < 1024 && (
+              <TablesModal
+                date={currentDate}
+                atHomePage={true}
+                setCurrentDate={() => console.log("go to dashboard")}
+              />
+            )}
             {user !== null && (
               <>
                 {/* Options for language, available on all screen sizes. */}

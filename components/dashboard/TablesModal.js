@@ -20,7 +20,7 @@ import ForkAndSpoonIcon from "@/icons/ForkAndSpoonIcon";
 // Hook imports
 import useWindowSize from "@/hooks/useWindowSize";
 
-const TablesModal = ({ date, setDate }) => {
+const TablesModal = ({ date, setDate, atHomePage }) => {
   const [open, setOpen] = useState(false);
   const [tables, setTables] = useState([]);
   const { width } = useWindowSize();
@@ -131,7 +131,11 @@ const TablesModal = ({ date, setDate }) => {
       >
         <ForkAndSpoonIcon
           className={`${
-            tables.filter((x) => !x.paid).length > 0 ? "fill-main" : ""
+            tables.filter((x) => !x.paid).length > 0
+              ? atHomePage
+                ? "fill-white"
+                : "fill-main"
+              : ""
           }`}
         />
       </IconBtn>
