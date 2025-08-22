@@ -87,7 +87,7 @@ const Header = () => {
               </a>
             </Link>
           </nav>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center md:space-x-4">
             {/* Dashboard menu for admins. */}
             {user?.admin && (
               <Link href="/dashboard">
@@ -126,7 +126,7 @@ const Header = () => {
                   </a>
                 </Link>
               )}
-            {(user?.admin || user?.employee) && width < 1024 && (
+            {(user?.admin || user?.employee) && width < 640 && (
               <TablesModal
                 date={currentDate}
                 atHomePage={true}
