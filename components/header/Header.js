@@ -87,7 +87,7 @@ const Header = () => {
               </a>
             </Link>
           </nav>
-          <div className="flex items-center md:space-x-4">
+          <div className="flex items-center sm:space-x-4">
             {/* Dashboard menu for admins. */}
             {user?.admin && (
               <Link href="/dashboard">
