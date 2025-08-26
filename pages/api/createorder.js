@@ -58,7 +58,9 @@ const createorder = async (req, res) => {
     // 2. The user pays in person, then we need to send a confirmation email and add the time slot.
     if (data.paymentMethod === "in_person") {
       // We send the email.
-      await sendMail({ ...data, id });
+      if (data.email !== "zhouhua.hu@gmail.com") {
+        await sendMail({ ...data, id });
+      }
       // We add time slot.
       await addTimeSlot({ ...data, date });
     } else if (data.paymentMethod === "online") {
