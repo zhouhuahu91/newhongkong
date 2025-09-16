@@ -62,6 +62,13 @@ const OrderCard = ({
   const origin = "havenstraat+13+2211EE+Noordwijkerhout+Nederland";
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
+  function truncateString(str) {
+    if (str.length > 15) {
+      return str.slice(0, 15) + "...";
+    }
+    return str;
+  }
+
   // Check if this order is at the printer
   const sendOrderToPrinter = async (order) => {
     // If printer is offline we retunr
@@ -157,7 +164,7 @@ const OrderCard = ({
                   order.canceled && "line-through"
                 }`}
               >
-                {order.name}
+                {truncateString(order.name)}
               </div>
               {/* We do not want to delete orders where the payment method is online. */}
               {!(order.paymentMethod === "online" && order.paid) &&
