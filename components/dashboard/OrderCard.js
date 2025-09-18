@@ -63,8 +63,8 @@ const OrderCard = ({
   const googleDirectionsLink = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=bicycling`;
 
   function truncateString(str) {
-    if (str.length > 15) {
-      return str.slice(0, 15) + "...";
+    if (str.length > 21) {
+      return str.slice(0, 21) + "...";
     }
     return str;
   }
