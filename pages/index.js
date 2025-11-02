@@ -23,13 +23,13 @@ const Home = () => {
 
   // In this useEffect we set up an interval to switch between the Chinese...
   // and English for the title New Hong Kong.
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setChinese((prev) => !prev);
-      // Every 5 seconds we switch from new hong kong => 新香港酒楼
-    }, 5000);
-    return () => clearInterval(interval); // We clear the interval.
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setChinese((prev) => !prev);
+  //     // Every 5 seconds we switch from new hong kong => 新香港酒楼
+  //   }, 5000);
+  //   return () => clearInterval(interval); // We clear the interval.
+  // }, []);
 
   return (
     <div className="bg-main flex items-center justify-center">
@@ -49,14 +49,18 @@ const Home = () => {
           />
         )}
       </div>
+
+      {/* it was 7xl and 9xl */}
       <div
-        className={`text-white font-bold text-7xl md:text-9xl absolute top-44 transition-opacity duration-[3000ms] ${
+        className={`text-white font-bold text-2xl md:text-4xl absolute top-44 transition-opacity duration-[3000ms] ${
           chinese ? "opacity-0" : "opacity-100 delay-[1600ms]"
         }`}
       >
-        NEW
+        Wegens vakantie gesloten. <br />
+        Vanaf donderdag 27 november zijn wij weer geopend.
+        {/* NEW
         <br /> HONG
-        <br /> KONG
+        <br /> KONG */}
       </div>
       {/* This button is pushes to the menu where users can order. */}
       <Link href="/menu">
