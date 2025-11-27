@@ -52,15 +52,13 @@ const Home = () => {
 
       {/* it was 7xl and 9xl */}
       <div
-        className={`text-white font-bold text-2xl md:text-4xl absolute top-44 transition-opacity duration-[3000ms] ${
+        className={`text-white font-bold text-7xl md:text-9xl absolute top-44 transition-opacity duration-[3000ms] ${
           chinese ? "opacity-0" : "opacity-100 delay-[1600ms]"
         }`}
       >
-        Wegens vakantie gesloten. <br />
-        Vanaf donderdag 27 november zijn wij weer geopend.
-        {/* NEW
+        NEW
         <br /> HONG
-        <br /> KONG */}
+        <br /> KONG
       </div>
       {/* This button is pushes to the menu where users can order. */}
       <Link href="/menu">
