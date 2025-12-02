@@ -62,15 +62,15 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "kip kerry",
-        en: "chicken curry",
-        de: "chicken curry",
-        zh: "加里鸡",
+        nl: "pikante kip",
+        en: "spicy chicken",
+        de: "Hähnchen scharf",
+        zh: "辣鸡",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in kerrie saus",
-        en: "stir fried chicken with vegetables in curry sauce",
-        de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
+        nl: "roergebakken kipfilet met groenten in een licht pikante saus",
+        en: "stir fried chicken with vegetables in a mild spicy sauce",
+        de: "gebratener Hühnerfleisch mit Gemüse in leicht scharfer Soße",
         zh: "",
       },
     },
