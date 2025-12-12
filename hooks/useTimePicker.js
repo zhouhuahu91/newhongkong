@@ -8,6 +8,7 @@ import { useCart } from "@/hooks/useCart";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
 import useI18n from "@/hooks/useI18n";
+import getDigitalTime from "@/functions/getDigitalTime";
 // Function imports
 
 const useTimePicker = () => {
@@ -140,10 +141,13 @@ const useTimePicker = () => {
           break;
         }
       }
-      // With minimum waiting time people can't order 15 minutes before closing time.
-      // We set the minimum waiting time to 0 minutes when it is 15 min before closing.
-      if (currentTimeInSeconds >= closingTime - 15 * 60) {
-        minWaitingTime = 0 * 60;
+
+      // If the waiting time extends past closing, allow immediate ordering
+      if (
+        currentTimeInSeconds + minWaitingTime > closingTime &&
+        closed === false
+      ) {
+        return setOptions([getDigitalTime(closingTime)]);
       }
 
       for (let i = startTime; i <= closingTime; i += interval) {
