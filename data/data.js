@@ -52,7 +52,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.34 new Maandmenu
 // version 0.0.35 new Maand menu
 // version 0.0.36 new maandmenu
-export const version = "0.0.36";
+// version 0.0.37 added christmas menu
+export const version = "0.0.37";
 
 export const data = [
   menus,
