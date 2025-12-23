@@ -250,7 +250,7 @@ export const christmasB = {
   },
   price: 8890,
   sides: sidesOptionsB,
-  totalSides: 3,
+  totalSides: 2,
   options: tippanSauce,
   btw: btw.laag,
   menuList: [
