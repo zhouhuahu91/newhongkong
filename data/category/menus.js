@@ -75,7 +75,7 @@ const maandmenu = {
       },
     },
   ],
-  price: 2990,
+  price: 3190,
   qtyPlastic: 5,
   sides: sidesOptions,
   totalSides: 2,
@@ -105,7 +105,7 @@ export default {
         de: "für ca. eine Person",
         zh: "",
       },
-      price: 1390,
+      price: 1490,
       qtyPlastic: 2,
       options: [
         {
@@ -287,7 +287,7 @@ export default {
         de: "für ca. zwei Personen",
         zh: "",
       },
-      price: 2290,
+      price: 2390,
       qtyPlastic: 4,
       options: [
         {
@@ -469,7 +469,7 @@ export default {
         de: "für ca. zwei Personen",
         zh: "",
       },
-      price: 2290,
+      price: 2390,
       qtyPlastic: 4,
       optionIsMain: true,
       options: [
@@ -572,7 +572,7 @@ export default {
         de: "für ca. 4 Personen",
         zh: "",
       },
-      price: 3890,
+      price: 4090,
       qtyPlastic: 5,
       options: [
         {
@@ -947,7 +947,7 @@ export default {
           },
         },
       ],
-      price: 4490,
+      price: 4690,
       dineInPrice: 2670,
       qtyPlastic: 7,
       sides: sidesOptions,
@@ -1056,7 +1056,7 @@ export default {
           },
         },
       ],
-      price: 4890,
+      price: 5190,
       dineInPrice: 2830,
       qtyPlastic: 6,
       sides: sidesOptions,
@@ -1143,7 +1143,7 @@ export default {
           },
         },
       ],
-      price: 6150,
+      price: 6490,
       dineInPrice: 3620,
       qtyPlastic: 8,
       sides: sidesOptions,
