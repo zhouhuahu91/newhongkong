@@ -23,7 +23,7 @@ export default {
         de: "serviert mit Babi Pangang, kou lou kai, ein Hühnerspieß und scharfer Rindfleisch",
         zh: "",
       },
-      price: 2170,
+      price: 2280,
       dineInPrice: 2530,
       qtyPlastic: 3,
       options: [
@@ -65,7 +65,7 @@ export default {
         de: "Reisnudeln oder chow mein mit Hühnerfleisch",
         zh: "",
       },
-      price: 1450,
+      price: 1520,
       dineInPrice: 1740,
       qtyPlastic: 1,
       options: [
@@ -107,7 +107,7 @@ export default {
         de: "Reisnudeln oder chow mein mit Schweinefleisch",
         zh: "",
       },
-      price: 1450,
+      price: 1520,
       dineInPrice: 1740,
       qtyPlastic: 1,
       options: [
@@ -149,7 +149,7 @@ export default {
         de: "Reisnudeln oder chow mein mit Rindfleisch",
         zh: "",
       },
-      price: 1540,
+      price: 1620,
       dineInPrice: 1860,
       qtyPlastic: 1,
       options: [
@@ -191,7 +191,7 @@ export default {
         de: "Reisnudeln oder chow mein mit Schrimps",
         zh: "",
       },
-      price: 1740,
+      price: 1830,
       dineInPrice: 2090,
       qtyPlastic: 1,
       options: [
@@ -233,7 +233,7 @@ export default {
         de: "Reisnudeln oder chow mein mit Krabben-Sticks",
         zh: "",
       },
-      price: 1740,
+      price: 1830,
       dineInPrice: 2090,
       qtyPlastic: 1,
       options: [
@@ -275,7 +275,7 @@ export default {
         de: "Reisnudeln mit Hühnerfleisch, Schweinefleisch und Schrimps in Curry",
         zh: "",
       },
-      price: 1810,
+      price: 1900,
       dineInPrice: 2160,
       qtyPlastic: 1,
       btw: btw.laag,
@@ -294,7 +294,7 @@ export default {
         de: "chow mein mit cha siu",
         zh: "叉烧炒面",
       },
-      price: 1550,
+      price: 1630,
       dineInPrice: 1880,
       qtyPlastic: 1,
       btw: btw.laag,
