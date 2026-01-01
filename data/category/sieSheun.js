@@ -104,7 +104,7 @@ export default {
         de: "gebratenes Schweinefleisch und Schrimps mit Gemüse in scharfer gon bao Soße",
         zh: "",
       },
-      price: 1970,
+      price: 2070,
       dineInPrice: 2370,
       qtyPlastic: 2,
       sides: sidesOptions,
