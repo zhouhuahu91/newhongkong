@@ -23,7 +23,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit eiern, Schweinefleisch, Schinken und Lauch",
         zh: "",
       },
-      price: 750,
+      price: 790,
       dineInPrice: 900,
       qtyPlastic: 1,
       options: [
@@ -85,8 +85,8 @@ export default {
         de: "kleine gebratener Reis oder Nudeln mit eiern, Schweinefleisch, Schinken und Lauch",
         zh: "",
       },
-      price: 560,
-      dineInPrice: 380,
+      price: 590,
+      dineInPrice: 390,
       qtyPlastic: 1,
       options: [
         {
@@ -147,7 +147,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Hühnerspieß und scharfer Rindfleisch",
         zh: "",
       },
-      price: 1310,
+      price: 1380,
       dineInPrice: 1630,
       qtyPlastic: 2,
       options: [
@@ -189,7 +189,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit einem Hähnchenspieß sowie einen Hähnchenschenkel in einer leicht scharfen Soße",
         zh: "",
       },
-      price: 1310,
+      price: 1380,
       dineInPrice: 1630,
       qtyPlastic: 2,
       options: [
@@ -231,7 +231,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit 3 Hühnerspieße",
         zh: "",
       },
-      price: 1390,
+      price: 1460,
       dineInPrice: 1630,
       qtyPlastic: 2,
       options: [
@@ -274,7 +274,7 @@ export default {
         zh: "",
       },
 
-      price: 1950,
+      price: 2050,
       dineInPrice: 2280,
       qtyPlastic: 2,
       options: [
@@ -316,7 +316,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Hühnerfleisch und Gemüse",
         zh: "",
       },
-      price: 1390,
+      price: 1460,
       dineInPrice: 1630,
       qtyPlastic: 2,
       options: [
@@ -358,7 +358,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Schweinefleisch und Gemüse",
         zh: "",
       },
-      price: 1390,
+      price: 1460,
       dineInPrice: 1630,
       qtyPlastic: 2,
       options: [
@@ -400,7 +400,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Schrimps und Gemüse",
         zh: "",
       },
-      price: 1810,
+      price: 1900,
       dineInPrice: 2090,
       qtyPlastic: 2,
       options: [
@@ -442,7 +442,7 @@ export default {
         de: "gebratener Reis oder Nudeln mit Krabben-Sticks und Gemüse",
         zh: "",
       },
-      price: 1810,
+      price: 1900,
       dineInPrice: 2090,
       qtyPlastic: 2,
       options: [
@@ -484,7 +484,7 @@ export default {
         de: "gebratener Reis mit Hühnerfleisch, Schweinefleisch und Schrimps in Curry",
         zh: "",
       },
-      price: 1750,
+      price: 1840,
       dineInPrice: 2040,
       qtyPlastic: 1,
       btw: btw.laag,
