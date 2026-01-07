@@ -195,8 +195,12 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
             selected={convertDate(order.date)}
             onChange={(date) => {
               const newDate = getCurrentDate(date);
+              const [dd, mm, yyyy] = newDate.split("-");
+
+              const newCreatedAt = Date.UTC(yyyy, mm - 1, dd);
               updateDoc(ref, {
                 date: newDate,
+                createdAt: newCreatedAt,
               });
             }}
             inline
