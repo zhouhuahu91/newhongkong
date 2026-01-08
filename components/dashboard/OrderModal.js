@@ -35,8 +35,24 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
   // I need to convert the dutch date of e.g. 01-01-2024 a new date.
   const convertDate = (d) => {
     const parts = d.split("-");
-    return new Date(+parts[2], parts[1] - 1, +parts[0]);
+    return new Date(parts[2], parts[1] - 1, +parts[0]);
   };
+
+  const getMonthKey = (d) => {
+    const [, mm, yyyy] = d.split("-");
+    return `${yyyy}-${mm}`;
+  };
+
+  const convertToUTCDate = (d) => {
+    // Input format: "dd-mm-yyyy"
+    const [day, month, year] = d.split("-");
+
+    // Date.UTC(year, monthIndex, day)
+    // month - 1 because JS months are 0-indexed (0 = Jan, 11 = Dec)
+    return Date.UTC(Number(year), Number(month) - 1, Number(day));
+  };
+
+  console.log(new Date(order.createdAt));
 
   return (
     <Modal
@@ -195,11 +211,18 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
             selected={convertDate(order.date)}
             onChange={(date) => {
               const newDate = getCurrentDate(date);
-              const [dd, mm, yyyy] = newDate.split("-");
-              const newCreatedAt = Date.UTC(yyyy, mm - 1, dd);
               updateDoc(ref, {
                 date: newDate,
-                createdAt: newCreatedAt,
+              });
+              const oldMonth = getMonthKey(order.date);
+              const newMonth = getMonthKey(newDate);
+              if (oldMonth === newMonth) return;
+              const d1 = convertToUTCDate(newDate);
+              const d2 = convertToUTCDate(order.date);
+              const diffMs = d1 - d2;
+              const updatedCreatedAt = order.createdAt + diffMs;
+              updateDoc(ref, {
+                createdAt: updatedCreatedAt,
               });
             }}
             inline
