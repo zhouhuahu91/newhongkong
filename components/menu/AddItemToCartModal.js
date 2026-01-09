@@ -153,6 +153,7 @@ const NewItemModal = ({ item, open, setOpen }) => {
 
     const handleKeyDown = (e) => {
       if (e.key === "Enter") {
+        document.activeElement?.blur();
         addItemToCart();
       }
     };
@@ -162,7 +163,7 @@ const NewItemModal = ({ item, open, setOpen }) => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [open, selectedOptions, selectedSides, remarks]);
+  }, [open, selectedOptions, selectedSides, remarks, qwt]);
 
   return (
     <Modal
