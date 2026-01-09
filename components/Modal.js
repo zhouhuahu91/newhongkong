@@ -9,16 +9,19 @@ const Modal = ({ toggle, children, close, className }) => {
   // useLockBodyScroll(toggle);
 
   useEffect(() => {
+    if (!toggle) return;
+
     const handleKeyDown = (e) => {
-      if (e.key === "Escape" && toggle) {
+      if (e.key === "Escape") {
         close();
       }
     };
+
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  });
+  }, [toggle, close]);
 
   return (
     <AnimatePresence>
