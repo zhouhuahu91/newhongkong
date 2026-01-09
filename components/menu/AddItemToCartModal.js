@@ -89,6 +89,7 @@ const NewItemModal = ({ item, open, setOpen }) => {
     // When submited we need to check if all the options are selected.
     // We check if the item has options and if the length of the selectedOptions...
     // is smaller than the total options available.
+
     if (item.options && selectedOptions.length < (item.totalOptions || 1)) {
       tempErrors.options = true;
     }
@@ -100,6 +101,7 @@ const NewItemModal = ({ item, open, setOpen }) => {
     if (remarks.length > 500) {
       tempErrors.remarks = true;
     }
+
     // If we have an error we return from submitting and we set the errors with tempErrors.
     if (tempErrors.sides || tempErrors.options || tempErrors.remarks) {
       // than we set the ErrorsState
@@ -146,6 +148,21 @@ const NewItemModal = ({ item, open, setOpen }) => {
     // We close the modal.
     setOpen(false);
   };
+  useEffect(() => {
+    if (!open) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Enter") {
+        addItemToCart();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open, selectedOptions, selectedSides, remarks]);
 
   return (
     <Modal
