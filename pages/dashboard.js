@@ -75,32 +75,29 @@ const Dashboard = () => {
 
   // listen for enter key with useEffect
   useEffect(() => {
-    // listen for enter key
+    if (!lastSelectedOrder) return;
+
     const handleKeyDown = async (e) => {
-      if (e.key === "Enter" && lastSelectedOrder) {
-        const ref = doc(db, `orders/${lastSelectedOrder.id}`);
-        const [order] = orders.filter((x) => x.id === lastSelectedOrder.id);
-        // If there is no order we return.
-        if (!order) return;
-        // If order is printed ready and paid for we can put it on complete.
-        if (order.printed && order.ready && order.paid) {
-          await updateDoc(ref, {
-            completed: true,
-          });
-          setLastSelectedOrder(null);
-        }
-        // If order is printed we can put it to ready.
-        if (order.printed) {
-          return updateDoc(ref, {
-            ready: true,
-          });
-        }
+      if (e.key !== "Enter") return;
+
+      const order = orders.find((x) => x.id === lastSelectedOrder.id);
+      if (!order) return;
+
+      const ref = doc(db, `orders/${order.id}`);
+
+      if (order.printed && order.ready && order.paid) {
+        await updateDoc(ref, { completed: true });
+        setLastSelectedOrder(null);
+        return;
+      }
+
+      if (order.printed) {
+        await updateDoc(ref, { ready: true });
       }
     };
+
     document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [lastSelectedOrder, orders]);
 
   useEffect(() => {
