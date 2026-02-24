@@ -37,7 +37,7 @@ const TableModalMenu = ({
   }, []);
 
   const buttonStyle =
-    "min-h-20 border p-4 rounded-md text-bases font-medium transition-all hover:shadow hover:scale-[1.04] red-focus-ring shadow";
+    "active:bg-red-200 duration-150 min-h-20 border p-4 rounded-md text-bases font-medium transition-all hover:shadow hover:scale-[1.04] red-focus-ring shadow";
 
   return (
     <>
