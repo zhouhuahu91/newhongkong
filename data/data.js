@@ -57,7 +57,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.39 removed christmas menu
 // version 0.0.40 updated the prices for take away 2026
 // version 0.0.41 updated the prices for restaurant
-export const version = "0.0.41";
+// version 0.0.42 updated the montly menu
+export const version = "0.0.42";
 
 export const data = [
   menus,
