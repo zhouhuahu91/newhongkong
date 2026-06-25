@@ -297,6 +297,8 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
               onClick={() => {
                 updateDoc(ref, {
                   canceled: !order.canceled,
+                  printed: false,
+                  ready: false,
                 });
               }}
             >
