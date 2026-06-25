@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/functions/*": ["functions/*"],
+      "@/locales/*": ["/locales/*"],
+      "@/firebase/*": ["firebase/*"],
+      "@/icons/*": ["components/icons/*"],
+      "@/data/*": ["data/*"],
+      "@/tables/*": ["components/tables/*"]
+    }
+  }
+}
