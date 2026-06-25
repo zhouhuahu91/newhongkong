@@ -61,7 +61,7 @@ const MonthlyOverview = () => {
     });
     // And for each date we push in the availeble documents.
     datesInArray.forEach((date) =>
-      documentsByDate.push(documents.filter((item) => item.date === date))
+      documentsByDate.push(documents.filter((item) => item.date === date)),
     );
 
     return documentsByDate;
@@ -131,12 +131,17 @@ const MonthlyOverview = () => {
     const q = query(
       collection(db, "orders"),
       where("createdAt", ">", firstDay),
-      where("createdAt", "<", lastDay)
+      where("createdAt", "<", lastDay),
     );
 
     const snapshot = await getDocs(q);
     const raw = snapshot.docs.map((doc) => doc.data());
-    const data = sortDocsByDate(raw);
+    // 2. Filter out the unpaid or canceled orders right here in JS
+    const filteredData = raw.filter(
+      (order) => order.canceled === false && order.paid === true,
+    );
+
+    const data = sortDocsByDate(filteredData);
 
     // For every date we accumulate the totals.
     const dailySummary = data.map((day) => {
@@ -145,19 +150,19 @@ const MonthlyOverview = () => {
       // This returns total of ideal payments of the day.
       const online = day.reduce(
         (x, y) => (y.paymentMethod === "online" ? x + y.total : x),
-        0
+        0,
       );
       // This returns total of cahs payments of the day.
       const cash = day.reduce(
         (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
-        0
+        0,
       );
       const card = day.reduce(
         (x, y) =>
           y.paymentMethodType === "card" && y.paymentMethod === "in_person"
             ? x + y.total
             : x,
-        0
+        0,
       );
       return {
         total,
@@ -173,18 +178,18 @@ const MonthlyOverview = () => {
     monthlySummary.total = raw.reduce((x, y) => x + y.total, 0);
     monthlySummary.online = raw.reduce(
       (x, y) => (y.paymentMethod === "online" ? x + y.total : x),
-      0
+      0,
     );
     monthlySummary.cash = raw.reduce(
       (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
-      0
+      0,
     );
     monthlySummary.card = raw.reduce(
       (x, y) =>
         y.paymentMethodType === "card" && y.paymentMethod === "in_person"
           ? x + y.total
           : x,
-      0
+      0,
     );
     setDailyData(dailySummary);
     setMonthlyData(monthlySummary);
@@ -194,7 +199,7 @@ const MonthlyOverview = () => {
     const q = query(
       collection(db, "tables"),
       where("createdAt", ">", firstDay),
-      where("createdAt", "<", lastDay)
+      where("createdAt", "<", lastDay),
     );
     const snapshot = await getDocs(q);
     const raw = snapshot.docs.map((doc) => doc.data());
@@ -211,12 +216,12 @@ const MonthlyOverview = () => {
 
       const cash = day.reduce(
         (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
-        0
+        0,
       );
 
       const card = day.reduce(
         (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
-        0
+        0,
       );
 
       return {
@@ -234,11 +239,11 @@ const MonthlyOverview = () => {
     monthlySummaryTables.total = unsortedData.reduce((x, y) => x + y.total, 0);
     monthlySummaryTables.cash = unsortedData.reduce(
       (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
-      0
+      0,
     );
     monthlySummaryTables.card = unsortedData.reduce(
       (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
-      0
+      0,
     );
 
     setTableData(dailySummaryTables);
