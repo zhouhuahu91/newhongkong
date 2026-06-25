@@ -64,7 +64,9 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
     >
       {/* THE HEADER OF THE MODAL */}
       <div className="flex items-center justify-between p-4 shadow border-b">
-        <h2 className="text-xl font-bold">{order.name}</h2>
+        <h2 className={`text-xl font-bold ${order.canceled && "text-main"}`}>
+          {order.name} {order.canceled && "(GEANNULEERD)"}
+        </h2>
         <IconBtn
           onClick={() => {
             setOpen(false);
@@ -243,7 +245,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
               <span className="text-sm text-gray-500">Besteltijd:</span>
               <span className="text-sm">
                 {getDigitalTime(
-                  getCurrentTimeInSeconds(new Date(order.createdAt))
+                  getCurrentTimeInSeconds(new Date(order.createdAt)),
                 )}
               </span>
             </div>
@@ -289,6 +291,20 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
               </button>
             </div>
           )}
+          <div className="my-2">
+            <button
+              className="button w-full border text-white text-sm hover:shadow-lg bg-main"
+              onClick={() => {
+                updateDoc(ref, {
+                  canceled: !order.canceled,
+                });
+              }}
+            >
+              {order.canceled
+                ? "Annulering ongedaan maken"
+                : "Annuleer bestelling"}
+            </button>
+          </div>
           {order.paid === true && order.paymentMethodType === "op rekening" && (
             <div className="m-2">
               <p className="text-sm mb-2 mx-1">
