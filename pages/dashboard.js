@@ -46,6 +46,7 @@ const Dashboard = () => {
   // Show orders that are completed or not.
   const [showCompletedTakeAway, setShowCompletedTakeAway] = useState(false);
   const [showCompletedDelivery, setShowCompletedDelivery] = useState(false);
+  const [showCanceledOrders, setShowCanceledOrders] = useState(false);
   // Dashboard displays the orders made on this date.
   const [date, setDate] = useState(currentDate);
   // This state holds the id of the last selected order.
@@ -208,22 +209,28 @@ const Dashboard = () => {
                   on={notifications}
                 />
               </IconBtn>
+              <Switch
+                toggle={showCanceledOrders}
+                onClick={() => setShowCanceledOrders((prev) => !prev)}
+              />
             </div>
             <div className="grid gap-4">
               {/* First column is for all the orders that are not printed aka new orders. */}
               {orders.map((order) => {
+                if (order.canceled && showCanceledOrders === false) return;
                 if (order.printed === false) {
                   // We want the first order in line that hasn't been printed yet and doesn't have remarks.
                   const firstInLine = orders.find((order) => {
                     // We also need to check if one of the items in the cart has remarks
                     const itemsHasWesternRemarks = order.cart.some((item) =>
-                      /[a-zA-Z]/.test(item.remarks)
+                      /[a-zA-Z]/.test(item.remarks),
                     );
                     if (order.paymentMethod === "online" && !order.paid) return;
                     if (order.remarks.trim()) return;
                     if (order.printed) return;
                     if (order.delivery) return;
                     if (itemsHasWesternRemarks) return;
+                    if (order.canceled) return;
                     return order;
                   });
                   return (
@@ -336,7 +343,7 @@ const Dashboard = () => {
 
           <div className="col-span-12 md:col-span-6 xl:col-span-3 flex flex-col px-2">
             {orders.filter(
-              (order) => order.printed && !order.ready && order.delivery
+              (order) => order.printed && !order.ready && order.delivery,
             ).length > 0 && (
               <>
                 <div className="mb-4 border-b flex justify-center items-center gap-2">
