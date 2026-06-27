@@ -39,7 +39,9 @@ const Dashboard = () => {
   const [orders, setOrders] = useState([]);
   // We need to keep score of the orders length to know when we play a new order sound.
   const [ordersLength, setOrdersLength] = useState(0);
-  const openOrders = orders.filter((order) => order.completed === false).length;
+  const openOrders = orders.filter(
+    (order) => order.completed === false && order.canceled === false,
+  ).length;
   // Audio will be stored here
   const [audio, setAudio] = useState(null);
 
