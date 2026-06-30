@@ -85,7 +85,9 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
 
   // ********** BELOW ARE CALCULATIONS FOR TAKE AWAY ************
 
-  const filteredOrders = orders.filter((order) => order.canceled === false);
+  const filteredOrders = orders.filter(
+    (order) => order.canceled === false && order.paid === true,
+  );
   // Total revenue
   const revenue = filteredOrders.reduce((x, y) => x + y.total, 0);
   // Total online payments
