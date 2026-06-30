@@ -35,7 +35,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
       const q = query(
         collection(db, "tables"),
         where("paid", "==", true),
-        where("date", "==", date)
+        where("date", "==", date),
       );
       const snapshot = await getDocs(q);
       const raw = snapshot.docs.map((doc) => doc.data());
@@ -58,12 +58,12 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
 
   const cardPaymentsTables = tables.reduce(
     (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
-    0
+    0,
   );
 
   const cashPaymentsTables = tables.reduce(
     (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
-    0
+    0,
   );
 
   const tablesVat = tables.reduce(
@@ -77,7 +77,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
         zero: x.zero + z.zero,
       };
     },
-    { low: 0, high: 0, zero: 0 }
+    { low: 0, high: 0, zero: 0 },
   );
 
   const lowBTWTables = Math.round((tablesVat.low / 109) * 9);
@@ -85,11 +85,12 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
 
   // ********** BELOW ARE CALCULATIONS FOR TAKE AWAY ************
 
+  const filteredOrders = orders.filter((order) => order.canceled === false);
   // Total revenue
-  const revenue = orders.reduce((x, y) => x + y.total, 0);
+  const revenue = filteredOrders.reduce((x, y) => x + y.total, 0);
   // Total online payments
   const onlinePayments = {};
-  orders.forEach((order) => {
+  filteredOrders.forEach((order) => {
     if (order.paymentMethod === "online") {
       if (onlinePayments[`${order.paymentMethodType}`] > 0) {
         onlinePayments[`${order.paymentMethodType}`] += order.total;
@@ -100,7 +101,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
   });
 
   // Total card payments in store, online payment is also set to card if they pay with credit card. Didn't know stripe did this.
-  const cardPayments = orders.reduce((x, y) => {
+  const cardPayments = filteredOrders.reduce((x, y) => {
     if (y.paymentMethod === "in_person" && y.paymentMethodType === "card") {
       return x + y.total;
     } else {
@@ -109,7 +110,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
   }, 0);
 
   // This one is easier we just need to check paymentMethodType if that one is cash or not but we do it just in case.
-  const cashPayments = orders.reduce((x, y) => {
+  const cashPayments = filteredOrders.reduce((x, y) => {
     if (y.paymentMethod === "in_person" && y.paymentMethodType === "cash") {
       return x + y.total;
     } else {
@@ -117,7 +118,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
     }
   }, 0);
 
-  const vat = orders.reduce(
+  const vat = filteredOrders.reduce(
     (x, y) => {
       // z returns the vat of the current order
       const z = calculateVat(y);
@@ -128,7 +129,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
         zero: x.zero + z.zero,
       };
     },
-    { low: 0, high: 0, zero: 0 }
+    { low: 0, high: 0, zero: 0 },
   );
 
   const lowBTW = Math.round((vat.low / 109) * 9);
@@ -159,8 +160,8 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
     geen 0%     | ${euro(tablesVat.zero)}|   ${euro(0)}   
     ------------------------------------------------
     "           | "${euro(revenueTables)}|   "${euro(
-    lowBTWTables + highBTWTables
-  )}|
+      lowBTWTables + highBTWTables,
+    )}|
 
     
                     ^^totaal afhaal ${euro(revenue)}|
@@ -177,7 +178,7 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
 
   for (const type in onlinePayments) {
     markup += `|${type.replace("_", " ")} | ${euro(
-      onlinePayments[type]
+      onlinePayments[type],
     )}| ${euro(0)}
       `;
   }
