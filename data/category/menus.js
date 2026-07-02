@@ -62,15 +62,15 @@ const maandmenu = {
     },
     {
       name: {
-        nl: "kip kerry",
-        en: "chicken curry",
-        de: "chicken curry",
-        zh: "加里鸡",
+        nl: "tippan kipfilet",
+        en: "tippan chicken",
+        de: "Tippan Hühnerfleisch",
+        zh: "铁鸡",
       },
       description: {
-        nl: "roergebakken kipfilet met groenten in kerrie saus",
-        en: "stir fried chicken with vegetables in curry sauce",
-        de: "gebratener Hühnerfleisch mit Gemüse in Curry Soße",
+        nl: "roergebakken kipfilet met groenten in oestersaus",
+        en: "stir fried chicken with vegetables in a oyster sauce",
+        de: "gebratenes Hühnerfleisch mit Gemüse in Austernsoße",
         zh: "",
       },
     },
