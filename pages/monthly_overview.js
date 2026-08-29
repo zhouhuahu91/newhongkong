@@ -175,16 +175,16 @@ const MonthlyOverview = () => {
     });
     // Besides the daily summary we need a monthly summary.
     const monthlySummary = {};
-    monthlySummary.total = raw.reduce((x, y) => x + y.total, 0);
-    monthlySummary.online = raw.reduce(
+    monthlySummary.total = filteredData.reduce((x, y) => x + y.total, 0);
+    monthlySummary.online = filteredData.reduce(
       (x, y) => (y.paymentMethod === "online" ? x + y.total : x),
       0,
     );
-    monthlySummary.cash = raw.reduce(
+    monthlySummary.cash = filteredData.reduce(
       (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
       0,
     );
-    monthlySummary.card = raw.reduce(
+    monthlySummary.card = filteredData.reduce(
       (x, y) =>
         y.paymentMethodType === "card" && y.paymentMethod === "in_person"
           ? x + y.total
