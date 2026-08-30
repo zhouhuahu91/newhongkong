@@ -87,7 +87,7 @@ const fetchAddressFromAPI = async (postalcode, houseNumber) => {
       `https://gratis-postcodedata.nl/api/postcode/${sanitizedPostalcode}/${sanitizedHouseNumber}`,
     );
 
-    if (!response.ok) {
+    if (!res.ok) {
       throw new Error("Adres niet gevonden");
     }
 
@@ -97,7 +97,6 @@ const fetchAddressFromAPI = async (postalcode, houseNumber) => {
     if (raw.length > 0) {
       // We populate the address state with the response data.
       const data = raw[0];
-      console.log(data);
       return {
         street: data.straat,
         houseNumber: data.huisnummer,
