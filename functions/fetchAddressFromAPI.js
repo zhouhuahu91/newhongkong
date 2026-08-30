@@ -88,7 +88,7 @@ const fetchAddressFromAPI = async (postalcode, houseNumber) => {
     );
 
     if (!res.ok) {
-      throw new Error("Adres niet gevonden");
+      console.log("error", res);
     }
 
     const raw = await res.json();
