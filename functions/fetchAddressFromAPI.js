@@ -30,7 +30,7 @@ const fetchAddressFromAPI = async (postalcode, houseNumber) => {
     //   };
     //   const err = await axios.get(
     //     `https://postcode.tech/api/v1/postcode?postcode=${sanitizedPostalcode}&number=${sanitizedHouseNumber}`,
-    //     config
+    //     config,
     //   );
 
     //   if (err.data) {
@@ -51,24 +51,58 @@ const fetchAddressFromAPI = async (postalcode, houseNumber) => {
     //   };
     // }
 
+    //   const res = await fetch(
+    //     `https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?rows=1&fq=postcode:${sanitizedPostalcode}&fq=huisnummer:${sanitizedHouseNumber}`,
+    //   );
+    //   const raw = await res.json();
+    //   console.log(raw);
+    //   // If the raw data returns an error we return from the function.
+    //   if (raw.error) {
+    //     console.log(raw.error);
+    //     return { error: "something went wrong" };
+    //   }
+    //   // If there are no errors we check if the api returned an address.
+    //   if (raw.response?.numFound > 0) {
+    //     // We populate the address state with the response data.
+    //     const data = raw.response.docs[0];
+    //     return {
+    //       street: data.straatnaam,
+    //       houseNumber: data.huisnummer,
+    //       postalcode: data.postcode,
+    //       city: data.woonplaatsnaam,
+    //     };
+    //   }
+
+    //   // If api can't find the address we set our own error.
+    //   return {
+    //     error: "not found",
+    //   };
+    // } else {
+    //   return {
+    //     error: "no input",
+    //   };
+    // }
+
     const res = await fetch(
-      `https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?rows=1&fq=postcode:${sanitizedPostalcode}&fq=huisnummer:${sanitizedHouseNumber}`
+      `https://gratis-postcodedata.nl/api/postcode/${sanitizedPostalcode}/${sanitizedHouseNumber}`,
     );
-    const raw = await res.json();
-    // If the raw data returns an error we return from the function.
-    if (raw.error) {
-      console.log(raw.error);
-      return { error: "something went wrong" };
+
+    if (!response.ok) {
+      throw new Error("Adres niet gevonden");
     }
+
+    const raw = await res.json();
+
     // If there are no errors we check if the api returned an address.
-    if (raw.response?.numFound > 0) {
+    if (raw.length > 0) {
       // We populate the address state with the response data.
-      const data = raw.response.docs[0];
+      const data = raw[0];
+      console.log(data);
       return {
-        street: data.straatnaam,
+        street: data.straat,
         houseNumber: data.huisnummer,
         postalcode: data.postcode,
-        city: data.woonplaatsnaam,
+        city: data.plaats,
       };
     }
 
