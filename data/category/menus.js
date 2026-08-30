@@ -505,22 +505,22 @@ export default {
           },
           price: 0,
         },
-        {
-          id: "98C",
-          name: {
-            nl: "menu C",
-            en: "menu C",
-            de: "menü C",
-            zh: "全C",
-          },
-          description: {
-            nl: "babi pangang, Indische rundvlees, 6 stuks pangsit goreng en 2 stokjes kipsate",
-            en: "babi pangang, spicy beef, 6 pieces of fried won ton and 2 chicken satay",
-            de: "babi pangang, scharfer Rindfleisch, 6 Stück fritierte Wantan und 2 Hühnerspieße",
-            zh: "",
-          },
-          price: 0,
-        },
+        // {
+        //   id: "98C",
+        //   name: {
+        //     nl: "menu C",
+        //     en: "menu C",
+        //     de: "menü C",
+        //     zh: "全C",
+        //   },
+        //   description: {
+        //     nl: "babi pangang, Indische rundvlees, 6 stuks pangsit goreng en 2 stokjes kipsate",
+        //     en: "babi pangang, spicy beef, 6 pieces of fried won ton and 2 chicken satay",
+        //     de: "babi pangang, scharfer Rindfleisch, 6 Stück fritierte Wantan und 2 Hühnerspieße",
+        //     zh: "",
+        //   },
+        //   price: 0,
+        // },
         {
           id: "98D",
           name: {
@@ -851,109 +851,109 @@ export default {
       btw: btw.laag,
     },
     maandmenu,
-    {
-      id: "101",
-      name: {
-        nl: "Indische rijsttafel",
-        en: "Indonesian menu",
-        de: "Indonesischer Menü",
-        zh: "马全",
-      },
-      description: {
-        nl: "voor ongeveer 4 personen",
-        en: "for around 4 people",
-        de: "für ca. 4 Personen",
-        zh: "",
-      },
-      menuList: [
-        {
-          name: {
-            nl: "2 stokjes kipsaté",
-            en: "2 chicken satay",
-            de: "2 Hähnchenspieß",
-            zh: "",
-          },
-        },
-        {
-          name: {
-            nl: "2 gebakken bananen",
-            en: "2 fried bananas",
-            de: "2 fritierte Bananen",
-            zh: "",
-          },
-        },
-        {
-          name: {
-            nl: "Indische groenten",
-            en: "Indonesian vegetables",
-            de: "Indonesischer Gemüse",
-            zh: "",
-          },
-        },
-        {
-          name: {
-            nl: "ajam pangang",
-            en: "ajam pangang",
-            de: "ajam pangang",
-            zh: "",
-          },
-          description: {
-            nl: "kipreepjes in licht pikante tomatensaus",
-            en: "chicken strips in a mild spicy tomoato sauce",
-            de: "Hühnerstreifen in leicht scharfer Tomatensoße",
-            zh: "",
-          },
-        },
-        {
-          name: {
-            nl: "daging roedjak",
-            en: "daging roedjak",
-            de: "daging roedjak",
-            zh: "",
-          },
-          description: {
-            nl: "gestoofd rundvlees in pittige gekruide saus",
-            en: "stewed beef in a spicy sauce",
-            de: "geschmortes Rindfleisch in scharfer Soße",
-            zh: "",
-          },
-        },
-        {
-          name: {
-            nl: "kou lou kai",
-            en: "kou lou kai",
-            de: "kou lou kai",
-            zh: "",
-          },
-          description: {
-            nl: "gepaneerde kipballetjes met zoetzure saus",
-            en: "deep fried chicken in dough with a sweet & sour sauce",
-            de: "Fritierte Hühnerfleisch in einem Teig mit süß sauerer Soße",
-            zh: "",
-          },
-        },
-        {
-          name: {
-            nl: "gado gado",
-            en: "gado gado",
-            de: "gado gado",
-            zh: "",
-          },
-          description: {
-            nl: "vegetarische Indische salade met taugé, komkommer, winterpeen en een spiegelei in satesaus",
-            en: "Indonesian salad with beansprout, cucumber, carrot and a fried egg in peanut sauce",
-            de: "Indonesischer Salat mit Sojasprossen, Gurken, Karotten und ein Spiegelei in Erdnusssoße",
-            zh: "",
-          },
-        },
-      ],
-      price: 4690,
-      dineInPrice: 2800,
-      qtyPlastic: 7,
-      sides: sidesOptions,
-      totalSides: 2,
-      btw: btw.laag,
-    },
+    // {
+    //   id: "101",
+    //   name: {
+    //     nl: "Indische rijsttafel",
+    //     en: "Indonesian menu",
+    //     de: "Indonesischer Menü",
+    //     zh: "马全",
+    //   },
+    //   description: {
+    //     nl: "voor ongeveer 4 personen",
+    //     en: "for around 4 people",
+    //     de: "für ca. 4 Personen",
+    //     zh: "",
+    //   },
+    //   menuList: [
+    //     {
+    //       name: {
+    //         nl: "2 stokjes kipsaté",
+    //         en: "2 chicken satay",
+    //         de: "2 Hähnchenspieß",
+    //         zh: "",
+    //       },
+    //     },
+    //     {
+    //       name: {
+    //         nl: "2 gebakken bananen",
+    //         en: "2 fried bananas",
+    //         de: "2 fritierte Bananen",
+    //         zh: "",
+    //       },
+    //     },
+    //     {
+    //       name: {
+    //         nl: "Indische groenten",
+    //         en: "Indonesian vegetables",
+    //         de: "Indonesischer Gemüse",
+    //         zh: "",
+    //       },
+    //     },
+    //     {
+    //       name: {
+    //         nl: "ajam pangang",
+    //         en: "ajam pangang",
+    //         de: "ajam pangang",
+    //         zh: "",
+    //       },
+    //       description: {
+    //         nl: "kipreepjes in licht pikante tomatensaus",
+    //         en: "chicken strips in a mild spicy tomoato sauce",
+    //         de: "Hühnerstreifen in leicht scharfer Tomatensoße",
+    //         zh: "",
+    //       },
+    //     },
+    //     {
+    //       name: {
+    //         nl: "daging roedjak",
+    //         en: "daging roedjak",
+    //         de: "daging roedjak",
+    //         zh: "",
+    //       },
+    //       description: {
+    //         nl: "gestoofd rundvlees in pittige gekruide saus",
+    //         en: "stewed beef in a spicy sauce",
+    //         de: "geschmortes Rindfleisch in scharfer Soße",
+    //         zh: "",
+    //       },
+    //     },
+    //     {
+    //       name: {
+    //         nl: "kou lou kai",
+    //         en: "kou lou kai",
+    //         de: "kou lou kai",
+    //         zh: "",
+    //       },
+    //       description: {
+    //         nl: "gepaneerde kipballetjes met zoetzure saus",
+    //         en: "deep fried chicken in dough with a sweet & sour sauce",
+    //         de: "Fritierte Hühnerfleisch in einem Teig mit süß sauerer Soße",
+    //         zh: "",
+    //       },
+    //     },
+    //     {
+    //       name: {
+    //         nl: "gado gado",
+    //         en: "gado gado",
+    //         de: "gado gado",
+    //         zh: "",
+    //       },
+    //       description: {
+    //         nl: "vegetarische Indische salade met taugé, komkommer, winterpeen en een spiegelei in satesaus",
+    //         en: "Indonesian salad with beansprout, cucumber, carrot and a fried egg in peanut sauce",
+    //         de: "Indonesischer Salat mit Sojasprossen, Gurken, Karotten und ein Spiegelei in Erdnusssoße",
+    //         zh: "",
+    //       },
+    //     },
+    //   ],
+    //   price: 4690,
+    //   dineInPrice: 2800,
+    //   qtyPlastic: 7,
+    //   sides: sidesOptions,
+    //   totalSides: 2,
+    //   btw: btw.laag,
+    // },
     {
       id: "102",
       name: {

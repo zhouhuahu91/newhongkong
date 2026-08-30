@@ -59,7 +59,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.41 updated the prices for restaurant
 // version 0.0.42 updated the montly menu
 // version 0.0.43 updated the montly menu
-export const version = "0.0.43";
+// version 0.0.44 updated removed all beef dishes.
+export const version = "0.0.44";
 
 export const data = [
   menus,
