@@ -133,48 +133,48 @@ export default {
       optionIsMain: true,
       btw: btw.laag,
     },
-    // {
-    //   id: "65",
-    //   name: {
-    //     nl: "nasi of bami goreng extra",
-    //     en: "fried rice or noodles extra",
-    //     de: "gebratener Reis oder Nudeln extra",
-    //     zh: "中饭面",
-    //   },
-    //   description: {
-    //     nl: "nasi of bami goreng met een stokje kipsaté en Indische rundvlees",
-    //     en: "fried rice or noodles with a chicken satay and spicy beef",
-    //     de: "gebratener Reis oder Nudeln mit Hühnerspieß und scharfer Rindfleisch",
-    //     zh: "",
-    //   },
-    //   price: 1380,
-    //   dineInPrice: 1710,
-    //   qtyPlastic: 2,
-    //   options: [
-    //     {
-    //       id: "65N",
-    //       name: {
-    //         nl: "nasi goreng extra",
-    //         en: "fried rice etra",
-    //         de: "gebratener Reis extra",
-    //         zh: "中饭",
-    //       },
-    //       price: 0,
-    //     },
-    //     {
-    //       id: "65B",
-    //       name: {
-    //         nl: "bami goreng extra",
-    //         en: "noodles extra",
-    //         de: "Nudeln extra",
-    //         zh: "中面",
-    //       },
-    //       price: 0,
-    //     },
-    //   ],
-    //   optionIsMain: true,
-    //   btw: btw.laag,
-    // },
+    {
+      id: "65",
+      name: {
+        nl: "nasi of bami goreng extra",
+        en: "fried rice or noodles extra",
+        de: "gebratener Reis oder Nudeln extra",
+        zh: "中饭面",
+      },
+      description: {
+        nl: "nasi of bami goreng met een stokje kipsaté en Indische rundvlees",
+        en: "fried rice or noodles with a chicken satay and spicy beef",
+        de: "gebratener Reis oder Nudeln mit Hühnerspieß und scharfer Rindfleisch",
+        zh: "",
+      },
+      price: 1380,
+      dineInPrice: 1710,
+      qtyPlastic: 2,
+      options: [
+        {
+          id: "65N",
+          name: {
+            nl: "nasi goreng extra",
+            en: "fried rice etra",
+            de: "gebratener Reis extra",
+            zh: "中饭",
+          },
+          price: 0,
+        },
+        {
+          id: "65B",
+          name: {
+            nl: "bami goreng extra",
+            en: "noodles extra",
+            de: "Nudeln extra",
+            zh: "中面",
+          },
+          price: 0,
+        },
+      ],
+      optionIsMain: true,
+      btw: btw.laag,
+    },
     {
       id: "66",
       name: {
@@ -259,49 +259,49 @@ export default {
       optionIsMain: true,
       btw: btw.laag,
     },
-    // {
-    //   id: "68",
-    //   name: {
-    //     nl: "nasi of bami goreng compleet",
-    //     en: "fried rice or noodles complete",
-    //     de: "gebratener Reis oder Nudeln komplett",
-    //     zh: "特饭面",
-    //   },
-    //   description: {
-    //     nl: "nasi of bami goreng met babi pangang, kou lou kai, een stokje kipsate en Indische rundvlees",
-    //     en: "fried rice or noodles with babi pangang, kou lou kai, a chicken satay and spicy beef",
-    //     de: "gebratener Reis oder Nudeln mit Babi Panggang, kou lou kai, ein Hühnerspieß und scharfer Rindfleisch",
-    //     zh: "",
-    //   },
+    {
+      id: "68",
+      name: {
+        nl: "nasi of bami goreng compleet",
+        en: "fried rice or noodles complete",
+        de: "gebratener Reis oder Nudeln komplett",
+        zh: "特饭面",
+      },
+      description: {
+        nl: "nasi of bami goreng met babi pangang, kou lou kai, een stokje kipsate en Indische rundvlees",
+        en: "fried rice or noodles with babi pangang, kou lou kai, a chicken satay and spicy beef",
+        de: "gebratener Reis oder Nudeln mit Babi Panggang, kou lou kai, ein Hühnerspieß und scharfer Rindfleisch",
+        zh: "",
+      },
 
-    //   price: 2050,
-    //   dineInPrice: 2390,
-    //   qtyPlastic: 2,
-    //   options: [
-    //     {
-    //       id: "68N",
-    //       name: {
-    //         nl: "nasi goreng compleet",
-    //         en: "fried rice complete",
-    //         de: "gebratener Reis komplett",
-    //         zh: "特饭",
-    //       },
-    //       price: 0,
-    //     },
-    //     {
-    //       id: "68B",
-    //       name: {
-    //         nl: "bami goreng compleet",
-    //         en: "noodles complete",
-    //         de: "gebratene Nudeln komplett",
-    //         zh: "特面",
-    //       },
-    //       price: 0,
-    //     },
-    //   ],
-    //   optionIsMain: true,
-    //   btw: btw.laag,
-    // },
+      price: 2050,
+      dineInPrice: 2390,
+      qtyPlastic: 2,
+      options: [
+        {
+          id: "68N",
+          name: {
+            nl: "nasi goreng compleet",
+            en: "fried rice complete",
+            de: "gebratener Reis komplett",
+            zh: "特饭",
+          },
+          price: 0,
+        },
+        {
+          id: "68B",
+          name: {
+            nl: "bami goreng compleet",
+            en: "noodles complete",
+            de: "gebratene Nudeln komplett",
+            zh: "特面",
+          },
+          price: 0,
+        },
+      ],
+      optionIsMain: true,
+      btw: btw.laag,
+    },
     {
       id: "69",
       name: {

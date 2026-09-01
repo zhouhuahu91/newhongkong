@@ -60,7 +60,8 @@ import smallDishes from "./category/smallDishes";
 // version 0.0.42 updated the montly menu
 // version 0.0.43 updated the montly menu
 // version 0.0.44 updated removed all beef dishes.
-export const version = "0.0.44";
+// version 0.0.45 restored beef dishes
+export const version = "0.0.45";
 
 export const data = [
   menus,

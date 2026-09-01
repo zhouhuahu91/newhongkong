@@ -10,90 +10,90 @@ export default {
   },
   id: 13,
   items: [
-    // {
-    //   id: "82",
-    //   name: {
-    //     nl: "nasi of bami rames gewoon",
-    //     en: "fried rice or noodles rames",
-    //     de: "gebratener Reis oder Nudeln rames",
-    //     zh: "马饭面",
-    //   },
-    //   description: {
-    //     nl: "met Indische rundvlees & groenten",
-    //     en: "comes with spicy beef and vegetables",
-    //     de: "serviert mit scharfer Rindfleisch und Gemüse",
-    //     zh: "",
-    //   },
-    //   price: 1370,
-    //   dineInPrice: 1710,
-    //   qtyPlastic: 2,
-    //   options: [
-    //     {
-    //       id: "82N",
-    //       name: {
-    //         nl: "nasi rames gewoon",
-    //         en: "fried rice rames",
-    //         de: "gebratener Reis rames",
-    //         zh: "马饭",
-    //       },
-    //       price: 0,
-    //     },
-    //     {
-    //       id: "82B",
-    //       name: {
-    //         nl: "bami rames gewoon",
-    //         en: "noodles rames",
-    //         de: "Nudeln rames",
-    //         zh: "马面",
-    //       },
-    //       price: 0,
-    //     },
-    //   ],
-    //   optionIsMain: true,
-    //   btw: btw.laag,
-    // },
-    // {
-    //   id: "83",
-    //   name: {
-    //     nl: "nasi of bami rames speciaal",
-    //     en: "fried rice or noodles rames special",
-    //     de: "gebratener Reis oder Nudeln rames spezial",
-    //     zh: "大马饭面",
-    //   },
-    //   description: {
-    //     nl: "met een stokje kipsate, kippebout in licht pikante tomatensaus en Indische rundvlees & groenten",
-    //     en: "comes with a chicken satay, chicken drumstick in a mild spicy sauce, spicy beef and vegetables",
-    //     de: "serviert mit einem Hühnerspieß, Hähnchenschenkel in leicht scharfer Soße sowie scharfer Rindfleisch und Gemüse",
-    //     zh: "",
-    //   },
-    //   price: 1840,
-    //   dineInPrice: 2150,
-    //   qtyPlastic: 3,
-    //   options: [
-    //     {
-    //       id: "83N",
-    //       name: {
-    //         nl: "nasi rames speciaal",
-    //         en: "fried rice rames special",
-    //         de: "gebratener Reis rames spezial",
-    //         zh: "大马饭",
-    //       },
-    //       price: 0,
-    //     },
-    //     {
-    //       id: "83B",
-    //       name: {
-    //         nl: "bami rames speciaal",
-    //         en: "noodles rames special",
-    //         de: "Nudeln rames spezial",
-    //         zh: "大马面",
-    //       },
-    //       price: 0,
-    //     },
-    //   ],
-    //   optionIsMain: true,
-    //   btw: btw.laag,
-    // },
+    {
+      id: "82",
+      name: {
+        nl: "nasi of bami rames gewoon",
+        en: "fried rice or noodles rames",
+        de: "gebratener Reis oder Nudeln rames",
+        zh: "马饭面",
+      },
+      description: {
+        nl: "met Indische rundvlees & groenten",
+        en: "comes with spicy beef and vegetables",
+        de: "serviert mit scharfer Rindfleisch und Gemüse",
+        zh: "",
+      },
+      price: 1370,
+      dineInPrice: 1710,
+      qtyPlastic: 2,
+      options: [
+        {
+          id: "82N",
+          name: {
+            nl: "nasi rames gewoon",
+            en: "fried rice rames",
+            de: "gebratener Reis rames",
+            zh: "马饭",
+          },
+          price: 0,
+        },
+        {
+          id: "82B",
+          name: {
+            nl: "bami rames gewoon",
+            en: "noodles rames",
+            de: "Nudeln rames",
+            zh: "马面",
+          },
+          price: 0,
+        },
+      ],
+      optionIsMain: true,
+      btw: btw.laag,
+    },
+    {
+      id: "83",
+      name: {
+        nl: "nasi of bami rames speciaal",
+        en: "fried rice or noodles rames special",
+        de: "gebratener Reis oder Nudeln rames spezial",
+        zh: "大马饭面",
+      },
+      description: {
+        nl: "met een stokje kipsate, kippebout in licht pikante tomatensaus en Indische rundvlees & groenten",
+        en: "comes with a chicken satay, chicken drumstick in a mild spicy sauce, spicy beef and vegetables",
+        de: "serviert mit einem Hühnerspieß, Hähnchenschenkel in leicht scharfer Soße sowie scharfer Rindfleisch und Gemüse",
+        zh: "",
+      },
+      price: 1840,
+      dineInPrice: 2150,
+      qtyPlastic: 3,
+      options: [
+        {
+          id: "83N",
+          name: {
+            nl: "nasi rames speciaal",
+            en: "fried rice rames special",
+            de: "gebratener Reis rames spezial",
+            zh: "大马饭",
+          },
+          price: 0,
+        },
+        {
+          id: "83B",
+          name: {
+            nl: "bami rames speciaal",
+            en: "noodles rames special",
+            de: "Nudeln rames spezial",
+            zh: "大马面",
+          },
+          price: 0,
+        },
+      ],
+      optionIsMain: true,
+      btw: btw.laag,
+    },
     {
       id: "84",
       name: {
@@ -114,26 +114,26 @@ export default {
       sides: sidesOptions,
       btw: btw.laag,
     },
-    // {
-    //   id: "85",
-    //   name: {
-    //     nl: "daging roedjak",
-    //     en: "daging roedjak",
-    //     de: "daging roedjak",
-    //     zh: "马辣肉",
-    //   },
-    //   description: {
-    //     nl: "gestoofd rundvlees in pittige gekruide saus",
-    //     en: "stewed beef in a spicy sauce",
-    //     de: "geschmortes Rindfleisch in scharfer Soße",
-    //     zh: "",
-    //   },
-    //   price: 1890,
-    //   dineInPrice: 2290,
-    //   qtyPlastic: 2,
-    //   sides: sidesOptions,
-    //   btw: btw.laag,
-    // },
+    {
+      id: "85",
+      name: {
+        nl: "daging roedjak",
+        en: "daging roedjak",
+        de: "daging roedjak",
+        zh: "马辣肉",
+      },
+      description: {
+        nl: "gestoofd rundvlees in pittige gekruide saus",
+        en: "stewed beef in a spicy sauce",
+        de: "geschmortes Rindfleisch in scharfer Soße",
+        zh: "",
+      },
+      price: 1890,
+      dineInPrice: 2290,
+      qtyPlastic: 2,
+      sides: sidesOptions,
+      btw: btw.laag,
+    },
     {
       id: "86",
       name: {
