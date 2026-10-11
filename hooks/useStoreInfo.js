@@ -35,11 +35,11 @@ const useStoreProvider = () => {
     // The time that the store opens. Defaults to "16:00".
     openingTime: 16 * 3600,
     // The time that the store closes. Defaults to "21:00".
-    closingTime: 21 * 3600,
+    closingTime: 73800, // 20:30
     // The time we start to deliver. Defaults to "17:00".
     startTimeDelivery: 17 * 3600,
     // The time we stop to deliver. Defaults to "21:00".
-    endTimeDelivery: 21 * 3600,
+    endTimeDelivery: 70200, // 19:30
   });
   const [storeFees, setStoreFees] = useState({
     // The transaction fee. Defaults to 30 cents
@@ -56,7 +56,7 @@ const useStoreProvider = () => {
   const [currentDate, setCurrentDate] = useState(getCurrentDate());
   const [currentDay, setCurrentDay] = useState(new Date().getDay());
   const [currentTimeInSeconds, setCurrentTimeInSeconds] = useState(
-    getCurrentTimeInSeconds()
+    getCurrentTimeInSeconds(),
   );
 
   const [liveMessage, setLiveMessage] = useState("");
@@ -82,7 +82,7 @@ const useStoreProvider = () => {
 
   // The remaining minutes untill we close.
   const remainingMinutes = Math.ceil(
-    (storeInfo.closingTime - currentTimeInSeconds) / 60
+    (storeInfo.closingTime - currentTimeInSeconds) / 60,
   );
 
   // True if we are closed. // Uncomment this when going in production.
