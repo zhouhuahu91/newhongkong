@@ -27,7 +27,7 @@ const useStoreProvider = () => {
   // Information that we store in state we can let admins change.
   const [storeInfo, setStoreInfo] = useState({
     // True if store is open today. Defaults to true.
-    open: false,
+    open: true,
     // True if we are open for Delivery. Defaults to true.
     openForDelivery: false,
     // True if asap is available.

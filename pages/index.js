@@ -23,22 +23,22 @@ const Home = () => {
 
   // In this useEffect we set up an interval to switch between the Chinese...
   // and English for the title New Hong Kong.
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setChinese((prev) => !prev);
-  //     // Every 5 seconds we switch from new hong kong => 新香港酒楼
-  //   }, 5000);
-  //   return () => clearInterval(interval); // We clear the interval.
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setChinese((prev) => !prev);
+      // Every 5 seconds we switch from new hong kong => 新香港酒楼
+    }, 5000);
+    return () => clearInterval(interval); // We clear the interval.
+  }, []);
 
   return (
     <div className="bg-main flex items-center justify-center">
-      <div className="text-white font-bold text-4xl mt-20">
+      {/* <div className="text-white font-bold text-4xl mt-20">
         Wegens vakantie gesloten. <br />
         Vrijdag 23 oktober zijn wij weer geopend.
-      </div>
+      </div> */}
       {/* We make sure that animations finsihes before we start the next one. */}
-      {/* <div
+      <div
         className={`absolute top-40 sm:top-28 md:top-36 transition-opacity duration-[3000ms] ${
           chinese ? "opacity-100 delay-[1600ms]" : "opacity-0"
         }`}
@@ -52,10 +52,10 @@ const Home = () => {
             alt="new hong kong in chinese"
           />
         )}
-      </div> */}
+      </div>
 
       {/* it was 7xl and 9xl */}
-      {/* <div
+      <div
         className={`text-white font-bold text-7xl md:text-9xl absolute top-44 transition-opacity duration-[3000ms] ${
           chinese ? "opacity-0" : "opacity-100 delay-[1600ms]"
         }`}
@@ -63,9 +63,9 @@ const Home = () => {
         NEW
         <br /> HONG
         <br /> KONG
-      </div> */}
+      </div>
       {/* This button is pushes to the menu where users can order. */}
-      {/* <Link href="/menu">
+      <Link href="/menu">
         <a
           className={`button border-md border-opacity-10 border-white px-6 py-1.5 absolute top-96 mt-40 md:mt-72 right-1/2 translate-x-1/2 bg-white bg-opacity-20 backdrop-blur-sm`}
         >
@@ -74,7 +74,7 @@ const Home = () => {
             {closed ? t.closed : t.order}
           </span>
         </a>
-      </Link> */}
+      </Link>
     </div>
   );
 };
