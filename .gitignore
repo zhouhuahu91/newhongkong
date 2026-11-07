@@ -30,3 +30,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# next-pwa (generated on every production build)
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map
