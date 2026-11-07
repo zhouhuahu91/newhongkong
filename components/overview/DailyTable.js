@@ -14,6 +14,8 @@ const DailyTable = ({ perDay, totals, onSelectDay }) => {
             <th className={th}>Online</th>
             <th className={th}>Pin</th>
             <th className={th}>Cash</th>
+            {/* Op rekening has its own payment bucket in the ledger (it used to count as online). */}
+            <th className={th}>Op rek.</th>
             <th className={th}>Afhaal</th>
             <th className={th}>Restaurant</th>
             <th className={th}>Omzet</th>
@@ -40,6 +42,7 @@ const DailyTable = ({ perDay, totals, onSelectDay }) => {
               <td className={td}>{euro(day.online)}</td>
               <td className={td}>{euro(day.card)}</td>
               <td className={td}>{euro(day.cash)}</td>
+              <td className={td}>{euro(day.op_rekening)}</td>
               <td className={td}>{euro(day.takeaway)}</td>
               <td className={td}>{euro(day.restaurant)}</td>
               <td className={`${td} font-medium`}>{euro(day.total)}</td>
@@ -55,6 +58,7 @@ const DailyTable = ({ perDay, totals, onSelectDay }) => {
             <td className={td}>{euro(totals.online)}</td>
             <td className={td}>{euro(totals.card)}</td>
             <td className={td}>{euro(totals.cash)}</td>
+            <td className={td}>{euro(totals.op_rekening)}</td>
             <td className={td}>{euro(totals.takeaway)}</td>
             <td className={td}>{euro(totals.restaurant)}</td>
             <td className={td}>{euro(totals.total)}</td>

@@ -20,8 +20,12 @@ import {
 // Function imports
 import euro from "@/functions/euro";
 import createStoreLogo from "@/functions/createStoreLogo";
-import calculateTableTotal from "@/functions/calculateTableTotal";
-import calculateTableVat from "@/functions/calculateTableVat";
+// TODO: DELETE old import below. Replaced by tableTotal() from @/functions/ledger (food + beverages + tip).
+// The call in the receipt template below was switched in place: tableTotal(table) → tableTotal(table).
+// import calculateTableTotal from "@/functions/calculateTableTotal";
+// TODO: DELETE old import below. Replaced by vatByRate() + vatRows() from @/functions/ledger.
+// import calculateTableVat from "@/functions/calculateTableVat";
+import { vatByRate, vatRows, tableTotal } from "@/functions/ledger";
 
 const Checkout = ({
   setMainCategory,
@@ -92,23 +96,38 @@ const Checkout = ({
     markup += `
 
     -
-    ^^^Totaal ${euro(calculateTableTotal(table))}|
+    ^^^Totaal ${euro(tableTotal(table))}|
 
 
     `;
 
-    const vat = calculateTableVat(table);
-    const vatLow = Math.round((vat.low / 109) * 9);
-    const vatHigh = Math.round((vat.high / 121) * 21);
+    // TODO: DELETE old code below. Replaced by vatByRate() + vatRows() from @/functions/ledger,
+    // which split the table per VAT rate and calculate the VAT inside each amount.
+    // const vat = calculateTableVat(table);
+    // const vatLow = Math.round((vat.low / 109) * 9);
+    // const vatHigh = Math.round((vat.high / 121) * 21);
+    //
+    // markup += `{w:*,10}
+    // |Totaal is inclusief BTW: | ${euro(vatLow + vatHigh)}
+    // `;
+    const vat = vatRows(vatByRate(table));
+    const vatLow = vat.low.tax;
+    const vatHigh = vat.high.tax;
+    // VAT for rates other than 9% and 21% (usually none).
+    const vatOther = vat.other.reduce((x, r) => x + r.tax, 0);
 
     markup += `{w:*,10}
-    |Totaal is inclusief BTW: | ${euro(vatLow + vatHigh)}
+    |Totaal is inclusief BTW: | ${euro(vatLow + vatHigh + vatOther)}
     `;
 
     markup += `BTW 9% | ${euro(vatLow)}
     `;
     markup += `BTW 21% | ${euro(vatHigh)}
     `;
+    vat.other.forEach((r) => {
+      markup += `BTW ${r.rate}% | ${euro(r.tax)}
+    `;
+    });
 
     markup += `{w:auto}`;
 

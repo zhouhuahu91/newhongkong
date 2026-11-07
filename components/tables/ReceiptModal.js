@@ -4,7 +4,9 @@ import Receipt from "@/tables/Receipt";
 import Modal from "@/components/Modal";
 import IconBtn from "@/components/IconBtn";
 import CloseIcon from "@/icons/CloseIcon";
-import calculateTableTotal from "@/functions/calculateTableTotal";
+// TODO: DELETE old import below. Replaced by tableTotal() from @/functions/ledger (food + beverages + tip).
+// import calculateTableTotal from "@/functions/calculateTableTotal";
+import { tableTotal } from "@/functions/ledger";
 import euro from "@/functions/euro";
 import useWindowSize from "@/hooks/useWindowSize";
 import Checkout from "@/tables/Checkout";
@@ -17,7 +19,9 @@ const ReceiptModal = ({
   setModalMenu,
   setMainCategory,
 }) => {
-  const tableTotal = calculateTableTotal(table);
+  // TODO: DELETE old code below. Replaced by tableTotal() from @/functions/ledger.
+  // const tableTotal = calculateTableTotal(table);
+  const tableTotal = tableTotal(table);
   const { width } = useWindowSize();
 
   const [open, setOpen] = useState(

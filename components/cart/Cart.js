@@ -12,7 +12,7 @@ import ToolTip from "@/components/ToolTip";
 import CartItemComponent from "@/components/cart/CartItemComponent";
 // Function imports
 import euro from "@/functions/euro";
-import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
+import { orderTotal } from "@/functions/ledger";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Animation imports
 import { AnimatePresence } from "framer-motion";
@@ -108,7 +108,7 @@ const Cart = ({ makeTotalBig }) => {
               storeFees.minimumOrderAmount,
               `${cartState.address.street || ""} ${
                 cartState.address.houseNumber || ""
-              } ${cartState.address.addition || ""}`
+              } ${cartState.address.addition || ""}`,
             )}
           </div>
         )}
@@ -134,7 +134,9 @@ const Cart = ({ makeTotalBig }) => {
             {t.total}
           </span>
           <span className={`${makeTotalBig && "font-semibold text-3xl"}`}>
-            {euro(calculateTotalCartPrice(cartState, storeFees))}
+            {/* TODO: DELETE old code below. Replaced by orderTotal() from @/functions/ledger.
+                {euro(calculateTotalCartPrice(cartState, storeFees))} */}
+            {euro(orderTotal(cartState, storeFees))}
           </span>
         </div>
       </div>

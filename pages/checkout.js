@@ -27,7 +27,7 @@ import axios from "axios";
 // Animation imports
 import { AnimatePresence, motion } from "framer-motion";
 // Function imports
-import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
+import { orderTotal } from "@/functions/ledger";
 import euro from "@/functions/euro";
 import getURL from "@/functions/getURL";
 // Stripe imports
@@ -37,7 +37,7 @@ import { Elements } from "@stripe/react-stripe-js";
 const CheckOut = () => {
   // Store stripe Promise in state.
   const [stripePromise, setStripePromise] = useState(() =>
-    loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC_LIVE)
+    loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY_PUBLIC_LIVE),
   );
   // Returns dispatch and cartState from cart provider.
   const {
@@ -89,7 +89,7 @@ const CheckOut = () => {
           // Note that 2204 is with limited options not all letter combos are allowed.
           .matches(
             /^(2211|2212)[\s]?[a-z]{2}[\s]?$|^(2204)[\s]?([a][bcdejklnprstwx]|[b-c][a-z])[\s]?$/i,
-            t.no_delivery_here
+            t.no_delivery_here,
           )
       : yup.string(),
     // House number only needs validation when delivery is selected.
@@ -218,7 +218,7 @@ const CheckOut = () => {
       user: user ? user.uid : "guest",
       ...cartState,
       ...formData,
-      total: calculateTotalCartPrice(cartState, storeFees),
+      total: orderTotal(cartState, storeFees),
       address: { ...address, addition: formData.addition },
       storeFees,
     };
@@ -314,7 +314,7 @@ const CheckOut = () => {
                       className="mt-12"
                     >
                       {paymentMethod === "online" ? t.to_pay : t.place_order}{" "}
-                      {euro(calculateTotalCartPrice(cartState, storeFees))}
+                      {euro(orderTotal(cartState, storeFees))}
                     </SubmitButton>
                     <div className="text-xs flex justify-start w-full max-w-sm">
                       <span className="mt-2 text-gray-600">
@@ -365,7 +365,7 @@ const CheckOut = () => {
               setProcessing(false);
               setPaymentIntent(null);
             }}
-            total={calculateTotalCartPrice(cartState, storeFees)}
+            total={orderTotal(cartState, storeFees)}
             id={orderIdForPayment}
           />
         </Elements>

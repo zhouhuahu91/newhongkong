@@ -29,6 +29,7 @@ import {
 } from "firebase/firestore";
 // Fucntion imports
 import euro from "@/functions/euro";
+import { isOpenOrder, summarize } from "@/functions/ledger";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -39,9 +40,7 @@ const Dashboard = () => {
   const [orders, setOrders] = useState([]);
   // We need to keep score of the orders length to know when we play a new order sound.
   const [ordersLength, setOrdersLength] = useState(0);
-  const openOrders = orders.filter(
-    (order) => order.completed === false && order.canceled === false,
-  ).length;
+  const openOrders = orders.filter(isOpenOrder).length;
   // Audio will be stored here
   const [audio, setAudio] = useState(null);
 
@@ -57,7 +56,7 @@ const Dashboard = () => {
   // Should never be more than one.
   const [printJobs, setPrintJobs] = useState([]);
 
-  const totalTips = orders.reduce((x, y) => (y.delivery ? x + y.tip : x), 0);
+  const totalTips = summarize(orders).totals.deliveryTips;
 
   // After 5 min we reset the current date to the current date.
   // Usefull because sometimes we look for a order in the past but forget to reset the date

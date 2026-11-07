@@ -25,9 +25,29 @@ const BreakdownCards = ({ totals, vat }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="bg-white border rounded-xl shadow-sm p-4 space-y-3">
         <h2 className="font-medium">Betaalwijze</h2>
-        <Row label={`Online (${pct(totals.online)}%)`} value={euro(totals.online)} share={pct(totals.online)} />
-        <Row label={`Pin (${pct(totals.card)}%)`} value={euro(totals.card)} share={pct(totals.card)} />
-        <Row label={`Cash (${pct(totals.cash)}%)`} value={euro(totals.cash)} share={pct(totals.cash)} />
+        <Row
+          label={`Online (${pct(totals.online)}%)`}
+          value={euro(totals.online)}
+          share={pct(totals.online)}
+        />
+        <Row
+          label={`Pin (${pct(totals.card)}%)`}
+          value={euro(totals.card)}
+          share={pct(totals.card)}
+        />
+        <Row
+          label={`Cash (${pct(totals.cash)}%)`}
+          value={euro(totals.cash)}
+          share={pct(totals.cash)}
+        />
+        {/* Op rekening is its own payment bucket in the ledger; only shown when used. */}
+        {totals.op_rekening > 0 && (
+          <Row
+            label={`Op rekening (${pct(totals.op_rekening)}%)`}
+            value={euro(totals.op_rekening)}
+            share={pct(totals.op_rekening)}
+          />
+        )}
       </div>
 
       <div className="bg-white border rounded-xl shadow-sm p-4">
@@ -56,13 +76,30 @@ const BreakdownCards = ({ totals, vat }) => {
               <td className="text-right">{euro(vat.zero.gross)}</td>
               <td className="text-right font-medium">{euro(0)}</td>
             </tr>
+            {/* Rates other than 9/21/0 (the ledger keeps them instead of dropping them). */}
+            {(vat.other || []).map((r) => (
+              <tr key={r.rate}>
+                <td className="py-1">{r.rate}%</td>
+                <td className="text-right">{euro(r.gross)}</td>
+                <td className="text-right font-medium">{euro(r.tax)}</td>
+              </tr>
+            ))}
             <tr className="border-t">
               <td className="pt-2 font-medium">Totaal</td>
               <td className="pt-2 text-right font-medium">
-                {euro(vat.low.gross + vat.high.gross + vat.zero.gross)}
+                {euro(
+                  vat.low.gross +
+                    vat.high.gross +
+                    vat.zero.gross +
+                    (vat.other || []).reduce((x, r) => x + r.gross, 0),
+                )}
               </td>
               <td className="pt-2 text-right font-medium">
-                {euro(vat.low.tax + vat.high.tax)}
+                {euro(
+                  vat.low.tax +
+                    vat.high.tax +
+                    (vat.other || []).reduce((x, r) => x + r.tax, 0),
+                )}
               </td>
             </tr>
           </tbody>

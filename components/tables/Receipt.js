@@ -3,7 +3,9 @@ import receiptline from "receiptline";
 import { useState, useEffect } from "react";
 // Function imports
 import euro from "@/functions/euro";
-import calculateTableTotal from "@/functions/calculateTableTotal";
+// TODO: DELETE old import below. Replaced by tableTotal() from @/functions/ledger (food + beverages + tip).
+// import calculateTableTotal from "@/functions/calculateTableTotal";
+import { tableTotal } from "@/functions/ledger";
 // Component imports
 import IconBtn from "@/components/IconBtn";
 // Icon imports
@@ -33,7 +35,9 @@ const Receipt = ({
   const [tip, setTip] = useState(table.tip);
   const [printJobs, setPrintJobs] = useState([]);
   const [formattedTip, setFormattedTip] = useState(`Tip: ${euro(table.tip)}`);
-  const total = calculateTableTotal(table);
+  // TODO: DELETE old code below. Replaced by tableTotal() from @/functions/ledger.
+  // const total = calculateTableTotal(table);
+  const total = tableTotal(table);
   // Gets all the id's of printer jobs
   useEffect(() => {
     const printerRef = collection(db, "printer");

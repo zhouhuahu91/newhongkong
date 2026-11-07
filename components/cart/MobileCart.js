@@ -13,7 +13,7 @@ import { useCart } from "@/hooks/useCart";
 import usePath from "@/hooks/usePath";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Functions imports
-import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
+import { orderTotal } from "@/functions/ledger";
 import euro from "@/functions/euro";
 // Third party imports
 import { AnimatePresence, motion } from "framer-motion";
@@ -67,7 +67,9 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
               className="button text-white bg-main w-full"
               onClick={() => setOpen(true)}
             >
-              {t.to_cart} {euro(calculateTotalCartPrice(cartState, storeFees))}
+              {/* TODO: DELETE old code below. Replaced by orderTotal() from @/functions/ledger.
+                  {t.to_cart} {euro(calculateTotalCartPrice(cartState, storeFees))} */}
+              {t.to_cart} {euro(orderTotal(cartState, storeFees))}
             </button>
           </motion.div>
         )}

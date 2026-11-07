@@ -10,8 +10,7 @@ import Cart from "@/components/cart/Cart";
 import { useCart } from "@/hooks/useCart";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
 // Function imports
-import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
-import euro from "@/functions/euro";
+import { orderTotal } from "@/functions/ledger";
 import getCurrentDate from "@/functions/getCurrentDate";
 import getCurrentTime from "@/functions/getDigitalTime";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
@@ -38,7 +37,7 @@ const AdminCheckoutModal = ({ open, setOpen }) => {
       paymentMethodType,
       paymentMethod: "in_person",
       time: getCurrentTime(getCurrentTimeInSeconds()),
-      total: calculateTotalCartPrice(cartState, storeFees),
+      total: orderTotal(cartState, storeFees),
       canceled: false,
       printed: false,
       // We set ready true so that we know the order is placed locally

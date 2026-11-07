@@ -6,7 +6,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 // Hook imports
 import { useCart } from "@/hooks/useCart";
 import { useStoreInfo } from "@/hooks/useStoreInfo";
-import calculateTotalCartPrice from "@/functions/calculateTotalCartPrice";
+import { orderTotal } from "@/functions/ledger";
 import useI18n from "@/hooks/useI18n";
 import getDigitalTime from "@/functions/getDigitalTime";
 // Function imports
@@ -38,7 +38,7 @@ const useTimePicker = () => {
   // StartTime is just the current hour.
   const startTime = Math.floor(currentTimeInSeconds / 3600) * 3600;
   // We use the totalCartPrice to calculate the min waiting time for orders.
-  const totalCartPrice = calculateTotalCartPrice(cartState, storeFees);
+  const totalCartPrice = orderTotal(cartState, storeFees);
 
   // This functions returns second param 16:00 => 16:30.
   const addThirtyMinutes = (hour, min) => {
@@ -182,7 +182,7 @@ const useTimePicker = () => {
   useEffect(() => {
     const ref = doc(
       db,
-      `timeSlots${delivery ? "Delivery" : "PickUp"}/${currentDate}`
+      `timeSlots${delivery ? "Delivery" : "PickUp"}/${currentDate}`,
     );
     // We subscribe to the firestore to retrieve a live list of all taken time slots.
     const unsubscribe = onSnapshot(ref, (snap) => {

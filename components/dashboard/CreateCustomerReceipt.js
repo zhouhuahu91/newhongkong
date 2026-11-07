@@ -8,7 +8,7 @@ import { setDoc, doc } from "firebase/firestore";
 import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
-import calculateVat from "@/functions/calculateVat";
+import { vatByRate, vatRows } from "@/functions/ledger";
 import createStoreLogo from "@/functions/createStoreLogo";
 
 import receiptline from "receiptline";
@@ -29,7 +29,7 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
 
     -
     ^^${order.date} | ^^${getDigitalTime(
-      getCurrentTimeInSeconds(new Date(order.createdAt))
+      getCurrentTimeInSeconds(new Date(order.createdAt)),
     )}
 
     -
@@ -84,18 +84,24 @@ const CreateCustomerReceipt = ({ order, printerBusy }) => {
 
 `;
 
-    const vat = calculateVat(order);
-    const vatLow = Math.round((vat.low / 109) * 9);
-    const vatHigh = Math.round((vat.high / 121) * 21);
+    const vat = vatRows(vatByRate(order));
+    const vatLow = vat.low.tax;
+    const vatHigh = vat.high.tax;
+    // VAT for rates other than 9% and 21% (usually none).
+    const vatOther = vat.other.reduce((x, r) => x + r.tax, 0);
 
     markup += `{w:*,10}
-    |Totaal is inclusief BTW: | ${euro(vatLow + vatHigh)}
+    |Totaal is inclusief BTW: | ${euro(vatLow + vatHigh + vatOther)}
     `;
 
     markup += `BTW 9% | ${euro(vatLow)}
     `;
     markup += `BTW 21% | ${euro(vatHigh)}
     `;
+    vat.other.forEach((r) => {
+      markup += `BTW ${r.rate}% | ${euro(r.tax)}
+    `;
+    });
 
     markup += `{w:auto}`;
 

@@ -14,7 +14,7 @@ import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
 import getCurrentDate from "@/functions/getCurrentDate";
 import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
-import calculateTotalOrderPrice from "@/functions/calculateTotalOrderPrice";
+import { orderTotal } from "@/functions/ledger";
 // Firebase imports
 import { db } from "@/firebase/firebase";
 import { doc, updateDoc } from "firebase/firestore";
@@ -134,8 +134,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
                         // Removes or adds the bag to the order
                         updateDoc(ref, {
                           bag: !order.bag,
-                          // We need to calculate the new total price depending on this.
-                          total: calculateTotalOrderPrice({
+                          total: orderTotal({
                             ...order,
                             bag: !order.bag,
                           }),
@@ -167,7 +166,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
                 onBlur={() => {
                   updateDoc(ref, {
                     tip: tip,
-                    total: calculateTotalOrderPrice({ ...order, tip: tip }),
+                    total: orderTotal({ ...order, tip: tip }),
                   });
                 }}
               />

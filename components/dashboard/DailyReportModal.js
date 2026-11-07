@@ -19,9 +19,11 @@ import LoadingIcon from "@/icons/LoadingIcon";
 import IconBtn from "@/components/IconBtn";
 import Modal from "@/components/Modal";
 // Function Imports
-import calculateVat from "@/functions/calculateVat";
-import calculateTableTotal from "@/functions/calculateTableTotal";
-import calculateTableVat from "@/functions/calculateTableVat";
+// TODO: DELETE old imports below. Replaced by summarize() from @/functions/ledger.
+// import calculateVat from "@/functions/calculateVat";
+// import calculateTableTotal from "@/functions/calculateTableTotal";
+// import calculateTableVat from "@/functions/calculateTableVat";
+import { summarize } from "@/functions/ledger";
 import euro from "@/functions/euro";
 
 const DailyReportModal = ({ date, printJobs, orders }) => {
@@ -39,104 +41,171 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
       );
       const snapshot = await getDocs(q);
       const raw = snapshot.docs.map((doc) => doc.data());
-      const data = raw.map((table) => {
-        return {
-          ...table,
-          total: calculateTableTotal(table),
-        };
-      });
-      setTables(data);
+      // TODO: DELETE old code below. summarize() from @/functions/ledger calculates the table totals (tableTotal) itself.
+      // const data = raw.map((table) => {
+      //   return {
+      //     ...table,
+      //     total: calculateTableTotal(table),
+      //   };
+      // });
+      setTables(raw);
     };
     if (open) {
       fetchTables();
     }
   }, [open, date]);
 
-  //  ********** CALCULATIONS FOR TABLES *********
+  // TODO: DELETE old code below. Replaced by summarize() from @/functions/ledger,
+  // which filters countable orders/tables and calculates revenue, payment split and VAT in one place.
+  // //  ********** CALCULATIONS FOR TABLES *********
+  //
+  // const revenueTables = tables.reduce((x, y) => x + y.total, 0);
+  //
+  // const cardPaymentsTables = tables.reduce(
+  //   (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
+  //   0,
+  // );
+  //
+  // const cashPaymentsTables = tables.reduce(
+  //   (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
+  //   0,
+  // );
+  //
+  // const tablesVat = tables.reduce(
+  //   (x, y) => {
+  //     // z returns the vat of the current table
+  //     const z = calculateTableVat(y);
+  //     // We add the vat of current order with the vat that is store in x.
+  //     return {
+  //       low: x.low + z.low,
+  //       high: x.high + z.high,
+  //       zero: x.zero + z.zero,
+  //     };
+  //   },
+  //   { low: 0, high: 0, zero: 0 },
+  // );
+  //
+  // const lowBTWTables = Math.round((tablesVat.low / 109) * 9);
+  // const highBTWTables = Math.round((tablesVat.high / 121) * 21);
+  //
+  // // ********** BELOW ARE CALCULATIONS FOR TAKE AWAY ************
+  //
+  // const filteredOrders = orders.filter(
+  //   (order) => order.canceled === false && order.paid === true,
+  // );
+  // // Total revenue
+  // const revenue = filteredOrders.reduce((x, y) => x + y.total, 0);
+  // // Total online payments
+  // const onlinePayments = {};
+  // filteredOrders.forEach((order) => {
+  //   if (order.paymentMethod === "online") {
+  //     if (onlinePayments[`${order.paymentMethodType}`] > 0) {
+  //       onlinePayments[`${order.paymentMethodType}`] += order.total;
+  //     } else {
+  //       onlinePayments[`${order.paymentMethodType}`] = order.total;
+  //     }
+  //   }
+  // });
+  //
+  // // Total card payments in store, online payment is also set to card if they pay with credit card. Didn't know stripe did this.
+  // const cardPayments = filteredOrders.reduce((x, y) => {
+  //   if (y.paymentMethod === "in_person" && y.paymentMethodType === "card") {
+  //     return x + y.total;
+  //   } else {
+  //     return x;
+  //   }
+  // }, 0);
+  //
+  // // This one is easier we just need to check paymentMethodType if that one is cash or not but we do it just in case.
+  // const cashPayments = filteredOrders.reduce((x, y) => {
+  //   if (y.paymentMethod === "in_person" && y.paymentMethodType === "cash") {
+  //     return x + y.total;
+  //   } else {
+  //     return x;
+  //   }
+  // }, 0);
+  //
+  // const vat = filteredOrders.reduce(
+  //   (x, y) => {
+  //     // z returns the vat of the current order
+  //     const z = calculateVat(y);
+  //     // We add the vat of current order with the vat that is store in x.
+  //     return {
+  //       low: x.low + z.low,
+  //       high: x.high + z.high,
+  //       zero: x.zero + z.zero,
+  //     };
+  //   },
+  //   { low: 0, high: 0, zero: 0 },
+  // );
+  //
+  // const lowBTW = Math.round((vat.low / 109) * 9);
+  // const highBTW = Math.round((vat.high / 121) * 21);
+  // summarize() keeps only countable orders and paid tables, then returns the
+  // revenue, the cash/card/online/op rekening split and the VAT split per channel.
+  const summary = summarize(orders, tables);
+  const revenue = summary.totals.takeaway;
+  const revenueTables = summary.totals.restaurant;
+  const onlinePayments = summary.onlineByType;
+  const cardPayments = summary.payments.takeaway.card;
+  const cashPayments = summary.payments.takeaway.cash;
+  const opRekeningPayments = summary.payments.takeaway.op_rekening;
+  const cardPaymentsTables = summary.payments.restaurant.card;
+  const cashPaymentsTables = summary.payments.restaurant.cash;
+  const vat = summary.vatTakeaway;
+  const tablesVat = summary.vatRestaurant;
+  // VAT rows for rates other than 9/21/0 (only printed when there are any).
+  const otherVatRows = (rows) =>
+    rows.other
+      .map(
+        (r) => `
+    ${r.rate}%       | ${euro(r.gross)}|   ${euro(r.tax)}`,
+      )
+      .join("");
+  const otherTax = (rows) => rows.other.reduce((x, r) => x + r.tax, 0);
 
-  const revenueTables = tables.reduce((x, y) => x + y.total, 0);
-
-  const cardPaymentsTables = tables.reduce(
-    (x, y) => (y.paymentMethodType === "card" ? x + y.total : x),
-    0,
-  );
-
-  const cashPaymentsTables = tables.reduce(
-    (x, y) => (y.paymentMethodType === "cash" ? x + y.total : x),
-    0,
-  );
-
-  const tablesVat = tables.reduce(
-    (x, y) => {
-      // z returns the vat of the current table
-      const z = calculateTableVat(y);
-      // We add the vat of current order with the vat that is store in x.
-      return {
-        low: x.low + z.low,
-        high: x.high + z.high,
-        zero: x.zero + z.zero,
-      };
-    },
-    { low: 0, high: 0, zero: 0 },
-  );
-
-  const lowBTWTables = Math.round((tablesVat.low / 109) * 9);
-  const highBTWTables = Math.round((tablesVat.high / 121) * 21);
-
-  // ********** BELOW ARE CALCULATIONS FOR TAKE AWAY ************
-
-  const filteredOrders = orders.filter(
-    (order) => order.canceled === false && order.paid === true,
-  );
-  // Total revenue
-  const revenue = filteredOrders.reduce((x, y) => x + y.total, 0);
-  // Total online payments
-  const onlinePayments = {};
-  filteredOrders.forEach((order) => {
-    if (order.paymentMethod === "online") {
-      if (onlinePayments[`${order.paymentMethodType}`] > 0) {
-        onlinePayments[`${order.paymentMethodType}`] += order.total;
-      } else {
-        onlinePayments[`${order.paymentMethodType}`] = order.total;
-      }
-    }
-  });
-
-  // Total card payments in store, online payment is also set to card if they pay with credit card. Didn't know stripe did this.
-  const cardPayments = filteredOrders.reduce((x, y) => {
-    if (y.paymentMethod === "in_person" && y.paymentMethodType === "card") {
-      return x + y.total;
-    } else {
-      return x;
-    }
-  }, 0);
-
-  // This one is easier we just need to check paymentMethodType if that one is cash or not but we do it just in case.
-  const cashPayments = filteredOrders.reduce((x, y) => {
-    if (y.paymentMethod === "in_person" && y.paymentMethodType === "cash") {
-      return x + y.total;
-    } else {
-      return x;
-    }
-  }, 0);
-
-  const vat = filteredOrders.reduce(
-    (x, y) => {
-      // z returns the vat of the current order
-      const z = calculateVat(y);
-      // We add the vat of current order with the vat that is store in x.
-      return {
-        low: x.low + z.low,
-        high: x.high + z.high,
-        zero: x.zero + z.zero,
-      };
-    },
-    { low: 0, high: 0, zero: 0 },
-  );
-
-  const lowBTW = Math.round((vat.low / 109) * 9);
-  const highBTW = Math.round((vat.high / 121) * 21);
-
+// TODO: DELETE old code below. Same receipt, but the VAT numbers now come from
+// summarize() (gross + tax per rate, plus rows for other rates) and op rekening has its own row.
+//   let markup = `
+//     "^^^^New Hong Kong
+//
+//     Havenstraat 13  
+//     2211EE Noordwijkerhout
+//     0252 37 29 02
+//     info@newhongkong.nl
+//
+//     -
+//     dagrapport | ${date}
+//     -
+//
+//     "afhaal     | "omzet|             "btw  
+//     laag 9%     | ${euro(vat.low)}|   ${euro(lowBTW)}  
+//     hoog 21%    | ${euro(vat.high)}|  ${euro(highBTW)}
+//     geen 0%     | ${euro(vat.zero)}|  ${euro(0)}   
+//     ------------------------------------------------
+//     "           | "${euro(revenue)}|  "${euro(lowBTW + highBTW)}
+//
+//     "restaurant | "omzet|                    "btw  
+//     laag 9%     | ${euro(tablesVat.low)}|    ${euro(lowBTWTables)}         
+//     hoog 21%    | ${euro(tablesVat.high)}|   ${euro(highBTWTables)}           
+//     geen 0%     | ${euro(tablesVat.zero)}|   ${euro(0)}   
+//     ------------------------------------------------
+//     "           | "${euro(revenueTables)}|   "${euro(
+//       lowBTWTables + highBTWTables,
+//     )}|
+//
+//
+//                     ^^totaal afhaal ${euro(revenue)}|
+//                     ^^totaal restaurant ${euro(revenueTables)}|
+//     -------------------------------------------------
+//                     ^^"totale omzet ${euro(revenue + revenueTables)}| 
+//
+//
+//
+//     |"betaalwijze | "afhaal|                "restaurant
+//     |cash         | ${euro(cashPayments)}|  ${euro(cashPaymentsTables)}|
+//     |pinnen       | ${euro(cardPayments)}|  ${euro(cardPaymentsTables)}|
+// `;
   let markup = `
     "^^^^New Hong Kong
 
@@ -150,19 +219,21 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
     -
 
     "afhaal     | "omzet|             "btw  
-    laag 9%     | ${euro(vat.low)}|   ${euro(lowBTW)}  
-    hoog 21%    | ${euro(vat.high)}|  ${euro(highBTW)}
-    geen 0%     | ${euro(vat.zero)}|  ${euro(0)}   
+    laag 9%     | ${euro(vat.low.gross)}|   ${euro(vat.low.tax)}  
+    hoog 21%    | ${euro(vat.high.gross)}|  ${euro(vat.high.tax)}
+    geen 0%     | ${euro(vat.zero.gross)}|  ${euro(0)}   ${otherVatRows(vat)}
     ------------------------------------------------
-    "           | "${euro(revenue)}|  "${euro(lowBTW + highBTW)}
+    "           | "${euro(revenue)}|  "${euro(
+      vat.low.tax + vat.high.tax + otherTax(vat),
+    )}
 
     "restaurant | "omzet|                    "btw  
-    laag 9%     | ${euro(tablesVat.low)}|    ${euro(lowBTWTables)}         
-    hoog 21%    | ${euro(tablesVat.high)}|   ${euro(highBTWTables)}           
-    geen 0%     | ${euro(tablesVat.zero)}|   ${euro(0)}   
+    laag 9%     | ${euro(tablesVat.low.gross)}|    ${euro(tablesVat.low.tax)}         
+    hoog 21%    | ${euro(tablesVat.high.gross)}|   ${euro(tablesVat.high.tax)}           
+    geen 0%     | ${euro(tablesVat.zero.gross)}|   ${euro(0)}   ${otherVatRows(tablesVat)}
     ------------------------------------------------
     "           | "${euro(revenueTables)}|   "${euro(
-      lowBTWTables + highBTWTables,
+      tablesVat.low.tax + tablesVat.high.tax + otherTax(tablesVat),
     )}|
 
     
@@ -177,6 +248,12 @@ const DailyReportModal = ({ date, printJobs, orders }) => {
     |cash         | ${euro(cashPayments)}|  ${euro(cashPaymentsTables)}|
     |pinnen       | ${euro(cardPayments)}|  ${euro(cardPaymentsTables)}|
 `;
+
+  // Op rekening is its own payment bucket now (it used to be listed as an online type).
+  if (opRekeningPayments > 0) {
+    markup += `|op rekening | ${euro(opRekeningPayments)}| ${euro(0)}
+      `;
+  }
 
   for (const type in onlinePayments) {
     markup += `|${type.replace("_", " ")} | ${euro(
