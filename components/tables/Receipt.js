@@ -1,10 +1,6 @@
-import receiptline from "receiptline";
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 // Function imports
 import euro from "@/functions/euro";
-// TODO: DELETE old import below. Replaced by tableTotal() from @/functions/ledger (food + beverages + tip).
-// import calculateTableTotal from "@/functions/calculateTableTotal";
 import { tableTotal } from "@/functions/ledger";
 // Component imports
 import IconBtn from "@/components/IconBtn";
@@ -17,13 +13,13 @@ import PrintIcon from "@/icons/PrintIcon";
 import BeverageIcon from "@/icons/BeverageIcon";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import {
-  doc,
-  updateDoc,
-  setDoc,
-  collection,
-  onSnapshot,
-} from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
+import { kitchenTicket, toPrintContent } from "@/functions/receipts";
+import usePrintQueue, {
+  queuePrintJob,
+  PRINTER_BUSY_MESSAGE,
+} from "@/hooks/usePrintQueue";
+import Snackbar from "@/components/Snackbar";
 
 const Receipt = ({
   table,
@@ -33,23 +29,10 @@ const Receipt = ({
   decrementDish,
 }) => {
   const [tip, setTip] = useState(table.tip);
-  const [printJobs, setPrintJobs] = useState([]);
+  const { jobs: printJobs } = usePrintQueue();
+  const [snackbar, setSnackbar] = useState(false);
   const [formattedTip, setFormattedTip] = useState(`Tip: ${euro(table.tip)}`);
-  // TODO: DELETE old code below. Replaced by tableTotal() from @/functions/ledger.
-  // const total = calculateTableTotal(table);
   const total = tableTotal(table);
-  // Gets all the id's of printer jobs
-  useEffect(() => {
-    const printerRef = collection(db, "printer");
-    const unsubscribe = onSnapshot(printerRef, (snapshot) => {
-      const data = snapshot.docs.map((doc) => {
-        return { id: doc.id, ...doc.data() };
-      });
-      setPrintJobs(data);
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   // I need an array of items in food that needs to be printed
   const needsToBePrinted = table.food.filter((item) => !item.printed);
@@ -59,87 +42,14 @@ const Receipt = ({
   );
 
   const printFood = async () => {
-    let markup = `
-    ^^^^^餐楼
-
-    -
-    ^^^^TAFEL ${table.number}
-
-    -
-    `;
-
-    needsToBePrinted.forEach((item) => {
-      markup += `
-
-      |^^^^${item.qwt} ${item.name?.zh}`;
-
-      // template to hold sides
-      const sidesCount = {};
-      // This part prints the sides after the item name if there are sides.
-      if (item.selectedSides?.length > 0) {
-        item.selectedSides.forEach((side) => {
-          // Check if name is in template
-          if (sidesCount[side.name.zh]) {
-            // If name is in template we add 1
-            sidesCount[side.name.zh]++;
-          } else {
-            // If not we set the name to one
-            sidesCount[side.name.zh] = 1;
-          }
-        });
-        // If there are sides we add this after the main item
-        markup += ",";
-        // We print the sides next to it.
-        // Sides gets multiplied by the main item.
-        for (const side in sidesCount) {
-          const sideQwt = sidesCount[side] * item.qwt;
-          // if there is only one side no need to show 1.
-          if (sideQwt > 1) {
-            markup += ` ${sideQwt}`;
-          }
-          markup += ` ${side}`;
-        }
-      }
-
-      // This part prints the options on it's own line
-      // If the option is main we don't need to prin the options
-      if (item.selectedOptions?.length > 0 && !item.optionIsMain) {
-        // template to hold options
-        const optionsCount = {};
-        item.selectedOptions.forEach((option) => {
-          // Check if name is in template
-          if (optionsCount[option.name.zh]) {
-            // If name is in template we add 1
-            optionsCount[option.name.zh]++;
-          } else {
-            // If not we set the name to one
-            optionsCount[option.name.zh] = 1;
-          }
-        });
-        // We print the options.
-        // Options gets multiplied by the main item.
-        for (const option in optionsCount) {
-          markup += `
-        |^^^^${optionsCount[option] * item.qwt} (${option})`;
-        }
-      }
-    });
-
-    const report = receiptline.transform(markup, {
-      cpl: 46,
-      encoding: "cp936",
-      spacing: true,
-    });
-
-    // We cant' send the svg so we convert it to a base 64 string
-    const buffer = Buffer.from(report);
-    const base64String = buffer.toString("base64");
-    // We need to check if printer is busy or not
-    await setDoc(doc(db, "printer", table.id), {
-      type: "tableOrder",
-      printContent: base64String,
-      table: table, // we pass in the table so that we can set food to printed after completing
-    });
+    const ok = await queuePrintJob(
+      table.id,
+      "tableOrder",
+      toPrintContent(kitchenTicket(table, needsToBePrinted)),
+      // we pass in the table so that the print service can set food to printed after completing
+      { table: table },
+    );
+    if (!ok) setSnackbar(PRINTER_BUSY_MESSAGE);
   };
 
   if (table.food.length === 0 && table.beverages.length === 0) {
@@ -156,6 +66,7 @@ const Receipt = ({
         table.food.length ? "gap-4" : ""
       }`}
     >
+      <Snackbar snackbar={snackbar} setSnackbar={setSnackbar} />
       <div className="text-base">
         {table.food.map((dish) => {
           return (

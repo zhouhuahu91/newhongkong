@@ -1,10 +1,11 @@
 // React imports
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // Animation imports
 import { motion } from "framer-motion";
 // Firebase imports
 import { db } from "@/firebase/firebase";
-import { doc, updateDoc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
+import { queuePrintJob } from "@/hooks/usePrintQueue";
 // Hook imports
 import { useAuth } from "@/hooks/useAuth";
 import usePath from "@/hooks/usePath";
@@ -79,10 +80,7 @@ const OrderCard = ({
     if (printerBusy) return;
     // If not we can add this order to the printer.
     // type let's the printer know what type of receipt we want
-    await setDoc(doc(db, "printer", order.id), {
-      type: "order",
-      printContent: order,
-    });
+    await queuePrintJob(order.id, "order", order);
   };
 
   // There are a lot of reasons not to auto print an order.
@@ -96,11 +94,20 @@ const OrderCard = ({
     // If order already auto printed before and didn't succeed we return
     if (!autoPrint) return;
     // If it passes all these test we can safely send the order to be printed
-    await sendOrderToPrinter(order);
     setAutoPrint(false);
+    try {
+      await sendOrderToPrinter(order);
+    } catch (error) {
+      // Staff can still print the order by hand.
+      console.error("Auto-print failed", error);
+    }
   };
 
-  autoPrintOrder(order);
+  useEffect(() => {
+    autoPrintOrder(order);
+    // autoPrintOrder is redefined every render; it only reads the values listed here.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [order, printer, isPrinting, printerBusy, firstInLine, autoPrint]);
 
   return (
     <>

@@ -1,0 +1,220 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`customerReceipt > delivery, paid online, with tip 1`] = `
+"
+    "^^^^New Hong Kong
+
+
+    {LOGO}
+
+    Havenstraat 13
+    2211EE Noordwijkerhout
+    0252 37 29 02
+    info@newhongkong.nl
+
+    -
+    ^^07-11-2026 | ^^17:30
+
+    -
+{w:*,10}
+      ^^2 Babi pangang | ^^€ 26,00
+      {w:*,10}
+      ^^1 Cola | ^^€ 3,00
+      |zonder ijs
+        {w:auto}
+
+    -
+    ^^Subtotaal € 29,00|
+      ^^Bezorgkosten € 2,50|
+      ^^Transactiekosten € 0,30|
+      ^^Fooi € 2,00|
+
+    -
+    ^^^Totaal € 33,80|
+
+
+{w:*,10}
+    |Totaal is inclusief BTW: | € 2,92
+    BTW 9% | € 2,35
+    BTW 21% | € 0,57
+    {w:auto}
+
+
+    "^^^BEDANKT EN TOT ZIENS!"
+`;
+
+exports[`customerReceipt > pick-up with a bag 1`] = `
+"
+    "^^^^New Hong Kong
+
+
+    {LOGO}
+
+    Havenstraat 13
+    2211EE Noordwijkerhout
+    0252 37 29 02
+    info@newhongkong.nl
+
+    -
+    ^^07-11-2026 | ^^17:30
+
+    -
+{w:*,10}
+      ^^2 Babi pangang | ^^€ 26,00
+      {w:*,10}
+      ^^1 Cola | ^^€ 3,00
+      |zonder ijs
+        {w:auto}
+
+    -
+    ^^Subtotaal € 29,00|
+      ^^Tasje € 0,25|
+
+    -
+    ^^^Totaal € 29,25|
+
+
+{w:*,10}
+    |Totaal is inclusief BTW: | € 2,71
+    BTW 9% | € 2,15
+    BTW 21% | € 0,56
+    {w:auto}
+
+
+    "^^^BEDANKT EN TOT ZIENS!"
+`;
+
+exports[`customerReceipt > pick-up, paid in person 1`] = `
+"
+    "^^^^New Hong Kong
+
+
+    {LOGO}
+
+    Havenstraat 13
+    2211EE Noordwijkerhout
+    0252 37 29 02
+    info@newhongkong.nl
+
+    -
+    ^^07-11-2026 | ^^17:30
+
+    -
+{w:*,10}
+      ^^2 Babi pangang | ^^€ 26,00
+      {w:*,10}
+      ^^1 Cola | ^^€ 3,00
+      |zonder ijs
+        {w:auto}
+
+    -
+    ^^Subtotaal € 29,00|
+
+    -
+    ^^^Totaal € 29,00|
+
+
+{w:*,10}
+    |Totaal is inclusief BTW: | € 2,67
+    BTW 9% | € 2,15
+    BTW 21% | € 0,52
+    {w:auto}
+
+
+    "^^^BEDANKT EN TOT ZIENS!"
+`;
+
+exports[`dailyReport > revenue, VAT and payment split for one day 1`] = `
+"
+    "^^^^New Hong Kong
+
+    Havenstraat 13  
+    2211EE Noordwijkerhout
+    0252 37 29 02
+    info@newhongkong.nl
+
+    -
+    dagrapport | 07-11-2026
+    -
+
+    "afhaal     | "omzet|             "btw  
+    laag 9%     | € 104,00|   € 8,59  
+    hoog 21%    | € 12,30|  € 2,13
+    geen 0%     | € 0,00|  € 0,00   
+    ------------------------------------------------
+    "           | "€ 116,00|  "€ 10,72
+
+    "restaurant | "omzet|                    "btw  
+    laag 9%     | € 75,00|    € 6,19         
+    hoog 21%    | € 0,00|   € 0,00           
+    geen 0%     | € 0,00|   € 0,00   
+    ------------------------------------------------
+    "           | "€ 75,00|   "€ 6,19|
+
+    
+                    ^^totaal afhaal € 116,00|
+                    ^^totaal restaurant € 75,00|
+    -------------------------------------------------
+                    ^^"totale omzet € 191,00| 
+
+
+
+    |"betaalwijze | "afhaal|                "restaurant
+    |cash         | € 29,00|  € 37,50|
+    |pinnen       | € 29,00|  € 37,50|
+|op rekening | € 29,00| € 0,00
+      |ideal | € 29,00| € 0,00
+      "
+`;
+
+exports[`kitchenTicket > full ticket 1`] = `
+"
+    ^^^^^餐楼
+
+    -
+    ^^^^TAFEL 12
+
+    -
+    
+
+      |^^^^2 芙蓉蛋, 2 饭
+
+      |^^^^1 咖喱鸡
+        |^^^^2 (辣)"
+`;
+
+exports[`tableReceipt > food, beverages, total and VAT 1`] = `
+"
+    "^^^^New Hong Kong
+
+
+    {LOGO}
+
+    Havenstraat 13
+    2211EE Noordwijkerhout
+    0252 37 29 02
+    info@newhongkong.nl
+
+    -
+    ^^07-11-2026 | ^^tafel 12
+
+    -
+{w:*,10}
+      ^^2 Tjap tjoy | ^^€ 30,00
+      {w:*,10}
+      ^^3 Thee | ^^€ 7,50
+      {w:auto}
+
+    -
+    ^^^Totaal € 38,50|
+
+
+    {w:*,10}
+    |Totaal is inclusief BTW: | € 3,10
+    BTW 9% | € 3,10
+    BTW 21% | € 0,00
+    {w:auto}
+
+
+    "^^^BEDANKT EN TOT ZIENS!"
+`;

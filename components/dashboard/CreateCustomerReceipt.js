@@ -1,146 +1,39 @@
 // Icon imports
 import ReceiptIcon from "@/icons/ReceiptIcon";
 import LoadingIcon from "@/icons/LoadingIcon";
-// Firebase imports
-import { db } from "@/firebase/firebase";
-import { setDoc, doc } from "firebase/firestore";
-// Function imports
-import euro from "@/functions/euro";
-import getDigitalTime from "@/functions/getDigitalTime";
-import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
-import { vatByRate, vatRows } from "@/functions/ledger";
-import createStoreLogo from "@/functions/createStoreLogo";
-
-import receiptline from "receiptline";
+import { customerReceipt, toPrintContent } from "@/functions/receipts";
+import { queuePrintJob, PRINTER_BUSY_MESSAGE } from "@/hooks/usePrintQueue";
+import Snackbar from "@/components/Snackbar";
+import { useState } from "react";
 
 const CreateCustomerReceipt = ({ order, printerBusy }) => {
+  const [snackbar, setSnackbar] = useState(false);
   const printReceipt = async () => {
-    // We create the markup
-    let markup = `
-    "^^^^New Hong Kong
-
-
-    ${createStoreLogo()}
-
-    Havenstraat 13
-    2211EE Noordwijkerhout
-    0252 37 29 02
-    info@newhongkong.nl
-
-    -
-    ^^${order.date} | ^^${getDigitalTime(
-      getCurrentTimeInSeconds(new Date(order.createdAt)),
-    )}
-
-    -
-`;
-
-    order.cart.forEach((item) => {
-      markup += `{w:*,10}
-      ^^${item.qwt} ${item.name["nl"]} | ^^${euro(item.price)}
-      `;
-
-      if (item.description["nl"].length) {
-        markup += `|${item.description["nl"]}
-        `;
-      }
-    });
-
-    // adds the total of all the items in the cart.
-    markup += `{w:auto}
-
-    -
-    ^^Subtotaal ${euro(order.cart.reduce((x, y) => x + y.price, 0))}|`;
-
-    // adds delivery cost of order is for delivery
-    if (order.delivery) {
-      markup += `
-      ^^Bezorgkosten ${euro(order.storeFees.deliveryFee)}|`;
-    }
-
-    // adds fee for the bag if order.bag is true but only if order isn't for delivery bag fee is included in the delivery fee
-    if (order.paymentMethod === "online") {
-      markup += `
-      ^^Transactiekosten ${euro(order.storeFees.transactionFee)}|`;
-    }
-
-    // adds fee for the bag if order.bag is true but only if order isn't for delivery bag fee is included in the delivery fee
-    if (!order.delivery && order.bag) {
-      markup += `
-      ^^Tasje ${euro(order.storeFees.plasticBagFee)}|`;
-    }
-
-    //  adds tip if customer gave a tip
-    if (order.tip > 0) {
-      markup += `
-      ^^Fooi ${euro(order.tip)}|`;
-    }
-
-    markup += `
-
-    -
-    ^^^Totaal ${euro(order.total)}|
-
-
-`;
-
-    const vat = vatRows(vatByRate(order));
-    const vatLow = vat.low.tax;
-    const vatHigh = vat.high.tax;
-    // VAT for rates other than 9% and 21% (usually none).
-    const vatOther = vat.other.reduce((x, r) => x + r.tax, 0);
-
-    markup += `{w:*,10}
-    |Totaal is inclusief BTW: | ${euro(vatLow + vatHigh + vatOther)}
-    `;
-
-    markup += `BTW 9% | ${euro(vatLow)}
-    `;
-    markup += `BTW 21% | ${euro(vatHigh)}
-    `;
-    vat.other.forEach((r) => {
-      markup += `BTW ${r.rate}% | ${euro(r.tax)}
-    `;
-    });
-
-    markup += `{w:auto}`;
-
-    markup += `
-
-
-    "^^^BEDANKT EN TOT ZIENS!`;
-
-    const report = receiptline.transform(markup, {
-      cpl: 46,
-      encoding: "cp936",
-      spacing: true,
-    });
-
-    // We cant' send the svg so we convert it to a base 64 string
-    const buffer = Buffer.from(report);
-    const base64String = buffer.toString("base64");
-    if (!printerBusy) {
-      await setDoc(doc(db, "printer", order.id), {
-        type: "customerReceipt",
-        printContent: base64String,
-      });
-    }
+    const ok = await queuePrintJob(
+      order.id,
+      "customerReceipt",
+      toPrintContent(customerReceipt(order)),
+    );
+    if (!ok) setSnackbar(PRINTER_BUSY_MESSAGE);
   };
 
   return (
-    <button
-      type="button"
-      disabled={printerBusy}
-      className="button w-40 border gap-2 text-sm hover:shadow-lg"
-      onClick={() => printReceipt()}
-    >
-      bonnetje{" "}
-      {printerBusy ? (
-        <LoadingIcon className="animate-spin" />
-      ) : (
-        <ReceiptIcon className="" />
-      )}
-    </button>
+    <>
+      <Snackbar snackbar={snackbar} setSnackbar={setSnackbar} />
+      <button
+        type="button"
+        disabled={printerBusy}
+        className="button w-40 border gap-2 text-sm hover:shadow-lg"
+        onClick={() => printReceipt()}
+      >
+        bonnetje{" "}
+        {printerBusy ? (
+          <LoadingIcon className="animate-spin" />
+        ) : (
+          <ReceiptIcon className="" />
+        )}
+      </button>
+    </>
   );
 };
 

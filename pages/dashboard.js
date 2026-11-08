@@ -25,11 +25,11 @@ import {
   onSnapshot,
   doc,
   updateDoc,
-  deleteDoc,
 } from "firebase/firestore";
 // Fucntion imports
 import euro from "@/functions/euro";
 import { isOpenOrder, summarize } from "@/functions/ledger";
+import usePrintQueue, { clearPrintJobs } from "@/hooks/usePrintQueue";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -54,7 +54,7 @@ const Dashboard = () => {
   const [lastSelectedOrder, setLastSelectedOrder] = useState(null);
   // The job currently in the printer.
   // Should never be more than one.
-  const [printJobs, setPrintJobs] = useState([]);
+  const { jobs: printJobs } = usePrintQueue();
 
   const totalTips = summarize(orders).totals.deliveryTips;
 
@@ -120,19 +120,6 @@ const Dashboard = () => {
 
   useEffect(() => {
     setAudio(new Audio("/handoff.mp3"));
-  }, []);
-
-  // Gets all the id's of printer jobs
-  useEffect(() => {
-    const printerRef = collection(db, "printer");
-    const unsubscribe = onSnapshot(printerRef, (snapshot) => {
-      const data = snapshot.docs.map((doc) => {
-        return { id: doc.id, ...doc.data() };
-      });
-      setPrintJobs(data);
-    });
-
-    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
@@ -264,10 +251,7 @@ const Dashboard = () => {
               <IconBtn
                 onClick={() => {
                   if (printJobs.length > 0) {
-                    return printJobs.forEach(async (job) => {
-                      const ref = doc(db, `printer/${job.id}`);
-                      await deleteDoc(ref);
-                    });
+                    return clearPrintJobs(printJobs);
                   }
                   setPrinter((prev) => !prev);
                 }}

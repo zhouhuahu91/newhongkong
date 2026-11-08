@@ -7,8 +7,6 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 // Function imports
 import euro from "@/functions/euro";
 import getPeriodRange, { shiftDate } from "@/functions/getPeriodRange";
-// TODO: DELETE old import below. Replaced by summarize() from @/functions/ledger.
-// import summarizeRevenue from "@/functions/summarizeRevenue";
 import { summarize } from "@/functions/ledger";
 // Hook imports
 import { useAuth } from "@/hooks/useAuth";
@@ -72,10 +70,6 @@ const Overview = () => {
           load(period.prevStart, period.prevEnd),
         ]);
         if (cancelled) return;
-        // TODO: DELETE old code below. summarize() returns the same shape as
-        // summarizeRevenue plus op rekening, delivery tips and VAT for other rates.
-        // setCurrent(summarizeRevenue(cur.orders, cur.tables, period.days));
-        // setPrevious(summarizeRevenue(prev.orders, prev.tables));
         setCurrent(summarize(cur.orders, cur.tables, period.days));
         setPrevious(summarize(prev.orders, prev.tables));
       } catch (e) {

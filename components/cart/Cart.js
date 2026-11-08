@@ -134,8 +134,6 @@ const Cart = ({ makeTotalBig }) => {
             {t.total}
           </span>
           <span className={`${makeTotalBig && "font-semibold text-3xl"}`}>
-            {/* TODO: DELETE old code below. Replaced by orderTotal() from @/functions/ledger.
-                {euro(calculateTotalCartPrice(cartState, storeFees))} */}
             {euro(orderTotal(cartState, storeFees))}
           </span>
         </div>

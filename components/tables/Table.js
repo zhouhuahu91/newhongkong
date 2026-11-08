@@ -1,9 +1,7 @@
 import { useState } from "react";
 import TableModal from "@/tables/TableModal";
 import useWindowSize from "@/hooks/useWindowSize";
-// TODO: DELETE old import below. Replaced by tableTotal() from @/functions/ledger (food + beverages + tip).
-// import calculateTableTotal from "@/functions/calculateTableTotal";
-import { tableTotal } from "@/functions/ledger";
+import { tableTotal as calculateTableTotal } from "@/functions/ledger";
 import euro from "@/functions/euro";
 
 const Table = ({
@@ -21,9 +19,7 @@ const Table = ({
 
   let tableTotal = 0;
   if (table) {
-    // TODO: DELETE old code below. Replaced by tableTotal() from @/functions/ledger.
-    // tableTotal = calculateTableTotal(table);
-    tableTotal = tableTotal(table);
+    tableTotal = calculateTableTotal(table);
   }
 
   return (

@@ -67,8 +67,6 @@ const MobileCart = ({ setDeliveryOrPickUpOpen, setDelivery }) => {
               className="button text-white bg-main w-full"
               onClick={() => setOpen(true)}
             >
-              {/* TODO: DELETE old code below. Replaced by orderTotal() from @/functions/ledger.
-                  {t.to_cart} {euro(calculateTotalCartPrice(cartState, storeFees))} */}
               {t.to_cart} {euro(orderTotal(cartState, storeFees))}
             </button>
           </motion.div>
