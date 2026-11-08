@@ -103,7 +103,7 @@ const Header = () => {
             {/* Graph of all orders per month. */}
             {(user?.admin || user?.accountant) &&
               !(user?.admin && width < 768) && (
-                <Link href="/monthly_overview">
+                <Link href="/overview">
                   <a className="red-focus-ring rounded">
                     <ChartIcon
                       className={`${
