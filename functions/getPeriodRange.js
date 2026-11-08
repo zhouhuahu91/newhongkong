@@ -89,6 +89,7 @@ const getPeriodRange = (view, date) => {
     label,
     compareLabel,
     days: listDays(start, end),
+    prevDays: listDays(prevStart, prevEnd),
   };
 };
 

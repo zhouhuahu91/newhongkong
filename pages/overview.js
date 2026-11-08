@@ -18,14 +18,24 @@ import RevenueBars from "@/components/overview/RevenueBars";
 import BreakdownCards from "@/components/overview/BreakdownCards";
 import DailyTable from "@/components/overview/DailyTable";
 
-const fetchCollection = async (name, start, end) => {
-  const q = query(
-    collection(db, name),
-    where("createdAt", ">=", start),
-    where("createdAt", "<", end),
+// Firestore SDK 9.8 allows at most 10 values in an "in" query.
+const IN_LIMIT = 10;
+
+// Fetches docs by their `date` field ("dd-mm-yyyy"), the day an order or
+// table belongs to. Not by `createdAt`: when staff move an order to another
+// day in the dashboard only `date` changes, so querying on `createdAt` would
+// still count the order on the day it was placed.
+const fetchCollection = async (name, dates) => {
+  const chunks = [];
+  for (let i = 0; i < dates.length; i += IN_LIMIT) {
+    chunks.push(dates.slice(i, i + IN_LIMIT));
+  }
+  const snapshots = await Promise.all(
+    chunks.map((chunk) =>
+      getDocs(query(collection(db, name), where("date", "in", chunk))),
+    ),
   );
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((doc) => doc.data());
+  return snapshots.flatMap((snapshot) => snapshot.docs.map((doc) => doc.data()));
 };
 
 const Overview = () => {
@@ -48,12 +58,13 @@ const Overview = () => {
     if (!allowed) return;
     let cancelled = false;
 
-    const load = async (start, end) => {
+    const load = async (start, end, days) => {
       const key = `${start}-${end}`;
       if (cache.current.has(key)) return cache.current.get(key);
+      const dates = days.map((d) => d.date);
       const [orders, tables] = await Promise.all([
-        fetchCollection("orders", start, end),
-        fetchCollection("tables", start, end),
+        fetchCollection("orders", dates),
+        fetchCollection("tables", dates),
       ]);
       const result = { orders, tables };
       // Only cache periods that are fully in the past, today keeps changing.
@@ -66,8 +77,8 @@ const Overview = () => {
       setError(null);
       try {
         const [cur, prev] = await Promise.all([
-          load(period.start, period.end),
-          load(period.prevStart, period.prevEnd),
+          load(period.start, period.end, period.days),
+          load(period.prevStart, period.prevEnd, period.prevDays),
         ]);
         if (cancelled) return;
         setCurrent(summarize(cur.orders, cur.tables, period.days));
