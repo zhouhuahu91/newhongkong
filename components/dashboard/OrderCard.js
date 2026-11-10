@@ -17,6 +17,7 @@ import getCurrentTimeInSeconds from "@/functions/getCurrentTimeInSeconds";
 
 // Component imports
 import OrderModal from "@/components/dashboard/OrderModal";
+import kroepoekIds from "@/data/options/kroepoek";
 import DeliveryOrderModal from "@/components/dashboard/DeliveryOrderModal";
 import DeleteOrderModal from "@/components/dashboard/DeleteOrderModal";
 import IconBtn from "@/components/IconBtn";
@@ -52,7 +53,7 @@ const OrderCard = ({
   // If it already tried we don't want it to do it again to prevent infinite looping when printer is offline.
   const [autoPrint, setAutoPrint] = useState(true);
   // We want to show a cookie Icon if orders has kroepoek. ID of kroepoek
-  const kroepoek = ["14", "15", "1500"];
+  const kroepoek = kroepoekIds;
   const orderHasKroepoek = order.cart
     .filter((item) => kroepoek.includes(item.id))
     .map((item) => item.id);

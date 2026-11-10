@@ -9,6 +9,7 @@ import CloseIcon from "@/icons/CloseIcon";
 import ChangeItemRemarks from "@/components/dashboard/ChangeItemRemarks";
 import Switch from "@/components/Switch";
 import CreateCustomerReceipt from "@/components/dashboard/CreateCustomerReceipt";
+import ExtraKroepoek from "@/components/dashboard/ExtraKroepoek";
 // Function imports
 import euro from "@/functions/euro";
 import getDigitalTime from "@/functions/getDigitalTime";
@@ -194,6 +195,7 @@ const OrderModal = ({ open, setOpen, order, printerBusy }) => {
               onBlur={() => updateDoc(ref, { remarks: remarks })}
             />
           </div>
+          <ExtraKroepoek order={order} setRemarks={setRemarks} />
           <label htmlFor="time" className="text-gray-500 text-sm">
             Tijd
           </label>
