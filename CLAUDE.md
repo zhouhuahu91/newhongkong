@@ -64,3 +64,17 @@ The app does not talk to the printer directly. It writes a doc to the `printer` 
 - Money is always integer cents. Format it with `functions/euro.js`.
 - `getURL()` hard-codes `https://newhongkong.nl` in production and `http://localhost:3000` in dev.
 - Env vars (`.env.local`): the Firebase client config (`NEXT_PUBLIC_*`), `FIREBASE_CLIENT_EMAIL` / `FIREBASE_PRIVATE_KEY`, `EMAIL` / `EMAIL_PASSWORD`, the Stripe keys (the API routes use the `*_LIVE` variants), `NEXT_PUBLIC_GOOGLEMAPS_API` and `NEXT_PUBLIC_PRINTER_API`.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues (zhouhuahu91/newhongkong), managed with the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `GLOSSARY.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
